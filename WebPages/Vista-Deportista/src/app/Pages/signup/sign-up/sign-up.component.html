@@ -25,7 +25,7 @@
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
     <input type="password" placeholder="Confirmar contraseña">
-    <button routerLink="/LogIn">Iniciar Sesión</button>
-    <button >Registrarme</button>
+    <button (click)="signIn()">Iniciar Sesión</button>
+    <button>Registrarse</button>
   </form>
 </body>

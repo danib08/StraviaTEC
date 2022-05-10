@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AthleteModel } from 'src/app/Models/athlete-model';
 import { PostService } from 'src/app/Services/Post/post-service';
 
@@ -9,8 +10,7 @@ import { PostService } from 'src/app/Services/Post/post-service';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private postSvc: PostService) { }
-
+  constructor(private router: Router, private postSvc: PostService) { }
 
   newAthlete: AthleteModel = {
     name: '',
@@ -27,6 +27,10 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  signIn() {
+    this.router.navigate(["login"]);
+  }
+
   signUpAthlete(){
     this.postSvc.signUpAthlete(this.newAthlete).subscribe(
       res =>{
@@ -34,5 +38,4 @@ export class SignUpComponent implements OnInit {
       }
     );
   }
-
 }

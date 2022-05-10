@@ -1,8 +1,15 @@
 <body>
-    <form class="login">
-        <input type="text" placeholder="Nombre de usuario">
-        <input type="password" placeholder="Contraseña">
-        <button>Iniciar Sesión</button>
-        <button routerLink="/SignUp">Registrarme</button>
+    <form class="login" (ngSubmit)="f.form.valid && logInAthlete()" #f="ngForm">
+      <input type="text" placeholder="Nombre de usuario"
+        [(ngModel)]="newAthlete.username" name="username" #username = "ngModel"
+        [ngClass]="{'is-invalid':f.submitted}"
+        required>
+      <input type="password" placeholder="Contraseña"
+        [(ngModel)]="newAthlete.pass" name="pass" #pass = "ngModel"
+        [ngClass]="{'is-invalid':f.submitted}"
+        required>
+      <button>Iniciar Sesión</button>
+      <button (click)="signUp()">Registrarse</button>
     </form>
-</body>
+  </body>
+  

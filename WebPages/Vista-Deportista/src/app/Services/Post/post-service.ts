@@ -17,8 +17,11 @@ export class PostService {
 
     }
 
-    signUpAthlete(athlete: AthleteModel): Observable<any>{
+    signInAthlete(athlete: AthleteModel): Observable<any>{
         return this.http.post<any>(this.baseURL, athlete);
     }
 
+    signUpAthlete(athlete: AthleteModel): Observable<any>{
+        return this.http.post<any>(this.baseURL, athlete);
+    }
 }
