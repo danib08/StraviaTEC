@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/vista-deportista'),
+      dir: require('path').join(__dirname, './coverage/vista-reservaciones'),
       subdir: '.',
       reporters: [
         { type: 'html' },

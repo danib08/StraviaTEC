@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'Vista-Deportista'`, () => {
+  it(`should have as title 'VistaDeportista'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Vista-Deportista');
+    expect(app.title).toEqual('VistaDeportista');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('Vista-Deportista app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('VistaDeportista app is running!');
   });
 });

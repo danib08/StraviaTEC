@@ -1,0 +1,29 @@
+<form class="login" (ngSubmit)="f.form.valid && signUpAthlete()" #f="ngForm">
+    <input type="text" placeholder="Nombre" 
+      [(ngModel)]="newAthlete.name" name="name" #name = "ngModel"
+      [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+      required>
+    <input type="text" placeholder="Apellido"
+      [(ngModel)]="newAthlete.lastname" name="lastname" #lastname = "ngModel"
+      [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+      required>
+    <input type="date" placeholder="Fecha de nacimiento"
+      [(ngModel)]="newAthlete.birthdate" name="birthdate" #birthdate = "ngModel"
+      [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+      required>
+    <input type="text" placeholder="Nacionalidad"
+      [(ngModel)]="newAthlete.nationality" name="nationality" #nationality = "ngModel"
+      [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+      required>
+    <input type="text" placeholder="Nombre de usuario"
+      [(ngModel)]="newAthlete.username" name="username" #username = "ngModel"
+      [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+      required>
+    <input type="password" placeholder="Contraseña"
+      [(ngModel)]="newAthlete.pass" name="pass" #pass = "ngModel"
+      [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+      required>
+    <input type="password" placeholder="Confirmar contraseña">
+    <button routerLink="/LogIn">Iniciar Sesión</button>
+    <button >Registrarme</button>
+  </form>

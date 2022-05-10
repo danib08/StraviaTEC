@@ -3,34 +3,25 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './Components/header/header/header.component';
-import { FooterComponent } from './Components/footer/footer/footer.component';
-import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { LogInComponent } from './Pages/LogIn/log-in/log-in.component';
-import { HomeComponent } from './Pages/Home/home/home.component';
+import { PagesModule } from './Pages/pages.module';
+import { ComponentsModule } from './Components/components.module';
+import { RouterModule } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
-
-const appRoutes: Routes = [
-  {path: 'LogIn', component: LogInComponent},
-  {path: 'Home', component: HomeComponent}
-]
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    LogInComponent,
-    HomeComponent
+    AppComponent
   ],
+  //Modules
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    RouterModule.forRoot(appRoutes,{enableTracing:true})
+    RouterModule,
+    ComponentsModule,
+    PagesModule
   ],
-
-  providers: [],
+  //Services
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
