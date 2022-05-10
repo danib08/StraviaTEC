@@ -20,7 +20,7 @@ body {
     -webkit-transition: -webkit-transform 300ms, box-shadow 300ms;
     -moz-transition: -moz-transform 300ms, box-shadow 300ms;
     transition: transform 300ms, box-shadow 300ms;
-    box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
   }
   .login::before, .login::after {
     content: "";
@@ -66,7 +66,7 @@ body {
     color: #fff;
     font-size: 16px;
     text-transform: uppercase;
-    width: 80px;
+    width: 150px;
     border: 0;
     padding: 10px 0;
     margin-top: 10px;

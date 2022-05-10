@@ -20,7 +20,7 @@ body {
     -webkit-transition: -webkit-transform 300ms, box-shadow 300ms;
     -moz-transition: -moz-transform 300ms, box-shadow 300ms;
     transition: transform 300ms, box-shadow 300ms;
-    box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+    box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
   }
   .login::before, .login::after {
     content: "";
@@ -35,7 +35,7 @@ body {
   }
   .login::before {
     left: 40%;
-    bottom: -130%;
+    bottom: -50%;
     background-color: rgba(69, 105, 144, 0.15);
     -webkit-animation: wawes 6s infinite linear;
     -moz-animation: wawes 6s infinite linear;
@@ -43,7 +43,7 @@ body {
   }
   .login::after {
     left: 35%;
-    bottom: -125%;
+    bottom: -30%;
     background-color: rgba(2, 128, 144, 0.2);
     -webkit-animation: wawes 7s infinite;
     -moz-animation: wawes 7s infinite;
@@ -66,7 +66,7 @@ body {
     color: #fff;
     font-size: 16px;
     text-transform: uppercase;
-    width: 80px;
+    width: 150px;
     border: 0;
     padding: 10px 0;
     margin-top: 10px;
@@ -99,7 +99,7 @@ body {
   }
   @keyframes wawes {
     from {
-      -webkit-transform: rotate(0);
+      -webkit-transform: rotate();
       -moz-transform: rotate(0);
       -ms-transform: rotate(0);
       -o-transform: rotate(0);

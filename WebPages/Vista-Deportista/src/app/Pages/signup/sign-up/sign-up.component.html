@@ -1,4 +1,5 @@
-<form class="login" (ngSubmit)="f.form.valid && signUpAthlete()" #f="ngForm">
+<body>
+  <form class="login" (ngSubmit)="f.form.valid && signUpAthlete()" #f="ngForm">
     <input type="text" placeholder="Nombre" 
       [(ngModel)]="newAthlete.name" name="name" #name = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
@@ -27,3 +28,4 @@
     <button routerLink="/LogIn">Iniciar Sesión</button>
     <button >Registrarme</button>
   </form>
+</body>
