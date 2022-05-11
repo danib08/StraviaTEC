@@ -1,4 +1,5 @@
 <body>
+  <div>
     <form class="login" (ngSubmit)="f.form.valid && logInAthlete()" #f="ngForm">
       <input type="text" placeholder="Nombre de usuario"
         [(ngModel)]="newAthlete.username" name="username" #username = "ngModel"
@@ -11,5 +12,6 @@
       <button>Iniciar Sesión</button>
       <button (click)="signUp()">Registrarse</button>
     </form>
-  </body>
+  </div>
+</body>
   
