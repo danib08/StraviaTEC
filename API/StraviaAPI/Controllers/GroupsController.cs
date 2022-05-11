@@ -1,59 +1,33 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using StraviaAPI.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StraviaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AthleteController : ControllerBase
+    public class GroupsController : ControllerBase
     {
 
         private readonly IConfiguration _configuration;
 
-        public AthleteController(IConfiguration configuration)
+        public GroupsController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-
         [HttpGet]
-        public JsonResult GetAthletes()
+        public JsonResult GetGroups()
         {
             string query = @"
-                             select * from dbo.Athlete
-                            ";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-            return new JsonResult(table);
-        }
-
-        [HttpGet("{username}")]
-        public JsonResult GetAthlete(string username)
-        {
-            string query = @"
-                             select * from dbo.Athlete
-                             where Username = @Username
+                             select * from dbo.Groups
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -63,7 +37,6 @@ namespace StraviaAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Username", username);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
@@ -73,16 +46,41 @@ namespace StraviaAPI.Controllers
             return new JsonResult(table);
         }
 
+        [HttpGet("{name}")]
+        public JsonResult GetGroup(string name)
+        {
+            string query = @"
+                             select * from dbo.Groups
+                             where Name = @Name )
+                            ";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("@Name", name);
+                    
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
 
         [HttpPost]
-        public ActionResult PostAthlete(Athlete athlete)
+        public ActionResult PostGroup(Groups group)
         {
 
-            //Validaciones de primary key 
+            //Validaciones de Primary Key
 
             string query = @"
-                             insert into dbo.Athlete
-                             values (@Username,@Name,@LastName,@Photo,@Age,@BirthDate,@Pass,@Nationality,@Category)
+                             insert into dbo.Groups
+                             values (@Name,@AdminUsername)
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -91,38 +89,28 @@ namespace StraviaAPI.Controllers
             {
                 myCon.Open();
                 SqlCommand myCommand = new SqlCommand(query, myCon);
-                
-                myCommand.Parameters.AddWithValue("@Username", athlete.Username);
-                myCommand.Parameters.AddWithValue("@Name", athlete.Name);
-                myCommand.Parameters.AddWithValue("@LastName", athlete.LastName);
-                myCommand.Parameters.AddWithValue("@Photo", athlete.Photo);
-                myCommand.Parameters.AddWithValue("@Age", athlete.Age);
-                myCommand.Parameters.AddWithValue("@BirthDate", athlete.BirthDate);
-                myCommand.Parameters.AddWithValue("@Pass", athlete.Pass);
-                myCommand.Parameters.AddWithValue("@Nationality", athlete.Nationality);
-                myCommand.Parameters.AddWithValue("@Category", athlete.Category);
+
+                myCommand.Parameters.AddWithValue("@Name", group.Name);
+                myCommand.Parameters.AddWithValue("@AdminUsername", group.AdminUsername);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
                 myReader.Close();
                 myCon.Close();
-                
+
             }
 
             return Ok();
 
         }
 
-        
-
         [HttpPut]
-        public ActionResult PutAthlete(Athlete athlete)
+        public ActionResult PutGroup(Groups group)
         {
             string query = @"
-                             update dbo.Athlete
-                             set Name = @Name, LastName = @LastName, Photo = @Photo, 
-                                 Pass = @Pass, Nationality = @Nationality, Category = @Category
-                             where Username = @Username
+                             update dbo.Groups
+                             set AdminUsername = @AdminUsername
+                             where Name = @Name
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -132,15 +120,8 @@ namespace StraviaAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Username", athlete.Username);
-                    myCommand.Parameters.AddWithValue("@Name", athlete.Name);
-                    myCommand.Parameters.AddWithValue("@LastName", athlete.LastName);
-                    myCommand.Parameters.AddWithValue("@Photo", athlete.Photo);
-                    myCommand.Parameters.AddWithValue("@Age", athlete.Age);
-                    myCommand.Parameters.AddWithValue("@BirthDate", athlete.BirthDate);
-                    myCommand.Parameters.AddWithValue("@Pass", athlete.Pass);
-                    myCommand.Parameters.AddWithValue("@Nationality", athlete.Nationality);
-                    myCommand.Parameters.AddWithValue("@Category", athlete.Category);
+                    myCommand.Parameters.AddWithValue("@AdminUsername", group.AdminUsername);
+                    myCommand.Parameters.AddWithValue("@Name", group.Name);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -152,11 +133,11 @@ namespace StraviaAPI.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteAthlete(string username)
+        public ActionResult DeleteGroup(string name)
         {
             string query = @"
-                             delete from dbo.Athlete
-                             where Username = @Username
+                             delete from dbo.Groups
+                             where Name = @Name
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -166,7 +147,8 @@ namespace StraviaAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Username", username);
+                    myCommand.Parameters.AddWithValue("@Name", name);
+
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();

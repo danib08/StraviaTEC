@@ -1,59 +1,33 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using StraviaAPI.Models;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StraviaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AthleteController : ControllerBase
+    public class ChallengeController : ControllerBase
     {
 
         private readonly IConfiguration _configuration;
 
-        public AthleteController(IConfiguration configuration)
+        public ChallengeController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
-
         [HttpGet]
-        public JsonResult GetAthletes()
+        public JsonResult GetChallenges()
         {
             string query = @"
-                             select * from dbo.Athlete
-                            ";
-            DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
-            SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
-                    myReader.Close();
-                    myCon.Close();
-                }
-            }
-            return new JsonResult(table);
-        }
-
-        [HttpGet("{username}")]
-        public JsonResult GetAthlete(string username)
-        {
-            string query = @"
-                             select * from dbo.Athlete
-                             where Username = @Username
+                             select * from dbo.Challenge
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -63,7 +37,6 @@ namespace StraviaAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Username", username);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
@@ -73,16 +46,40 @@ namespace StraviaAPI.Controllers
             return new JsonResult(table);
         }
 
+        [HttpGet("{id}")]
+        public JsonResult GetChallenge(string id)
+        {
+            string query = @"
+                             select * from dbo.Challenge
+                             where Id = @Id
+                            ";
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myCommand.Parameters.AddWithValue("@Id", id);
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return new JsonResult(table);
+        }
 
         [HttpPost]
-        public ActionResult PostAthlete(Athlete athlete)
+        public ActionResult PostChallenge(Challenge challenge)
         {
 
-            //Validaciones de primary key 
+            //Validaciones de Primary Key
 
             string query = @"
-                             insert into dbo.Athlete
-                             values (@Username,@Name,@LastName,@Photo,@Age,@BirthDate,@Pass,@Nationality,@Category)
+                             insert into dbo.Challenge
+                             values (@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type)
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -91,38 +88,34 @@ namespace StraviaAPI.Controllers
             {
                 myCon.Open();
                 SqlCommand myCommand = new SqlCommand(query, myCon);
-                
-                myCommand.Parameters.AddWithValue("@Username", athlete.Username);
-                myCommand.Parameters.AddWithValue("@Name", athlete.Name);
-                myCommand.Parameters.AddWithValue("@LastName", athlete.LastName);
-                myCommand.Parameters.AddWithValue("@Photo", athlete.Photo);
-                myCommand.Parameters.AddWithValue("@Age", athlete.Age);
-                myCommand.Parameters.AddWithValue("@BirthDate", athlete.BirthDate);
-                myCommand.Parameters.AddWithValue("@Pass", athlete.Pass);
-                myCommand.Parameters.AddWithValue("@Nationality", athlete.Nationality);
-                myCommand.Parameters.AddWithValue("@Category", athlete.Category);
+
+                myCommand.Parameters.AddWithValue("@Id", challenge.Id);
+                myCommand.Parameters.AddWithValue("@Name", challenge.Name);
+                myCommand.Parameters.AddWithValue("@StartDate", challenge.StartDate);
+                myCommand.Parameters.AddWithValue("@EndDate", challenge.EndDate);
+                myCommand.Parameters.AddWithValue("@Privacy", challenge.Privacy);
+                myCommand.Parameters.AddWithValue("@Kilometers", challenge.Kilometers);
+                myCommand.Parameters.AddWithValue("@Type", challenge.Type);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
                 myReader.Close();
                 myCon.Close();
-                
+
             }
 
             return Ok();
 
         }
 
-        
-
         [HttpPut]
-        public ActionResult PutAthlete(Athlete athlete)
+        public ActionResult PutActivity(Challenge challenge)
         {
             string query = @"
-                             update dbo.Athlete
-                             set Name = @Name, LastName = @LastName, Photo = @Photo, 
-                                 Pass = @Pass, Nationality = @Nationality, Category = @Category
-                             where Username = @Username
+                             update dbo.Challenge
+                             set Name = @Name, StartDate = @StartDate, EndDate = @EndDate, 
+                                 Privacy = @Privacy, Kilometers = @Kilometers, Type = @Type
+                             where Id = @Id
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -132,15 +125,13 @@ namespace StraviaAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Username", athlete.Username);
-                    myCommand.Parameters.AddWithValue("@Name", athlete.Name);
-                    myCommand.Parameters.AddWithValue("@LastName", athlete.LastName);
-                    myCommand.Parameters.AddWithValue("@Photo", athlete.Photo);
-                    myCommand.Parameters.AddWithValue("@Age", athlete.Age);
-                    myCommand.Parameters.AddWithValue("@BirthDate", athlete.BirthDate);
-                    myCommand.Parameters.AddWithValue("@Pass", athlete.Pass);
-                    myCommand.Parameters.AddWithValue("@Nationality", athlete.Nationality);
-                    myCommand.Parameters.AddWithValue("@Category", athlete.Category);
+                    myCommand.Parameters.AddWithValue("@Id", challenge.Id);
+                    myCommand.Parameters.AddWithValue("@Name", challenge.Name);
+                    myCommand.Parameters.AddWithValue("@StartDate", challenge.StartDate);
+                    myCommand.Parameters.AddWithValue("@EndDate", challenge.EndDate);
+                    myCommand.Parameters.AddWithValue("@Privacy", challenge.Privacy);
+                    myCommand.Parameters.AddWithValue("@Kilometers", challenge.Kilometers);
+                    myCommand.Parameters.AddWithValue("@Type", challenge.Type);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -152,11 +143,11 @@ namespace StraviaAPI.Controllers
         }
 
         [HttpDelete]
-        public ActionResult DeleteAthlete(string username)
+        public ActionResult DeleteActivity(string id)
         {
             string query = @"
-                             delete from dbo.Athlete
-                             where Username = @Username
+                             delete from dbo.Challenge
+                             where Id = @Id
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -166,7 +157,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Username", username);
+                    myCommand.Parameters.AddWithValue("@Id", id);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
