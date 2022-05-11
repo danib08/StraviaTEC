@@ -1,7 +1,23 @@
 body {
-    background-color: #f45b69;
+    background-color: #70A9A1;
     font-family: "Asap", sans-serif;
   }
+
+  h1 {
+    text-align: center;
+    padding-top: 40px;
+    font-size: 55px;
+    color: #1B4E5F;
+    font-family: "Asap", sans-serif; 
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 35px;
+    color: #1B4E5F;
+    font-family: "Asap", sans-serif; 
+  }
+  
   
   .login {
     overflow: hidden;
@@ -9,7 +25,7 @@ body {
     padding: 40px 30px 30px 30px;
     border-radius: 10px;
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     width: 400px;
     -webkit-transform: translate(-50%, -50%);
@@ -22,6 +38,7 @@ body {
     transition: transform 300ms, box-shadow 300ms;
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.2);
   }
+
   .login::before, .login::after {
     content: "";
     position: absolute;
@@ -33,6 +50,7 @@ body {
     border-bottom-right-radius: 40%;
     z-index: -1;
   }
+
   .login::before {
     left: 40%;
     bottom: -50%;
@@ -41,6 +59,7 @@ body {
     -moz-animation: wawes 6s infinite linear;
     animation: wawes 6s infinite linear;
   }
+
   .login::after {
     left: 35%;
     bottom: -30%;
@@ -49,12 +68,13 @@ body {
     -moz-animation: wawes 7s infinite;
     animation: wawes 7s infinite;
   }
+
   .login > input {
     font-family: "Asap", sans-serif;
     display: block;
     border-radius: 5px;
     font-size: 16px;
-    background: white;
+    background: #F6F1D1;
     width: 100%;
     border: 0;
     padding: 10px 10px;
@@ -72,13 +92,13 @@ body {
     margin-top: 10px;
     margin-left: 15px;
     border-radius: 5px;
-    background-color: #f45b69;
+    background-color: #1B4E5F;
     -webkit-transition: background-color 300ms;
     -moz-transition: background-color 300ms;
     transition: background-color 300ms;
   }
   .login > button:hover {
-    background-color: #f24353;
+    background-color: #40798C;
   }
   
   @-webkit-keyframes wawes {
