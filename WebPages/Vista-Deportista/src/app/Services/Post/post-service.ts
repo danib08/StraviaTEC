@@ -14,7 +14,6 @@ export class PostService {
     * @param http 
     */
     constructor(private http: HttpClient) {
-
     }
 
     signInAthlete(athlete: AthleteModel): Observable<any>{

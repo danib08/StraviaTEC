@@ -1,11 +1,11 @@
 body {
+    
     background-color: #70A9A1;
     font-family: "Asap", sans-serif;
   }
 
   h1 {
     text-align: center;
-    padding-top: 40px;
     font-size: 55px;
     color: #1B4E5F;
     font-family: "Asap", sans-serif; 
@@ -17,15 +17,14 @@ body {
     color: #1B4E5F;
     font-family: "Asap", sans-serif; 
   }
-  
-  
+    
   .login {
     overflow: hidden;
     background-color: white;
     padding: 40px 30px 30px 30px;
     border-radius: 10px;
     position: absolute;
-    top: 60%;
+    top: 50%;
     left: 50%;
     width: 400px;
     -webkit-transform: translate(-50%, -50%);
@@ -140,4 +139,11 @@ body {
     right: 10px;
     bottom: 10px;
     font-size: 12px;
+  }
+
+  img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
   }

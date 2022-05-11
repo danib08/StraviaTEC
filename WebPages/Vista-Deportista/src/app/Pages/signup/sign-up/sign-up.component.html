@@ -1,7 +1,7 @@
 <body>
-  <h1>StraviaTEC</h1>
-  <h2>Toma el control de tus actividades deportivas</h2>
+  
   <form class="login" (ngSubmit)="f.form.valid && signUpAthlete()" #f="ngForm">
+    <h1>StraviaTEC</h1>
     <input type="text" placeholder="Nombre" 
       [(ngModel)]="newAthlete.name" name="name" #name = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
@@ -27,7 +27,12 @@
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
     <input type="password" placeholder="Confirmar contraseña">
+    <input
+      type="file"
+      class="form-control"
+      (change)="onFileChange($event)">
+    <img [src]="imageSrc" *ngIf="imageSrc" style="height: 200px; width:200px">
     <button (click)="signIn()">Iniciar Sesión</button>
     <button>Registrarse</button>
   </form>
-</body>
+  
