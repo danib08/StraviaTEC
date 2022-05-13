@@ -1,0 +1,23 @@
+﻿<menu 
+	xmlns:android="http://schemas.android.com/apk/res/android" 
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/Info_usuario"
+        android:icon="@drawable/ic_action_account_circle"
+        android:title="@string/Info"
+		android:enabled="true"
+		app:showAsAction="ifRoom"/>
+	<item
+		android:enabled="true"
+		android:id="@+id/Activity_usuario"
+        android:icon="@drawable/ic_action_directions_bike"
+        android:title="@string/Activity"
+		app:showAsAction="ifRoom"/>
+	<item
+		android:enabled="true"
+		android:id="@+id/Sync_usuario"
+        android:icon="@drawable/ic_action_import_export"
+        android:title="@string/Sync"
+		app:showAsAction="ifRoom"/>
+</menu>
+

@@ -1,7 +1,10 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+
 
 namespace AppMobile.Activities{
 
@@ -10,7 +13,7 @@ namespace AppMobile.Activities{
 
         private EditText editTextIdIn;
         private EditText editTextPassIn;
-        private Button sendSignIn;
+        private Button bottonsendHome;
         protected override void OnCreate(Bundle savedInstanceState){
 
             base.OnCreate(savedInstanceState);
@@ -20,8 +23,14 @@ namespace AppMobile.Activities{
 
             editTextIdIn = FindViewById<EditText>(Resource.Id.editTextIdIn);
             editTextPassIn = FindViewById<EditText>(Resource.Id.editTextPassIn);
-            sendSignIn = FindViewById<Button>(Resource.Id.sendSignIn);           
-        
+            bottonsendHome = FindViewById<Button>(Resource.Id.sendHome);
+
+            bottonsendHome.Click += (sender, e) =>
+            {
+                Intent intent = new Intent(this, typeof(home));
+                OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
+                StartActivity(intent);
+            };
         }
     }
 }

@@ -11,12 +11,21 @@
 	<string name="register">Registrarse</string>
 	<string name="register_title">Registro</string>
 
-	<string name="id">ID</string>
+	<string name="id">Nombre de usuario</string>
 	<string name="name">Nombre</string>
 	<string name="last_name">Apellido</string>
 	<string name="password">Contraseña</string>
 	<string name="birthDate">Fecha de nacimiento</string>
 	<string name="nationality">Nacionalidad</string>
 	<string name="Photo">Foto</string>
-
+	<string name="Info">Info usuario</string>
+	<string name="Sync">Sync</string>
+	<string name="Activity">Actividad</string>
+	<string name="Start">Iniciar</string>
+	<string name="main">Menú principal</string>
+	<string name="Finish">Terminar</string>
+	<string name="Stop">Pausa</string>
+	<string name="InfoActivity">Elija la actividad que desea realizar</string>
+	<string name="Challenge">Reto</string>
+	<string name="Competition">Competición</string>
 </resources>

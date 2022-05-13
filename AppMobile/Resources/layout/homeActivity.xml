@@ -1,0 +1,46 @@
+﻿<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondomaindesenfocado"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+    <TextView
+        style="@style/subHeader"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/InfoActivity"
+        android:textColor="@color/blackPalette"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginTop="97.0dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="115.5dp"
+        android:id="@+id/linearLayout1" >
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5.0dp"
+            android:id="@+id/btnlogin11"
+            android:textAllCaps="false"
+            android:text="@string/Challenge"
+            style="@style/button_dark"
+            android:layout_marginBottom="0.5dp" />
+        <android.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5.0dp"
+            android:id="@+id/btnregister45"
+            android:text="@string/Competition"
+            style="@style/button_dark"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,5 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+﻿<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,17 +15,6 @@
         android:gravity="center"
         android:text="@string/register_title"
         android:textColor="@color/whitePalette" />
-
-    <EditText
-        style="@style/edit_text"
-        android:id="@+id/editTextId"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:hint="@string/id"
-        android:autofillHints="@string/id"
-        android:inputType="number"
-        android:layout_marginRight="0.0dp" />
 
     <EditText
         style="@style/edit_text"
@@ -47,8 +35,18 @@
         android:hint="@string/last_name"
         android:autofillHints="@string/last_name"
         android:inputType="textPersonName" />
-
     <EditText
+        style="@style/edit_text"
+        android:id="@+id/editTextId"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:hint="@string/id"
+        android:autofillHints="@string/id"
+        android:inputType="text"
+        android:layout_marginRight="0.0dp" />
+    
+        <EditText
         style="@style/edit_text"
         android:id="@+id/editTextPass"
         android:layout_width="350dp"
@@ -66,7 +64,7 @@
         android:layout_marginStart="10dp"
         android:hint="@string/birthDate"
         android:autofillHints="@string/birthDate"
-        android:inputType="dateTime"/>
+        android:inputType="date"/>
 
     <EditText
         style="@style/edit_text"
@@ -92,7 +90,7 @@
         android:layout_marginRight="0.0dp" />
 
     <android.widget.Button
-        android:id="@+id/sendSignUp"
+        android:id="@+id/sendHome2"
         style="@style/button_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

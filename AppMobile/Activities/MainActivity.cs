@@ -10,8 +10,8 @@ namespace AppMobile.Activities
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private Button buttonSignUp;
-        private Button buttonSignIn;
+        private Button buttonlogin;
+        private Button buttonregister;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -19,22 +19,22 @@ namespace AppMobile.Activities
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.activity_main);
 
-            //buttonSignIn = FindViewById<Button>(Resource.Id.btnSignIn);
-            //buttonSignUp = FindViewById<Button>(Resource.Id.btnSignUp);
+            buttonlogin = FindViewById<Button>(Resource.Id.btnlogin);
+            buttonregister = FindViewById<Button>(Resource.Id.btnregister);
 
-            buttonSignUp.Click += (sender, e) =>
+            buttonlogin.Click += (sender, e) =>
             {
-                //    Intent intent = new Intent(this, typeof(SignUpActivity));
-                //    OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
-                //    StartActivity(intent);
+                    Intent intent = new Intent(this, typeof(login));
+                    OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
+                    StartActivity(intent);
             };
 
 
-            buttonSignIn.Click += (sender, e) =>
+            buttonregister.Click += (sender, e) =>
             {
-                //    Intent intent = new Intent(this, typeof(SignInActivity));
-                //    OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
-                //    StartActivity(intent);
+                    Intent intent = new Intent(this, typeof(register));
+                    OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
+                    StartActivity(intent);
             };
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

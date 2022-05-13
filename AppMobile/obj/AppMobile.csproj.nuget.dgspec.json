@@ -34,17 +34,37 @@
       "frameworks": {
         "monoandroid12.0": {
           "dependencies": {
+            "Xamarin.Android.Support.Design": {
+              "target": "Package",
+              "version": "[28.0.0.3, )"
+            },
             "Xamarin.AndroidX.AppCompat": {
               "target": "Package",
-              "version": "[1.2.0.5, )"
+              "version": "[1.4.1.1, )"
+            },
+            "Xamarin.AndroidX.Legacy.Support.Core.UI": {
+              "target": "Package",
+              "version": "[1.0.0.14, )"
+            },
+            "Xamarin.AndroidX.Lifecycle.LiveData": {
+              "target": "Package",
+              "version": "[2.4.1.1, )"
             },
             "Xamarin.Essentials": {
               "target": "Package",
-              "version": "[1.6.1, )"
+              "version": "[1.7.3, )"
             },
             "Xamarin.Google.Android.Material": {
               "target": "Package",
-              "version": "[1.0.0.1, )"
+              "version": "[1.6.0, )"
+            },
+            "Xamarin.GooglePlayServices.Maps": {
+              "target": "Package",
+              "version": "[118.0.2, )"
+            },
+            "sqlite-net-pcl": {
+              "target": "Package",
+              "version": "[1.8.116, )"
             }
           }
         }
