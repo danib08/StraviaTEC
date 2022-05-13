@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+//Sponsor Models
+
 namespace StraviaAPI.Models
 {
     public class Sponsor

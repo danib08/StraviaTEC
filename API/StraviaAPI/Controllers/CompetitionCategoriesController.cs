@@ -9,13 +9,17 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
+/// <summary>
+/// Competition categories controller with CRUD methods
+/// </summary>
+
 namespace StraviaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CompetitionCategoriesController : ControllerBase
     {
-
+        //Configuration to get connection string
         private readonly IConfiguration _configuration;
 
         public CompetitionCategoriesController(IConfiguration configuration)
@@ -23,62 +27,82 @@ namespace StraviaAPI.Controllers
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Get method for competition categories
+        /// </summary>
+        /// <returns>List of competition categories</returns>
         [HttpGet]
         public JsonResult GetCompCategories()
         {
+            //SQL Query
             string query = @"
                              select * from dbo.Competition_Categories
                             ";
-            DataTable table = new DataTable();
+            DataTable table = new DataTable(); //Create table to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                myCon.Open(); //Open connection
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
-                    myCon.Close();
+                    myCon.Close(); //Closed connection
                 }
             }
-            return new JsonResult(table);
+            return new JsonResult(table); //Returns json with all categories
         }
 
+        /// <summary>
+        /// Get method to get a specific category in a specific competition
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="category"></param>
+        /// <returns>Required categories in competition</returns>
+        
         [HttpGet("{id}/{category}")]
         public JsonResult GetCompCategory(string id, string category)
         {
+            //SQL Query
             string query = @"
                              select * from dbo.Competition_Categories
                              where CompetitionID = @CompetitionID and CompCategory = @CompCategory)
                             ";
-            DataTable table = new DataTable();
+            DataTable table = new DataTable(); //Table created to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
-                myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                myCon.Open(); //Opened connection
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
+                    //Parameters added with values
                     myCommand.Parameters.AddWithValue("@CompetitionID", id);
                     myCommand.Parameters.AddWithValue("@CompCategory", category);
 
                     myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);
+                    table.Load(myReader);//Loaded data to table
                     myReader.Close();
-                    myCon.Close();
+                    myCon.Close(); //Closed connection
                 }
             }
-            return new JsonResult(table);
+            return new JsonResult(table);//Returns required category in competition
         }
 
+        /// <summary>
+        /// Post method to add categories in competitions
+        /// </summary>
+        /// <param name="compCategories"></param>
+        /// <returns>Result of query</returns>
         [HttpPost]
         public ActionResult PostCompCategory(Competition_Categories compCategories)
         {
 
             //Validaciones de Primary Key
 
+            //SQL Query
             string query = @"
                              insert into dbo.Competition_Categories
                              values (@CompetitionID,@CompCategory)
@@ -86,18 +110,19 @@ namespace StraviaAPI.Controllers
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection started
             {
-                myCon.Open();
-                SqlCommand myCommand = new SqlCommand(query, myCon);
+                myCon.Open();//Opened connection
+                SqlCommand myCommand = new SqlCommand(query, myCon);//Command qith query and connection
 
+                //Parameters added
                 myCommand.Parameters.AddWithValue("@CompetitionID", compCategories.CompetitionID);
                 myCommand.Parameters.AddWithValue("@CompCategory", compCategories.CompCategory);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
                 myReader.Close();
-                myCon.Close();
+                myCon.Close();//Closed connection
 
             }
 
@@ -105,9 +130,16 @@ namespace StraviaAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Delete method for competition categories
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="category"></param>
+        /// <returns>Query result</returns>
         [HttpDelete]
         public ActionResult DeleteCompCategory(string id, string category)
         {
+            //SQL Query sent 
             string query = @"
                              delete from dbo.Competition_Categories
                              where CompetitionID = @CompetitionID and  CompCategory= @CompCategory
@@ -115,21 +147,22 @@ namespace StraviaAPI.Controllers
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection started
             {
-                myCon.Open();
+                myCon.Open(); //Opened connection
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
+                    //Parameters added
                     myCommand.Parameters.AddWithValue("@CompetitionID", id);
                     myCommand.Parameters.AddWithValue("@CompCategory", category);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
-                    myCon.Close();
+                    myCon.Close();//Closed connection
                 }
             }
-            return Ok();
+            return Ok(); //Returns acceptance
         }
     }
 }

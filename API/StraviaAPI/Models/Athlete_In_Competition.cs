@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+//Atlhete in Competition Model
+
 namespace StraviaAPI.Models
 {
     public class Athlete_In_Competition
