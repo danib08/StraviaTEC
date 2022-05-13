@@ -13,7 +13,7 @@
             <div class="form-input">
               <i class="material-icons">account_circle</i>
               <input type="text" class="form-control" placeholder="Nombre"
-              [(ngModel)]="athlete.name" name="Nombre" #name = "ngModel"
+              [(ngModel)]="athlete.Name" name="Nombre" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
@@ -21,21 +21,21 @@
             <div class="form-input">
                 <i class="material-icons">account_circle</i>
                 <input type="text" class="form-control" placeholder="Apellido"
-                [(ngModel)]="athlete.lastname" name="lastname" #name = "ngModel"
+                [(ngModel)]="athlete.Lastname" name="lastname" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
                 <i class="material-icons">account_circle</i>
                 <input type="password" class="form-control" placeholder="Contraseña"
-                [(ngModel)]="athlete.pass" name="password" #name = "ngModel"
+                [(ngModel)]="athlete.Pass" name="password" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
                 <i class="material-icons">account_circle</i>
                 <input type="text" class="form-control" placeholder="Nacionalidad"
-                [(ngModel)]="athlete.nationality" name="nationality" #name = "ngModel"
+                [(ngModel)]="athlete.Nationality" name="nationality" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>

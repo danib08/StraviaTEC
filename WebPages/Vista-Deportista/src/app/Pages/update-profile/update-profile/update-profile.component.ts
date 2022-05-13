@@ -13,15 +13,15 @@ export class UpdateProfileComponent implements OnInit {
   imageSrc: string = '';
 
   athlete: AthleteModel = {
-    name: '',
-    lastname: '',
-    birthdate: '',
-    nationality: '',
-    age: 0,
-    pass: '',
-    category: '',
-    photo: '',
-    username: ''
+    Name: '',
+    Lastname: '',
+    Birthdate: '',
+    Nationality: '',
+    Age: 0,
+    Pass: '',
+    Category: '',
+    Photo: '',
+    Username: ''
   }
 
   constructor(private putService: PutService) { }
@@ -38,7 +38,7 @@ export class UpdateProfileComponent implements OnInit {
      
       reader.onload = () => { 
         this.imageSrc = reader.result as string;
-        this.athlete.photo = this.imageSrc;
+        this.athlete.Photo = this.imageSrc;
       };   
     }
   }

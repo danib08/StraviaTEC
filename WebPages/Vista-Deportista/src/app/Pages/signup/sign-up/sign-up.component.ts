@@ -16,15 +16,15 @@ export class SignUpComponent implements OnInit {
   constructor(private router: Router, private postSvc: PostService) { }
 
   newAthlete: AthleteModel = {
-    name: '',
-    lastname: '',
-    birthdate: '',
-    nationality: '',
-    age: 0,
-    pass: '',
-    category: '',
-    photo: '',
-    username: ''
+    Name: '',
+    Lastname: '',
+    Birthdate: '',
+    Nationality: '',
+    Age: 0,
+    Pass: '',
+    Category: '',
+    Photo: '',
+    Username: ''
   }
   
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class SignUpComponent implements OnInit {
      
       reader.onload = () => { 
         this.imageSrc = reader.result as string;
-        this.newAthlete.photo = this.imageSrc;
+        this.newAthlete.Photo = this.imageSrc;
       };   
     }
   }

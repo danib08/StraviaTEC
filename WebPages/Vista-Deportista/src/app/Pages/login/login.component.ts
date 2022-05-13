@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AthleteModel } from 'src/app/Models/athlete-model';
 import { PostService } from 'src/app/Services/Post/post-service';
 
@@ -10,18 +11,18 @@ import { PostService } from 'src/app/Services/Post/post-service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private postSvc: PostService) {}
+  constructor(private router: Router, private postSvc: PostService, private cookieSvc:CookieService) {}
 
   newAthlete: AthleteModel = {
-    name: '',
-    lastname: '',
-    birthdate: '',
-    nationality: '',
-    age: 0,
-    pass: '',
-    category: '',
-    photo: '',
-    username: ''
+    Name: '',
+    Lastname: '',
+    Birthdate: '',
+    Nationality: '',
+    Age: 0,
+    Pass: '',
+    Category: '',
+    Photo: '',
+    Username: ''
   }
 
   ngOnInit(): void {}
@@ -34,6 +35,9 @@ export class LoginComponent implements OnInit {
     this.postSvc.signInAthlete(this.newAthlete).subscribe(
       res =>{
         console.log(res);
+        this.cookieSvc.set('Username', this.newAthlete.Username);
+      },err => {
+        alert('Contraseña o Username incorrectos')
       }
     );
   }
