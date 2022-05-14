@@ -17,7 +17,6 @@
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
-
             <div class="form-input">
                 <i class="material-icons">account_circle</i>
                 <input type="text" class="form-control" placeholder="Apellido"
@@ -26,24 +25,24 @@
                 required>
             </div>
             <div class="form-input">
-                <i class="material-icons">account_circle</i>
+                <i class="material-icons">lock</i>
                 <input type="password" class="form-control" placeholder="Contraseña"
                 [(ngModel)]="athlete.Pass" name="password" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
-                <i class="material-icons">account_circle</i>
+                <i class="material-icons">push_pin</i>
                 <input type="text" class="form-control" placeholder="Nacionalidad"
                 [(ngModel)]="athlete.Nationality" name="nationality" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
+                <i class="material-icons">image</i>
                 <input type="file" class="form-control" (change)="onFileChange($event)">
                 <img [src]="imageSrc" *ngIf="imageSrc" style="height: 200px; width:200px">
             </div>
-
             <div class="form-input text-center">
               <button class="btn mt-4">Actualizar información</button>
             </div>

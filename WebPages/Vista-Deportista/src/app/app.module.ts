@@ -10,8 +10,9 @@ import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
+
   //Modules
   imports: [
     BrowserModule,
@@ -20,8 +21,10 @@ import { CookieService } from 'ngx-cookie-service';
     ComponentsModule,
     PagesModule
   ],
+
   //Services
   providers: [CookieService],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
