@@ -99,15 +99,17 @@ namespace StraviaAPI.Controllers
         [HttpPost]
         public ActionResult PostAthFriend(Athlete_Friends friend)
         {
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            //Primary Key validations
 
-            //Validaciones de Primary Key
+
 
             string query = @"
                              insert into dbo.Athlete_Friends
                              values (@AthleteID,@FriendID)
                             "; //Insert query sent to sql server
             DataTable table = new DataTable();
-            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            
             SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection started
             {

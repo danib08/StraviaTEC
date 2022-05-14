@@ -37,7 +37,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthletes()
         {
             string query = @"
-                             select * from dbo.Athlete
+                             exec ath_get
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table to save information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -66,8 +66,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthlete(string username)
         {
             string query = @"
-                             select * from dbo.Athlete
-                             where Username = @Username
+                             exec get_athlete @Username = @user
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table created to store information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -77,7 +76,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open(); //Opens connection
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Created command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@Username", username); //Added parameter username
+                    myCommand.Parameters.AddWithValue("@user", username); //Added parameter username
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Information loades to table
                     myReader.Close();
@@ -166,11 +165,11 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            //Insert query sent to SQL Server
+
+            //Insert query sent to SQL Server 
 
             string query = @"
-                             insert into dbo.Athlete
-                             values (@Username,@Name,@LastName,@Photo,@Age,@BirthDate,@Pass,@Nationality,@Category)
+                             exec post_athlete @username,@name,@lastname,@photo,@age,@birthdate,@pass,@nationality,@category
                             "; 
             DataTable table = new DataTable();
             
@@ -181,15 +180,15 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);
                 
                 //Added parameters with values
-                myCommand.Parameters.AddWithValue("@Username", athlete.Username);
-                myCommand.Parameters.AddWithValue("@Name", athlete.Name);
-                myCommand.Parameters.AddWithValue("@LastName", athlete.LastName);
-                myCommand.Parameters.AddWithValue("@Photo", athlete.Photo);
-                myCommand.Parameters.AddWithValue("@Age", athlete.Age);
-                myCommand.Parameters.AddWithValue("@BirthDate", athlete.BirthDate);
-                myCommand.Parameters.AddWithValue("@Pass", athlete.Pass);
-                myCommand.Parameters.AddWithValue("@Nationality", athlete.Nationality);
-                myCommand.Parameters.AddWithValue("@Category", athlete.Category);
+                myCommand.Parameters.AddWithValue("@username", athlete.Username);
+                myCommand.Parameters.AddWithValue("@name", athlete.Name);
+                myCommand.Parameters.AddWithValue("@lastname", athlete.LastName);
+                myCommand.Parameters.AddWithValue("@photo", athlete.Photo);
+                myCommand.Parameters.AddWithValue("@age", athlete.Age);
+                myCommand.Parameters.AddWithValue("@birthdate", athlete.BirthDate);
+                myCommand.Parameters.AddWithValue("@pass", athlete.Pass);
+                myCommand.Parameters.AddWithValue("@nationality", athlete.Nationality);
+                myCommand.Parameters.AddWithValue("@category", athlete.Category);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -212,10 +211,7 @@ namespace StraviaAPI.Controllers
         public ActionResult PutAthlete(Athlete athlete)
         {
             string query = @"
-                             update dbo.Athlete
-                             set Name = @Name, LastName = @LastName, Photo = @Photo, 
-                                 Pass = @Pass, Nationality = @Nationality, Category = @Category
-                             where Username = @Username
+                             exec put_athlete @username,@name,@lastname,@photo,@age,@birthdate,@pass,@nationality,@category
                             "; //update query sent to sql server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec"); //Connection started
@@ -226,15 +222,15 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Command with query and connection
                 {
                     //Added parameters with values
-                    myCommand.Parameters.AddWithValue("@Username", athlete.Username);
-                    myCommand.Parameters.AddWithValue("@Name", athlete.Name);
-                    myCommand.Parameters.AddWithValue("@LastName", athlete.LastName);
-                    myCommand.Parameters.AddWithValue("@Photo", athlete.Photo);
-                    myCommand.Parameters.AddWithValue("@Age", athlete.Age);
-                    myCommand.Parameters.AddWithValue("@BirthDate", athlete.BirthDate);
-                    myCommand.Parameters.AddWithValue("@Pass", athlete.Pass);
-                    myCommand.Parameters.AddWithValue("@Nationality", athlete.Nationality);
-                    myCommand.Parameters.AddWithValue("@Category", athlete.Category);
+                    myCommand.Parameters.AddWithValue("@username", athlete.Username);
+                    myCommand.Parameters.AddWithValue("@name", athlete.Name);
+                    myCommand.Parameters.AddWithValue("@lastname", athlete.LastName);
+                    myCommand.Parameters.AddWithValue("@photo", athlete.Photo);
+                    myCommand.Parameters.AddWithValue("@age", athlete.Age);
+                    myCommand.Parameters.AddWithValue("@birthdate", athlete.BirthDate);
+                    myCommand.Parameters.AddWithValue("@pass", athlete.Pass);
+                    myCommand.Parameters.AddWithValue("@nationality", athlete.Nationality);
+                    myCommand.Parameters.AddWithValue("@category", athlete.Category);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -255,8 +251,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteAthlete(string username)
         {
             string query = @"
-                             delete from dbo.Athlete
-                             where Username = @Username
+                             exec delete_athlete @username
                             "; //delete query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");//Connection getted
