@@ -11,8 +11,8 @@ import { ActivityModel } from "src/app/Models/activity-model";
     providedIn: 'root'
 })
 export class PostService {
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
-    private searchURL = 'https://pruebaa.free.beeceptor.com/search';
+    private baseURL = 'https://straviatec.free.beeceptor.com';
+    private searchURL = 'https://straviatec.free.beeceptor.com/search';
     /**
     * Método constructor
     * @param http 

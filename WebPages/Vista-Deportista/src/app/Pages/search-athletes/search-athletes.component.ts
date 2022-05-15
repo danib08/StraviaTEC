@@ -7,10 +7,10 @@ import { PostService } from 'src/app/Services/Post/post-service';
 
 @Component({
   selector: 'app-athletes-search',
-  templateUrl: './athletes-search.component.html',
-  styleUrls: ['./athletes-search.component.css']
+  templateUrl: './search-athletes.component.html',
+  styleUrls: ['./search-athletes.component.css']
 })
-export class AthletesSearchComponent implements OnInit {
+export class SearchAthletesComponent implements OnInit {
 
 
   AthleteName: String = '';
