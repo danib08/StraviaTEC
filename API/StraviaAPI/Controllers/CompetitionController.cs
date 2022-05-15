@@ -36,7 +36,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             select * from dbo.Competition
+                             exec get_all_competition
                             ";
             DataTable table = new DataTable(); //Table created to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -66,8 +66,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             select * from dbo.Competition
-                             where Id = @Id
+                             exec get_competition @id
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -77,7 +76,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Open connection
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@Id", id);
+                    myCommand.Parameters.AddWithValue("@id", id);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Load data to table
                     myReader.Close();
@@ -100,8 +99,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query sent
             string query = @"
-                             insert into dbo.Competition
-                             values (@Id,@Name,@Route,@Date,@Privacy,@BankAccount,@Price, @ActivityID)
+                             exec post_competition @id,@name,@route,@date,@privacy,@bankaccount,@price,@activityid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -112,14 +110,14 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added with required values
-                myCommand.Parameters.AddWithValue("@Id", competition.Id);
-                myCommand.Parameters.AddWithValue("@Name", competition.Name);
-                myCommand.Parameters.AddWithValue("@Route", competition.Route);
-                myCommand.Parameters.AddWithValue("@Date", competition.Date);
-                myCommand.Parameters.AddWithValue("@Privacy", competition.Privacy);
-                myCommand.Parameters.AddWithValue("@BankAccount", competition.BankAccount);
-                myCommand.Parameters.AddWithValue("@Price", competition.Price);
-                myCommand.Parameters.AddWithValue("@ActivityID", competition.ActivityID);
+                myCommand.Parameters.AddWithValue("@id", competition.Id);
+                myCommand.Parameters.AddWithValue("@name", competition.Name);
+                myCommand.Parameters.AddWithValue("@route", competition.Route);
+                myCommand.Parameters.AddWithValue("@date", competition.Date);
+                myCommand.Parameters.AddWithValue("@privacy", competition.Privacy);
+                myCommand.Parameters.AddWithValue("@bankaccount", competition.BankAccount);
+                myCommand.Parameters.AddWithValue("@price", competition.Price);
+                myCommand.Parameters.AddWithValue("@activityid", competition.ActivityID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -142,10 +140,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             update dbo.Competition
-                             set Name = @Name, Route = @Route, Date = @Date, 
-                                 Privacy = @Privacy, BankAccount = @BankAccount, Price = @Price, ActivityID = @ActivityID
-                             where Id = @Id
+                             exec put_competition @id,@name,@route,@date,@privacy,@bankaccount,@price,@activityid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -156,14 +151,14 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     //Parameters added
-                    myCommand.Parameters.AddWithValue("@Id", competition.Id);
-                    myCommand.Parameters.AddWithValue("@Name", competition.Name);
-                    myCommand.Parameters.AddWithValue("@Route", competition.Route);
-                    myCommand.Parameters.AddWithValue("@Date", competition.Date);
-                    myCommand.Parameters.AddWithValue("@Privacy", competition.Privacy);
-                    myCommand.Parameters.AddWithValue("@BankAccount", competition.BankAccount);
-                    myCommand.Parameters.AddWithValue("@Price", competition.Price);
-                    myCommand.Parameters.AddWithValue("@ActivityID", competition.ActivityID);
+                    myCommand.Parameters.AddWithValue("@id", competition.Id);
+                    myCommand.Parameters.AddWithValue("@name", competition.Name);
+                    myCommand.Parameters.AddWithValue("@route", competition.Route);
+                    myCommand.Parameters.AddWithValue("@date", competition.Date);
+                    myCommand.Parameters.AddWithValue("@privacy", competition.Privacy);
+                    myCommand.Parameters.AddWithValue("@bankaccount", competition.BankAccount);
+                    myCommand.Parameters.AddWithValue("@price", competition.Price);
+                    myCommand.Parameters.AddWithValue("@activityid", competition.ActivityID);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -184,8 +179,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             delete from dbo.Competition
-                             where Id = @Id
+                             exec delete_competition @id
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -195,7 +189,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@Id", id);
+                    myCommand.Parameters.AddWithValue("@id", id);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();

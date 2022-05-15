@@ -36,7 +36,7 @@ namespace StraviaAPI.Controllers
         {
             //Query sent to SQL Server
             string query = @"
-                             select * from dbo.Athlete_In_Competition
+                             exec get_all_AICO
                             ";
             DataTable table = new DataTable(); //Created table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -67,8 +67,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL query sent
             string query = @"
-                             select * from dbo.Athlete_In_Competition
-                             where AthleteID = @AthleteID and CompetitionID = @CompetitionID)
+                             exec get_Athlete_Competition @athleteid,@competitionid
                             ";
             DataTable table = new DataTable(); //Created table to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -79,8 +78,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Sql command with query and connection
                 {
                     //Parameters
-                    myCommand.Parameters.AddWithValue("@AthleteID", id);
-                    myCommand.Parameters.AddWithValue("@CompetitionID", competition);
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+                    myCommand.Parameters.AddWithValue("@competitionid", competition);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader); //Table filled
@@ -105,8 +104,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Server query sent
             string query = @"
-                             insert into dbo.Athlete_In_Competition
-                             values (@AthleteID,@CompetitionID,@Position,@Time)
+                             exec post_Athlete_Challenge @athleteid,@competitionid,@position,@time
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -117,10 +115,10 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added with its values
-                myCommand.Parameters.AddWithValue("@AthleteID", athlete_In_Comp.AthleteID);
-                myCommand.Parameters.AddWithValue("@CompetitionID", athlete_In_Comp.CompetitionID);
-                myCommand.Parameters.AddWithValue("@Position", athlete_In_Comp.Position);
-                myCommand.Parameters.AddWithValue("@Time", athlete_In_Comp.Time);
+                myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Comp.AthleteID);
+                myCommand.Parameters.AddWithValue("@competitionid", athlete_In_Comp.CompetitionID);
+                myCommand.Parameters.AddWithValue("@position", athlete_In_Comp.Position);
+                myCommand.Parameters.AddWithValue("@time", athlete_In_Comp.Time);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -144,8 +142,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             delete from dbo.Athlete_In_Competition
-                             where AthleteID = @AthleteID and  CompetitionID= @CompetitionID
+                             exec delete_Athlete_Challenge @athleteid,@competitionid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -156,8 +153,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Created command with query and connection
                 {
                     //Adding parameters
-                    myCommand.Parameters.AddWithValue("@AthleteID", id);
-                    myCommand.Parameters.AddWithValue("@CompetitionID", competition);
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+                    myCommand.Parameters.AddWithValue("@competitionid", competition);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

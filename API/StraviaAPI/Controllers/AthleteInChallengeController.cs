@@ -37,7 +37,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthChallenges()
         {
             string query = @"
-                             select * from dbo.Athlete_In_Challenge
+                             exec get_all_AICH
                             "; //Select query sent to sql
             DataTable table = new DataTable(); //Created table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");//Sets connection string
@@ -67,9 +67,9 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthChallenge(string id, string challenge)
         {
             string query = @"
-                             select * from dbo.Athlete_In_Challenge
-                             where AthleteID = @AthleteID and ChallengeID = @ChallengeID)
+                             exec get_Athlete_Challenge @athleteid,@challengeid
                             "; //select query sent to sql server
+
             DataTable table = new DataTable(); //Table created to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
@@ -79,8 +79,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     //Added parameters
-                    myCommand.Parameters.AddWithValue("@AthleteID", id);
-                    myCommand.Parameters.AddWithValue("@ChallengeID", challenge);
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+                    myCommand.Parameters.AddWithValue("@challengeid", challenge);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -90,6 +90,8 @@ namespace StraviaAPI.Controllers
             }
             return new JsonResult(table); //Returns table data
         }
+
+
 
         /// <summary>
         /// Post method to get 
@@ -105,8 +107,7 @@ namespace StraviaAPI.Controllers
 
             //Insert query sent to SQL Server
             string query = @"
-                             insert into dbo.Athlete_In_Challenge
-                             values (@AthleteID,@ChallengeID)
+                             exec post_Athlete_Challenge @athleteid, @challengeid
                             "; 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -117,8 +118,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);// SQL Command with query and connection
 
                 //Added parameters with values
-                myCommand.Parameters.AddWithValue("@AthleteID", athlete_In_Challenge.AthleteID);
-                myCommand.Parameters.AddWithValue("@ChallengeID", athlete_In_Challenge.ChallengeID);
+                myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Challenge.AthleteID);
+                myCommand.Parameters.AddWithValue("@challengeid", athlete_In_Challenge.ChallengeID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);

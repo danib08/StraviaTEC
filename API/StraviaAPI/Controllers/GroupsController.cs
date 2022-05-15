@@ -36,7 +36,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query sent
             string query = @"
-                             select * from dbo.Groups
+                             exec get_all_groups
                             ";
             DataTable table = new DataTable(); //DataTable to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -65,8 +65,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             select * from dbo.Groups
-                             where Name = @Name )
+                             exec get_group @name
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -76,7 +75,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Connection opened
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@Name", name);
+                    myCommand.Parameters.AddWithValue("@name", name);
                     
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Load data to table
@@ -100,8 +99,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             insert into dbo.Groups
-                             values (@Name,@AdminUsername)
+                             exec post_group @name,@adminusername
                             ";
             DataTable table = new DataTable(); 
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -112,8 +110,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);
 
                 //Parameters added
-                myCommand.Parameters.AddWithValue("@Name", group.Name);
-                myCommand.Parameters.AddWithValue("@AdminUsername", group.AdminUsername);
+                myCommand.Parameters.AddWithValue("@name", group.Name);
+                myCommand.Parameters.AddWithValue("@adminusername", group.AdminUsername);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -136,9 +134,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             update dbo.Groups
-                             set AdminUsername = @AdminUsername
-                             where Name = @Name
+                             exec put_group @name,@adminusername
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -149,8 +145,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     //Parameters added
-                    myCommand.Parameters.AddWithValue("@AdminUsername", group.AdminUsername);
-                    myCommand.Parameters.AddWithValue("@Name", group.Name);
+                    myCommand.Parameters.AddWithValue("@adminusername", group.AdminUsername);
+                    myCommand.Parameters.AddWithValue("@name", group.Name);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -171,8 +167,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             delete from dbo.Groups
-                             where Name = @Name
+                             exec delete_group @name
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -182,7 +177,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Open connection
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Name", name);
+                    myCommand.Parameters.AddWithValue("@name", name);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

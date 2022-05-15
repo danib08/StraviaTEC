@@ -36,7 +36,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthletesFriends()
         {
             string query = @"
-                             select * from dbo.Athlete_Friends
+                             exec get_all_friends
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Created table to save data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -66,8 +66,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthFriend(string id, string friendid)
         {
             string query = @"
-                             select * from dbo.Athlete_Friends
-                             where AthleteID = @AthleteID and FriendID = @FriendID)
+                             exec get_friend @athleteid,@friendid
                             "; //Select query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -78,8 +77,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     //Added parameters
-                    myCommand.Parameters.AddWithValue("@AthleteID", id);
-                    myCommand.Parameters.AddWithValue("@FriendID", friendid);
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+                    myCommand.Parameters.AddWithValue("@friendid", friendid);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader); //Loads info to table
@@ -105,8 +104,7 @@ namespace StraviaAPI.Controllers
 
 
             string query = @"
-                             insert into dbo.Athlete_Friends
-                             values (@AthleteID,@FriendID)
+                             exec post_friend @athleteid,@friendid
                             "; //Insert query sent to sql server
             DataTable table = new DataTable();
             
@@ -117,8 +115,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added
-                myCommand.Parameters.AddWithValue("@AthleteID", friend.AthleteID);
-                myCommand.Parameters.AddWithValue("@FriendID", friend.FriendID);
+                myCommand.Parameters.AddWithValue("@athleteid", friend.AthleteID);
+                myCommand.Parameters.AddWithValue("@friendid", friend.FriendID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -142,8 +140,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteAthFriend(string id, string friendID)
         {
             string query = @"
-                             delete from dbo.Athlete_Friends
-                             where AthleteID = @AthleteID and FriendID = @FriendID
+                             exec delete_friend @athleteid,@friendid
                             "; //Delete query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -155,8 +152,8 @@ namespace StraviaAPI.Controllers
                 {
 
                     //Added parameters with values
-                    myCommand.Parameters.AddWithValue("@AthleteID", id);
-                    myCommand.Parameters.AddWithValue("@FriendID", friendID);
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+                    myCommand.Parameters.AddWithValue("@friendid", friendID);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

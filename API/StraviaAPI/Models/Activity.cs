@@ -13,6 +13,7 @@ namespace StraviaAPI.Models
         public string Name { get; set; }
         public string Route { get; set; }
         public DateTime Date { get; set; }
+        public string Duration { get; set; }
         public float Kilometers { get; set; }
         public string Type { get; set; }
         public string ChallengeID { get; set; }

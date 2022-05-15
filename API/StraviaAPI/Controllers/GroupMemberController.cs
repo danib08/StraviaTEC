@@ -38,7 +38,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             select * from dbo.Group_Member
+                             exec get_all_groupMembers
                             ";
             DataTable table = new DataTable(); //Create table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -68,8 +68,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             select * from dbo.Group_Member
-                             where GroupName = @GroupName and MemberID = @MemberID)
+                             exec get_groupMember @groupname,@memberid
                             ";
             DataTable table = new DataTable(); //Create table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -80,8 +79,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//SQL Command with query and connection
                 {
                     //Added parameters
-                    myCommand.Parameters.AddWithValue("@GroupName", name);
-                    myCommand.Parameters.AddWithValue("@MemberID", member);
+                    myCommand.Parameters.AddWithValue("@groupname", name);
+                    myCommand.Parameters.AddWithValue("@memberid", member);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Load data to table
@@ -106,8 +105,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             insert into dbo.Athlete_In_Competition
-                             values (@GroupName,@MemberID)
+                             exec post_groupMember @groupname,@memberid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -118,8 +116,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon); //Command with query and connection
 
                 //Added parameters
-                myCommand.Parameters.AddWithValue("@GroupName", groupMember.GroupName);
-                myCommand.Parameters.AddWithValue("@MemberID", groupMember.MemberID);
+                myCommand.Parameters.AddWithValue("@groupname", groupMember.GroupName);
+                myCommand.Parameters.AddWithValue("@memberid", groupMember.MemberID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -144,8 +142,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             delete from dbo.Athlete_In_Challenge
-                             where GroupName = @GroupName and  MemberID= @MemberID
+                             exec delete_groupMember @groupname,@memberid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -155,8 +152,8 @@ namespace StraviaAPI.Controllers
                 myCon.Open(); //Opened connection
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Connection with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@GroupName", name);
-                    myCommand.Parameters.AddWithValue("@MemberID", member);
+                    myCommand.Parameters.AddWithValue("@groupname", name);
+                    myCommand.Parameters.AddWithValue("@memberid", member);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

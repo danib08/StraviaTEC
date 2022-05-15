@@ -36,7 +36,7 @@ namespace StraviaAPI.Controllers
         {
             //Query sent 
             string query = @"
-                             select * from dbo.Sponsor
+                             exec get_all_sponsors
                             ";
             DataTable table = new DataTable(); //Data table created to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -65,8 +65,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             select * from dbo.Sponsor
-                             where Id = @Id
+                             exec get_sponsors @id
                             ";
             DataTable table = new DataTable();//Datatable to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -76,7 +75,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Connection opened
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@Id", id);
+                    myCommand.Parameters.AddWithValue("@id", id);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Load data to table
                     myReader.Close();
@@ -99,8 +98,7 @@ namespace StraviaAPI.Controllers
             //SQL Query
 
             string query = @"
-                             insert into dbo.Sponsor
-                             values (@Id,@Name,@BankAccount,@CompetitionID,@ChallengeID)
+                             exec post_sponsors @id,@name,@bankaccount,@competitionid,@challengeid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -111,11 +109,11 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);
 
                 //Parameters added with value
-                myCommand.Parameters.AddWithValue("@Id", sponsor.Id);
-                myCommand.Parameters.AddWithValue("@Name", sponsor.Name);
-                myCommand.Parameters.AddWithValue("@BankAccount", sponsor.BankAccount);
-                myCommand.Parameters.AddWithValue("@CompetitionID", sponsor.CompetitionID);
-                myCommand.Parameters.AddWithValue("@ChallengeID", sponsor.ChallengeID);
+                myCommand.Parameters.AddWithValue("@id", sponsor.Id);
+                myCommand.Parameters.AddWithValue("@name", sponsor.Name);
+                myCommand.Parameters.AddWithValue("@bankaccount", sponsor.BankAccount);
+                myCommand.Parameters.AddWithValue("@competitionid", sponsor.CompetitionID);
+                myCommand.Parameters.AddWithValue("@challengeid", sponsor.ChallengeID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -139,10 +137,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             update dbo.Sponsor
-                             set Name = @Name, BankAccount = @BankAccount,  
-                                 CompetitionID = @CompetitionID, ChallengeID = @ChallengeID
-                             where Id = @Id
+                             exec put_csponsor @id,@name,@bankaccount,@competitionid,@challengeid 
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -153,11 +148,11 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     //Added parameters with values
-                    myCommand.Parameters.AddWithValue("@Id", sponsor.Id);
-                    myCommand.Parameters.AddWithValue("@Name", sponsor.Name);
-                    myCommand.Parameters.AddWithValue("@BankAccount", sponsor.BankAccount);
-                    myCommand.Parameters.AddWithValue("@CompetitionID", sponsor.CompetitionID);
-                    myCommand.Parameters.AddWithValue("@ChallengeID", sponsor.ChallengeID);
+                    myCommand.Parameters.AddWithValue("@id", sponsor.Id);
+                    myCommand.Parameters.AddWithValue("@name", sponsor.Name);
+                    myCommand.Parameters.AddWithValue("@bankaccount", sponsor.BankAccount);
+                    myCommand.Parameters.AddWithValue("@competitionid", sponsor.CompetitionID);
+                    myCommand.Parameters.AddWithValue("@challengeid", sponsor.ChallengeID);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -178,8 +173,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             delete from dbo.Sponsor
-                             where Id = @Id
+                             exec delete_sponsors @id
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -189,7 +183,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Open connection
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
-                    myCommand.Parameters.AddWithValue("@Id", id);
+                    myCommand.Parameters.AddWithValue("@id", id);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

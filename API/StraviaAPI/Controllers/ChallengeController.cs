@@ -36,7 +36,7 @@ namespace StraviaAPI.Controllers
         {
             //Query sent to SQL Server
             string query = @"
-                             select * from dbo.Challenge
+                             exec get_all_challenges
                             ";
             DataTable table = new DataTable(); //Table created to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -65,8 +65,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             select * from dbo.Challenge
-                             where Id = @Id
+                             exec get_challenge @id
                             ";
             DataTable table = new DataTable();//Created table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -77,7 +76,7 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     //Added parameters
-                    myCommand.Parameters.AddWithValue("@Id", id);
+                    myCommand.Parameters.AddWithValue("@id", id);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader); //Load data to table
                     myReader.Close();
@@ -99,8 +98,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             insert into dbo.Challenge
-                             values (@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type)
+                             exec post_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -111,13 +109,13 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);
 
                 //Parameters added with values
-                myCommand.Parameters.AddWithValue("@Id", challenge.Id);
-                myCommand.Parameters.AddWithValue("@Name", challenge.Name);
-                myCommand.Parameters.AddWithValue("@StartDate", challenge.StartDate);
-                myCommand.Parameters.AddWithValue("@EndDate", challenge.EndDate);
-                myCommand.Parameters.AddWithValue("@Privacy", challenge.Privacy);
-                myCommand.Parameters.AddWithValue("@Kilometers", challenge.Kilometers);
-                myCommand.Parameters.AddWithValue("@Type", challenge.Type);
+                myCommand.Parameters.AddWithValue("@id", challenge.Id);
+                myCommand.Parameters.AddWithValue("@name", challenge.Name);
+                myCommand.Parameters.AddWithValue("@startdate", challenge.StartDate);
+                myCommand.Parameters.AddWithValue("@enddate", challenge.EndDate);
+                myCommand.Parameters.AddWithValue("@privacy", challenge.Privacy);
+                myCommand.Parameters.AddWithValue("@kilometers", challenge.Kilometers);
+                myCommand.Parameters.AddWithValue("@type", challenge.Type);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -140,10 +138,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             update dbo.Challenge
-                             set Name = @Name, StartDate = @StartDate, EndDate = @EndDate, 
-                                 Privacy = @Privacy, Kilometers = @Kilometers, Type = @Type
-                             where Id = @Id
+                             exec put_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -154,13 +149,13 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Sql command with query and connection
                 {
                     //Added parameters
-                    myCommand.Parameters.AddWithValue("@Id", challenge.Id);
-                    myCommand.Parameters.AddWithValue("@Name", challenge.Name);
-                    myCommand.Parameters.AddWithValue("@StartDate", challenge.StartDate);
-                    myCommand.Parameters.AddWithValue("@EndDate", challenge.EndDate);
-                    myCommand.Parameters.AddWithValue("@Privacy", challenge.Privacy);
-                    myCommand.Parameters.AddWithValue("@Kilometers", challenge.Kilometers);
-                    myCommand.Parameters.AddWithValue("@Type", challenge.Type);
+                    myCommand.Parameters.AddWithValue("@id", challenge.Id);
+                    myCommand.Parameters.AddWithValue("@name", challenge.Name);
+                    myCommand.Parameters.AddWithValue("@startdate", challenge.StartDate);
+                    myCommand.Parameters.AddWithValue("@enddate", challenge.EndDate);
+                    myCommand.Parameters.AddWithValue("@privacy", challenge.Privacy);
+                    myCommand.Parameters.AddWithValue("@kilometers", challenge.Kilometers);
+                    myCommand.Parameters.AddWithValue("@type", challenge.Type);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -181,8 +176,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             delete from dbo.Challenge
-                             where Id = @Id
+                             exec delete_challenge @id
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -192,7 +186,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Open connection
                 using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@Id", id);
+                    myCommand.Parameters.AddWithValue("@id", id);
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();
