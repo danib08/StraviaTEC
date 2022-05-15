@@ -11,6 +11,7 @@ import { PostService } from 'src/app/Services/Post/post-service';
 
 export class CreateActivityComponent implements OnInit {
 
+  isEvent = false
   activity: ActivityModel = {
     ID: 0,
     Name: '',
@@ -35,6 +36,17 @@ export class CreateActivityComponent implements OnInit {
         alert("Ha ocurrido un error")
       }
     );
+  }
+
+  radioSelect(event: Event) {
+      var value = (event.target as HTMLInputElement).value;
+
+      if (value == "yes") {
+        this.isEvent = false
+      }
+      else {
+        this.isEvent = true
+      }
   }
 
 }

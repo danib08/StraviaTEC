@@ -7,10 +7,21 @@
           <div class="card px-5 py-3">
   
             <!--Section about Register users -->
-            <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm">
-              <h5 class="mt-3">Creación de actividades</h5>
-              <small class="mt-2">¡Comparte tus rutinas con el resto del mundo!</small>
-              
+            <h3 class="mt-3">Creación de actividades</h3>
+
+            <div>
+              <label for="tipo">¿Pertenece a una competencia o reto?</label>
+              <div>
+                <input type="radio" id="yes" name="radiogroup" value="yes" (change)="radioSelect($event)">
+                <label for="yes">Sí</label>
+              </div>
+              <div>
+                <input type="radio" id="no" name="radiogroup" value="no" checked (change)="radioSelect($event)">
+                <label for="no">No</label>
+              </div>
+            </div>  
+
+            <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" *ngIf=isEvent>
               <div class="form-input">
                 <i class="material-icons">edit</i>
                 <input type="text" class="form-control" placeholder="Título de la actividad"
@@ -27,7 +38,7 @@
               </div>
               <div class="form-input">
                 <i class="material-icons">timer</i>
-                <input type="time" class="form-control" placeholder="Duración"
+                <input type="time" step="1" class="form-control" placeholder="Duración"
                 [(ngModel)]="activity.Duration" name="Duracion" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
@@ -40,12 +51,17 @@
                 required>
               </div>
               <div class="form-input">
-                <i class="material-icons">sports_score</i>
-                <input type="text" class="form-control" placeholder="Tipo de actividad"
-                [(ngModel)]="activity.Type" name="Tipo" #name = "ngModel"
-                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
-                required>
-              </div>
+                <label for="tipo">Tipo de Actividad</label>
+                <select class="form-control" id="type" name="type">
+                    <option value="Caminata">Caminata</option>
+                    <option value="Correr">Correr</option>
+                    <option value="CrossFit">CrossFit</option>
+                    <option value="Natación">Natación</option>
+                    <option value="Ciclismo">Ciclismo</option>
+                    <option value="Senderismo">Senderismo</option>
+                    <option value="Kayak">Kayak</option>
+                  </select>
+            </div>
               <div class="form-input text-center">
                 <button class="btn mt-4">Crear Actividad</button>
               </div>
