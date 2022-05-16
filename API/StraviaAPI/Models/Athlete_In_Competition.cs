@@ -11,7 +11,6 @@ namespace StraviaAPI.Models
     {
         public string AthleteID { get; set; }
         public string CompetitionID { get; set; }
-        public int Position { get; set; }
-        public DateTime Time { get; set; }
+        public string Status { get; set; }
     }
 }

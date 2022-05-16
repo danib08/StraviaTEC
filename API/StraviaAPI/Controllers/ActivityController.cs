@@ -215,7 +215,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteActivity(string id)
         {
             string query = @"
-                             exec delete_athlete @id
+                             exec delete_activity @id
                             "; //Delete query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

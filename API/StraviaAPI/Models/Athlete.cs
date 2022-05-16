@@ -20,3 +20,4 @@ namespace StraviaAPI.Models
         public string Category { get; set; } 
     }
 }
+ 

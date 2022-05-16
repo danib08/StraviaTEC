@@ -10,6 +10,6 @@ namespace StraviaAPI.Models
     public class Competition_Categories
     {
         public string CompetitionID { get; set; }
-        public string CompCategory { get; set; }
+        public string Category { get; set; }
     }
 }

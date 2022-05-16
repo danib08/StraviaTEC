@@ -17,12 +17,12 @@ namespace StraviaAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AthleteFriendsController : ControllerBase
+    public class AthleteFollowerController : ControllerBase
     {
         //Configuration to get connection string
         private readonly IConfiguration _configuration;
 
-        public AthleteFriendsController(IConfiguration configuration)
+        public AthleteFollowerController(IConfiguration configuration)
         {
             _configuration = configuration;
         }

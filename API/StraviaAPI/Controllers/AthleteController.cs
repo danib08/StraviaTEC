@@ -37,7 +37,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthletes()
         {
             string query = @"
-                             exec ath_get
+                             exec get_all_athletes
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table to save information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
