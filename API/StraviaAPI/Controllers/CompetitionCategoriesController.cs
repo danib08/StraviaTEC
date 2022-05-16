@@ -67,7 +67,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec get_compCategories @competitionid,@compcategory
+                             exec get_compCategories @competitionid,@category
                             ";
             DataTable table = new DataTable(); //Table created to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -79,7 +79,7 @@ namespace StraviaAPI.Controllers
                 {
                     //Parameters added with values
                     myCommand.Parameters.AddWithValue("@competitionid", id);
-                    myCommand.Parameters.AddWithValue("@compcategory", category);
+                    myCommand.Parameters.AddWithValue("@category", category);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Loaded data to table
@@ -103,7 +103,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec post_compCategories @competitionid,@compcategory
+                             exec post_compCategories @competitionid,@category
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -115,7 +115,7 @@ namespace StraviaAPI.Controllers
 
                 //Parameters added
                 myCommand.Parameters.AddWithValue("@competitionid", compCategories.CompetitionID);
-                myCommand.Parameters.AddWithValue("@compcategory", compCategories.CompCategory);
+                myCommand.Parameters.AddWithValue("@category", compCategories.Category);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -139,7 +139,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query sent 
             string query = @"
-                             delete_compCategories @competitionid,@compcategory
+                             delete_compCategories @competitionid,@category
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -151,7 +151,7 @@ namespace StraviaAPI.Controllers
                 {
                     //Parameters added
                     myCommand.Parameters.AddWithValue("@competitionid", id);
-                    myCommand.Parameters.AddWithValue("@compcategory", category);
+                    myCommand.Parameters.AddWithValue("@category", category);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

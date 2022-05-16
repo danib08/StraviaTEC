@@ -123,13 +123,7 @@ namespace StraviaAPI.Controllers
                     if (item.Equals(activity.Id))
                     { //Verifies if is equal to the primary key
 
-                        return BadRequest(); //Returns rejection@Id varchar(50),
-								//@Name varchar(50),
-								//@Route varchar(50),
-								//@Date date,
-								//@Kilometers int,
-								//@Type varchar(50),
-								//@ChallengeID varchar(50),
+                        return BadRequest(); //Returns rejection
 
                     }
 
@@ -137,7 +131,7 @@ namespace StraviaAPI.Controllers
             }
 
             string query = @"
-                             exec post_activity @id,@name,@route,@date,@kilometers,@type,@challengeid
+                             exec post_activity @id,@name,@route,@date,@kilometers,@type,@athleteusername
                             "; //Query insert sent to SQL Server
             DataTable table = new DataTable(); //Table created to store data
             SqlDataReader myReader;
@@ -153,7 +147,7 @@ namespace StraviaAPI.Controllers
                 myCommand.Parameters.AddWithValue("@date", activity.Date);
                 myCommand.Parameters.AddWithValue("@kilometers", activity.Kilometers);
                 myCommand.Parameters.AddWithValue("@type", activity.Type);
-                myCommand.Parameters.AddWithValue("@challengeid", activity.ChallengeID);
+                myCommand.Parameters.AddWithValue("@athleteusername", activity.AthleteUsername);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader); //Loads data to table
@@ -176,7 +170,7 @@ namespace StraviaAPI.Controllers
         public ActionResult PutActivity(Activity activity)
         {
             string query = @"
-                             exec put_activity @id,@name,@route,@date,@kilometers,@type,@challengeid
+                             exec put_activity @id,@name,@route,@date,@kilometers,@type,@athleteusername
                             "; //Update query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -194,7 +188,7 @@ namespace StraviaAPI.Controllers
                     myCommand.Parameters.AddWithValue("@date", activity.Date);
                     myCommand.Parameters.AddWithValue("@kilometers", activity.Kilometers);
                     myCommand.Parameters.AddWithValue("@type", activity.Type);
-                    myCommand.Parameters.AddWithValue("@challengeid", activity.ChallengeID);
+                    myCommand.Parameters.AddWithValue("@athleteusername", activity.AthleteUsername);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

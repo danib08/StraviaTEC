@@ -25,13 +25,13 @@ create procedure post_activity(
 								@Date date,
 								@Kilometers int,
 								@Type varchar(50),
-								@ChallengeID varchar(50)
+								@AthleteUsername varchar(50)
 																
 )
 as
 begin
-insert into dbo.Activity(Id,Name,Route,Date,Type,ChallengeID)
-values(@Id,@Name,@Route,@Date,@Type,@ChallengeID)
+insert into dbo.Activity(Id,Name,Route,Date,Type,AthleteUsername)
+values(@Id,@Name,@Route,@Date,@Type,@AthleteUsername)
 
 end
 go
@@ -42,10 +42,10 @@ create procedure put_activity(	@Id varchar(50),
 								@Date date,
 								@Kilometers int,
 								@Type varchar(50),
-								@ChallengeID varchar(50))
+								@AthleteUsername varchar(50))
 as
 begin
-update dbo.Activity set Name=@Name,Route=@Route,Date=@Date,Type=@Type,ChalengeID=@ChallengeID
+update dbo.Activity set Name=@Name,Route=@Route,Date=@Date,Type=@Type,AthleteUsername=@AthleteUsername
 where Id=@Id
 
 end
@@ -129,44 +129,44 @@ go
 ----------------------Athlete friend'ss stored procedures------------------
 
 
-create procedure get_all_friends
+create procedure get_all_followers
 as
 begin
 
-select * from dbo.Athlete_Friends
+select * from dbo.Athlete_Followers
 end
 go
 
-create procedure get_friend(@AthleteID varchar(50),
-							@FriendID varchar(50))
+create procedure get_follower(@AthleteID varchar(50),
+							@FollowerID varchar(50))
 as
 begin
 
-select * from dbo.Athlete_Friends
-where AthleteID = @AthleteID and FriendID = @FriendID
+select * from dbo.Athlete_Followers
+where AthleteID = @AthleteID and FollowerID = @FollowerID
 
 end
 go
 
 
-create procedure post_friend(
+create procedure post_follower(
 							@AthleteID varchar(50),
-							@FriendID varchar(50)
+							@FollowerID varchar(50)
 )
 as
 begin
-insert into dbo.Athlete_Friends(AthleteID,FriendID)
-values(@AthleteID,@FriendID)
+insert into dbo.Athlete_Followers(AthleteID,FollowerID)
+values(@AthleteID,@FollowerID)
 
 end
 go
 
-create procedure delete_friend( @AthleteID varchar(50),
-								@FriendID varchar(50))
+create procedure delete_follower( @AthleteID varchar(50),
+								@FollowerID varchar(50))
 as
 begin
-delete from dbo.Athlete_Friends
-where AthleteID = @AthleteID and FriendID = @FriendID
+delete from dbo.Athlete_Followers
+where AthleteID = @AthleteID and FollowerID = @FollowerID
 end 
 go
 
@@ -196,16 +196,17 @@ go
 
 create procedure post_Athlete_Challenge(
 							@AthleteID varchar(50),
-							@ChallengeID varchar(50)
+							@ChallengeID varchar(50),
+							@Status varchar(50)
 )
 as
 begin
-insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID)
-values(@AthleteID,@ChallengeID)
+insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status)
+values(@AthleteID,@ChallengeID,@Status)
 end
 go
 
-create procedure delete_friend( @AthleteID varchar(50),
+create procedure delete_Athlete_Challenge( @AthleteID varchar(50),
 								@ChallengeID varchar(50))
 as
 begin
@@ -239,14 +240,13 @@ go
 
 create procedure post_Athlete_Competition(
 							@AthleteID varchar(50),
-							@ChallengeID varchar(50),
-							@Position int,
-							@Time time
+							@CompetitionID varchar(50),
+							@Status varchar(50)
 )
 as
 begin
-insert into dbo.Athlete_In_Competition(AthleteID,ChallengeID,Position,Time)
-values(@AthleteID,@ChallengeID,@Position,@Time)
+insert into dbo.Athlete_In_Competition(AthleteID,CompetitionID,Status)
+values(@AthleteID,@CompetitionID,@Status)
 
 end
 go
@@ -288,7 +288,7 @@ create procedure post_challenge(
 								@StartDate date,
 								@EndDate date,
 								@Privacy varchar(50),
-								@Kilometers int,
+								@Kilometers decimal(5,2),
 								@Type varchar(50)
 																
 )
@@ -361,7 +361,7 @@ create procedure post_competition(
 as
 begin
 insert into dbo.Competition(Id,Name,Route,Date,Privacy,BankAccount,Price,ActivityID)
-values(@Id,@Name,@Route,@Date,@Privacy,@BankAccount,@Price,ActivityID)
+values(@Id,@Name,@Route,@Date,@Privacy,@BankAccount,@Price,@ActivityID)
 
 end
 go
@@ -406,34 +406,34 @@ go
 
 
 create procedure get_compCategories(@CompetitionID varchar(50),
-							@CompCategory varchar(50))
+							@Category varchar(50))
 as
 begin
 
 select * from dbo.Competition_Categories
-where CompetitionID = @CompetitionID and CompCategory = @CompCategory
+where CompetitionID = @CompetitionID and Category = @Category
 
 end
 go
 
 
 create procedure post_compCategories(@CompetitionID varchar(50),
-							@CompCategory varchar(50)
+							@Category varchar(50)
 )
 as
 begin
-insert into dbo.Competition_Categories(CompetitionID,CompCategory)
-values(@CompetitionID,@CompCategory)
+insert into dbo.Competition_Categories(CompetitionID,Category)
+values(@CompetitionID,@Category)
 
 end
 go
 
 create procedure delete_compCategories( @CompetitionID varchar(50),
-								@CompCategory varchar(50))
+								@Category varchar(50))
 as
 begin
 delete from dbo.Competition_Categories
-where CompetitionID = @CompetitionID and CompCategory = @CompCategory
+where CompetitionID = @CompetitionID and Category = @Category
 end 
 go
 
@@ -561,26 +561,26 @@ go
 create procedure post_sponsors(@Id varchar(50),
 							@Name varchar(50),
 							@BankAccount varchar(50),
-							@CompetitionID varchar(50),
-							@ChallengeID varchar(50)
+							@CompetitionID varchar(50)
+							
 )
 as
 begin
-insert into dbo.Sponsor(Id,Name,BankAccount,CompetitionID,ChallengeID)
-values(@Id,@Name,@BankAccount,@CompetitionID,@ChallengeID)
+insert into dbo.Sponsor(Id,Name,BankAccount,CompetitionID)
+values(@Id,@Name,@BankAccount,@CompetitionID)
 
 end
 go
 
 
-create procedure put_csponsor(@Id varchar(50),
+create procedure put_sponsor(@Id varchar(50),
 							@Name varchar(50),
 							@BankAccount varchar(50),
-							@CompetitionID varchar(50),
-							@ChallengeID varchar(50))
+							@CompetitionID varchar(50)
+)
 as
 begin
-update dbo.Sponsor set Name=@Name,BankAccount=@BankAccount,CompetitionID=@CompetitionID,ChallengeID=@ChallengeID
+update dbo.Sponsor set Name=@Name,BankAccount=@BankAccount,CompetitionID=@CompetitionID
 where Id=@Id
 
 end
@@ -592,4 +592,48 @@ begin
 delete from dbo.Sponsor
 where Id = @Id
 end 
+go
+
+----------------------Activities in Challenge stored procedures------------------
+
+
+create procedure get_all_ActChallenge
+as
+begin
+
+select * from dbo.Activity_In_Challenge
+end
+go
+
+
+create procedure get_ActChallenge(@ActivityID varchar(50),
+							@ChallengeID varchar(50))
+as
+begin
+
+select * from dbo.Activity_In_Challenge
+where ActivityID = @ActivityID and ChallengeID = @ChallengeID
+
+end
+go
+
+
+create procedure post_ActChallenge(@ActivityID varchar(50),
+							@ChallengeID varchar(50)
+)
+as
+begin
+insert into dbo.Activity_In_Challenge(ActivityID,ChallengeID)
+values(@ActivityID,@ChallengeID)
+
+end
+go
+
+create procedure delete_ActChallenge( @ActivityID varchar(50),
+									 @ChallengeID varchar(50))
+as
+begin
+delete from dbo.Activity_In_Challenge
+where ActivityID = ActivityID and ChallengeID = @ChallengeID
+end
 go

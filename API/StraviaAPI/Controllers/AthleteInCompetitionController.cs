@@ -104,7 +104,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Server query sent
             string query = @"
-                             exec post_Athlete_Challenge @athleteid,@competitionid,@position,@time
+                             exec post_Athlete_Competition @athleteid,@competitionid,@status
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -117,8 +117,7 @@ namespace StraviaAPI.Controllers
                 //Parameters added with its values
                 myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Comp.AthleteID);
                 myCommand.Parameters.AddWithValue("@competitionid", athlete_In_Comp.CompetitionID);
-                myCommand.Parameters.AddWithValue("@position", athlete_In_Comp.Position);
-                myCommand.Parameters.AddWithValue("@time", athlete_In_Comp.Time);
+                myCommand.Parameters.AddWithValue("@status", athlete_In_Comp.Status);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -142,7 +141,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec delete_Athlete_Challenge @athleteid,@competitionid
+                             exec delete_Athlete_Competition @athleteid,@competitionid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

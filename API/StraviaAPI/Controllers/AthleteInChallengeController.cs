@@ -107,7 +107,7 @@ namespace StraviaAPI.Controllers
 
             //Insert query sent to SQL Server
             string query = @"
-                             exec post_Athlete_Challenge @athleteid, @challengeid
+                             exec post_Athlete_Challenge @athleteid, @challengeid,@status
                             "; 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -120,6 +120,7 @@ namespace StraviaAPI.Controllers
                 //Added parameters with values
                 myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Challenge.AthleteID);
                 myCommand.Parameters.AddWithValue("@challengeid", athlete_In_Challenge.ChallengeID);
+                myCommand.Parameters.AddWithValue("@status", athlete_In_Challenge.Status);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -143,8 +144,7 @@ namespace StraviaAPI.Controllers
         {
             // SQL Server query
             string query = @"
-                             delete from dbo.Athlete_In_Challenge
-                             where AthleteID = @AthleteID and  ChallengeID= @ChallengeID
+                             exec delete_Athlete_Challenge @athleteid, @challengeid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -155,8 +155,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Created command with query and connection
                 {
                     //Added parameters
-                    myCommand.Parameters.AddWithValue("@AthleteID", id);
-                    myCommand.Parameters.AddWithValue("@ChallengeID", challengeID);
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+                    myCommand.Parameters.AddWithValue("@challengeid", challengeID);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
