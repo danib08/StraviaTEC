@@ -1,0 +1,24 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css");
+
+.navbar-brand {
+  letter-spacing: 3px;
+  color: #0B2027;
+}
+
+.navbar-brand:hover {
+	color: #40798C;
+}
+
+.navbar-scroll .nav-link,
+.navbar-scroll .fa-bars {
+  color: #40798C;
+}
+
+.navbar-scrolled .nav-link,
+.navbar-scrolled .fa-bars {
+  color: #40798C;
+}
+
+.navbar-scrolled {
+  background-color: #ffede7;
+}

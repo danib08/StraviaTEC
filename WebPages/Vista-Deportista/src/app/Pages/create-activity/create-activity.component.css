@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+body{
+  background-color: #1f2029;
+  width: 100%;
+  background:#1B4E5F;
+  height: 800px;
+}
+.container{
+  width: 100%;
+  height: 100%;
+}
+.row{
+  width: 100%;
+  height: 100%;
+}
+.height {
+  height: 100px;
+}
+
+.card {
+  border: none;
+  padding: 10px;
+  background-color: #70A9A1;
+  color: #fff;
+}
+
+.form-input {
+  position: relative;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #ffeba7;
+
+}
+
+.form-input i {
+    position: absolute;
+    font-size: 18px;
+    top: 15px;
+    left: 10px
+  }
+
+.form-control {
+  padding: 13px 20px;
+  padding-left: 55px;
+  height: 48px;
+  width: 100%;
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 22px;
+  letter-spacing: 0.5px;
+  outline: none;
+  color: #c4c3ca;
+  background-color: #cfd7c7;
+  border: none;
+  -webkit-transition: all 200ms linear;
+  transition: all 200ms linear;
+  box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+}
+
+.form-control:focus {
+    background-color: #25272a;
+    box-shadow: none;
+    border-color: #4f63e7
+}
+
+.form-check-label {
+    margin-top: 2px;
+    font-size: 14px
+}
+.material-icons{
+  color: #0B2027;
+}
+
+h3{
+  color: #1B4E5F;
+}
+
+
+.btn{
+  background-color: #40798C;
+  color: #102770;
+  box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
+}
+.btn:active,
+.btn:focus{
+  background-color: #102770;
+  color: #ffeba7;
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+.btn:hover{
+  background-color: #102770;
+  color: #ffeba7;
+  box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
+}
+small.mt-2{
+  font: #CFD7C7;
+}
