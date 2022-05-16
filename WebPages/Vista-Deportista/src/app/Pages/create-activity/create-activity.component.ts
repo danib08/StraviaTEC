@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ActivityModel } from 'src/app/Models/activity-model';
 import { AthleteInChallenge } from 'src/app/Models/athlete-in-challenge';
 import { AthleteInCompetition } from 'src/app/Models/athlete-in-competition';
+import { ActivityInChallenge } from 'src/app/Models/activity-in-challenge';
 import { Challenge } from 'src/app/Models/challenge';
 import { Competition } from 'src/app/Models/competition';
 import { GetService } from 'src/app/Services/Get/get-service';
@@ -46,15 +47,32 @@ export class CreateActivityComponent implements OnInit {
   }
 
   activity: ActivityModel = {
-    ID: 0,
+    ID: '',
     Name: '',
     Route: '',
     Date: '',
-    Duration: 0, 
+    Duration: '', 
     Kilometers: 0,
     Type: '',
-    ChallengeID: 0
-}
+    AthleteUsername: ''
+  }
+
+  activityCompetition: ActivityModel = {
+    ID: '',
+    Name: '',
+    Route: '',
+    Date: '',
+    Duration: '', 
+    Kilometers: 0,
+    Type: '',
+    AthleteUsername: ''
+  }
+
+  activityInChallenge: ActivityInChallenge = {
+    ActivityID: '',
+    ChallengeID: ''
+  }
+
 
   constructor(private postService: PostService, private getService: GetService, private cookieSvc:CookieService) { }
 
@@ -62,13 +80,26 @@ export class CreateActivityComponent implements OnInit {
   }
 
   createActivity(){
+    this.activity.AthleteUsername = this.cookieSvc.get('Username');
     this.postService.createActivity(this.activity).subscribe(
       res =>{
-        location.reload();
       }, err => {
         alert("Ha ocurrido un error")
       }
     );
+
+    if (this.eventType == 'Challenge') {
+      this.activityInChallenge.ActivityID = this.activity.ID;
+      this.activityInChallenge.ChallengeID = this.currentChallenge.ID;
+      this.postService.createActivityInChallenge(this.activityInChallenge).subscribe(
+        res =>{
+        }, err => {
+          alert("Ha ocurrido un error")
+        }
+      );
+    }
+
+    location.reload();
   }
 
   radioSelect(event: Event) {
@@ -113,6 +144,7 @@ export class CreateActivityComponent implements OnInit {
     this.getService.getCompetition(this.competitionSelected).subscribe(
       res => {
         this.currentCompetition = res;
+        this.getActivityType();
         this.haveSelectedCompetition = true;
         this.activity.Name = this.currentCompetition.Name;
         this.activity.Date = this.currentCompetition.Date;
@@ -121,6 +153,18 @@ export class CreateActivityComponent implements OnInit {
         alert('Ha ocurrido un error')
       }
     );
+  }
+
+  getActivityType() {
+      this.getService.getActivity(this.currentCompetition.ActivityID).subscribe(
+        res => {
+          this.activityCompetition = res;
+          this.activity.Type = this.activityCompetition.Type;
+        },
+        err=>{
+          alert('Ha ocurrido un error')
+        }
+      );
   }
 
 }

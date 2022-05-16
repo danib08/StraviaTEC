@@ -2,8 +2,8 @@
 <body>
     <p><br><br></p>
   <div class="card px-5 py-3">
-    <!-- Forms of destination and origin-->
-    <div id="Flight" class="w3-container ">
+    <!-- Athelete search bar -->
+    <div class="w3-container ">
       <form name="form" (ngSubmit)="f.form.valid && getAthletes()" #f="ngForm">
         <h3>Encuentra a otros atletas alrededor del mundo</h3>
         <h4>Escribe el nombre del atleta que deseas buscar</h4>
@@ -23,17 +23,17 @@
   <!-- Display of all the athletes -->
   <div class="container px-5 py-3" *ngIf=State>
     <div class="card px-5 py-3">
-      <li *ngFor="let hero of AthletesArray">
+      <li *ngFor="let item of AthletesArray">
         <div class="row">
           <div class="col-sm-8 p-3">
             <div class="row">
               <div class="col-sm">
-                <span class="left"><img [src]="hero.Photo" *ngIf="hero.Photo" style="height: 85px; width:90px"></span>
-                <span class="col-3"> <i class="material-icons">account_circle</i>{{hero.Name + ' '+ hero.Lastname}} <br>
-                                     <i class="material-icons">emoji_events</i>{{hero.Category}}<br>
-                                     <i class="material-icons">push_pin</i>{{hero.Nationality}}
+                <span class="left"><img [src]="item.Photo" *ngIf="item.Photo" style="height: 85px; width:90px"></span>
+                <span class="col-3"> <i class="material-icons">account_circle</i>{{item.Name + ' '+ item.Lastname}} <br>
+                                     <i class="material-icons">emoji_events</i>{{item.Category}}<br>
+                                     <i class="material-icons">push_pin</i>{{item.Nationality}}
                 </span>
-                <span class="right"><button class="btn" (click)="followAthlete(hero.Username)" style="float: right;">Seguir</button></span>
+                <span class="right"><button class="btn" (click)="followAthlete(item.Username, $event)" style="float: right;">Seguir</button></span>
               </div>
             </div>
           </div>

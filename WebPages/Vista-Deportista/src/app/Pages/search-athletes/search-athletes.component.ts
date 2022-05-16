@@ -45,7 +45,9 @@ export class SearchAthletesComponent implements OnInit {
     );
   }
 
-  followAthlete(Username:string){
+  followAthlete(Username: string,  $event: MouseEvent){
+    ($event.target as HTMLButtonElement).disabled = true;
+
     this.athleteFriend.AthleteID = this.cookieSvc.get('Username');
     this.athleteFriend.FriendID = Username;
     this.postService.addFollower(this.athleteFriend).subscribe(

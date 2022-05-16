@@ -1,0 +1,74 @@
+<app-header></app-header>
+<body>
+    <p><br><br></p>
+  <div class="card px-5 py-3">
+    <!-- Select challenges or competitions -->
+    <div class="w3-container ">
+        <label for="tipo">¿A qué tipo de evento desea inscribirse?</label>
+        <div>
+            <input type="radio" id="yes" name="radiogroup" value="Challenge" (change)="radioSelect($event)">
+            <label for="yes">Retos</label>
+        </div>
+        <div>
+            <input type="radio" id="no" name="radiogroup" value="Competition" (change)="radioSelect($event)">
+            <label for="no">Competencias</label>
+        </div>
+    </div>
+  </div>
+
+    <!-- Display of challenges -->
+    <div class="container px-5 py-3" *ngIf="(eventType == 'Challenge')">
+    <div class="card px-5 py-3">
+      <li *ngFor="let chllng of challengesArray">
+        <div class="row">
+          <div class="col-sm-8 p-3">
+            <div class="row">
+              <div class="col-sm">
+                <span class="col-3"> <i class="material-icons">subject</i>{{chllng.Name}} <br>
+                                     <i class="material-icons">date_range</i>
+                                        {{'Fecha de Inicio: ' + chllng.StartDate.split("T", 2)[0] + ' | ' + chllng.StartDate.split("T", 2)[1]}} 
+                                     <br>
+                                     <i class="material-icons">event</i>
+                                        {{'Fecha de Culminación: ' + chllng.EndDate.split("T", 2)[0] + ' | ' + chllng.EndDate.split("T", 2)[1]}} 
+                                     <br>
+                                     <i class="material-icons">directions_run</i>{{chllng.Kilometers + ' km'}}<br>
+                                     <i class="material-icons">sports_score</i>{{chllng.Type}}
+                </span>
+                <span class="right"><button class="btn" (click)="joinChallenge(chllng.ID, $event)" style="float: right;">Inscribirse</button></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </div>
+    </div>
+
+     <!-- Display of competitions -->
+     <div class="container px-5 py-3" *ngIf="(eventType == 'Competition')">
+        <div class="card px-5 py-3">
+          <li *ngFor="let comp of competitionsArray">
+            <div class="row">
+              <div class="col-sm-8 p-3">
+                <div class="row">
+                  <div class="col-sm">
+                    <span class="col-3"> <i class="material-icons">subject</i>{{comp.Name}} <br>
+                                         <i class="material-icons">date_range</i>
+                                            {{'Fecha: ' + comp.Date.split("T", 2)[0] + ' | ' + comp.Date.split("T", 2)[1]}} 
+                                        <br>   
+                                         <i class="material-icons">attach_money</i>{{"$" + comp.Price}}<br>
+                    </span>
+                    <span class="right"><button class="btn" (click)="onClick(comp.ID)" style="float: right;">Inscribirse</button></span>
+                    <div *ngIf="(flag && selectedCompetition == comp.ID)">
+                        <label>Cuenta bancaria: {{comp.BankAccount}}</label>
+                        <input type="file" name="receipt">
+                        <button class="btn" (click)="joinCompetition(comp.ID, $event)" style="float: right;">Pagar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </div>
+    </div>
+</body>
+<app-footer></app-footer>

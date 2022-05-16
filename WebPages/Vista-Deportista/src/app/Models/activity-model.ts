@@ -1,10 +1,10 @@
 export interface ActivityModel {
-    ID: number,
+    ID: string,
     Name: string,
     Route: string, // Check back which type will the route be
     Date: string,
-    Duration: number, 
+    Duration: string, 
     Kilometers: number,
     Type: string,
-    ChallengeID: number
+    AthleteUsername: string
 }

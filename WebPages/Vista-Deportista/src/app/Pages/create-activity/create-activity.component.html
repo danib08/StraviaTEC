@@ -16,11 +16,11 @@
                 <label for="yes">Reto</label>
               </div>
               <div>
-                <input type="radio" id="no" name="radiogroup" value="Competition" checked (change)="radioSelect($event)">
-                <label for="no">Carrera</label>
+                <input type="radio" id="no" name="radiogroup" value="Competition" (change)="radioSelect($event)">
+                <label for="no">Competencia</label>
               </div>
               <div>
-                <input type="radio" id="no" name="radiogroup" value="None" checked (change)="radioSelect($event)">
+                <input type="radio" id="no" name="radiogroup" value="None" (change)="radioSelect($event)">
                 <label for="no">Ninguno</label>
               </div>
             </div>  
@@ -45,6 +45,13 @@
                   required>
                 </div>
                 <div class="form-input">
+                  <i class="material-icons">assignment</i>
+                  <input type="text" class="form-control" placeholder="ID de la actividad"
+                  [(ngModel)]="activity.ID" name="id" #name = "ngModel"
+                  [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                  required>
+                </div>
+                <div class="form-input">
                   <i class="material-icons">event</i>
                   <input type="datetime-local" class="form-control" placeholder="Fecha y Hora"
                   [(ngModel)]="activity.Date" name="Fecha" #name = "ngModel"
@@ -59,7 +66,7 @@
                   required>
                 </div>
                 <div class="form-input">
-                  <i class="material-icons">speed</i>
+                  <i class="material-icons">directions_run</i>
                   <input type="number" class="form-control" placeholder="Kilometraje"
                   [(ngModel)]="activity.Kilometers" name="Kilometraje" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
@@ -93,6 +100,13 @@
                   <input type="text" class="form-control" value={{currentCompetition.Name}} readonly>
                 </div>
                 <div class="form-input">
+                  <i class="material-icons">assignment</i>
+                  <input type="text" class="form-control" placeholder="ID de la actividad"
+                  [(ngModel)]="activity.ID" name="id" #name = "ngModel"
+                  [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                  required>
+                </div>
+                <div class="form-input">
                   <i class="material-icons">event</i>
                   <input type="datetime-local" class="form-control" value={{currentCompetition.Date}} readonly>
                 </div>
@@ -112,15 +126,9 @@
                 </div>
                 <div class="form-input">
                   <label for="tipo">Tipo de Actividad</label>
-                  <select class="form-control" id="type" name="type" [(ngModel)]="activity.Type" #type = "ngModel" required>
-                      <option value="Caminata">Caminata</option>
-                      <option value="Correr">Correr</option>
-                      <option value="CrossFit">CrossFit</option>
-                      <option value="Natación">Natación</option>
-                      <option value="Ciclismo">Ciclismo</option>
-                      <option value="Senderismo">Senderismo</option>
-                      <option value="Kayak">Kayak</option>
-                  </select>
+                  <select class="form-control" id="type" name="type">
+                      <option value={{activityCompetition.Type}}>{{activityCompetition.Type}}</option>
+                    </select>
               </div>
                 <div class="form-input text-center">
                   <button class="btn mt-4">Crear Actividad</button>
@@ -132,6 +140,13 @@
                 <i class="material-icons">edit</i>
                 <input type="text" class="form-control" placeholder="Título de la actividad"
                 [(ngModel)]="activity.Name" name="Nombre" #name = "ngModel"
+                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                required>
+              </div>
+              <div class="form-input">
+                <i class="material-icons">assignment</i>
+                <input type="text" class="form-control" placeholder="ID de la actividad"
+                [(ngModel)]="activity.ID" name="id" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
               </div>

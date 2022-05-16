@@ -5,6 +5,7 @@ import { SignUpComponent } from './Pages/signup/sign-up/sign-up.component';
 import { UpdateProfileComponent } from './Pages/update-profile/update-profile/update-profile.component';
 import { SearchAthletesComponent } from './Pages/search-athletes/search-athletes.component';
 import { CreateActivityComponent } from './Pages/create-activity/create-activity.component';
+import { SubscriptionsComponent } from './Pages/subscriptions/subscriptions.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'updateProfile', component: UpdateProfileComponent},
   {path: 'search', component: SearchAthletesComponent},
   {path: 'createActivity', component: CreateActivityComponent},
-  {path: "**", redirectTo: "login", pathMatch:"full"},
+  {path: 'subscriptions', component: SubscriptionsComponent},
+  {path: "**", redirectTo: "login", pathMatch:"full"}
 ];
 
 @NgModule({

@@ -10,6 +10,7 @@ import { UpdateProfileComponent } from './update-profile/update-profile/update-p
 import { CreateActivityComponent } from './create-activity/create-activity.component';
 import { SearchAthletesComponent } from './search-athletes/search-athletes.component';
 import { HomeComponent } from './Home/home/home.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HomeComponent } from './Home/home/home.component';
     UpdateProfileComponent,
     CreateActivityComponent,
     SearchAthletesComponent,
+    SubscriptionsComponent,
   ],
   imports: [
     CommonModule,
