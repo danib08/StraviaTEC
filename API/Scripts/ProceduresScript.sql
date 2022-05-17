@@ -91,14 +91,25 @@ create procedure post_athlete(
 								@Pass varchar(50),
 								@Nationality varchar(50),
 								@Category varchar(50)
+								
 )
 as
+declare @err_message nvarchar(250)
 begin
-insert into dbo.Athlete(Username,Name,LastName,Photo,Age,BirthDate,Pass,Nationality,Category)
-values(@Username,@Name,@LastName,@Photo,@Age,@BirthDate,@Pass,@Nationality,@Category)
-
+if not exists(select * from dbo.Athlete where Username = @Username)
+	begin
+		insert into dbo.Athlete(Username,Name,LastName,Photo,Age,BirthDate,Pass,Nationality,Category)
+	values(@Username,@Name,@LastName,@Photo,@Age,@BirthDate,@Pass,@Nationality,@Category)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
+
+
 
 create procedure put_athlete(@Username varchar(50),
 								@Name varchar(50),

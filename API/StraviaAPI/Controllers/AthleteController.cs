@@ -63,8 +63,19 @@ namespace StraviaAPI.Controllers
         /// <returns>Athlete by username</returns>
 
         [HttpGet("{username}")]
-        public JsonResult GetAthlete(string username)
+        public string GetAthlete(string username)
         {
+            string lbl_username;
+            string lbl_name;
+            string lbl_lastname;
+            string lbl_photo;
+            string lbl_age;
+            string lbl_birthdate;
+            string lbl_pass;
+            string lbl_nationality;
+            string lbl_category;
+
+
             string query = @"
                              exec get_athlete @Username = @user
                             "; //Select query sent to SQL Server
@@ -83,7 +94,25 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
-            return new JsonResult(table); //Returns table with info
+
+            DataRow row = table.Rows[0];
+
+            lbl_username = row["Username"].ToString();
+            lbl_name = row["Name"].ToString();
+            lbl_lastname = row["LastName"].ToString();
+            lbl_photo = row["Photo"].ToString();
+            lbl_age = row["Age"].ToString();
+            lbl_birthdate = row["BirthDate"].ToString();
+            lbl_pass = row["Pass"].ToString();
+            lbl_nationality = row["Nationality"].ToString();
+            lbl_category = row["Category"].ToString();
+
+            var data = new JObject(new JProperty("Username", lbl_username), new JProperty("Name", lbl_name),
+                new JProperty("LastName", lbl_lastname), new JProperty("Photo", lbl_photo), new JProperty("Age", Int32.Parse(lbl_age)),
+                new JProperty("BirthDate", DateTime.Parse(lbl_birthdate)), new JProperty("Pass", lbl_pass), new JProperty("Nationality", lbl_nationality),
+                new JProperty("Category", lbl_category));
+
+            return data.ToString();
         }
 
         /// <summary>
@@ -130,10 +159,11 @@ namespace StraviaAPI.Controllers
         /// <param name="athlete"></param>
         /// <returns>Action result of query</returns>
         [HttpPost]
-        public ActionResult PostAthlete(Athlete athlete)
+        public JsonResult PostAthlete(Athlete athlete)
         {
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
            
+            /**
             //Primary key validations
             string validation = @"select Username from dbo.Athlete";
 
@@ -164,7 +194,7 @@ namespace StraviaAPI.Controllers
                     
                 }
             }
-
+                **/
 
             //Insert query sent to SQL Server 
 
@@ -196,8 +226,9 @@ namespace StraviaAPI.Controllers
                 myCon.Close();//Closed connection
                 
             }
+  
 
-            return Ok(); //Returns acceptance
+            return new JsonResult(table); //Returns table with info
 
         }
 
