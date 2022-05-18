@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { ActivityModel } from 'src/app/Models/activity-model';
 
 var apiToken = environment.MAPBOX_API_KEY;
 declare var omnivore: any;
