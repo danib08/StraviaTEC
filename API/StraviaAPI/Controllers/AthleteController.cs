@@ -77,7 +77,7 @@ namespace StraviaAPI.Controllers
 
 
             string query = @"
-                             exec get_athlete @Username = @user
+                             exec get_athlete @user
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table created to store information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -122,17 +122,27 @@ namespace StraviaAPI.Controllers
         /// <returns>List of athletes that have the specified name and lastname</returns>
 
         [HttpPost("Search")]
-        public JsonResult SearchAthletes(JObject data)
+        public string SearchAthletes(JObject data)
         {
+
+            string lbl_username;
+            string lbl_name;
+            string lbl_lastname;
+            string lbl_photo;
+            string lbl_age;
+            string lbl_birthdate;
+            string lbl_pass;
+            string lbl_nationality;
+            string lbl_category;
             DataTable table = new DataTable(); //Table created to store information
+
             var name = data["Name"].ToString();
             var lastname = data["LastName"].ToString();
 
             if (lastname.Equals("")){
 
                 string query = @"
-                             select * from dbo.Athlete
-                             where Name = @Name 
+                             exec  search_athlete_name @name
                             "; //Select query sent to SQL Server
 
 
@@ -144,8 +154,7 @@ namespace StraviaAPI.Controllers
                     myCon.Open(); //Opens connection
                     using (SqlCommand myCommand = new SqlCommand(query, myCon))//Created command with query and connection
                     {
-                        myCommand.Parameters.AddWithValue("@Name", name); //Added parameter name
-                        myCommand.Parameters.AddWithValue("@LastName", lastname);
+                        myCommand.Parameters.AddWithValue("@name", name); //Added parameter name
                         myReader = myCommand.ExecuteReader();
                         table.Load(myReader);//Information loades to table
                         myReader.Close();
@@ -156,8 +165,7 @@ namespace StraviaAPI.Controllers
             else
             {
                 string query = @"
-                             select * from dbo.Athlete
-                             where Name = @Name and LastName = @LastName
+                             exec search_athlete_lastname @name,@lastname
                             "; //Select query sent to SQL Server
 
                 
@@ -169,8 +177,8 @@ namespace StraviaAPI.Controllers
                     myCon.Open(); //Opens connection
                     using (SqlCommand myCommand = new SqlCommand(query, myCon))//Created command with query and connection
                     {
-                        myCommand.Parameters.AddWithValue("@Name", name); //Added parameter name
-                        myCommand.Parameters.AddWithValue("@LastName", lastname);
+                        myCommand.Parameters.AddWithValue("@name", name); //Added parameter name
+                        myCommand.Parameters.AddWithValue("@lastname", lastname);
                         myReader = myCommand.ExecuteReader();
                         table.Load(myReader);//Information loades to table
                         myReader.Close();
@@ -178,8 +186,25 @@ namespace StraviaAPI.Controllers
                     }
                 }
             }
-            
-            return new JsonResult(table); //Returns table with info
+
+            DataRow row = table.Rows[0];
+
+            lbl_username = row["Username"].ToString();
+            lbl_name = row["Name"].ToString();
+            lbl_lastname = row["LastName"].ToString();
+            lbl_photo = row["Photo"].ToString();
+            lbl_age = row["Age"].ToString();
+            lbl_birthdate = row["BirthDate"].ToString();
+            lbl_pass = row["Pass"].ToString();
+            lbl_nationality = row["Nationality"].ToString();
+            lbl_category = row["Category"].ToString();
+
+            var result = new JObject(new JProperty("Username", lbl_username), new JProperty("Name", lbl_name),
+                new JProperty("LastName", lbl_lastname), new JProperty("Photo", lbl_photo), new JProperty("Age", Int32.Parse(lbl_age)),
+                new JProperty("BirthDate", DateTime.Parse(lbl_birthdate)), new JProperty("Pass", lbl_pass), new JProperty("Nationality", lbl_nationality),
+                new JProperty("Category", lbl_category));
+
+            return result.ToString();
         }
 
         /// <summary>
@@ -227,11 +252,9 @@ namespace StraviaAPI.Controllers
                 var data =  new JObject(new JProperty("Existe", "No"));
                 return data.ToString();  //Returns table with info
             } 
-            
-            
+
 
         }
-
 
 
         /// <summary>

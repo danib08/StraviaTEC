@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -61,8 +62,17 @@ namespace StraviaAPI.Controllers
         /// <param name="id"></param>
         /// <returns>Json with challenge information</returns>
         [HttpGet("{id}")]
-        public JsonResult GetChallenge(string id)
+        public string GetChallenge(string id)
         {
+
+            string lbl_id;
+            string lbl_name;
+            string lbl_startdate;
+            string lbl_enddate;
+            string lbl_privacy;
+            string lbl_kilometers;
+            string lbl_type;
+
             //SQL Query
             string query = @"
                              exec get_challenge @id
@@ -83,7 +93,23 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Close connection
                 }
             }
-            return new JsonResult(table); //Returns json with data
+
+            DataRow row = table.Rows[0];
+
+            lbl_id = row["Id"].ToString();
+            lbl_name = row["Name"].ToString();
+            lbl_startdate = row["StartDate"].ToString();
+            lbl_enddate = row["EndDate"].ToString();
+            lbl_privacy = row["Privacy"].ToString();
+            lbl_kilometers = row["Kilometers"].ToString();
+            lbl_type = row["Type"].ToString();
+
+            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
+               new JProperty("StartDate", DateTime.Parse(lbl_startdate)), new JProperty("EndDate", DateTime.Parse(lbl_enddate)), new JProperty("Privacy", lbl_privacy),
+               new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type));
+
+            return data.ToString();
+   
         }
 
         /// <summary>
@@ -92,7 +118,7 @@ namespace StraviaAPI.Controllers
         /// <param name="challenge"></param>
         /// <returns>Query result</returns>
         [HttpPost]
-        public ActionResult PostChallenge(Challenge challenge)
+        public JsonResult PostChallenge(Challenge challenge)
         {
             //Validaciones de Primary Key
 
@@ -124,7 +150,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok(); //Returns acceptance
+            return new JsonResult(table); //Returns table with info
 
         }
 

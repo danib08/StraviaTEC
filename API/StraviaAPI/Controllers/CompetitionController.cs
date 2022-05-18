@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -62,8 +63,17 @@ namespace StraviaAPI.Controllers
         /// <returns>Required competition</returns>
         
         [HttpGet("{id}")]
-        public JsonResult GetCompetition(string id)
+        public string GetCompetition(string id)
         {
+            string lbl_id;
+            string lbl_name;
+            string lbl_route;
+            string lbl_date;
+            string lbl_privacy;
+            string lbl_bankaccount;
+            string lbl_price;
+            string lbl_activityid;
+
             //SQL Query
             string query = @"
                              exec get_competition @id
@@ -83,7 +93,25 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
-            return new JsonResult(table);//Returns info from table
+
+            DataRow row = table.Rows[0];
+
+            lbl_id = row["Id"].ToString();
+            lbl_name = row["Name"].ToString();
+            lbl_route = row["Route"].ToString();
+            lbl_date = row["Date"].ToString();
+            lbl_privacy = row["Privacy"].ToString();
+            lbl_bankaccount = row["BankAccount"].ToString();
+            lbl_price = row["Price"].ToString();
+            lbl_activityid = row["ActivityID"].ToString();
+
+            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
+               new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Privacy", lbl_privacy),
+               new JProperty("BankAccount", lbl_bankaccount), new JProperty("Price", float.Parse(lbl_price)), new JProperty("ActivityID", lbl_activityid));
+
+            return data.ToString();
+
+            
         }
 
         /// <summary>
@@ -92,7 +120,7 @@ namespace StraviaAPI.Controllers
         /// <param name="competition"></param>
         /// <returns>Query result</returns>
         [HttpPost]
-        public ActionResult PostCompetition(Competition competition)
+        public JsonResult PostCompetition(Competition competition)
         {
 
             //Validaciones de Primary Key
@@ -126,7 +154,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok();//Returns acceptance
+            return new JsonResult(table);//Returns info from table
 
         }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -61,8 +62,13 @@ namespace StraviaAPI.Controllers
         /// <param name="id"></param>
         /// <returns>Required sponsor</returns>
         [HttpGet("{id}")]
-        public JsonResult GetSponsor(string id)
+        public string GetSponsor(string id)
         {
+            string lbl_id;
+            string lbl_name;
+            string lbl_bankaccount;
+            string lbl_competitionid;
+
             //SQL Query
             string query = @"
                              exec get_sponsors @id
@@ -82,7 +88,18 @@ namespace StraviaAPI.Controllers
                     myCon.Close();//Connection closed
                 }
             }
-            return new JsonResult(table);//Returns table data
+
+            DataRow row = table.Rows[0];
+
+            lbl_id = row["Id"].ToString();
+            lbl_name = row["Name"].ToString();
+            lbl_bankaccount = row["BankAcoount"].ToString();
+            lbl_competitionid = row["CompetitionID"].ToString();
+
+            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
+                new JProperty("BankAccount", lbl_bankaccount), new JProperty("CompetitionID", lbl_competitionid));
+            
+            return data.ToString();
         }
 
         /// <summary>
@@ -91,14 +108,14 @@ namespace StraviaAPI.Controllers
         /// <param name="sponsor"></param>
         /// <returns>Query result</returns>
         [HttpPost]
-        public ActionResult PostSponsor(Sponsor sponsor)
+        public JsonResult PostSponsor(Sponsor sponsor)
         {
 
             //Validaciones de Primary Key
             //SQL Query
 
             string query = @"
-                             exec post_sponsors @id,@name,@bankaccount,@competitioni
+                             exec post_sponsors @id,@name,@bankaccount,@competitionid
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -121,7 +138,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok();//Returns acceptance
+            return new JsonResult(table); //Returns data table
 
         }
 

@@ -8,6 +8,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 /// <summary>
 /// Activity Controller with CRUD methods 
@@ -63,10 +65,19 @@ namespace StraviaAPI.Controllers
         /// <returns>Activity with given id</returns>
         
         [HttpGet("{id}")]
-        public JsonResult GetActivity(string id)
+        public string GetActivity(string id)
         {
+            string lbl_id;
+            string lbl_name;
+            string lbl_route;
+            string lbl_date;
+            string lbl_duration;
+            string lbl_kilometers;
+            string lbl_type;
+            string lbl_ahlete_username;
+
             string query = @"
-                            exec get_activity @Id = @id
+                            exec get_activity @id
                             ";  //Query select sent to SQL Server
             DataTable table = new DataTable(); //Table creation for saving data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec"); 
@@ -83,7 +94,24 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closing connection
                 }
             }
-            return new JsonResult(table); //Returns table
+
+            DataRow row = table.Rows[0];
+
+            lbl_id = row["Id"].ToString();
+            lbl_name = row["Name"].ToString();
+            lbl_route = row["Route"].ToString();
+            lbl_date = row["Date"].ToString();
+            lbl_duration = row["Duration"].ToString();
+            lbl_kilometers = row["Kilometers"].ToString();
+            lbl_type = row["Type"].ToString();
+            lbl_ahlete_username = row["AthleteUsername"].ToString();
+
+
+            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
+                new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Duration", DateTime.Parse(lbl_duration)),
+                new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type), new JProperty("Athlete_username", lbl_ahlete_username));
+
+            return data.ToString();
         }
 
         /// <summary>
@@ -93,10 +121,12 @@ namespace StraviaAPI.Controllers
         /// <returns>Action result of query</returns>
 
         [HttpPost]
-        public ActionResult PostActivity(Activity activity)
+        public JsonResult PostActivity(Activity activity)
         {
+            
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
 
+        /*
             //Primary Key Validations
             string validation = @"select Id from dbo.Activity";
 
@@ -129,6 +159,7 @@ namespace StraviaAPI.Controllers
 
                 }
             }
+        */
 
             string query = @"
                              exec post_activity @id,@name,@route,@date,@kilometers,@type,@athleteusername
@@ -155,8 +186,10 @@ namespace StraviaAPI.Controllers
                 myCon.Close(); //Closing connection
 
             }
-            //Returns accpetance
-            return Ok();
+
+            
+             return new JsonResult(table); //Returns table with info
+            
 
         }
 

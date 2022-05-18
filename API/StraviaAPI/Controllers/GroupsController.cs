@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -61,8 +62,12 @@ namespace StraviaAPI.Controllers
         /// <param name="name"></param>
         /// <returns>Required group</returns>
         [HttpGet("{name}")]
-        public JsonResult GetGroup(string name)
+        public string GetGroup(string name)
         {
+            
+            string lbl_name;
+            string lbl_adminuser;
+
             //SQL Query
             string query = @"
                              exec get_group @name
@@ -83,7 +88,14 @@ namespace StraviaAPI.Controllers
                     myCon.Close();//Closed data
                 }
             }
-            return new JsonResult(table);//Returns table data
+
+            DataRow row = table.Rows[0];
+
+            lbl_adminuser = row["AdminUsername"].ToString();
+            lbl_name = row["Name"].ToString();
+
+            var data = new JObject(new JProperty("AdminUsername", lbl_adminuser), new JProperty("Name", lbl_name));
+            return data.ToString();
         }
 
         /// <summary>
@@ -92,7 +104,7 @@ namespace StraviaAPI.Controllers
         /// <param name="group"></param>
         /// <returns>Query result</returns>
         [HttpPost]
-        public ActionResult PostGroup(Groups group)
+        public JsonResult PostGroup(Groups group)
         {
 
             //Validaciones de Primary Key
@@ -120,7 +132,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok();//Returns acceptance
+            return new JsonResult(table);//Returns table info
 
         }
 

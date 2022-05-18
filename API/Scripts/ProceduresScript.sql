@@ -30,10 +30,17 @@ create procedure post_activity(
 )
 as
 begin
-insert into dbo.Activity(Id,Name,Route,Date,Type,AthleteUsername)
-values(@Id,@Name,@Route,@Date,@Type,@AthleteUsername)
-
+if not exists(select * from dbo.Activity where Id = @Id)
+	begin
+		insert into dbo.Activity(Id,Name,Route,Date,Type,AthleteUsername)
+		values(@Id,@Name,@Route,@Date,@Type,@AthleteUsername)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
 
 create procedure put_activity(	@Id varchar(50),
@@ -94,7 +101,6 @@ create procedure post_athlete(
 								
 )
 as
-declare @err_message nvarchar(250)
 begin
 if not exists(select * from dbo.Athlete where Username = @Username)
 	begin
@@ -116,6 +122,26 @@ create procedure login_athlete( @Username varchar(50),
 as
 begin
 select * from dbo.Athlete where Username = @Username and Pass = @Pass 
+end 
+go
+
+
+create procedure search_athlete_lastname( @Name varchar(50),
+								@LastName varchar(50)
+
+)
+as
+begin
+select * from dbo.Athlete where Name = @Name and LastName = @LastName 
+end 
+go
+
+create procedure search_athlete_name( @Name varchar(50)
+
+)
+as
+begin
+select * from dbo.Athlete where Name = @Name
 end 
 go
 
@@ -314,11 +340,19 @@ create procedure post_challenge(
 )
 as
 begin
-insert into dbo.Challenge(Id,Name,StartDate,EndDate,Privacy,Kilometers,Type)
-values(@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type)
-
+if not exists(select * from dbo.Challenge where Id = @Id)
+	begin
+		insert into dbo.Challenge(Id,Name,StartDate,EndDate,Privacy,Kilometers,Type)
+		values(@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
+
 
 
 create procedure put_challenge(@Id varchar(50),
@@ -380,10 +414,17 @@ create procedure post_competition(
 )
 as
 begin
-insert into dbo.Competition(Id,Name,Route,Date,Privacy,BankAccount,Price,ActivityID)
-values(@Id,@Name,@Route,@Date,@Privacy,@BankAccount,@Price,@ActivityID)
-
+if not exists(select * from dbo.Competition where Id = @Id)
+	begin
+		insert into dbo.Competition(Id,Name,Route,Date,Privacy,BankAccount,Price,ActivityID)
+		values(@Id,@Name,@Route,@Date,@Privacy,@BankAccount,@Price,@ActivityID)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
 
 
@@ -485,10 +526,18 @@ create procedure post_group(
 )
 as
 begin
-insert into dbo.Groups(Name,AdminUsername)
-values(@Name,@AdminUsername)
+if not exists(select * from dbo.Groups where Name = @Name)
+	begin
+		insert into dbo.Groups(Name,AdminUsername)
+		values(@Name,@AdminUsername)
 
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
 
 
@@ -586,9 +635,18 @@ create procedure post_sponsors(@Id varchar(50),
 )
 as
 begin
-insert into dbo.Sponsor(Id,Name,BankAccount,CompetitionID)
-values(@Id,@Name,@BankAccount,@CompetitionID)
+if not exists(select * from dbo.Sponsor where Id = @Id)
+	begin
+		insert into dbo.Sponsor(Id,Name,BankAccount,CompetitionID)
+		values(@Id,@Name,@BankAccount,@CompetitionID)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
+end
 
+go
 end
 go
 
