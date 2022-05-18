@@ -109,6 +109,15 @@ end
 
 go
 
+create procedure login_athlete( @Username varchar(50),
+								@Pass varchar(50)
+
+)
+as
+begin
+select * from dbo.Athlete where Username = @Username and Pass = @Pass 
+end 
+go
 
 
 create procedure put_athlete(@Username varchar(50),

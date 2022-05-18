@@ -124,33 +124,114 @@ namespace StraviaAPI.Controllers
         [HttpPost("Search")]
         public JsonResult SearchAthletes(JObject data)
         {
+            DataTable table = new DataTable(); //Table created to store information
             var name = data["Name"].ToString();
             var lastname = data["LastName"].ToString();
 
-            string query = @"
+            if (lastname.Equals("")){
+
+                string query = @"
+                             select * from dbo.Athlete
+                             where Name = @Name 
+                            "; //Select query sent to SQL Server
+
+
+                string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+                SqlDataReader myReader;
+
+                using (SqlConnection myCon = new SqlConnection(sqlDataSource)) //Created connection
+                {
+                    myCon.Open(); //Opens connection
+                    using (SqlCommand myCommand = new SqlCommand(query, myCon))//Created command with query and connection
+                    {
+                        myCommand.Parameters.AddWithValue("@Name", name); //Added parameter name
+                        myCommand.Parameters.AddWithValue("@LastName", lastname);
+                        myReader = myCommand.ExecuteReader();
+                        table.Load(myReader);//Information loades to table
+                        myReader.Close();
+                        myCon.Close(); //Closed connection
+                    }
+                }
+            }
+            else
+            {
+                string query = @"
                              select * from dbo.Athlete
                              where Name = @Name and LastName = @LastName
                             "; //Select query sent to SQL Server
 
-            DataTable table = new DataTable(); //Table created to store information
-            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
-            SqlDataReader myReader;
+                
+                string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+                SqlDataReader myReader;
 
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) //Created connection
-            {
-                myCon.Open(); //Opens connection
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Created command with query and connection
+                using (SqlConnection myCon = new SqlConnection(sqlDataSource)) //Created connection
                 {
-                    myCommand.Parameters.AddWithValue("@Name", name); //Added parameter name
-                    myCommand.Parameters.AddWithValue("@LastName", lastname);
-                    myReader = myCommand.ExecuteReader();
-                    table.Load(myReader);//Information loades to table
-                    myReader.Close();
-                    myCon.Close(); //Closed connection
+                    myCon.Open(); //Opens connection
+                    using (SqlCommand myCommand = new SqlCommand(query, myCon))//Created command with query and connection
+                    {
+                        myCommand.Parameters.AddWithValue("@Name", name); //Added parameter name
+                        myCommand.Parameters.AddWithValue("@LastName", lastname);
+                        myReader = myCommand.ExecuteReader();
+                        table.Load(myReader);//Information loades to table
+                        myReader.Close();
+                        myCon.Close(); //Closed connection
+                    }
                 }
             }
+            
             return new JsonResult(table); //Returns table with info
         }
+
+        /// <summary>
+        /// Post method for athletes
+        /// </summary>
+        /// <param name="athlete"></param>
+        /// <returns>Action result of query</returns>
+        [HttpPost("LogIn")]
+        public string LogInAthlete(Athlete athlete)
+        {
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+
+            //Insert query sent to SQL Server 
+
+            string query = @"
+                             exec login_athlete @username,@pass
+                            ";
+            DataTable table = new DataTable();
+
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open(); //Connection opened
+                SqlCommand myCommand = new SqlCommand(query, myCon);
+
+                //Added parameters with values
+                myCommand.Parameters.AddWithValue("@username", athlete.Username);
+                myCommand.Parameters.AddWithValue("@pass", athlete.Pass);
+
+                myReader = myCommand.ExecuteReader();
+                table.Load(myReader);
+                myReader.Close();
+                myCon.Close();//Closed connection
+
+            }
+
+            if (table.Rows.Count>0)
+            {
+               var data = new JObject(new JProperty("Existe", "Si"));
+
+                return data.ToString();  //Returns table with info
+            }
+            else
+            {
+                var data =  new JObject(new JProperty("Existe", "No"));
+                return data.ToString();  //Returns table with info
+            } 
+            
+            
+
+        }
+
 
 
         /// <summary>
