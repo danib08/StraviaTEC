@@ -196,6 +196,18 @@ end
 go
 
 
+create procedure get_ath_followers(@AthleteID varchar(50),
+							)
+as
+begin
+
+select * from dbo.Athlete_Followers
+where AthleteID = @AthleteID
+
+end
+go
+
+
 create procedure post_follower(
 							@AthleteID varchar(50),
 							@FollowerID varchar(50)
