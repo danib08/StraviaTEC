@@ -75,6 +75,7 @@ namespace StraviaAPI.Controllers
             string lbl_kilometers;
             string lbl_type;
             string lbl_ahlete_username;
+            
 
             string query = @"
                             exec get_activity @id
@@ -95,23 +96,36 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            DataRow row = table.Rows[0];
-
-            lbl_id = row["Id"].ToString();
-            lbl_name = row["Name"].ToString();
-            lbl_route = row["Route"].ToString();
-            lbl_date = row["Date"].ToString();
-            lbl_duration = row["Duration"].ToString();
-            lbl_kilometers = row["Kilometers"].ToString();
-            lbl_type = row["Type"].ToString();
-            lbl_ahlete_username = row["AthleteUsername"].ToString();
 
 
-            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
-                new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Duration", DateTime.Parse(lbl_duration)),
-                new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type), new JProperty("Athlete_username", lbl_ahlete_username));
+            if(table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
 
-            return data.ToString();
+                lbl_id = row["Id"].ToString();
+                lbl_name = row["Name"].ToString();
+                lbl_route = row["Route"].ToString();
+                lbl_date = row["Date"].ToString();
+                lbl_duration = row["Duration"].ToString();
+                lbl_kilometers = row["Kilometers"].ToString();
+                lbl_type = row["Type"].ToString();
+                lbl_ahlete_username = row["AthleteUsername"].ToString();
+
+
+                var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
+                    new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Duration", DateTime.Parse(lbl_duration)),
+                    new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type), new JProperty("Athlete_username", lbl_ahlete_username));
+
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
+
+           
+            
         }
 
         /// <summary>
@@ -162,7 +176,7 @@ namespace StraviaAPI.Controllers
         */
 
             string query = @"
-                             exec post_activity @id,@name,@route,@date,@kilometers,@type,@athleteusername
+                             exec post_activity @id,@name,@route,@date,@duration,@kilometers,@type,@athleteusername
                             "; //Query insert sent to SQL Server
             DataTable table = new DataTable(); //Table created to store data
             SqlDataReader myReader;
@@ -176,6 +190,7 @@ namespace StraviaAPI.Controllers
                 myCommand.Parameters.AddWithValue("@name", activity.Name);
                 myCommand.Parameters.AddWithValue("@route", activity.Route);
                 myCommand.Parameters.AddWithValue("@date", activity.Date);
+                myCommand.Parameters.AddWithValue("@duration", activity.Duration);
                 myCommand.Parameters.AddWithValue("@kilometers", activity.Kilometers);
                 myCommand.Parameters.AddWithValue("@type", activity.Type);
                 myCommand.Parameters.AddWithValue("@athleteusername", activity.AthleteUsername);

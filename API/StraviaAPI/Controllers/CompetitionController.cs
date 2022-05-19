@@ -94,24 +94,32 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            DataRow row = table.Rows[0];
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
 
-            lbl_id = row["Id"].ToString();
-            lbl_name = row["Name"].ToString();
-            lbl_route = row["Route"].ToString();
-            lbl_date = row["Date"].ToString();
-            lbl_privacy = row["Privacy"].ToString();
-            lbl_bankaccount = row["BankAccount"].ToString();
-            lbl_price = row["Price"].ToString();
-            lbl_activityid = row["ActivityID"].ToString();
+                lbl_id = row["Id"].ToString();
+                lbl_name = row["Name"].ToString();
+                lbl_route = row["Route"].ToString();
+                lbl_date = row["Date"].ToString();
+                lbl_privacy = row["Privacy"].ToString();
+                lbl_bankaccount = row["BankAccount"].ToString();
+                lbl_price = row["Price"].ToString();
+                lbl_activityid = row["ActivityID"].ToString();
 
-            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
-               new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Privacy", lbl_privacy),
-               new JProperty("BankAccount", lbl_bankaccount), new JProperty("Price", float.Parse(lbl_price)), new JProperty("ActivityID", lbl_activityid));
+                var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
+                   new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Privacy", lbl_privacy),
+                   new JProperty("BankAccount", lbl_bankaccount), new JProperty("Price", float.Parse(lbl_price)), new JProperty("ActivityID", lbl_activityid));
 
-            return data.ToString();
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
 
-            
+
         }
 
         /// <summary>

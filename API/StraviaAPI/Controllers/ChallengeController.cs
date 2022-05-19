@@ -94,22 +94,31 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            DataRow row = table.Rows[0];
+            if (table.Rows.Count > 0)
+            {
 
-            lbl_id = row["Id"].ToString();
-            lbl_name = row["Name"].ToString();
-            lbl_startdate = row["StartDate"].ToString();
-            lbl_enddate = row["EndDate"].ToString();
-            lbl_privacy = row["Privacy"].ToString();
-            lbl_kilometers = row["Kilometers"].ToString();
-            lbl_type = row["Type"].ToString();
+                DataRow row = table.Rows[0];
 
-            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
-               new JProperty("StartDate", DateTime.Parse(lbl_startdate)), new JProperty("EndDate", DateTime.Parse(lbl_enddate)), new JProperty("Privacy", lbl_privacy),
-               new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type));
+                lbl_id = row["Id"].ToString();
+                lbl_name = row["Name"].ToString();
+                lbl_startdate = row["StartDate"].ToString();
+                lbl_enddate = row["EndDate"].ToString();
+                lbl_privacy = row["Privacy"].ToString();
+                lbl_kilometers = row["Kilometers"].ToString();
+                lbl_type = row["Type"].ToString();
 
-            return data.ToString();
-   
+                var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
+                   new JProperty("StartDate", DateTime.Parse(lbl_startdate)), new JProperty("EndDate", DateTime.Parse(lbl_enddate)), new JProperty("Privacy", lbl_privacy),
+                   new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type));
+
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
+
         }
 
         /// <summary>

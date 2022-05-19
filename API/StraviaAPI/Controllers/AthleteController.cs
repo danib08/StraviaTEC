@@ -95,24 +95,32 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            DataRow row = table.Rows[0];
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
 
-            lbl_username = row["Username"].ToString();
-            lbl_name = row["Name"].ToString();
-            lbl_lastname = row["LastName"].ToString();
-            lbl_photo = row["Photo"].ToString();
-            lbl_age = row["Age"].ToString();
-            lbl_birthdate = row["BirthDate"].ToString();
-            lbl_pass = row["Pass"].ToString();
-            lbl_nationality = row["Nationality"].ToString();
-            lbl_category = row["Category"].ToString();
+                lbl_username = row["Username"].ToString();
+                lbl_name = row["Name"].ToString();
+                lbl_lastname = row["LastName"].ToString();
+                lbl_photo = row["Photo"].ToString();
+                lbl_age = row["Age"].ToString();
+                lbl_birthdate = row["BirthDate"].ToString();
+                lbl_pass = row["Pass"].ToString();
+                lbl_nationality = row["Nationality"].ToString();
+                lbl_category = row["Category"].ToString();
 
-            var data = new JObject(new JProperty("Username", lbl_username), new JProperty("Name", lbl_name),
-                new JProperty("LastName", lbl_lastname), new JProperty("Photo", lbl_photo), new JProperty("Age", Int32.Parse(lbl_age)),
-                new JProperty("BirthDate", DateTime.Parse(lbl_birthdate)), new JProperty("Pass", lbl_pass), new JProperty("Nationality", lbl_nationality),
-                new JProperty("Category", lbl_category));
+                var data = new JObject(new JProperty("Username", lbl_username), new JProperty("Name", lbl_name),
+                    new JProperty("LastName", lbl_lastname), new JProperty("Photo", lbl_photo), new JProperty("Age", Int32.Parse(lbl_age)),
+                    new JProperty("BirthDate", DateTime.Parse(lbl_birthdate)), new JProperty("Pass", lbl_pass), new JProperty("Nationality", lbl_nationality),
+                    new JProperty("Category", lbl_category));
 
-            return data.ToString();
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
         }
 
         /// <summary>
@@ -267,39 +275,6 @@ namespace StraviaAPI.Controllers
         {
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
            
-            /**
-            //Primary key validations
-            string validation = @"select Username from dbo.Athlete";
-
-            DataTable validTable = new DataTable(); //Created table for validations
-            SqlDataReader validReader;
-            using (SqlConnection validCon = new SqlConnection(sqlDataSource)) //Connection created
-            {
-                validCon.Open(); //Opened validation Connection
-                using (SqlCommand validCommand = new SqlCommand(validation, validCon))//Command created with query and connection
-                {
-                    validCommand.Parameters.AddWithValue("@Username", athlete.Username);
-                    validReader = validCommand.ExecuteReader();
-                    validTable.Load(validReader); //Usernames Data loaded to table
-                    validReader.Close();
-                    validCon.Close(); //Closed connection
-                }
-            }
-
-            foreach(DataRow row in validTable.Rows) //Iterates the data stored in the table
-            {
-                foreach(var item  in row.ItemArray){ //Gets the item in every row
-
-                    if (item.Equals(athlete.Username)){ //Verifies if is equal to the primary key
-
-                        return BadRequest(); //Returns rejection
-                        
-                    }
-                    
-                }
-            }
-                **/
-
             //Insert query sent to SQL Server 
 
             string query = @"

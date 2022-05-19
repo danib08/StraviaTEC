@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -59,8 +60,11 @@ namespace StraviaAPI.Controllers
         /// <returns>Athlete's requested friend</returns>
 
         [HttpGet("{activityid}/{challengeid}")]
-        public JsonResult GetActChallenge(string activityid, string challengeid)
+        public string GetActChallenge(string activityid, string challengeid)
         {
+            string lbl_activityid;
+            string lbl_challengeid;
+
             string query = @"
                              exec get_ActChallenge @activityid,@challengeid
                             "; //Select query sent to sql
@@ -82,7 +86,23 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
-            return new JsonResult(table); //Returns table
+
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
+
+                lbl_activityid = row["ActivityID"].ToString();
+                lbl_challengeid = row["ChallengeID"].ToString();
+
+                var data = new JObject(new JProperty("ActivityID", lbl_activityid), new JProperty("ChallengeID", lbl_challengeid));
+
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
         }
 
         /// <summary>
@@ -92,7 +112,7 @@ namespace StraviaAPI.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public ActionResult PostAthFriend(Activity_In_Challenge actChallenge)
+        public JsonResult PostAthFriend(Activity_In_Challenge actChallenge)
         {
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             //Primary Key validations
@@ -121,7 +141,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok(); //Returns acceptance
+            return new JsonResult(table);//Returns table 
 
         }
 

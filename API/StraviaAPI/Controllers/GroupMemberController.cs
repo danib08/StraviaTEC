@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -64,8 +65,11 @@ namespace StraviaAPI.Controllers
         /// <param name="member"></param>
         /// <returns>Required group member</returns>
         [HttpGet("{name}/{member}")]
-        public JsonResult GetGroupMember(string name, string member)
+        public string GetGroupMember(string name, string member)
         {
+            string lbl_groupname;
+            string lbl_memberid;
+
             //SQL Query
             string query = @"
                              exec get_groupMember @groupname,@memberid
@@ -88,7 +92,23 @@ namespace StraviaAPI.Controllers
                     myCon.Close();//Connection
                 }
             }
-            return new JsonResult(table);//Returns data in table
+
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
+
+                lbl_groupname = row["GroupName"].ToString();
+                lbl_memberid = row["MemberID"].ToString();
+
+                var data = new JObject(new JProperty("GroupName", lbl_groupname), new JProperty("MemberID", lbl_memberid));
+
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
         }
 
         /// <summary>
@@ -98,7 +118,7 @@ namespace StraviaAPI.Controllers
         /// <returns>Query result</returns>
 
         [HttpPost]
-        public ActionResult PostGroupMember(Group_Member groupMember)
+        public JsonResult PostGroupMember(Group_Member groupMember)
         {
 
             //Validaciones de Primary Key
@@ -126,7 +146,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok();//Returns acceptance
+            return new JsonResult(table);//Returns table data
 
         }
 

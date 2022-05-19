@@ -23,7 +23,8 @@ create procedure post_activity(
 								@Name varchar(50),
 								@Route varchar(50),
 								@Date date,
-								@Kilometers int,
+								@Duration time,
+								@Kilometers decimal(5,2),
 								@Type varchar(50),
 								@AthleteUsername varchar(50)
 																
@@ -32,8 +33,8 @@ as
 begin
 if not exists(select * from dbo.Activity where Id = @Id)
 	begin
-		insert into dbo.Activity(Id,Name,Route,Date,Type,AthleteUsername)
-		values(@Id,@Name,@Route,@Date,@Type,@AthleteUsername)
+		insert into dbo.Activity(Id,Name,Route,Date,Duration,Kilometers	,Type,AthleteUsername)
+		values(@Id,@Name,@Route,@Date,@Duration,@Kilometers,@Type,@AthleteUsername)
 	end
 else
 	begin
@@ -47,7 +48,7 @@ create procedure put_activity(	@Id varchar(50),
 								@Name varchar(50),
 								@Route varchar(50),
 								@Date date,
-								@Kilometers int,
+								@Kilometers decimal(5,2),
 								@Type varchar(50),
 								@AthleteUsername varchar(50))
 as
@@ -201,9 +202,16 @@ create procedure post_follower(
 )
 as
 begin
-insert into dbo.Athlete_Followers(AthleteID,FollowerID)
-values(@AthleteID,@FollowerID)
+if not exists(select * from dbo.Athlete_Followers where AthleteID = @AthleteID and FollowerID= @FollowerID)
+	begin
+		insert into dbo.Athlete_Followers(AthleteID,FollowerID)
+		values(@AthleteID,@FollowerID)
 
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
 go
 
@@ -247,8 +255,15 @@ create procedure post_Athlete_Challenge(
 )
 as
 begin
-insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status)
-values(@AthleteID,@ChallengeID,@Status)
+if not exists(select * from dbo.Athlete_In_Challenge where AthleteID = @AthleteID and ChallengeID= @ChallengeID)
+	begin
+		insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status)
+		values(@AthleteID,@ChallengeID,@Status)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
 go
 
@@ -291,10 +306,18 @@ create procedure post_Athlete_Competition(
 )
 as
 begin
-insert into dbo.Athlete_In_Competition(AthleteID,CompetitionID,Status)
-values(@AthleteID,@CompetitionID,@Status)
+if not exists(select * from dbo.Athlete_In_Competition where AthleteID = @AthleteID and CompetitionID= @CompetitionID)
+	begin
+		insert into dbo.Athlete_In_Competition(AthleteID,CompetitionID,Status)
+		values(@AthleteID,@CompetitionID,@Status)
 
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
 
 create procedure delete_Athlete_Competition( @AthleteID varchar(50),
@@ -483,11 +506,18 @@ create procedure post_compCategories(@CompetitionID varchar(50),
 )
 as
 begin
-insert into dbo.Competition_Categories(CompetitionID,Category)
-values(@CompetitionID,@Category)
-
+if not exists(select * from dbo.Competition_Categories where CompetitionID = @CompetitionID and Category = @Category)
+	begin
+		insert into dbo.Competition_Categories(CompetitionID,Category)
+		values(@CompetitionID,@Category)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
 go
+
 
 create procedure delete_compCategories( @CompetitionID varchar(50),
 								@Category varchar(50))
@@ -589,10 +619,17 @@ create procedure post_groupMember(@GroupName varchar(50),
 )
 as
 begin
-insert into dbo.Group_Member(GroupName,MemberID)
-values(@GroupName,@MemberID)
-
+if not exists(select * from dbo.Group_Member where GroupName = @GroupName and MemberID = @MemberID)
+	begin
+		insert into dbo.Group_Member(GroupName,MemberID)
+		values(@GroupName,@MemberID)
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
 
 create procedure delete_groupMember( @GroupName varchar(50),
@@ -647,8 +684,6 @@ else
 end
 
 go
-end
-go
 
 
 create procedure put_sponsor(@Id varchar(50),
@@ -701,10 +736,18 @@ create procedure post_ActChallenge(@ActivityID varchar(50),
 )
 as
 begin
-insert into dbo.Activity_In_Challenge(ActivityID,ChallengeID)
-values(@ActivityID,@ChallengeID)
+if not exists(select * from dbo.Activity_In_Challenge where ActivityID = @ActivityID and ChallengeID = @ChallengeID)
+	begin
+		insert into dbo.Activity_In_Challenge(ActivityID,ChallengeID)
+		values(@ActivityID,@ChallengeID)
 
+	end
+else
+	begin
+		select * from sys.messages where  message_id=2601 and language_id = 1033
+	end
 end
+
 go
 
 create procedure delete_ActChallenge( @ActivityID varchar(50),

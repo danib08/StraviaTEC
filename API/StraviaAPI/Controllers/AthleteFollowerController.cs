@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -62,9 +63,12 @@ namespace StraviaAPI.Controllers
         /// <param name="friendid"></param>
         /// <returns>Athlete's requested friend</returns>
 
-        [HttpGet("{id}/{friendid}")]
-        public JsonResult GetAthFriend(string id, string followerid)
+        [HttpGet("{id}/{followerid}")]
+        public string GetAthFriend(string id, string followerid)
         {
+            string lbl_athleteid;
+            string lbl_followerid;
+
             string query = @"
                              exec get_follower @athleteid,@followerid
                             "; //Select query sent to sql
@@ -86,7 +90,23 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
-            return new JsonResult(table); //Returns table
+
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
+
+                lbl_athleteid = row["AthleteID"].ToString();
+                lbl_followerid = row["FollowerID"].ToString();
+
+                var data = new JObject(new JProperty("AthleteID", lbl_athleteid), new JProperty("FollowerID", lbl_followerid));
+
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
         }
 
         /// <summary>
@@ -96,7 +116,7 @@ namespace StraviaAPI.Controllers
         /// <returns></returns>
 
         [HttpPost]
-        public ActionResult PostAthFriend(Athlete_Followers follower)
+        public JsonResult PostAthFriend(Athlete_Followers follower)
         {
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             //Primary Key validations
@@ -125,7 +145,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok(); //Returns acceptance
+            return new JsonResult(table); //Returns table
 
         }
 

@@ -89,13 +89,21 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            DataRow row = table.Rows[0];
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
 
-            lbl_adminuser = row["AdminUsername"].ToString();
-            lbl_name = row["Name"].ToString();
+                lbl_adminuser = row["AdminUsername"].ToString();
+                lbl_name = row["Name"].ToString();
 
-            var data = new JObject(new JProperty("AdminUsername", lbl_adminuser), new JProperty("Name", lbl_name));
-            return data.ToString();
+                var data = new JObject(new JProperty("AdminUsername", lbl_adminuser), new JProperty("Name", lbl_name));
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
         }
 
         /// <summary>

@@ -95,7 +95,7 @@ Id varchar(50) NOT NULL,
 Name varchar(50) NOT NULL,
 BankAccount varchar(50) NOT NULL,
 CompetitionID varchar(50),
-PRIMARY KEY (Id),
+PRIMARY KEY (Id,CompetitionID),
 )
 
 

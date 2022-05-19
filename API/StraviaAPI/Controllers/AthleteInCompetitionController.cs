@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -63,8 +64,12 @@ namespace StraviaAPI.Controllers
         /// <returns>Json result with athlete in a competition</returns>
 
         [HttpGet("{id}/{competition}")]
-        public JsonResult GetAthCompetition(string id, string competition)
+        public string GetAthCompetition(string id, string competition)
         {
+            string lbl_athleteid;
+            string lbl_competitionid;
+            string lbl_status;
+
             //SQL query sent
             string query = @"
                              exec get_Athlete_Competition @athleteid,@competitionid
@@ -87,7 +92,26 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Connection closed
                 }
             }
-            return new JsonResult(table); //Returns info stored in table
+
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
+
+                lbl_athleteid = row["AthleteID"].ToString();
+                lbl_competitionid = row["CompetitionID"].ToString();
+                lbl_status = row["Status"].ToString();
+                
+
+                var data = new JObject(new JProperty("AthleteID", lbl_athleteid), new JProperty("CompetitionID", lbl_competitionid),
+                    new JProperty("Status", lbl_status) );
+
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
         }
 
         /// <summary>
@@ -97,7 +121,7 @@ namespace StraviaAPI.Controllers
         /// <returns>Result of query</returns>
 
         [HttpPost]
-        public ActionResult PostAthCompetition(Athlete_In_Competition athlete_In_Comp)
+        public JsonResult PostAthCompetition(Athlete_In_Competition athlete_In_Comp)
         {
 
             //Validaciones de Primary Key
@@ -126,7 +150,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok(); //Returns acceptance
+            return new JsonResult(table); //Returns info stored in table
 
         }
 

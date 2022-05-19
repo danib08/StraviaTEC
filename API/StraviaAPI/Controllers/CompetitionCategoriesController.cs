@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using StraviaAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -63,8 +64,11 @@ namespace StraviaAPI.Controllers
         /// <returns>Required categories in competition</returns>
         
         [HttpGet("{id}/{category}")]
-        public JsonResult GetCompCategory(string id, string category)
+        public string GetCompCategory(string id, string category)
         {
+            string lbl_competitionid;
+            string lbl_category;
+
             //SQL Query
             string query = @"
                              exec get_compCategories @competitionid,@category
@@ -87,7 +91,23 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
-            return new JsonResult(table);//Returns required category in competition
+
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
+
+                lbl_competitionid = row["CompetitionID"].ToString();
+                lbl_category = row["Category"].ToString();
+
+                var data = new JObject(new JProperty("CompetitionID", lbl_competitionid), new JProperty("Category", lbl_category));
+
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
         }
 
         /// <summary>
@@ -96,7 +116,7 @@ namespace StraviaAPI.Controllers
         /// <param name="compCategories"></param>
         /// <returns>Result of query</returns>
         [HttpPost]
-        public ActionResult PostCompCategory(Competition_Categories compCategories)
+        public JsonResult PostCompCategory(Competition_Categories compCategories)
         {
 
             //Validaciones de Primary Key
@@ -124,7 +144,7 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return Ok();
+            return new JsonResult(table);//Returns required category in competition
 
         }
 
