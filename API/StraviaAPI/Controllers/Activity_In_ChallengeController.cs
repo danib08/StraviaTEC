@@ -23,14 +23,14 @@ namespace StraviaAPI.Controllers
         {
             _configuration = configuration;
         }
-
-        /// <summary>
-        /// Get method for all activities in all challenges
+		
+		/// <summary>
+        /// Get method for all activity in challenges
         /// </summary>
-        /// <returns>All activities in all challenges</returns>
+        /// <returns>All activity in challenges</returns>
 
         [HttpGet]
-        public JsonResult GetAllActivities_Chall()
+        public JsonResult GetActivitiesChallenges()
         {
             string query = @"
                              exec get_all_ActChallenge
@@ -51,13 +51,13 @@ namespace StraviaAPI.Controllers
             }
             return new JsonResult(table);//Returns table 
         }
-
-        /// <summary>
-        /// Get method of a specific friend for a specific athlete
+		
+		/// <summary>
+        /// Get method of a specific activity for a specific challenge
         /// </summary>
         /// <param name="id"></param>
         /// <param name="friendid"></param>
-        /// <returns>Athlete's requested friend</returns>
+        /// <returns>Requested activity in a challenge</returns>
 
         [HttpGet("{activityid}/{challengeid}")]
         public string GetActChallenge(string activityid, string challengeid)
@@ -104,15 +104,15 @@ namespace StraviaAPI.Controllers
                 return data.ToString();
             }
         }
-
-        /// <summary>
-        /// Post method for athlete's friend
+		
+		/// <summary>
+        /// Post method for activity in challenge
         /// </summary>
         /// <param name="friend"></param>
         /// <returns></returns>
 
         [HttpPost]
-        public JsonResult PostAthFriend(Activity_In_Challenge actChallenge)
+        public JsonResult PostActChallenge(Activity_In_Challenge actChallenge)
         {
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             //Primary Key validations
@@ -123,7 +123,7 @@ namespace StraviaAPI.Controllers
                              exec post_ActChallenge @activityid,@challengeid
                             "; //Insert query sent to sql server
             DataTable table = new DataTable();
-
+            
             SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection started
             {
@@ -141,16 +141,16 @@ namespace StraviaAPI.Controllers
 
             }
 
-            return new JsonResult(table);//Returns table 
+            return new JsonResult(table); //Returns table
 
         }
-
-        /// <summary>
-        /// Delte method for athlete's friend
+		
+		/// <summary>
+        /// Delte method for activities in challenge
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="friendID"></param>
-        /// <returns>Reusult of query</returns>
+        /// <param name="activityid"></param>
+        /// <param name="challengeid"></param>
+        /// <returns>Result of query</returns>
 
         [HttpDelete]
         public ActionResult DeleteAthFriend(string activityid, string challengeid)
