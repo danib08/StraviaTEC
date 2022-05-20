@@ -135,7 +135,7 @@ namespace StraviaAPI.Controllers
                     myCommand.Parameters.AddWithValue("@athleteid", id);
                     
 
-                    myReader = myCommand.ExecuteReader();
+                    myReader  = myCommand.ExecuteReader();
                     table.Load(myReader); //Loads info to table
                     myReader.Close();
                     myCon.Close(); //Closed connection
