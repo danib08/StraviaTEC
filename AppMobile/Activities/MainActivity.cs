@@ -30,7 +30,7 @@ namespace AppMobile.Activities
             
             
             buttonlogin.Click += (sender, e) =>{
-                Intent intent = new Intent(this, typeof(activity));
+                Intent intent = new Intent(this, typeof(login));
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
                 StartActivity(intent);
             };

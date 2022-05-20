@@ -170,9 +170,6 @@
     <AndroidResource Include="Resources\values\dimens.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\homeInfo.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\menu\bottom_nav_menu.xml" />
   </ItemGroup>
   <ItemGroup>

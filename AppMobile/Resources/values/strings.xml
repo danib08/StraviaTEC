@@ -25,9 +25,10 @@
 	<string name="main">Menú principal</string>
 	<string name="Finish">Terminar</string>
 	<string name="Stop">Pausa</string>
+	<string name="idlabel">ID de la actividad</string>
 	<string name="InfoActivity">Elija la actividad que desea realizar</string>
 	<string name="Challenge">Reto</string>
 	<string name="Competition">Competición</string>
-
+	<string name="StartActivity">Empezar</string>
 	<string name="google_maps_key">AIzaSyD21OZeDznwUO1QCceN7hE0o_0wnk-_bhE</string>
 </resources>

@@ -56,6 +56,7 @@ size;obj\Debug\120\res\drawable\button_dark.xml
 size;obj\Debug\120\res\drawable\button_light.xml
 size;obj\Debug\120\res\drawable\button_round.xml
 size;obj\Debug\120\res\drawable\button_search.xml
+Spinner;obj\Debug\120\res\layout\homeactivity.xml
 string;obj\Debug\120\res\values\strings.xml
 style;obj\Debug\120\res\values\styles.xml
 TextView;obj\Debug\120\res\layout\activity.xml
