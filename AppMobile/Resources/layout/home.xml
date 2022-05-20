@@ -15,17 +15,6 @@
         android:gravity="center"
         android:text="@string/main"
         android:textColor="@color/blackPalette"/>
-    
-    <android.widget.Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="28.5dp"
-        android:id="@+id/Info_usuario"
-        android:textAllCaps="false"
-        android:text="@string/Info"
-        style="@style/button_dark"
-        android:layout_marginBottom="0.5dp" />
 
     <android.widget.Button
         android:layout_width="wrap_content"

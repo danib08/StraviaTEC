@@ -2,6 +2,22 @@
   "version": 3,
   "targets": {
     "MonoAndroid,Version=v12.0": {
+      "Plugin.Permissions/6.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.AndroidX.Core": "1.1.0",
+          "Xamarin.Essentials": "1.5.2"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid10.0/Plugin.Permissions.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid10.0/Plugin.Permissions.dll": {}
+        }
+      },
       "sqlite-net-pcl/1.8.116": {
         "type": "package",
         "dependencies": {
@@ -102,6 +118,21 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {}
+        }
+      },
+      "Xam.Plugin.Geolocator/4.5.0.6": {
+        "type": "package",
+        "dependencies": {
+          "Plugin.Permissions": "3.0.0.12"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop"
+        ],
+        "compile": {
+          "lib/monoandroid71/Plugin.Geolocator.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid71/Plugin.Geolocator.dll": {}
         }
       },
       "Xamarin.Android.Arch.Core.Common/1.1.1.3": {
@@ -2342,12 +2373,12 @@
           "build/MonoAndroid12.0/Xamarin.GooglePlayServices.Base.targets": {}
         }
       },
-      "Xamarin.GooglePlayServices.Basement/118.0.0": {
+      "Xamarin.GooglePlayServices.Basement/118.0.1": {
         "type": "package",
         "dependencies": {
-          "Xamarin.AndroidX.Collection": "1.2.0.2",
-          "Xamarin.AndroidX.Core": "1.6.0.5",
-          "Xamarin.AndroidX.Fragment": "1.3.6.3",
+          "Xamarin.AndroidX.Collection": "1.2.0.3",
+          "Xamarin.AndroidX.Core": "1.7.0.2",
+          "Xamarin.AndroidX.Fragment": "1.4.1.1",
           "Xamarin.Build.Download": "0.11.0"
         },
         "frameworkAssemblies": [
@@ -2369,6 +2400,36 @@
         },
         "build": {
           "build/MonoAndroid12.0/Xamarin.GooglePlayServices.Basement.targets": {}
+        }
+      },
+      "Xamarin.GooglePlayServices.Location/119.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.11.0",
+          "Xamarin.GooglePlayServices.Base": "118.0.1",
+          "Xamarin.GooglePlayServices.Basement": "118.0.0",
+          "Xamarin.GooglePlayServices.Places.PlaceReport": "117.0.0.5",
+          "Xamarin.GooglePlayServices.Tasks": "118.0.1"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop",
+          "Mono.Android",
+          "System",
+          "System.Core",
+          "System.Net.Http",
+          "System.Numerics",
+          "System.Numerics.Vectors",
+          "System.Xml",
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/monoandroid12.0/Xamarin.GooglePlayServices.Location.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid12.0/Xamarin.GooglePlayServices.Location.dll": {}
+        },
+        "build": {
+          "build/MonoAndroid12.0/Xamarin.GooglePlayServices.Location.targets": {}
         }
       },
       "Xamarin.GooglePlayServices.Maps/118.0.2": {
@@ -2398,6 +2459,33 @@
         },
         "build": {
           "build/MonoAndroid12.0/Xamarin.GooglePlayServices.Maps.targets": {}
+        }
+      },
+      "Xamarin.GooglePlayServices.Places.PlaceReport/117.0.0.5": {
+        "type": "package",
+        "dependencies": {
+          "Xamarin.Build.Download": "0.11.0",
+          "Xamarin.GooglePlayServices.Basement": "117.6.0.6"
+        },
+        "frameworkAssemblies": [
+          "Java.Interop",
+          "Mono.Android",
+          "System",
+          "System.Core",
+          "System.Net.Http",
+          "System.Numerics",
+          "System.Numerics.Vectors",
+          "System.Xml",
+          "mscorlib"
+        ],
+        "compile": {
+          "lib/monoandroid12.0/Xamarin.GooglePlayServices.Places.PlaceReport.dll": {}
+        },
+        "runtime": {
+          "lib/monoandroid12.0/Xamarin.GooglePlayServices.Places.PlaceReport.dll": {}
+        },
+        "build": {
+          "build/MonoAndroid12.0/Xamarin.GooglePlayServices.Places.PlaceReport.targets": {}
         }
       },
       "Xamarin.GooglePlayServices.Tasks/118.0.1": {
@@ -2603,6 +2691,37 @@
     }
   },
   "libraries": {
+    "Plugin.Permissions/6.0.1": {
+      "sha512": "na/0FNhyKmSicANWZMLSM0y/FW2AvLoawX3lsvBpELwP15sdJRyuBhRKk1OQjRoNrmTIewcON1tJFyydjMGWcA==",
+      "type": "package",
+      "path": "plugin.permissions/6.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid10.0/Plugin.Permissions.dll",
+        "lib/monoandroid10.0/Plugin.Permissions.pdb",
+        "lib/monoandroid80/Plugin.Permissions.dll",
+        "lib/monoandroid80/Plugin.Permissions.pdb",
+        "lib/monoandroid81/Plugin.Permissions.dll",
+        "lib/monoandroid81/Plugin.Permissions.pdb",
+        "lib/monoandroid90/Plugin.Permissions.dll",
+        "lib/monoandroid90/Plugin.Permissions.pdb",
+        "lib/netstandard1.0/Plugin.Permissions.dll",
+        "lib/netstandard1.0/Plugin.Permissions.pdb",
+        "lib/netstandard2.0/Plugin.Permissions.dll",
+        "lib/netstandard2.0/Plugin.Permissions.pdb",
+        "lib/uap10.0.16299/Plugin.Permissions.dll",
+        "lib/uap10.0.16299/Plugin.Permissions.pdb",
+        "lib/uap10.0.16299/Plugin.Permissions.pri",
+        "lib/xamarinios10/Plugin.Permissions.dll",
+        "lib/xamarinios10/Plugin.Permissions.pdb",
+        "lib/xamarintvos10/Plugin.Permissions.dll",
+        "lib/xamarintvos10/Plugin.Permissions.pdb",
+        "plugin.permissions.6.0.1.nupkg.sha512",
+        "plugin.permissions.nuspec",
+        "readme.txt"
+      ]
+    },
     "sqlite-net-pcl/1.8.116": {
       "sha512": "W0NuwAOVVAR9LP4eZwNBIrim1p3EN7t8iNfSHXEhtzKAd4YyItekoQ8NyWYs4faVSrN2KZr/P5u4hycCjKKexg==",
       "type": "package",
@@ -2789,6 +2908,33 @@
         "system.runtime.compilerservices.unsafe.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "Xam.Plugin.Geolocator/4.5.0.6": {
+      "sha512": "Ro7peBDxsDXPc7J7yLx0ekAcXIfVTAXj/rXiBKiTgZ4Lm7KZJIU8PXOCcI4JztzT3MQrL8Rmka48il/ix0pwoA==",
+      "type": "package",
+      "path": "xam.plugin.geolocator/4.5.0.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid71/Plugin.Geolocator.dll",
+        "lib/monoandroid71/Plugin.Geolocator.xml",
+        "lib/netstandard1.0/Plugin.Geolocator.dll",
+        "lib/netstandard1.0/Plugin.Geolocator.xml",
+        "lib/netstandard2.0/Plugin.Geolocator.dll",
+        "lib/netstandard2.0/Plugin.Geolocator.xml",
+        "lib/uap10.0.10240/Plugin.Geolocator.dll",
+        "lib/uap10.0.10240/Plugin.Geolocator.pri",
+        "lib/uap10.0.10240/Plugin.Geolocator.xml",
+        "lib/xamarinios10/Plugin.Geolocator.dll",
+        "lib/xamarinios10/Plugin.Geolocator.xml",
+        "lib/xamarinmac20/Plugin.Geolocator.dll",
+        "lib/xamarinmac20/Plugin.Geolocator.xml",
+        "lib/xamarintvos10/Plugin.Geolocator.dll",
+        "lib/xamarintvos10/Plugin.Geolocator.xml",
+        "readme.txt",
+        "xam.plugin.geolocator.4.5.0.6.nupkg.sha512",
+        "xam.plugin.geolocator.nuspec"
       ]
     },
     "Xamarin.Android.Arch.Core.Common/1.1.1.3": {
@@ -4878,10 +5024,10 @@
         "xamarin.googleplayservices.base.nuspec"
       ]
     },
-    "Xamarin.GooglePlayServices.Basement/118.0.0": {
-      "sha512": "YRs1L1h8JvGCbjNyV/wCgMMknDy3Rt75mbCuGZmxKnLQM59ndAPJcw+dKYe1XgYxVwcdpG0LlCFa8zKa+Br17g==",
+    "Xamarin.GooglePlayServices.Basement/118.0.1": {
+      "sha512": "FNILlQo7hkcC7vhquxxpdYr11J/NyUlk0qPkdmsU0gc8Zia+v7eu0GPtVhLkfFgSEp80vMZjP5MpoXf4Oamf1w==",
       "type": "package",
-      "path": "xamarin.googleplayservices.basement/118.0.0",
+      "path": "xamarin.googleplayservices.basement/118.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -4896,8 +5042,27 @@
         "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Basement.pdb",
         "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Basement.xml",
         "proguard/proguard.txt",
-        "xamarin.googleplayservices.basement.118.0.0.nupkg.sha512",
+        "xamarin.googleplayservices.basement.118.0.1.nupkg.sha512",
         "xamarin.googleplayservices.basement.nuspec"
+      ]
+    },
+    "Xamarin.GooglePlayServices.Location/119.0.1": {
+      "sha512": "it8r+aWXo1kxXbkEE9DROBjeU9lC2k1eeKhaNoZmN+snfDv6I+cZ6QOD8OA0xthXQ1OB20la4Ge0mC8MBTSoHA==",
+      "type": "package",
+      "path": "xamarin.googleplayservices.location/119.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/MonoAndroid12.0/Xamarin.GooglePlayServices.Location.targets",
+        "build/net6.0-android31.0/Xamarin.GooglePlayServices.Location.targets",
+        "lib/monoandroid12.0/Xamarin.GooglePlayServices.Location.dll",
+        "lib/monoandroid12.0/Xamarin.GooglePlayServices.Location.pdb",
+        "lib/monoandroid12.0/Xamarin.GooglePlayServices.Location.xml",
+        "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Location.dll",
+        "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Location.pdb",
+        "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Location.xml",
+        "xamarin.googleplayservices.location.119.0.1.nupkg.sha512",
+        "xamarin.googleplayservices.location.nuspec"
       ]
     },
     "Xamarin.GooglePlayServices.Maps/118.0.2": {
@@ -4917,6 +5082,25 @@
         "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Maps.xml",
         "xamarin.googleplayservices.maps.118.0.2.nupkg.sha512",
         "xamarin.googleplayservices.maps.nuspec"
+      ]
+    },
+    "Xamarin.GooglePlayServices.Places.PlaceReport/117.0.0.5": {
+      "sha512": "vl0qCTFK9b1YBXDmaFq09yVTM+aEmDPJ45HwjAGA/lzelvGDA5XWIyBkwqdOFV8CYo3bAJNQp5N6tB59/MNYHA==",
+      "type": "package",
+      "path": "xamarin.googleplayservices.places.placereport/117.0.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/MonoAndroid12.0/Xamarin.GooglePlayServices.Places.PlaceReport.targets",
+        "build/net6.0-android31.0/Xamarin.GooglePlayServices.Places.PlaceReport.targets",
+        "lib/monoandroid12.0/Xamarin.GooglePlayServices.Places.PlaceReport.dll",
+        "lib/monoandroid12.0/Xamarin.GooglePlayServices.Places.PlaceReport.pdb",
+        "lib/monoandroid12.0/Xamarin.GooglePlayServices.Places.PlaceReport.xml",
+        "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Places.PlaceReport.dll",
+        "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Places.PlaceReport.pdb",
+        "lib/net6.0-android31.0/Xamarin.GooglePlayServices.Places.PlaceReport.xml",
+        "xamarin.googleplayservices.places.placereport.117.0.0.5.nupkg.sha512",
+        "xamarin.googleplayservices.places.placereport.nuspec"
       ]
     },
     "Xamarin.GooglePlayServices.Tasks/118.0.1": {
@@ -5091,13 +5275,19 @@
   },
   "projectFileDependencyGroups": {
     "MonoAndroid,Version=v12.0": [
+      "Plugin.Permissions >= 6.0.1",
+      "Xam.Plugin.Geolocator >= 4.5.0.6",
       "Xamarin.Android.Support.Design >= 28.0.0.3",
       "Xamarin.AndroidX.AppCompat >= 1.4.1.1",
       "Xamarin.AndroidX.Legacy.Support.Core.UI >= 1.0.0.14",
       "Xamarin.AndroidX.Lifecycle.LiveData >= 2.4.1.1",
       "Xamarin.Essentials >= 1.7.3",
       "Xamarin.Google.Android.Material >= 1.6.0",
+      "Xamarin.GooglePlayServices.Base >= 118.0.1",
+      "Xamarin.GooglePlayServices.Basement >= 118.0.1",
+      "Xamarin.GooglePlayServices.Location >= 119.0.1",
       "Xamarin.GooglePlayServices.Maps >= 118.0.2",
+      "Xamarin.GooglePlayServices.Tasks >= 118.0.1",
       "sqlite-net-pcl >= 1.8.116"
     ]
   },
@@ -5134,6 +5324,14 @@
     "frameworks": {
       "monoandroid12.0": {
         "dependencies": {
+          "Plugin.Permissions": {
+            "target": "Package",
+            "version": "[6.0.1, )"
+          },
+          "Xam.Plugin.Geolocator": {
+            "target": "Package",
+            "version": "[4.5.0.6, )"
+          },
           "Xamarin.Android.Support.Design": {
             "target": "Package",
             "version": "[28.0.0.3, )"
@@ -5158,9 +5356,25 @@
             "target": "Package",
             "version": "[1.6.0, )"
           },
+          "Xamarin.GooglePlayServices.Base": {
+            "target": "Package",
+            "version": "[118.0.1, )"
+          },
+          "Xamarin.GooglePlayServices.Basement": {
+            "target": "Package",
+            "version": "[118.0.1, )"
+          },
+          "Xamarin.GooglePlayServices.Location": {
+            "target": "Package",
+            "version": "[119.0.1, )"
+          },
           "Xamarin.GooglePlayServices.Maps": {
             "target": "Package",
             "version": "[118.0.2, )"
+          },
+          "Xamarin.GooglePlayServices.Tasks": {
+            "target": "Package",
+            "version": "[118.0.1, )"
           },
           "sqlite-net-pcl": {
             "target": "Package",

@@ -28,4 +28,6 @@
 	<string name="InfoActivity">Elija la actividad que desea realizar</string>
 	<string name="Challenge">Reto</string>
 	<string name="Competition">Competición</string>
+
+	<string name="google_maps_key">AIzaSyD21OZeDznwUO1QCceN7hE0o_0wnk-_bhE</string>
 </resources>

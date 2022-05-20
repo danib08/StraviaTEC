@@ -8,10 +8,13 @@ android.widget.Button;obj\Debug\120\res\layout\login.xml
 android.widget.Button;obj\Debug\120\res\layout\register.xml
 background;obj\Debug\120\res\mipmap-anydpi-v26\ic_launcher.xml
 background;obj\Debug\120\res\mipmap-anydpi-v26\ic_launcher_round.xml
-cache-path;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\54\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+cache-path;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\56\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 Chronometer;obj\Debug\120\res\layout\activity.xml
+Chronometer;obj\Debug\120\res\layout\activity_main.xml
 color;obj\Debug\120\res\values\colors.xml
 color;obj\Debug\120\res\values\ic_launcher_background.xml
+com.google.android.gms.maps.MapFragment;obj\Debug\120\res\layout\activity.xml
+com.google.android.gms.maps.MapFragment;obj\Debug\120\res\layout\activity_main.xml
 corners;obj\Debug\120\res\drawable\button_dark.xml
 corners;obj\Debug\120\res\drawable\button_light.xml
 corners;obj\Debug\120\res\drawable\button_round.xml
@@ -19,10 +22,12 @@ corners;obj\Debug\120\res\drawable\button_search.xml
 dimen;obj\Debug\120\res\values\dimens.xml
 EditText;obj\Debug\120\res\layout\login.xml
 EditText;obj\Debug\120\res\layout\register.xml
-external-cache-path;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\54\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
-external-path;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\54\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+external-cache-path;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\56\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
+external-path;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\56\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 foreground;obj\Debug\120\res\mipmap-anydpi-v26\ic_launcher.xml
 foreground;obj\Debug\120\res\mipmap-anydpi-v26\ic_launcher_round.xml
+fragment;obj\Debug\120\res\layout\activity.xml
+fragment;obj\Debug\120\res\layout\activity_main.xml
 gradient;obj\Debug\120\res\drawable\button_dark.xml
 gradient;obj\Debug\120\res\drawable\button_light.xml
 gradient;obj\Debug\120\res\drawable\button_round.xml
@@ -36,8 +41,7 @@ LinearLayout;obj\Debug\120\res\layout\homeactivity.xml
 LinearLayout;obj\Debug\120\res\layout\login.xml
 LinearLayout;obj\Debug\120\res\layout\register.xml
 menu;obj\Debug\120\res\menu\bottom_nav_menu.xml
-paths;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\54\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
-RelativeLayout;obj\Debug\120\res\layout\homeactivity.xml
+paths;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\56\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 RelativeLayout;obj\Debug\120\res\layout\homeinfo.xml
 resources;obj\Debug\120\res\values\colors.xml
 resources;obj\Debug\120\res\values\dimens.xml

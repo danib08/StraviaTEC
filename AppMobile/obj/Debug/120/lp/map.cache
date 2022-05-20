@@ -1,3 +1,5 @@
+Plugin.Geolocator.dll
+Plugin.Permissions.dll
 SQLitePCLRaw.lib.e_sqlite3.android.dll
 Xamarin.AndroidX.Activity.dll
 Xamarin.AndroidX.Annotation.dll
@@ -57,7 +59,9 @@ Xamarin.Google.Android.Material.dll
 Xamarin.Google.Guava.ListenableFuture.dll
 Xamarin.GooglePlayServices.Base.dll
 Xamarin.GooglePlayServices.Basement.dll
+Xamarin.GooglePlayServices.Location.dll
 Xamarin.GooglePlayServices.Maps.dll
+Xamarin.GooglePlayServices.Places.PlaceReport.dll
 Xamarin.GooglePlayServices.Tasks.dll
 Xamarin.Jetbrains.Annotations.dll
 Xamarin.Kotlin.StdLib.dll
@@ -111,7 +115,9 @@ androidx.slidingpanelayout.slidingpanelayout.aar
 androidx.lifecycle.lifecycle-livedata.aar
 androidx.asynclayoutinflater.asynclayoutinflater.aar
 androidx.legacy.legacy-support-core-ui.aar
-playservicesbasement-18.0.0.aar
+playservicesbasement-18.0.1.aar
 playservicestasks-18.0.1.aar
+playservicesplacesplacereport-17.0.0.aar
 playservicesbase-18.0.1.aar
 playservicesmaps-18.0.2.aar
+playserviceslocation-19.0.1.aar

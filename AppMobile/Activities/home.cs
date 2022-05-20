@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Gms.Location;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;
@@ -23,7 +24,7 @@ namespace AppMobile.Activities
 
             bottonsendHome.Click += (sender, e) =>
             {
-                Intent intent = new Intent(this, typeof(homeActivity));
+                Intent intent = new Intent(this, typeof(activity));
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
                 StartActivity(intent);
             };

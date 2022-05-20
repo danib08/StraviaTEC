@@ -34,6 +34,14 @@
       "frameworks": {
         "monoandroid12.0": {
           "dependencies": {
+            "Plugin.Permissions": {
+              "target": "Package",
+              "version": "[6.0.1, )"
+            },
+            "Xam.Plugin.Geolocator": {
+              "target": "Package",
+              "version": "[4.5.0.6, )"
+            },
             "Xamarin.Android.Support.Design": {
               "target": "Package",
               "version": "[28.0.0.3, )"
@@ -58,9 +66,25 @@
               "target": "Package",
               "version": "[1.6.0, )"
             },
+            "Xamarin.GooglePlayServices.Base": {
+              "target": "Package",
+              "version": "[118.0.1, )"
+            },
+            "Xamarin.GooglePlayServices.Basement": {
+              "target": "Package",
+              "version": "[118.0.1, )"
+            },
+            "Xamarin.GooglePlayServices.Location": {
+              "target": "Package",
+              "version": "[119.0.1, )"
+            },
             "Xamarin.GooglePlayServices.Maps": {
               "target": "Package",
               "version": "[118.0.2, )"
+            },
+            "Xamarin.GooglePlayServices.Tasks": {
+              "target": "Package",
+              "version": "[118.0.1, )"
             },
             "sqlite-net-pcl": {
               "target": "Package",
