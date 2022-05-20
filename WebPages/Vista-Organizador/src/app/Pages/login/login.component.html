@@ -1,0 +1,19 @@
+<body>
+  <h1>StraviaTEC</h1>
+  <h2>Toma el control de tus actividades deportivas</h2>
+  <div>
+    <form class="login" (ngSubmit)="f.form.valid && logInAthlete()" #f="ngForm">
+      <input type="text" placeholder="Nombre de usuario"
+        [(ngModel)]="newAthlete.Username" name="username" #username = "ngModel"
+        [ngClass]="{'is-invalid':f.submitted}"
+        required>
+      <input type="password" placeholder="Contraseña"
+        [(ngModel)]="newAthlete.Pass" name="pass" #pass = "ngModel"
+        [ngClass]="{'is-invalid':f.submitted}"
+        required>
+      <button>Iniciar Sesión</button>
+      <button (click)="signUp()">Registrarse</button>
+    </form>
+  </div>
+</body>
+  
