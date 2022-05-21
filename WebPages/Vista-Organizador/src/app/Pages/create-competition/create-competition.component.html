@@ -91,6 +91,27 @@
                   <option value="Kayak">Kayak</option>
                 </select>
           </div>
+          <div class="form-input">
+            <label for="tipo">Patrocinador a cargo de la carrera</label>
+            <input type="text" class="form-control" placeholder="Nombre del Patrocinador"
+            [(ngModel)]="sponsor.Name" name="Name" #name = "ngModel"
+            [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+            required>
+          </div>
+
+          <div class="form-input">
+            <input type="text" class="form-control" placeholder="Cédula Jurídica del Patrocinador"
+            [(ngModel)]="sponsor.ID" name="Name" #name = "ngModel"
+            [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+            required>
+          </div>
+          <div class="form-input">
+              <i class="material-icons">lock</i>
+              <input type="text" class="form-control" placeholder="#### - #### - #### - ####"
+              [(ngModel)]="sponsor.BankAccount" name="BankAccount" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+          </div>
           <form [formGroup]="registerForm">
             <div>    
               <div class="form-group">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivityModel } from 'src/app/Models/activity-model';
 import { Competition } from 'src/app/Models/competition';
+import { Sponsor } from 'src/app/Models/sponsor';
 import { GetService } from 'src/app/Services/Get/get-service';
 
 @Component({
@@ -11,6 +12,14 @@ import { GetService } from 'src/app/Services/Get/get-service';
 })
 export class CreateCompetitionComponent implements OnInit {
 
+
+  sponsor:Sponsor = {
+    ID: '',
+    Name: '',
+    BankAccount: '',
+    CompetitionID: '',
+    ChallengeID: ''
+  }
   associatedActivity: ActivityModel = {
     ID: '',
     Name: '',
