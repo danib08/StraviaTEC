@@ -6,7 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using StraviaMongo.Models;
+using StraviaMongo.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +29,16 @@ namespace StraviaMongo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<StraviaSettings>
+                (Configuration.GetSection(nameof(StraviaSettings)));
 
+            services.AddSingleton<IStraviaSettings>
+                (d => d.GetRequiredService<IOptions<StraviaSettings>>().Value);
+
+            services.AddSingleton<CommentService>();
             services.AddControllers();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "StraviaMongo", Version = "v1" });

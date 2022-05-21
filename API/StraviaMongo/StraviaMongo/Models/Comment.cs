@@ -8,7 +8,9 @@ namespace StraviaMongo.Models
 {
     public class Comment
     {
-        public int Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
+        public string Id { get; set; }
         [BsonElement("ActivityID")]
         public string ActivityID { get; set; }
         [BsonElement("AthleteID")]
