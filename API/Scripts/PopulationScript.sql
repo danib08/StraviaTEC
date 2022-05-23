@@ -30,12 +30,10 @@ exec post_group 'Futbol Cot','omend'
 exec post_group 'Ciclistas San José','dani_08'
 
 
-exec post_sponsor '3-1293-1873','Gatorade','1-1359-2598-7','Comp1'
-exec post_sponsor '3-1746-4524','Herbalife','1-3423-6398-2','Comp1'
-exec post_sponsor '3-2343-6262','CicloBike','1-6146-1375-7','Comp1'
-exec post_sponsor '3-1293-1873','Gatorade','1-1359-2598-7','Comp2'
-exec post_sponsor '3-1746-4524','Herbalife','1-3423-6398-2','Comp2'
-exec post_sponsor '3-5246-4683','Adidas','1-4515-3462-9','Comp2'
+exec post_sponsors '3-1293-1873','Gatorade','1-1359-2598-7','Comp1'
+exec post_sponsors '3-1746-4524','Herbalife','1-3423-6398-2','Comp1'
+exec post_sponsors '3-2343-6262','CicloBike','1-6146-1375-7','Comp1'
+exec post_sponsors '3-5246-4683','Adidas','1-4515-3462-9','Comp2'
 
 
 {

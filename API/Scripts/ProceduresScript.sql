@@ -196,7 +196,7 @@ end
 go
 
 
-create procedure get_ath_followers(@AthleteID varchar(50),
+create procedure get_ath_followers(@AthleteID varchar(50)
 							)
 as
 begin
