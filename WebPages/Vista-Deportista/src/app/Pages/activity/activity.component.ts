@@ -1,28 +1,29 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { MapService } from 'src/app/Services/Map/map.service';
+import { Component, OnInit} from '@angular/core';
 import { ActivityModel } from 'src/app/Models/activity-model';
-import { ActivatedRoute } from '@angular/router';
 import { GetService } from 'src/app/Services/Get/get-service';
+import { MapService } from 'src/app/Services/Map/map.service';
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css']
 })
+
 export class ActivityComponent implements OnInit {
+  //map!: L.Map;  // ! postfix operator (ignores this case)
 
   activity: ActivityModel = {
-    ID: '1',
-    Name: 'Actividadcita',
-    Route: '../../assets/gpx/sample.gpx',
-    Date: '13/04/22',
-    Duration: '1:30:00',
-    Kilometers: 10,
-    Type: 'Senderismo',
-    AthleteUsername: 'osquitar'
+    ID: '',
+    Name: '',
+    Route: '',
+    Date: '',
+    Duration: '',
+    Kilometers: 0,
+    Type: '',
+    AthleteUsername: ''
   }
-  
-  constructor(private getService: GetService, private mapService: MapService, private route: ActivatedRoute) { }
+
+  constructor(private getService: GetService, private mapService: MapService) { }
 
   ngOnInit(): void { 
     /*this.getService.getActivity("1").subscribe(
@@ -33,7 +34,7 @@ export class ActivityComponent implements OnInit {
       }
     );*/
 
-    this.mapService.plotActivity(this.activity.Route);
+    var gpx = "../../assets/gpx/sample.gpx";
+    this.mapService.plotActivity(gpx);
   }
-
 }
