@@ -2,5 +2,6 @@ export interface ParticipantsReport {
     Name:string,
     LastName:string,
     Age:number,
-    Category:string
+    Category:string,
+    Time?:string
 }

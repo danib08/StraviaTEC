@@ -47,8 +47,12 @@ export class GetService {
         return this.http.get<any[]>(URL);
     }
 
-    getAthletesReport(ActivityID:string):Observable<any>{
-        let URL = this.baseURL + '/report/' + ActivityID;
+    getAthletesReport(CompetitionID:string):Observable<any>{
+        let URL = this.baseURL + '/report/' + CompetitionID;
+        return this.http.get<any[]>(URL);
+    }
+    getPositionsReport(CompetitionID:string):Observable<any>{
+        let URL = this.baseURL + '/position/' + CompetitionID;
         return this.http.get<any[]>(URL);
     }
 }
