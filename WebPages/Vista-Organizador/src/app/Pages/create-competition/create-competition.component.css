@@ -23,6 +23,7 @@ body{
   padding: 10px;
   background-color: #70A9A1;
   color: #fff;
+  border-radius: 15px;
 }
 
 .form-input {
@@ -32,6 +33,12 @@ body{
   color: #ffeba7;
 
 }
+input[type=datetime-local]:invalid::-webkit-datetime-edit {
+  color: rgb(79, 74, 74);
+}
+input[type=time]:invalid::-webkit-datetime-edit {
+  color: rgb(79, 74, 74);
+}
 
 .form-input i {
     position: absolute;
@@ -39,7 +46,6 @@ body{
     top: 15px;
     left: 10px
   }
-
 .form-control {
   padding: 13px 20px;
   padding-left: 55px;
@@ -56,9 +62,12 @@ body{
   border: none;
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
-  box-shadow: 0 4px 8px 0 rgba(21,21,21,.2);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(79, 74, 74);
+  opacity: 15; /* Firefox */
+}
 .form-control:focus {
     background-color: #25272a;
     box-shadow: none;

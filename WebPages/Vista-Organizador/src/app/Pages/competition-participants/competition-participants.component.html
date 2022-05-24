@@ -1,0 +1,65 @@
+<app-header></app-header>
+<br><br><br>
+<div class="container">
+    <label>Seleccione la carrera: </label>
+    <select
+        [(ngModel)]="competitionSelected"
+        (change)="getCurrentCompetitionReport()">
+        <option *ngFor="let list of athleteCompetitions; index as i" value="{{list.CompetitionID}}">{{list.CompetitionID}}</option>
+    </select>
+    <button (click)="downloadPDF()">Descargar</button>
+</div>
+<div class="container"  id="htmlData" #content>
+    <h2>Reporte de participantes de la carrera: {{competitionSelected}}</h2>
+    <ul class="responsive-table">
+      <li class="table-header">
+        <div class="col col-1">Nombre</div>
+        <div class="col col-2">Apellido</div>
+        <div class="col col-3">Edad</div>
+        <div class="col col-4">Categoría</div>
+      </li>
+      <li class="table-row" *ngFor="let athlete of Junior">
+        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
+      </li>
+      <li class="table-row" *ngFor="let athlete of Sub23">
+        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
+      </li>
+      <li class="table-row" *ngFor="let athlete of Open">
+        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
+      </li>
+      <li class="table-row" *ngFor="let athlete of Elite">
+        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
+      </li>
+      <li class="table-row" *ngFor="let athlete of MasterA">
+        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
+      </li>
+      <li class="table-row" *ngFor="let athlete of MasterB">
+        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
+      </li>
+      <li class="table-row" *ngFor="let athlete of MasterC">
+        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
+      </li>
+    </ul>
+  </div>
+<app-footer></app-footer>

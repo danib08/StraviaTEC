@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './Home/home/home.component';
 import { ActivityComponent } from './activity/activity.component';
 import { CreateCompetitionComponent } from './create-competition/create-competition.component';
+import { CompetitionParticipantsComponent } from './competition-participants/competition-participants.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CreateCompetitionComponent } from './create-competition/create-competit
     HomeComponent,
     ActivityComponent,
     CreateCompetitionComponent,
+    CompetitionParticipantsComponent,
   ],
   imports: [
     CommonModule,
