@@ -11,6 +11,7 @@ using Android.Locations;
 using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
+//using MobileApp;
 
 namespace AppMobile.Activities
 {
@@ -18,12 +19,15 @@ namespace AppMobile.Activities
     public class MainActivity : AppCompatActivity{
         private Button buttonlogin;
         private Button buttonregister;
+        //private Database db;
 
-        protected override void OnCreate(Bundle savedInstanceState){
+        protected override async void OnCreate(Bundle savedInstanceState){
             base.OnCreate(savedInstanceState);
             Platform.Init(this, savedInstanceState);
-            
             SetContentView(Resource.Layout.activity_main);
+            //db = new Database();
+            //db.CreateDatabase();
+            //await db.SyncAsync();
 
             this.buttonlogin = FindViewById<Button>(Resource.Id.btnlogin);
             this.buttonregister = FindViewById<Button>(Resource.Id.btnregister);

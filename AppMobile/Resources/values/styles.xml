@@ -58,7 +58,7 @@
 
 	<style name="edit_text">
 		<item name="android:textSize">@dimen/bodyTextSize</item>
-		<item name="android:textColor">@color/bluePalette</item>
+		<item name="android:textColor">@color/whitePalette</item>
 		<item name="android:textColorHint">@color/whitePalette</item>
 		<item name="android:backgroundTint">@color/blackPalette</item>
 		<item name="android:textAllCaps">false</item>

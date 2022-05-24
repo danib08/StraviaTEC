@@ -4,6 +4,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using Plugin.Media;
+using System.Drawing;
 
 namespace AppMobile.Activities{
 
@@ -30,7 +32,7 @@ namespace AppMobile.Activities{
             bottonsendHome = FindViewById<Button>(Resource.Id.sendHome2);
 
             buttonPhoto.Click += (sender, e) =>{
-
+                UploadPhoto();
             };
 
             bottonsendHome.Click += (sender, e) =>
@@ -39,6 +41,25 @@ namespace AppMobile.Activities{
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
                 StartActivity(intent);
             };
+            async void UploadPhoto(){
+                await CrossMedia.Current.Initialize();
+
+                if (!CrossMedia.Current.IsPickPhotoSupported)
+                {
+                    Toast.MakeText(this, "Upload not supported on this device", ToastLength.Short).Show();
+                    return;
+                }
+
+                var file = await CrossMedia.Current.PickPhotoAsync(new Plugin.Media.Abstractions.PickMediaOptions
+                {
+                    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Full,
+                    CompressionQuality = 40
+
+                });
+                // Convert file to byre array, to bitmap and set it to our ImageView
+                //byte[] imageArray = System.IO.File.ReadAllBytes(file.Path);
+                //Bitmap bitmap = BitmapFactory.DecodeByteArray(imageArray, 0, imageArray.Length);
+            }
         }
     }
 }

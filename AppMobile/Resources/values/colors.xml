@@ -6,13 +6,16 @@
 
 	<color name="creamPalette">#ffeba7</color>
 	<color name="orangePalette">#ff6347</color>
+	<color name="darkorangePalette">#ff8C00</color>
 	<color name="darkPalette">#2a2b38</color>
 	<color name="accentPalette">#302e3f</color>
 	<color name="bluePalette">#102770</color>
 
 	<color name="yellowPalette">#999900</color>
 	<color name="greyPalette">#333333</color>
-
+	
+	<color name="ivoryPalette">#FFFFF0</color>
+	
 	<color name="lightbluePalette">#00cccc</color>
 
 	<color name="blackPalette">#000407</color>
