@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class GetService {
 
-    private baseURL = 'https://straviatec.free.beeceptor.com';
+    private baseURL = 'https://pruebaa.free.beeceptor.com';
 
     constructor(private http: HttpClient) {
     }
@@ -51,8 +51,15 @@ export class GetService {
         let URL = this.baseURL + '/report/' + CompetitionID;
         return this.http.get<any[]>(URL);
     }
+
     getPositionsReport(CompetitionID:string):Observable<any>{
         let URL = this.baseURL + '/position/' + CompetitionID;
         return this.http.get<any[]>(URL);
     }
+
+    getAthleteCreatedCompetitions(AthleteID:string):Observable<any>{
+        let URL = this.baseURL + '/competition/' + AthleteID;
+        return this.http.get<any[]>(URL);
+    }
+
 }

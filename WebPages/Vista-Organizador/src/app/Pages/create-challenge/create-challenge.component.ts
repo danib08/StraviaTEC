@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivityModel } from 'src/app/Models/activity-model';
-import { Competition } from 'src/app/Models/competition';
-import { Sponsor } from 'src/app/Models/sponsor';
+import { Challenge } from 'src/app/Models/challenge';
 import { GetService } from 'src/app/Services/Get/get-service';
 import { PostService } from 'src/app/Services/Post/post-service';
 
 @Component({
-  selector: 'app-create-competition',
-  templateUrl: './create-competition.component.html',
-  styleUrls: ['./create-competition.component.css']
+  selector: 'app-create-challenge',
+  templateUrl: './create-challenge.component.html',
+  styleUrls: ['./create-challenge.component.css']
 })
-export class CreateCompetitionComponent implements OnInit {
-
+export class CreateChallengeComponent implements OnInit {
 
   associatedActivity: ActivityModel = {
     ID: '',
@@ -25,29 +23,20 @@ export class CreateCompetitionComponent implements OnInit {
     Type: '',
     AthleteUsername: ''
   } 
-  competition: Competition = {
+  challenge:Challenge = {
     ID: '',
     Name: '',
-    Route: '',
-    Date: '',
+    EndDate: '',
+    StartDate: '',
     Privacy: '',
-    BankAccount: '',
-    Price: 0,
-    ActivityID: ''
+    Kilometers: 0,
+    Type: ''
   }
-
   constructor(private formBuilder: FormBuilder, private getService: GetService, private cookieSvc:CookieService, private postService: PostService) { }
+
   ngOnInit(): void {
   }
 
-  registerForm = this.formBuilder.group({
-    CompetitionID: '',
-    Category: ''
-  });
-  
-  registerForm2 = this.formBuilder.group({
-    Categories: this.formBuilder.array([], Validators.required)
-  });
 
   registerFormS = this.formBuilder.group({
     ID: '',
@@ -60,11 +49,7 @@ export class CreateCompetitionComponent implements OnInit {
   registerFormS2 = this.formBuilder.group({
     Sponsors: this.formBuilder.array([], Validators.required)
   });
-
-  get categories(){
-    return this.registerForm2.get('Categories') as FormArray;
-  }
-
+  
   get sponsors(){
     return this.registerFormS2.get('Sponsors') as FormArray;
   }
@@ -84,22 +69,9 @@ export class CreateCompetitionComponent implements OnInit {
     this.sponsors.removeAt(index);
   }
 
-  addCategories(){
-    const CategoriesFormGroup = this.formBuilder.group({
-      CompetitionID: '',
-      Category: ''
-    });
-    this.categories.push(CategoriesFormGroup);
-  }
-
-  removeCategory(index : number){
-    this.categories.removeAt(index);
-  }
-
-  addCompetition(){
-    this.associatedActivity.Name = this.competition.Name;
-    this.associatedActivity.Route = this.competition.Route;
-    this.associatedActivity.Date = this.competition.Date;
+  addChallenge(){
+    this.associatedActivity.Name = this.challenge.Name;
+    this.associatedActivity.Kilometers = this.challenge.Kilometers;
     this.associatedActivity.AthleteUsername = this.cookieSvc.get('Username');
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
@@ -109,7 +81,7 @@ export class CreateCompetitionComponent implements OnInit {
       }
     );
 
-    this.postService.createCompetition(this.competition).subscribe(
+    this.postService.createChallenge(this.challenge).subscribe(
       res =>{
       },
       err=>{
@@ -117,7 +89,7 @@ export class CreateCompetitionComponent implements OnInit {
       }
     );
 
-    this.registerFormS.get('CompetitionID')?.setValue(this.competition.ID);
+    this.registerFormS.get('CompetitionID')?.setValue(this.challenge.ID);
     this.postService.createSponsor(this.registerFormS.value).subscribe(
       res =>{
       },
@@ -127,33 +99,8 @@ export class CreateCompetitionComponent implements OnInit {
     );
 
     for(let i = 0; i < this.sponsors.length; i++){
-      this.sponsors.at(i).get('CompetitionID')?.setValue(this.competition.ID);
+      this.sponsors.at(i).get('ChallengeID')?.setValue(this.challenge.ID);
       this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
-        res =>{
-        },
-        err=>{
-          alert('Ha ocurrido un error')
-        }
-      );
-    }
-
-
-
-
-
-
-    this.registerForm.get('CompetitionID')?.setValue(this.competition.ID);
-    this.postService.createCompetitionCategories(this.registerForm.value).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-
-    for(let i = 0; i < this.categories.length; i++){
-      this.categories.at(i).get('CompetitionID')?.setValue(this.competition.ID);
-      this.postService.createCompetitionCategories(this.categories.at(i).value).subscribe(
         res =>{
         },
         err=>{
@@ -163,5 +110,4 @@ export class CreateCompetitionComponent implements OnInit {
     }
     
   }
-
 }
