@@ -93,7 +93,7 @@ namespace StraviaAPI.Controllers
 
             lbl_id = row["Id"].ToString();
             lbl_name = row["Name"].ToString();
-            lbl_bankaccount = row["BankAcoount"].ToString();
+            lbl_bankaccount = row["BankAccount"].ToString();
             lbl_competitionid = row["CompetitionID"].ToString();
 
             var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),

@@ -2,6 +2,7 @@ exec post_athlete 'gabogh99', 'Gabriel', 'Gonzalez', 'foto.png', 23, '1999-03-12
 exec post_athlete 'dani_08', 'Daniela', 'Brenes', 'foto.png', 21, '2001-05-08', 'dynamite', 'Costa Rica', 'Open'
 exec post_athlete 'omend', 'Oscar', 'Mendes', 'foto.png', 21, '2000-3-29', 'cot', 'Costa Rica', 'Open'
 exec post_athlete 'mjhca13', 'Maria Jesus', 'Hernandez', 'foto.png', 22, '1999-10-13', 'burbuja', 'Costa Rica', 'Open'
+exec post_athlete 'hazelhoudelath2', 'Hazel', 'Houdelath', 'foto.png', 1, '1973-12-02', 'hijos', 'Costa Rica', 'Master A'
 
 
 exec post_activity  'Act1','Nado en piscina','archivo.gpx','2022-05-17','09:29:02', 10.51, 'Fondo','gabogh99'
