@@ -1,23 +1,45 @@
-create trigger verifyAthletePost
-on dbo.Athlete for insert
-as
-declare @Username varchar(50),
-								@Name varchar(50),
-								@LastName varchar(50),
-								@Photo varchar(50),
-								@Age int,
-								@BirthDate date,
-								@Pass varchar(50),
-								@Nationality varchar(50),
-								@Category varchar(50)
-if not exists(select * from dbo.Athlete where Username = @Username)
-	begin
-		insert into dbo.Athlete(Username,Name,LastName,Photo,Age,BirthDate,Pass,Nationality,Category)
-	values(@Username,@Name,@LastName,@Photo,@Age,@BirthDate,@Pass,@Nationality,@Category)
-	end
-else
-	begin
-		set @err_message = @Username + 'exists raise sev 10'
-		RAISERROR(@err_message,10,1)
-	end
+create trigger ageAthlete
+on dbo.Athlete
+AFTER INSERT
+NOT FOR REPLICATION
+AS
+BEGIN
+update dbo.Athlete
+set Age = year(getdate())-year(BirthDate)
+end
 
+
+ALTER trigger categoryAthlete
+on dbo.Athlete
+AFTER INSERT
+NOT FOR REPLICATION
+AS
+BEGIN
+
+IF (Age between 0 and 14 ) begin
+	update dbo.Athlete
+	set Category = 'Junior'
+end
+
+IF (Age between 15 and 23 ) begin 
+	update dbo.Athlete
+	set Category = 'Sub-23'
+end
+
+IF (Age between 24 and 30) begin 
+	update dbo.Athlete
+	set Category = 'Open'
+	end
+IF (Age between 31 and 40) begin 
+	update dbo.Athlete
+	set Category = 'Master A'
+	end
+IF (Age between 41 and 50) begin 
+	update dbo.Athlete
+	set Category = 'Master B'
+	end
+IF (51 <= Age) begin  
+	update dbo.Athlete
+	set Category = 'Master C'	
+	end
+end
