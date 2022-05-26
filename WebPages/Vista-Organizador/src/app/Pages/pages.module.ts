@@ -8,6 +8,10 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './Home/home/home.component';
 import { ActivityComponent } from './activity/activity.component';
 import { CreateCompetitionComponent } from './create-competition/create-competition.component';
+import { CompetitionParticipantsComponent } from './competition-participants/competition-participants.component';
+import { CompetitionPositionsComponent } from './competition-positions/competition-positions.component';
+import { ModifyCompetitionComponent } from './modify-competition/modify-competition.component';
+import { CreateChallengeComponent } from './create-challenge/create-challenge.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +19,10 @@ import { CreateCompetitionComponent } from './create-competition/create-competit
     HomeComponent,
     ActivityComponent,
     CreateCompetitionComponent,
+    CompetitionParticipantsComponent,
+    CompetitionPositionsComponent,
+    ModifyCompetitionComponent,
+    CreateChallengeComponent,
   ],
   imports: [
     CommonModule,

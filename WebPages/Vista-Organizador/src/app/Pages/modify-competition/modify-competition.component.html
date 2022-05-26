@@ -4,10 +4,16 @@
     <div class="row d-flex align-items-center justify-content-left">
       <div class="col-md-6">
         <div class="card px-5 py-3">
-
+        <label>Seleccione la carrera: </label>
+            <select
+                [(ngModel)]="competitionSelected"
+                (change)="getCurrentCompetition()">
+                <option *ngFor="let list of competitionsArray; index as i" value="{{list.ID}}">{{list.ID}}</option>
+            </select>
+            <button (click)="deleteCompetition()">Eliminar Carrera</button>
           <!--Section about Register users -->
           <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
-            <h5 class="mt-3">Creación de Carreras <br> Gracias por utilizar StraviaTEC</h5>
+            <h5 class="mt-3">Modificación de Carreras <br> Gracias por utilizar StraviaTEC</h5>
             <small class="mt-2">Hacer ejercicio ayuda a tu salud física y mental</small>
             
             <div class="form-input">
@@ -19,10 +25,10 @@
             </div>
             <div class="form-input">
                 <i class="material-icons">insert_comment</i>
-                <input type="text" class="form-control" placeholder="ID de la carrera"
+                <input type="text" class="form-control" placeholder="ID de la carrera" 
                 [(ngModel)]="competition.ID" name="ID" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
-                required>
+                readonly>
             </div>
             <div class="form-input">
                 <i class="material-icons">calendar_today</i>
@@ -59,7 +65,7 @@
               <input type="text" class="form-control" placeholder="ID de la actividad"
               [(ngModel)]="associatedActivity.ID" name="Name" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
-              required>
+              readonly>
             </div>
             <div class="form-input">
               <i class="material-icons">timer</i>
@@ -88,51 +94,9 @@
                   <option value="Kayak">Kayak</option>
                 </select>
           </div>
-          <label for="tipo">Patrocinador a cargo de la carrera</label>
-          <form [formGroup]="registerFormS">
-            <div class="form-input">
-              <i class="material-icons">insert_comment</i>
-              <input type="text" class="form-control" placeholder="Nombre del Patrocinador" formControlName="Name"
-              required>
-            </div>
-  
-            <div class="form-input">
-              <i class="material-icons">insert_comment</i>
-              <input type="text" class="form-control" placeholder="Cédula Jurídica del Patrocinador" formControlName="ID"
-              required>
-            </div>
-            <div class="form-input">
-                <i class="material-icons">attach_money</i>
-                <input type="text" class="form-control" placeholder="#### - #### - #### - ####" formControlName="BankAccount"
-                required>
-            </div>
-          </form>
-          <button class="btn col-1 col-7" (click)="addSponsor()">Agregar otro patrocinador</button>
-          <form [formGroup]="registerFormS2">
-            <div formArrayName="Sponsors" *ngFor="let sponsor of sponsors.controls; let i = index">
-              <div [formGroupName]="i" >
-                <div class="form-input">
-                  <i class="material-icons">insert_comment</i>
-                  <input type="text" [attr.id]="'Name' + i" class="form-control" formControlName="Name" placeholder="Nombre del Patrocinador"
-                  required>
-                </div>
-                <div class="form-input">
-                  <i class="material-icons">insert_comment</i>
-                  <input type="text" [attr.id]="'ID' + i" class="form-control" formControlName="ID" placeholder="Cédula Jurídica"
-                  required>
-                </div>
-                <div class="form-input">
-                  <i class="material-icons">insert_comment</i>
-                  <input type="text" [attr.id]="'BankAccount' + i" class="form-control" formControlName="BankAccount" placeholder="Cuenta Bancaria"
-                  required>
-                </div>
-                <button class="btn col-7 col-9" (click)="removeSponsor(i)">Eliminar</button>
-              </div>
-            </div>
-          </form>
           <form [formGroup]="registerForm">
             <div>
-              <label for="Category">Seleccione la categoría o las categorías</label>    
+              <label for="Category">Agregue más categorías</label>    
               <div class="form-input">
                   <i class="material-icons">list</i>
                   <select class="form-control" id="Category" name="Category" formControlName="Category">
@@ -169,7 +133,7 @@
           </form>
             <div class="form-input text-center">
               <div class="row6">
-                <button class="btn col-1 col-4" (click)="addCompetition()">Agregar Carrera</button>
+                <button class="btn col-1 col-4" (click)="modifyCompetition()">Agregar Carrera</button>
                 <button class="btn col-1 col-7" (click)="addCategories()">Agregar otra Categoría</button>
               </div>
             </div>

@@ -46,4 +46,20 @@ export class GetService {
         let URL = this.baseURL + '/challenges';
         return this.http.get<any[]>(URL);
     }
+
+    getAthletesReport(CompetitionID:string):Observable<any>{
+        let URL = this.baseURL + '/report/' + CompetitionID;
+        return this.http.get<any[]>(URL);
+    }
+
+    getPositionsReport(CompetitionID:string):Observable<any>{
+        let URL = this.baseURL + '/position/' + CompetitionID;
+        return this.http.get<any[]>(URL);
+    }
+
+    getAthleteCreatedCompetitions(AthleteID:string):Observable<any>{
+        let URL = this.baseURL + '/competition/' + AthleteID;
+        return this.http.get<any[]>(URL);
+    }
+
 }

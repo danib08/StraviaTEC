@@ -8,6 +8,10 @@ import { ActivityModel } from "src/app/Models/activity-model";
 import { ActivityInChallenge } from "src/app/Models/activity-in-challenge";
 import { AthleteInChallenge } from "src/app/Models/athlete-in-challenge";
 import { AthleteInCompetition } from "src/app/Models/athlete-in-competition";
+import { Competition } from "src/app/Models/competition";
+import { FormControl } from "@angular/forms";
+import { Sponsor } from "src/app/Models/sponsor";
+import { Challenge } from "src/app/Models/challenge";
 
 
 @Injectable({
@@ -15,7 +19,7 @@ import { AthleteInCompetition } from "src/app/Models/athlete-in-competition";
 })
 export class PostService {
     private baseURL = 'https://pruebaa.free.beeceptor.com';
-    private searchURL = 'https://pruebaa.free.beeceptor.com/search';
+    private searchURL = 'https://straviatec.free.beeceptor.com/search';
     /**
     * Método constructor
     * @param http 
@@ -53,5 +57,21 @@ export class PostService {
 
     createAthleteInCompetition(aIC: AthleteInCompetition): Observable<any>{
         return this.http.post<any>(this.baseURL, aIC);
+    }
+
+    createCompetition(competition:Competition):Observable<any>{
+        return this.http.post<any>(this.baseURL,competition);
+    }
+
+    createChallenge(challenge:Challenge):Observable<any>{
+        return this.http.post<any>(this.baseURL,challenge);
+    }
+
+    createCompetitionCategories(category:FormControl):Observable<any>{
+        return this.http.post<any>(this.baseURL, category);
+    }
+
+    createSponsor(sponsor:Sponsor):Observable<any>{
+        return this.http.post<any>(this.baseURL,sponsor);
     }
 }
