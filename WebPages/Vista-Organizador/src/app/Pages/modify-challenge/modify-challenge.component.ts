@@ -29,10 +29,10 @@ export class ModifyChallengeComponent implements OnInit {
   constructor(private getService: GetService, private cookieSvc:CookieService, private postService: PostService, private putService: PutService, private deleteService: DeleteService) { }
 
   ngOnInit(): void {
-    //this.getAllChallenges(this.cookieSvc.get('Username'));
+    this.getAllChallenges(this.cookieSvc.get('Username'));
   }
 
-  modifyChallenge(){
+  modifychallenge(){
     this.putService.modifyChallenge(this.challenge).subscribe(
       res => {
       },
@@ -43,7 +43,7 @@ export class ModifyChallengeComponent implements OnInit {
   }
 
   getAllChallenges(AthleteID:string){
-    this.getService.getAthleteCreatedCompetitions(AthleteID).subscribe(
+    this.getService.getAthleteCreatedChallenges(AthleteID).subscribe(
       res => {
         this.challengesArray = res;
       },

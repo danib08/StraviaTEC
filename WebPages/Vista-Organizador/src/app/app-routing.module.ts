@@ -21,7 +21,7 @@ const routes: Routes = [
   {path: 'createChallenges', component: CreateChallengeComponent},
   {path: 'createGroups', component: CreateGroupComponent},
   {path: 'acceptRegister', component: AcceptRegistrationComponent},
-  {path: 'manageChallenge', component:ModifyChallengeComponent},
+  {path: 'manageChallenges', component:ModifyChallengeComponent},
   {path: "**", redirectTo: "login", pathMatch:"full"}
 ];
 
