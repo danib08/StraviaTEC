@@ -21,6 +21,7 @@ export class CompetitionPositionsComponent implements OnInit {
   ngOnInit(): void {
     this.getAthleteCompetitions();
   }
+
   getAthleteCompetitions(){
     this.getService.getAthleteinCompetition(this.cookieSvc.get('Username')).subscribe(
       res=>{
@@ -31,6 +32,7 @@ export class CompetitionPositionsComponent implements OnInit {
       }
     );
   }
+
   getCurrentCompetitionReport(){
     this.getService.getPositionsReport(this.competitionSelected).subscribe(
       res=>{
@@ -41,6 +43,7 @@ export class CompetitionPositionsComponent implements OnInit {
       }
     );
   }
+  
   downloadPDF() {
     const DATA = document.getElementById('htmlData') as HTMLCanvasElement;
     const doc = new jsPDF('p', 'pt', 'a4');

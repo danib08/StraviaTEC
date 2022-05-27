@@ -12,6 +12,7 @@ import { Competition } from "src/app/Models/competition";
 import { FormControl } from "@angular/forms";
 import { Sponsor } from "src/app/Models/sponsor";
 import { Challenge } from "src/app/Models/challenge";
+import { Group } from "src/app/Models/group";
 
 
 @Injectable({
@@ -73,5 +74,9 @@ export class PostService {
 
     createSponsor(sponsor:Sponsor):Observable<any>{
         return this.http.post<any>(this.baseURL,sponsor);
+    }
+
+    createGroup(group:Group):Observable<any>{
+        return this.http.post<any>(this.baseURL,group);
     }
 }

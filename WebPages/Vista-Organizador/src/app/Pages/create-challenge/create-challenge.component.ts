@@ -23,6 +23,7 @@ export class CreateChallengeComponent implements OnInit {
     Type: '',
     AthleteUsername: ''
   } 
+  
   challenge:Challenge = {
     ID: '',
     Name: '',

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { Competition } from "src/app/Models/competition";
 
 @Injectable({
     providedIn: 'root'
@@ -62,4 +63,18 @@ export class GetService {
         return this.http.get<any[]>(URL);
     }
 
+    getAthleteCreatedGroups(AthleteID:string):Observable<any>{
+        let URL = this.baseURL + '/groups/' + AthleteID;
+        return this.http.get<any[]>(URL);
+    }
+
+    getAthleteCreatedChallenges(AthleteID:string):Observable<any>{
+        let URL = this.baseURL + '/challenge/' + AthleteID;
+        return this.http.get<any[]>(URL);
+    }
+
+    getAthleteRegister(CompetitionID:string){
+        let URL = this.baseURL + '/register/' + CompetitionID;
+        return this.http.get<any[]>(URL);
+    }
 }

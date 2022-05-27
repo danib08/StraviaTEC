@@ -12,6 +12,9 @@ import { CompetitionParticipantsComponent } from './competition-participants/com
 import { CompetitionPositionsComponent } from './competition-positions/competition-positions.component';
 import { ModifyCompetitionComponent } from './modify-competition/modify-competition.component';
 import { CreateChallengeComponent } from './create-challenge/create-challenge.component';
+import { CreateGroupComponent } from './create-group/create-group.component';
+import { AcceptRegistrationComponent } from './accept-registration/accept-registration.component';
+import { ModifyChallengeComponent } from './modify-challenge/modify-challenge.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { CreateChallengeComponent } from './create-challenge/create-challenge.co
     CompetitionPositionsComponent,
     ModifyCompetitionComponent,
     CreateChallengeComponent,
+    CreateGroupComponent,
+    AcceptRegistrationComponent,
+    ModifyChallengeComponent,
   ],
   imports: [
     CommonModule,

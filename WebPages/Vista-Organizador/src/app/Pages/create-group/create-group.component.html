@@ -1,0 +1,62 @@
+<app-header></app-header>
+<body>
+  <div class="container">
+    <div class="row d-flex align-items-center justify-content-left">
+      <div class="col-md-6">
+        <div class="card px-5 py-3">
+
+          <!--Section about Register users -->
+          <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
+            <h5 class="mt-3">Creación de Grupos <br> Gracias por utilizar StraviaTEC</h5>
+            <small class="mt-2">Hacer ejercicio ayuda a tu salud física y mental</small>
+            
+            <div class="form-input">
+              <i class="material-icons">comment</i>
+              <input type="text" class="form-control" placeholder="Nombre"
+              [(ngModel)]="group.Name" name="Nombre" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+            </div>
+
+            <div class="form-input text-center">
+              <div class="row6">
+                <button class="btn col-1 col-4" (click)="addGroup()">Crear Grupo</button>
+              </div>
+            </div>
+            
+          </form>
+          
+
+          <h5 class="mt-3">Modificación y eliminación de Grupos <br> Gracias por utilizar StraviaTEC</h5>
+            <small class="mt-2">Hacer ejercicio ayuda a tu salud física y mental</small>
+            <label>Seleccione el grupo: </label>
+            <select
+                [(ngModel)]="groupSelected"
+                (change)="getCurrentGroup()">
+                <option *ngFor="let list of groupsArray; index as i" value="{{list.Name}}">{{list.Name}}</option>
+            </select>
+            <button (click)="deleteGroup()">Eliminar Grupo</button>
+          <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
+            <div class="form-input">
+              <i class="material-icons">comment</i>
+              <input type="text" class="form-control" placeholder="Nuevo nombre"
+              [(ngModel)]="editedGroup.Name" name="Nombre" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+            </div>
+            <div class="form-input text-center">
+              <div class="row6">
+                <button class="btn col-1 col-4" (click)="changeGroup()">Modificar Grupo</button>
+              </div>
+            </div>
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+</body>
+<app-footer></app-footer>
+
