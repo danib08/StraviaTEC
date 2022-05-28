@@ -12,7 +12,12 @@ exec post_activity 'Act4','Mejenguita','archivo.gpx','2022-05-17','01:45:41', 7.
 exec post_activity 'Act5','Trote por la ciudad','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Fondo','gabogh99'
 exec post_activity 'Act7','Ciclismo montaña','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Fondo','gabogh99'
 
-
+exec post_follower 'dani_08','gabogh99'
+exec post_follower 'gabogh99','dani_08'
+exec post_follower 'dani_08','omend'
+exec post_follower 'omend','dani_08'
+exec post_follower 'gabogh99','omend'
+exec post_follower 'omend','gabogh99'
 
 exec post_challenge 'Chal1','Reto fin de semana atleta','2022-05-18','2022-05-20','Privado', 23.29, 'Fondo'
 exec post_challenge 'Chal2','Reto decatlón 2021','2022-05-18','2022-05-22','Privado', 10.51, 'Fondo'

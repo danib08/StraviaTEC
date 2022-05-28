@@ -41,7 +41,6 @@ else
 		select * from sys.messages where  message_id=2601 and language_id = 1033
 	end
 end
-
 go
 
 create procedure put_activity(	@Id varchar(50),
@@ -55,7 +54,6 @@ as
 begin
 update dbo.Activity set Name=@Name,Route=@Route,Date=@Date,Type=@Type,AthleteUsername=@AthleteUsername
 where Id=@Id
-
 end
 go 
 
@@ -314,14 +312,16 @@ go
 create procedure post_Athlete_Competition(
 							@AthleteID varchar(50),
 							@CompetitionID varchar(50),
-							@Status varchar(50)
+							@Status varchar(50),
+							@Receipt varchar(200),
+							@Duration time
 )
 as
 begin
 if not exists(select * from dbo.Athlete_In_Competition where AthleteID = @AthleteID and CompetitionID= @CompetitionID)
 	begin
-		insert into dbo.Athlete_In_Competition(AthleteID,CompetitionID,Status)
-		values(@AthleteID,@CompetitionID,@Status)
+		insert into dbo.Athlete_In_Competition(AthleteID,CompetitionID,Status,Receipt,Duration)
+		values(@AthleteID,@CompetitionID,@Status,@Receipt,@Duration)
 
 	end
 else
@@ -329,8 +329,23 @@ else
 		select * from sys.messages where  message_id=2601 and language_id = 1033
 	end
 end
-
 go
+
+
+create procedure put_Athlete_Competition(
+							@AthleteID varchar(50),
+							@CompetitionID varchar(50),
+							@Status varchar(50),
+							@Receipt varchar(200),
+							@Duration time)
+as
+begin
+update dbo.Athlete_In_Competition set AthleteID=@AthleteID,CompetitionID=@CompetitionID,Status=@Status,Receipt=@Receipt,Duration=@Duration
+where AthleteID=@AthleteID and CompetitionID=@CompetitionID
+end
+go
+
+
 
 create procedure delete_Athlete_Competition( @AthleteID varchar(50),
 								@CompetitionID varchar(50))
@@ -587,7 +602,7 @@ create procedure put_group(@Name varchar(50),
 							@AdminUsername varchar(50))
 as
 begin
-update dbo.Groups set AdminUsername=@AdminUsername
+update dbo.Groups set Name=@Name, AdminUsername=@AdminUsername
 where Name=@Name
 
 end
@@ -738,7 +753,6 @@ begin
 
 select * from dbo.Activity_In_Challenge
 where ActivityID = @ActivityID and ChallengeID = @ChallengeID
-
 end
 go
 
@@ -768,5 +782,18 @@ as
 begin
 delete from dbo.Activity_In_Challenge
 where ActivityID = ActivityID and ChallengeID = @ChallengeID
+end
+go
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+create procedure get_feed(@Username varchar(50))
+as
+begin
+select * from dbo.friends_Act
+where  AthleteID = @Username
 end
 go
