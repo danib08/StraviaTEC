@@ -357,7 +357,7 @@ namespace StraviaAPI.Controllers
         /// <param name="username"></param>
         /// <returns>Accpetance of query</returns>
 
-        [HttpDelete]
+        [HttpDelete("{username}")]
         public ActionResult DeleteAthlete(string username)
         {
             string query = @"
