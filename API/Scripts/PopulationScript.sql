@@ -12,7 +12,12 @@ exec post_activity 'Act4','Mejenguita','archivo.gpx','2022-05-17','01:45:41', 7.
 exec post_activity 'Act5','Trote por la ciudad','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Fondo','gabogh99'
 exec post_activity 'Act7','Ciclismo montaña','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Fondo','gabogh99'
 
-
+exec post_follower 'dani_08','gabogh99'
+exec post_follower 'gabogh99','dani_08'
+exec post_follower 'dani_08','omend'
+exec post_follower 'omend','dani_08'
+exec post_follower 'gabogh99','omend'
+exec post_follower 'omend','gabogh99'
 
 exec post_challenge 'Chal1','Reto fin de semana atleta','2022-05-18','2022-05-20','Privado', 23.29, 'Fondo'
 exec post_challenge 'Chal2','Reto decatlón 2021','2022-05-18','2022-05-22','Privado', 10.51, 'Fondo'
@@ -37,26 +42,42 @@ exec post_sponsors '3-2343-6262','CicloBike','1-6146-1375-7','Comp1'
 exec post_sponsors '3-5246-4683','Adidas','1-4515-3462-9','Comp2'
 
 
-{
-  "username": "dani_08",
-  "name": "Valeria",
-  "lastName": "Perez",
-  "photo": "fotito",
-  "age": 21,
-  "birthDate": "2022-05-17T00:20:50.543Z",
-  "pass": "holas",
-  "nationality": "panama",
-  "category": "open"
-}
+insert into dbo.Athlete (Username,Name,LastName,Photo,Age,BirthDate,Pass,Nationality,Category)
+values('gabogh99', 'Gabriel', 'Gonzalez', 'foto.png', 23, '1999-03-12', 'siuuu', 'Costa Rica', 'Open')
 
-{
-  "username": "mjhca13",
-  "name": "Maria Jesus",
-  "lastName": "Hernandez",
-  "photo": "foto.png",
-  "age": 22,
-  "birthDate": "1999-10-13T00:20:50.543Z",
-  "pass": "burbuja",
-  "nationality": "Costa Rica",
-  "category": "Open"
-}
+insert into dbo.Groups (Name,AdminUsername)
+values('Ciclismo TEC', 'gabogh99')
+
+insert into dbo.Group_Member (GroupName,MemberID)
+values('Ciclismo TEC', 'gabogh99')
+values('Ciclismo TEC', 'dani_08')
+values('Ciclismo TEC', 'omend')
+values('Futbol Cot ', 'gabogh99')
+values('Futbol Cot ', 'omend')
+
+
+
+insert into dbo.Athlete_In_Challenge
+(AthleteID,ChallengeID,Status)
+values('gabogh99', 'Chal1','Waiting'),
+('dani_08', 'Chal1','En curso'),
+('omend', 'Chal3','En curso'),
+('gabogh99', 'Chal3','Waiting'),
+('omend', 'Chal2','Waiting')
+
+
+insert into dbo.Activity_In_Challenge
+(ActivityID,ChallengeID)
+values('Act2', 'Chal1'),
+('Act2', 'Chal2'),
+('Act4', 'Chal3'),
+('Act4', 'Chal2'),
+('Act5', 'Chal3')
+
+insert into dbo.Athlete_In_Competition
+(AthleteID,CompetitionID,Status,Receipt, Duration)
+values('gabogh99', 'Comp1','Waiting','recibo.pdf','02:21:14'),
+('dani_08', 'Comp1','En curso','recibo.pdf','02:21:14'),
+('omend', 'Comp1','En curso','recibo.pdf','02:21:14'),
+('gabogh99', 'Comp3','Waiting','recibo.pdf','02:21:14'),
+('omend', 'Comp3','Waiting','recibo.pdf','02:21:14')

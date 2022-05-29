@@ -107,6 +107,56 @@ namespace StraviaAPI.Controllers
         }
 
         /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("{AdminUsername}")]
+        public string GetGroupByAdmin(string adminUsername)
+        {
+
+            string lbl_name;
+            string lbl_adminuser;
+
+            //SQL Query
+            string query = @"
+                             exec get_group_byAdmin @adminusername
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@adminusername", adminUsername);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            if (table.Rows.Count > 0)
+            {
+                DataRow row = table.Rows[0];
+
+                lbl_adminuser = row["AdminUsername"].ToString();
+                lbl_name = row["Name"].ToString();
+
+                var data = new JObject(new JProperty("AdminUsername", lbl_adminuser), new JProperty("Name", lbl_name));
+                return data.ToString();
+            }
+            else
+            {
+                var data = new JObject(new JProperty("Existe", "no"));
+                return data.ToString();
+            }
+        }
+
+        /// <summary>
         /// Post method to create groups
         /// </summary>
         /// <param name="group"></param>
@@ -182,7 +232,7 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Query result</returns>
-        [HttpDelete]
+        [HttpDelete("{name}")]
         public ActionResult DeleteGroup(string name)
         {
             //SQL Query
