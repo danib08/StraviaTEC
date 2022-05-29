@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "WvhVrDzaXq9u1UYCg1LaFjBl9/u3h+/kVX5bqnEo2HarFBRfMEzJK6Y53ee420yGGFjWvydOSxD4YIz9H/IXRw==",
+  "dgSpecHash": "8U7wXgLJgbOYClJrmY8igaqmunj+l7wi1af6vygXdvvag6VrPh/47oRjIeirPBFxZFzmxScTMDlMJ9QfA6Ke0Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\usuario\\Proyecto 2 BD\\StraviaTEC\\AppMobile\\AppMobile.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\usuario\\.nuget\\packages\\microsoft.rest.clientruntime\\2.3.24\\microsoft.rest.clientruntime.2.3.24.nupkg.sha512",
+    "C:\\Users\\usuario\\.nuget\\packages\\microsoft.rest.clientruntime.azure\\3.3.19\\microsoft.rest.clientruntime.azure.3.3.19.nupkg.sha512",
     "C:\\Users\\usuario\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\usuario\\.nuget\\packages\\plugin.permissions\\6.0.1\\plugin.permissions.6.0.1.nupkg.sha512",
     "C:\\Users\\usuario\\.nuget\\packages\\sqlite-net-pcl\\1.8.116\\sqlite-net-pcl.1.8.116.nupkg.sha512",

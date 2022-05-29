@@ -34,6 +34,14 @@
       "frameworks": {
         "monoandroid12.0": {
           "dependencies": {
+            "Microsoft.Rest.ClientRuntime": {
+              "target": "Package",
+              "version": "[2.3.24, )"
+            },
+            "Microsoft.Rest.ClientRuntime.Azure": {
+              "target": "Package",
+              "version": "[3.3.19, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.1, )"

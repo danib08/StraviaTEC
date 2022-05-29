@@ -11,7 +11,8 @@ using Android.Locations;
 using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
-//using MobileApp;
+using MobileApp;
+using System.Threading.Tasks;
 
 namespace AppMobile.Activities
 {
@@ -19,16 +20,19 @@ namespace AppMobile.Activities
     public class MainActivity : AppCompatActivity{
         private Button buttonlogin;
         private Button buttonregister;
-        //private Database db;
+        private Database db;
 
         protected override async void OnCreate(Bundle savedInstanceState){
             base.OnCreate(savedInstanceState);
             Platform.Init(this, savedInstanceState);
-            SetContentView(Resource.Layout.activity_main);
-            //db = new Database();
-            //db.CreateDatabase();
-            //await db.SyncAsync();
+            
+            // Database synchronization
+            db = new Database();
+            db.CreateDatabase();
+            await db.SyncAsync();
 
+
+            SetContentView(Resource.Layout.activity_main);
             this.buttonlogin = FindViewById<Button>(Resource.Id.btnlogin);
             this.buttonregister = FindViewById<Button>(Resource.Id.btnregister);
             
@@ -44,6 +48,12 @@ namespace AppMobile.Activities
                 StartActivity(intent);
             };
         }
-       
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
+        {
+            Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
     }
 }

@@ -3,7 +3,6 @@ using Android.Gms.Maps;
 using Android.Gms.Maps.Model;
 using Xamarin.Essentials;
 using Android.OS;
-using Android.Runtime;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using System;
@@ -38,29 +37,31 @@ namespace AppMobile.Activities
         private Button buttonStop;
         private Button buttonFinish;
         private Timer timer;
-        private List<Gpx> totalRoute;
-        private int hour = 0, min = 0, sec = 0;
-
+        private int hour = 0, min = 0, sec = 0, velocidad = 0;
+        private string trkpt;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Platform.Init(this, savedInstanceState);
             SetContentView(Resource.Layout.activity);
 
+            //Set all variable of the interface
             this.textVelocidad = FindViewById<TextView>(Resource.Id.textVelocidad);
             this.textTotalDistance = FindViewById<TextView>(Resource.Id.textDistance);
             this.buttonFinish = FindViewById<Button>(Resource.Id.finishActivity);
             this.buttonStop = FindViewById<Button>(Resource.Id.stopActivity);
             this.txtTimer = FindViewById<TextView>(Resource.Id.txtTimer);
-
-            this.totalRoute = new List<Gpx>();
+            this.trkpt = "";
             this.stop = true;
             this.first = true;
             this.totalDistance = 0;
 
+            //Set the google map
             SetUpMap();
+            //Set the manager location of the user
             InitializeLocationManager();
 
+            //chronometer 
             timer = new Timer();
             timer.Interval = 1000; // 1 second  
             timer.Elapsed += Timer_Elapsed;
@@ -82,20 +83,23 @@ namespace AppMobile.Activities
                 }
             };
         }
+        //Method for the chronometer 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             sec++;
             if (sec == 60){
                 min++;
+                velocidad++;
+                double res = this.totalDistance / (velocidad);
+                this.textVelocidad.Text = res.ToString("0.00");
                 sec = 0;
             }if (min == 60){
                 hour++;
-                double res = this.totalDistance / hour;
-                this.textVelocidad.Text = res.ToString("0.00");
                 min = 0;
             }RunOnUiThread(() => { txtTimer.Text = $"{hour}:{min}:{sec}"; });
         }
 
+        //Initialize the location manager
         private void InitializeLocationManager()
         {
             locationManager = (LocationManager)GetSystemService(LocationService);
@@ -115,11 +119,13 @@ namespace AppMobile.Activities
             }
 
         }
+        //Initialize the google maps freagment
         private void SetUpMap(){
             if (mMap == null){
                 FragmentManager.FindFragmentById<MapFragment>(Resource.Id.mapGoogle).GetMapAsync(this);
             }
         }
+        //Initialize the google maps
         public void OnMapReady(GoogleMap googleMap)
         {
             mMap = googleMap;
@@ -129,57 +135,64 @@ namespace AppMobile.Activities
             googleMap.MoveCamera(CameraUpdateFactory.ZoomIn());
 
         }
+        //Make the xml of the gpx
         public string makeGpx(){
-            string trkpt = "";
-            for (int i = 0; i < this.totalRoute.Count; i++){
-                trkpt += 
-                    "<trkpt"+ "lat="+this.totalRoute[i].lat.ToString("s") +"lon="+this.totalRoute[i].lon.ToString("s") +">"
-                    +"<ele>"+ this.totalRoute[i].ele.ToString("s") + "</ele>"
-                    +"<time>" + this.totalRoute[i].time.ToString("s") + "Z</time>"
-                    +"</trkpt>";
-            }
             string gpx = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-            + "<gpx xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\" xmlns:gpxx=\"http://www.garmin.com/xmlschemas/GpxExtensions/v3\" xmlns:ns1=\"http://www.cluetrust.com/XML/GPXDATA/1/0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" creator=\"Zamfit\" version=\"1.3\" xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd\">"
-            + "<metadata><time>2022-01-01T00:00:00Z</time></metadata>"
+            + "<gpx xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\" " +
+            "xmlns:gpxx=\"http://www.garmin.com/xmlschemas/GpxExtensions/v3\" xmlns:ns1=\"http://www.cluetrust.com/XML/GPXDATA/1/0\" " +
+            "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" creator=\"Zamfit\" version=\"1.3\" " +
+            "xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd\">"
+            + "<metadata><time>"+DateTime.Now.ToString("s")+"Z</time></metadata>"
             + "<trk>"
             + "<name>Activity Name</name>"
             + "<trkseg>"
-            + trkpt
+            + this.trkpt
             + "</trkseg>"
             + "</trk>"
             + "</gpx>";
             return gpx;
         }
-
+        //Pause the aplication
         protected override void OnPause()
         {
             base.OnPause();
             this.timer.Stop();
             locationManager.RemoveUpdates(this);
         }
+        //Resume the aplication
         protected override void OnResume()
         {
             base.OnResume();
             this.timer.Start();
             locationManager.RequestLocationUpdates(locationProvider, 1000, 1, this);
         }
-
+        //Adjust map values
         public void OnLocationChanged(Android.Locations.Location location){
             Double lat, lng, ele;
             lat = location.Latitude;
             lng = location.Longitude;
-            ele = location.Altitude;
-            Gpx gps = new Gpx(lat, lng, ele, DateTime.Now);
+            //ele = location.Altitude;
 
+            //this.trkpt +=
+            //        "<trkpt" + "lat=" + lat.ToString("s") + "lon=" + lng.ToString("s") + ">"
+            //        + "<ele>" + ele.ToString("s") + "</ele>"
+            //        + "<time>" + DateTime.Now.ToString("s") + "Z</time>"
+            //        + "</trkpt>";
+            
             if (this.first){
-                this.myPosition = new LatLng(lat, lng);
-                this.lastPosition = this.myPosition;
-                this.first = false;
-                
-            }else{
+                this.myPosition.Latitude = lat;
+                this.myPosition.Longitude = lng;
 
-                this.lastPosition = this.myPosition;
-                this.myPosition = new LatLng(lat, lng);
+                this.lastPosition.Latitude = this.myPosition.Latitude;
+                this.lastPosition.Longitude = this.myPosition.Longitude;
+                
+                this.first = false;
+            }else{
+                this.lastPosition.Latitude= this.myPosition.Latitude;
+                this.lastPosition.Longitude= this.myPosition.Longitude;
+
+                this.myPosition.Latitude = lat;
+                this.myPosition.Longitude = lng;
 
                 double distance = Xamarin.Essentials.Location.CalculateDistance(lastPosition.Latitude, lastPosition.Longitude, myPosition.Latitude, myPosition.Longitude, DistanceUnits.Kilometers);
                 this.totalDistance += distance;
@@ -190,7 +203,6 @@ namespace AppMobile.Activities
                 CameraUpdate camUpdate = CameraUpdateFactory.NewLatLngZoom(myPosition, 17);
                 mMap.MoveCamera(camUpdate);
             }
-            this.totalRoute.Add(gps);
 
         }
 

@@ -10,6 +10,9 @@ using AppMobile.Models;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using Xamarin.Essentials;
+using Android.Content.Res;
+using Android.Widget;
+using MobileApp.Models;
 
 namespace MobileApp
 {
@@ -17,13 +20,13 @@ namespace MobileApp
     {
         private readonly string folder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
         
-        private static readonly HttpClient client = new HttpClient();
+        private HttpClient client = new HttpClient();
+
         private const string Ipv4 = "192.168.0.16";
-        private readonly string BaseAddress = "https://" + Ipv4 + ":44319/api/";
-        public bool CreateDatabase()
-        {
-            try
-            {
+        private readonly string baseAddress = "https://" + Ipv4 + ":5001/api/";
+        private readonly string baseAddress2 = "http://" + Ipv4 + ":5000/api/";
+        public bool CreateDatabase(){
+            try{
                 using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
                 connection.CreateTable<Athlete>();
                 return true;
@@ -37,67 +40,50 @@ namespace MobileApp
 
         //SQL Synchronization 
         public async Task SyncAsync(){
-            client.BaseAddress = new Uri(BaseAddress);
+            client.BaseAddress = new Uri(baseAddress);
             await SyncAthleteAsync();
         }
-
-        private async Task SyncAthleteAsync(){
+        private async Task SyncAthleteAsync() {
             string url = "Athlete";
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            
+            //Aqui se cae 
             string response = await client.GetStringAsync(url);
-            if (response == null){
-                Debug.WriteLine("---------- False!");
-            }
-            else {
-                Debug.WriteLine("---------- True!");
-            }
+            
+
             List<Athlete> serverList = JsonConvert.DeserializeObject<List<Athlete>>(response);
-            List<Athlete> localList = GetAthletes();
-            List<Athlete> newList = serverList;  // Copy server data to local app data
-                                                 // Check for new data on app in order to keep it
-            //foreach (Athlete local in localList)
-            //{
-            //    bool isLocalChange = true;
+            List<Athlete> newList = serverList; 
 
-            //    foreach (Athlete server in serverList)
-            //    {
-            //        // Checks if data was already on the server
-            //        if (local.username == server.username)
-            //        {
-            //            isLocalChange = false;
-            //            break;
-            //        }
-            //    }
-            //    if (isLocalChange)
-            //    {
-            //        // Adds new data if it wasn't yet on the server
-            //        newList.Add(local);
+            List<AthleteLocal> localList = GetLocalAthlete();
+            foreach (AthleteLocal item in localList)
+            {
+                newList.Add(item);
 
-            //        // Post to server
-            //        string json = JsonConvert.SerializeObject(local);
-            //        var content = new StringContent(json, Encoding.UTF8, "application/json");
-            //        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            //        await client.PostAsync(url, content);
-            //    }
-            //}
+                // Post to server
+                string json = JsonConvert.SerializeObject(item);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                await client.PostAsync(url, content);
+            }
 
-            //// Clear all data in Customer Table
-            //using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
-            //connection.Query<Athlete>("DELETE FROM Athlete");
+            // Clear all data in Customer Table
+            using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
+            connection.Query<Athlete>("DELETE FROM Athlete");
+            connection.Query<AthleteLocal>("DELETE FROM AthleteLocal");
 
-            //// Adds updated data to local database
-            //foreach (Athlete c in newList)
-            //{
-            //    connection.Insert(c);
-            //}
+            // Add updated data to app database
+            foreach (Athlete c in newList)
+            {
+                connection.Insert(c);
+            }
         }
-        public List<Athlete> GetAthletes()
+        public List<AthleteLocal> GetLocalAthlete()
         {
             try
             {
                 using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
-                return connection.Table<Athlete>().ToList();
+                return connection.Table<AthleteLocal>().ToList();
             }
             catch (SQLiteException ex)
             {
@@ -105,21 +91,6 @@ namespace MobileApp
                 return null;
             }
         }
-        //    public Athlete GetAthlete(string username)
-        //    {
-        //        try
-        //        {
-        //            using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
-        //            List<Athlete> customers = connection.Query<Athlete>("SELECT * FROM Athlete Where Username=?", username);
-        //            return customers.Find(customer => customer.username == username); ;
-        //        }
-        //        catch (SQLiteException ex)
-        //        {
-        //            Log.Info("SQLiteEx", ex.Message);
-        //            return null;
-        //        }
-
-        //    }
 
     }
 }

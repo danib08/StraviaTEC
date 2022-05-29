@@ -57,7 +57,7 @@
             android:textColor="@color/blackPalette"/>
         <TextView
             style="@style/body"
-            android:text="Velocidad (km/h)"
+            android:text="Velocidad (km/min)"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
