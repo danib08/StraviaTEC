@@ -140,41 +140,6 @@ namespace StraviaAPI.Controllers
             
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
 
-        /*
-            //Primary Key Validations
-            string validation = @"select Id from dbo.Activity";
-
-            DataTable validTable = new DataTable(); //Created table for validations
-            SqlDataReader validReader;
-            using (SqlConnection validCon = new SqlConnection(sqlDataSource)) //Connection created
-            {
-                validCon.Open(); //Opened validation Connection
-                using (SqlCommand validCommand = new SqlCommand(validation, validCon))//Command created with query and connection
-                {
-                    validCommand.Parameters.AddWithValue("@Id", activity.Id);
-                    validReader = validCommand.ExecuteReader();
-                    validTable.Load(validReader); //Usernames Data loaded to table
-                    validReader.Close();
-                    validCon.Close(); //Closed connection
-                }
-            }
-
-            foreach (DataRow row in validTable.Rows) //Iterates the data stored in the table
-            {
-                foreach (var item in row.ItemArray)
-                { //Gets the item in every row
-
-                    if (item.Equals(activity.Id))
-                    { //Verifies if is equal to the primary key
-
-                        return BadRequest(); //Returns rejection
-
-                    }
-
-                }
-            }
-        */
-
             string query = @"
                              exec post_activity @id,@name,@route,@date,@duration,@kilometers,@type,@athleteusername
                             "; //Query insert sent to SQL Server
@@ -253,7 +218,7 @@ namespace StraviaAPI.Controllers
         /// <param name="id"></param>
         /// <returns>Action result of query</returns>
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteActivity(string id)
         {
             string query = @"

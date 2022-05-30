@@ -152,7 +152,7 @@ namespace StraviaAPI.Controllers
         /// <param name="challengeid"></param>
         /// <returns>Result of query</returns>
 
-        [HttpDelete]
+        [HttpDelete("{activityid}/{challengeid}")]
         public ActionResult DeleteAthFriend(string activityid, string challengeid)
         {
             string query = @"

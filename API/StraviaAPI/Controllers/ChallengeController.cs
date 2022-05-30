@@ -206,7 +206,7 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Query result</returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult DeleteActivity(string id)
         {
             //SQL Query

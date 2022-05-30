@@ -157,7 +157,7 @@ namespace StraviaAPI.Controllers
         /// <param name="member"></param>
         /// <returns>Query result</returns>
 
-        [HttpDelete]
+        [HttpDelete("{name}/{member}")]
         public ActionResult DeleteGroupMember(string name, string member)
         {
             //SQL Query

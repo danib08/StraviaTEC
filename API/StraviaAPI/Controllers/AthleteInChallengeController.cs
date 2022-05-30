@@ -164,7 +164,7 @@ namespace StraviaAPI.Controllers
         /// <param name="id"></param>
         /// <param name="challengeID"></param>
         /// <returns>Result of query</returns>
-        [HttpDelete]
+        [HttpDelete("{id}/{challenge}")]
         public ActionResult DeleteAthChallenge(string id, string challengeID)
         {
             // SQL Server query

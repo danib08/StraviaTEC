@@ -154,7 +154,7 @@ namespace StraviaAPI.Controllers
         /// <param name="id"></param>
         /// <param name="category"></param>
         /// <returns>Query result</returns>
-        [HttpDelete]
+        [HttpDelete("{id}/{category}")]
         public ActionResult DeleteCompCategory(string id, string category)
         {
             //SQL Query sent 

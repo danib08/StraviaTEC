@@ -64,7 +64,7 @@ namespace StraviaAPI.Controllers
         /// <returns>Json result with athlete in a competition</returns>
 
         [HttpGet("{id}/{competition}")]
-        public string GetAthCompetition(string id, string competition)
+        public string GetAthsComps(string id, string competition)
         {
             string lbl_athleteid;
             string lbl_competitionid;
@@ -112,6 +112,39 @@ namespace StraviaAPI.Controllers
                 var data = new JObject(new JProperty("Existe", "no"));
                 return data.ToString();
             }
+        }
+
+        /// <summary>
+        /// Method to get a specific athlete in a specific competition
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="competition"></param>
+        /// <returns>Json result with athlete in a competition</returns>
+
+        [HttpGet("{id}")]
+        public JsonResult GetAthCompetitions(string id, string competition)
+        {
+            
+            //Query sent to SQL Server
+            string query = @"
+                             exec get_all_AICO
+                            ";
+            DataTable table = new DataTable(); //Created table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) // Connection created
+            {
+                myCon.Open(); //Opened connection
+                using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+                    myReader = myCommand.ExecuteReader(); //Reading command's data
+                    table.Load(myReader); //Loads data to table
+                    myReader.Close();
+                    myCon.Close(); //Closed connection
+                }
+            }
+            return new JsonResult(table); //Returns table data
         }
 
         /// <summary>
