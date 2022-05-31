@@ -1,3 +1,6 @@
+/**
+ * Model for the Competition Table
+ */
 export interface Competition {
     ID:string,
     Name:string,

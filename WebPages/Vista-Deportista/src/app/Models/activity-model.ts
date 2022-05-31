@@ -1,3 +1,6 @@
+/**
+ * Model for the Activity Table
+ */
 export interface ActivityModel {
     ID: string,
     Name: string,

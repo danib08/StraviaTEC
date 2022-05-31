@@ -1,3 +1,6 @@
+/**
+ * Model for the Athlete Table
+ */
 export interface AthleteModel {
     Name: string,
     Lastname: string,

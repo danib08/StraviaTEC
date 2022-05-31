@@ -13,18 +13,25 @@ import { AthleteInCompetition } from "src/app/Models/athlete-in-competition";
 @Injectable({
     providedIn: 'root'
 })
+
+/**
+ * Service for the Post Methods to the API
+ */
 export class PostService {
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
+    private baseURL = 'https://localhost:5001.com/api/';
     private searchURL = 'https://pruebaa.free.beeceptor.com/search';
-    /**
-    * Método constructor
-    * @param http 
-    */
+
     constructor(private http: HttpClient) {
     }
 
+    /**
+     * Posts the provided Athlete to verify its login
+     * @param athlete the AthleteModel with the username and 
+     * password intended for login
+     * @returns The API response
+     */
     signInAthlete(athlete: AthleteModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, athlete);
+        return this.http.post<any>(this.baseURL + "LogIn", athlete);
     }
 
     signUpAthlete(athlete: AthleteModel): Observable<any>{
