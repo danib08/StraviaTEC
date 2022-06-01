@@ -1,7 +1,7 @@
 CREATE TABLE dbo.Activity(
 ID varchar(50) NOT NULL,
 Name varchar(50) NOT NULL,
-Route varchar(200),
+Route varchar(MAX),
 Date date NOT NULL,
 Duration time,
 Kilometers decimal(5,2) DEFAULT 0,

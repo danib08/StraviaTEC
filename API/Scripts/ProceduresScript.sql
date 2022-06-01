@@ -21,7 +21,7 @@ go
 create procedure post_activity(
 								@Id varchar(50),
 								@Name varchar(50),
-								@Route varchar(50),
+								@Route varchar(MAX),
 								@Date date,
 								@Duration time,
 								@Kilometers decimal(5,2),
@@ -811,8 +811,6 @@ delete from dbo.Activity_In_Challenge
 where ActivityID = ActivityID and ChallengeID = @ChallengeID
 end
 go
-
-
 
 
 ---------------------------------------------------------------------------------------------
