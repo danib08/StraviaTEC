@@ -61,7 +61,7 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("{name}")]
+        [HttpGet("Group/{name}")]
         public string GetGroup(string name)
         {
             
@@ -106,21 +106,20 @@ namespace StraviaAPI.Controllers
             }
         }
 
+
         /// <summary>
         /// Method to get a specific group
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("{AdminUsername}")]
-        public string GetGroupByAdmin(string adminUsername)
+        [HttpGet("{athlete}")]
+        public JsonResult get_group_byAdmin(string athlete)
         {
 
-            string lbl_name;
-            string lbl_adminuser;
 
             //SQL Query
             string query = @"
-                             exec get_group_byAdmin @adminusername
+                             exec get_group_byAdmin @username
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -130,7 +129,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Connection opened
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@adminusername", adminUsername);
+                    myCommand.Parameters.AddWithValue("@username", athlete);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Load data to table
@@ -139,22 +138,10 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            if (table.Rows.Count > 0)
-            {
-                DataRow row = table.Rows[0];
-
-                lbl_adminuser = row["AdminUsername"].ToString();
-                lbl_name = row["Name"].ToString();
-
-                var data = new JObject(new JProperty("AdminUsername", lbl_adminuser), new JProperty("Name", lbl_name));
-                return data.ToString();
-            }
-            else
-            {
-                var data = new JObject(new JProperty("Existe", "no"));
-                return data.ToString();
-            }
+            return new JsonResult(table);//Returns table info
         }
+
+
 
         /// <summary>
         /// Post method to create groups
