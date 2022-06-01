@@ -111,6 +111,75 @@ namespace StraviaAPI.Controllers
         }
 
         /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Competition/{competition}")]
+        public JsonResult get_OnecompCategories(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_OnecompCategories @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Category/{category}")]
+        public JsonResult get_comps_OneCategory(string category)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_comps_OneCategory @category
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@category", category);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+
+
+
+        /// <summary>
         /// Post method to add categories in competitions
         /// </summary>
         /// <param name="compCategories"></param>

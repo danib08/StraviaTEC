@@ -104,8 +104,77 @@ namespace StraviaAPI.Controllers
                 return data.ToString();
             }
         }
-		
-		/// <summary>
+
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Activity/{id}")]
+        public JsonResult get_OneAct_Challenges(string id)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_OneAct_Challenges @id
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@id", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Challenge/{id}")]
+        public JsonResult get_Acts_OneChallenge(string id)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Acts_OneChallenge @id
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@id", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+
+
+        /// <summary>
         /// Post method for activity in challenge
         /// </summary>
         /// <param name="friend"></param>
