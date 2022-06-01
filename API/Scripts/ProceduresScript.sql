@@ -39,7 +39,7 @@ go
 
 create procedure put_activity(	@Id varchar(50),
 								@Name varchar(50),
-								@Route varchar(50),
+								@Route varchar(MAX),
 								@Date date,
 								@Kilometers decimal(5,2),
 								@Type varchar(50),
