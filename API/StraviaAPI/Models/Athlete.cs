@@ -9,15 +9,15 @@ namespace StraviaAPI.Models
 {
     public class Athlete
     {
-        public string Username { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public string Photo { get; set; }
-        public int Age { get; set; }
-        public DateTime  BirthDate {get; set;}
-        public string Pass { get; set; }
-        public string Nationality { get; set; }
-        public string Category { get; set; } 
+        public string username { get; set; }
+        public string name { get; set; }
+        public string lastName { get; set; }
+        public string photo { get; set; }
+        public int age { get; set; }
+        public DateTime  birthDate {get; set;}
+        public string pass { get; set; }
+        public string nationality { get; set; }
+        public string category { get; set; } 
     }
 }
  

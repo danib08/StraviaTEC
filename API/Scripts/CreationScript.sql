@@ -1,7 +1,7 @@
 CREATE TABLE dbo.Activity(
 ID varchar(50) NOT NULL,
 Name varchar(50) NOT NULL,
-Route varchar(200),
+Route varchar(MAX),
 Date date NOT NULL,
 Duration time,
 Kilometers decimal(5,2) DEFAULT 0,
@@ -34,7 +34,7 @@ FollowerID varchar(50) NOT NULL
 CREATE TABLE dbo.Athlete_In_Challenge(
 AthleteID varchar(50) NOT NULL,
 ChallengeID varchar(50) NOT NULL,
-Status varchar(50) DEFAULT 'Started'
+Status varchar(50) DEFAULT 'Waiting'
 )
 
 CREATE TABLE dbo.Athlete_In_Competition(
@@ -52,13 +52,13 @@ StartDate date NOT NULL,
 EndDate date,
 Privacy varchar(10),
 Kilometers decimal(5,2),
-Type varchar(50),
+Type varchar(50)
 )
 
 CREATE TABLE dbo.Competition(
 ID varchar(50) NOT NULL,
 Name varchar(50) NOT NULL,
-Route varchar(50),
+Route varchar(MAX),
 Date date NOT NULL,
 Privacy varchar(10),
 BankAccount varchar(50) NOT NULL,
@@ -85,7 +85,7 @@ CREATE TABLE dbo.Sponsor(
 Id varchar(50) NOT NULL,
 Name varchar(50) NOT NULL,
 BankAccount varchar(50) NOT NULL,
-CompetitionID varchar(50),
+CompetitionID varchar(50)
 )
 
 ---------------------------------------------------------------------------------------
@@ -124,7 +124,7 @@ ALTER TABLE Group_Member
 ADD CONSTRAINT PK_GrMem PRIMARY KEY(GroupName,MemberID)
 
 ALTER TABLE dbo.Sponsor
-ADD PRIMARY KEY (ID)
+ADD CONSTRAINT PK_Sponsor PRIMARY KEY (ID)
 
 
 

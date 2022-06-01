@@ -12,8 +12,7 @@ select AthleteID ,CompetitionID ,Status
 from dbo.Athlete_In_Competition
 go
 
-create view challActivities as
-select 
+
 
 
 
@@ -73,7 +72,8 @@ declare @Username varchar(50)
 select @Username = Username from deleted
 
 	if exists(select top 1 * from Athlete where Username = @Username)
-	begin	
+	begin
+	
 		delete from Activity
 		where AthleteUsername = @Username
 		delete from Athlete_In_Challenge
@@ -86,10 +86,12 @@ select @Username = Username from deleted
 		where AthleteID = @Username
 		delete from Group_Member
 		where MemberID = @Username
+		
+		
 	end
 	else
 	begin
-		print 'Esta Competición no existe'
+		print 'Este Usuario no existe'
 	end
 	
 	delete from Athlete
@@ -142,30 +144,7 @@ select @Id = Id from inserted
 end
 go
 
-create trigger DelActivity
-on dbo.Activity instead of delete
-as
-begin
-declare @Id varchar(50)
-select @Id = Id from deleted
 
-	if exists(select top 1 * from Activity where Id = @Id)
-	begin	
-		delete from Activity_In_Challenge
-		where ActivityID = @Id
-		delete from Competition
-		where ActivityID = @Id		
-	end
-	else
-	begin
-		print 'Esta Competición no existe'
-	end
-	
-	delete from Activity
-	where Id = @Id
-	
-end
-go
 
 
 --------------------------------------------Triggers Athlete Followers---------------------------------

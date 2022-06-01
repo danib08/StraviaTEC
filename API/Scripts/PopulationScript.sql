@@ -1,8 +1,8 @@
 exec post_athlete 'gabogh99', 'Gabriel', 'Gonzalez', 'foto.png', 23, '1999-03-12', 'siuuu', 'Costa Rica', 'Open'
 exec post_athlete 'dani_08', 'Daniela', 'Brenes', 'foto.png', 21, '2001-05-08', 'dynamite', 'Costa Rica', 'Open'
-exec post_athlete 'omend', 'Oscar', 'Mendes', 'foto.png', 21, '2000-3-29', 'cot', 'Costa Rica', 'Open'
+exec post_athlete 'omend', 'Oscar', 'Mendez', 'foto.png', 21, '2000-3-29', 'cot', 'Costa Rica', 'Open'
 exec post_athlete 'mjhca13', 'Maria Jesus', 'Hernandez', 'foto.png', 22, '1999-10-13', 'burbuja', 'Costa Rica', 'Open'
-exec post_athlete 'hazelhoudelath2', 'Hazel', 'Houdelath', 'foto.png', 1, '1973-12-02', 'hijos', 'Costa Rica', 'Master A'
+
 
 
 exec post_activity  'Act1','Nado en piscina','archivo.gpx','2022-05-17','09:29:02', 10.51, 'Fondo','gabogh99'
@@ -42,18 +42,13 @@ exec post_sponsors '3-2343-6262','CicloBike','1-6146-1375-7','Comp1'
 exec post_sponsors '3-5246-4683','Adidas','1-4515-3462-9','Comp2'
 
 
-insert into dbo.Athlete (Username,Name,LastName,Photo,Age,BirthDate,Pass,Nationality,Category)
-values('gabogh99', 'Gabriel', 'Gonzalez', 'foto.png', 23, '1999-03-12', 'siuuu', 'Costa Rica', 'Open')
-
-insert into dbo.Groups (Name,AdminUsername)
-values('Ciclismo TEC', 'gabogh99')
 
 insert into dbo.Group_Member (GroupName,MemberID)
-values('Ciclismo TEC', 'gabogh99')
-values('Ciclismo TEC', 'dani_08')
-values('Ciclismo TEC', 'omend')
-values('Futbol Cot ', 'gabogh99')
-values('Futbol Cot ', 'omend')
+values('Ciclismo TEC', 'gabogh99'),
+('Ciclismo TEC', 'dani_08'),
+('Ciclismo TEC', 'omend'),
+('Futbol Cot ', 'gabogh99'),
+('Futbol Cot ', 'omend')
 
 
 

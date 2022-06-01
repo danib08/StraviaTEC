@@ -116,7 +116,7 @@ namespace StraviaAPI.Controllers
         /// <param name="friendid"></param>
         /// <returns>Athlete's requested friend</returns>
 
-        [HttpGet("{id}")]
+        [HttpGet("Followers/{id}")]
         public JsonResult GetAthFriends(string id)
         {
 
@@ -144,6 +144,43 @@ namespace StraviaAPI.Controllers
 
             return new JsonResult(table);//Returns table 
         }
+
+        /// <summary>
+        /// Method to get who follows the athlete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="friendid"></param>
+        /// <returns>Athlete's requested friend</returns>
+
+        [HttpGet("FollowedBy/{id}")]
+        public JsonResult get_aths_follower(string id)
+        {
+
+            string query = @"
+                             exec get_aths_follower @athleteid
+                            "; //Select query sent to sql
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open(); //Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    //Added parameters
+                    myCommand.Parameters.AddWithValue("@athleteid", id);
+
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); //Loads info to table
+                    myReader.Close();
+                    myCon.Close(); //Closed connection
+                }
+            }
+
+            return new JsonResult(table);//Returns table 
+        }
+
 
         /// <summary>
         /// Post method for athlete's friend

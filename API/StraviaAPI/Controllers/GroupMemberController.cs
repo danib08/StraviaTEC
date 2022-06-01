@@ -112,6 +112,73 @@ namespace StraviaAPI.Controllers
         }
 
         /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Group/{name}")]
+        public JsonResult get_One_groupMembers(string name)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_One_groupMembers @name
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@name", name);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Athlete/{username}")]
+        public JsonResult get_groups_OneMembers(string username)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_groups_OneMembers @username
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+
+        /// <summary>
         /// Method to add gruoup members
         /// </summary>
         /// <param name="groupMember"></param>

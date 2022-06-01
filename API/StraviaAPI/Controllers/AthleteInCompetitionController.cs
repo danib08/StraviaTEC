@@ -115,37 +115,108 @@ namespace StraviaAPI.Controllers
         }
 
         /// <summary>
-        /// Method to get a specific athlete in a specific competition
+        /// Method to get a specific group
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="competition"></param>
-        /// <returns>Json result with athlete in a competition</returns>
-
-        [HttpGet("{id}")]
-        public JsonResult GetAthCompetitions(string id, string competition)
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Athlete/{username}")]
+        public JsonResult get_OneAth_Competitions(string username)
         {
-            
-            //Query sent to SQL Server
+
+            //SQL Query
             string query = @"
-                             exec get_all_AICO
+                             exec get_OneAth_Competitions @username
                             ";
-            DataTable table = new DataTable(); //Created table to store data
+            DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) // Connection created
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
             {
-                myCon.Open(); //Opened connection
-                using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Command with query and connection
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@athleteid", id);
-                    myReader = myCommand.ExecuteReader(); //Reading command's data
-                    table.Load(myReader); //Loads data to table
+                    myCommand.Parameters.AddWithValue("@username", username);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
                     myReader.Close();
-                    myCon.Close(); //Closed connection
+                    myCon.Close();//Closed data
                 }
             }
-            return new JsonResult(table); //Returns table data
+
+            return new JsonResult(table);//Returns table info
         }
+
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Competition/{competition}")]
+        public JsonResult get_Ath_OneCompetition(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Ath_OneCompetition @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Waiting/{competition}")]
+        public JsonResult get_Ath_OneCompetition_Waiting(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Ath_OneCompetition_Waiting @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+
+
+
 
         /// <summary>
         /// Method to add athlete in competition
