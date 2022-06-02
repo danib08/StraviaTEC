@@ -332,7 +332,7 @@ where CompetitionID = @CompetitionID and Status = 'Waiting'
 end
 go
 
-create procedure get_comp_Report(CompetitionID varchar(50))
+create procedure get_comp_Report(@CompetitionID varchar(50))
 as begin
 select * from compReport
 where CompetitionID = @CompetitionID
