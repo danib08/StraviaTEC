@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 /// <summary>
 /// Activity Controller with CRUD methods 
@@ -54,6 +55,12 @@ namespace StraviaAPI.Controllers
                     myReader.Close();
                     myCon.Close();
                 }
+            }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
             }
 
             return new JsonResult(table);
@@ -124,9 +131,7 @@ namespace StraviaAPI.Controllers
                 var data = new JObject(new JProperty("Existe", "no"));
                 return data.ToString();
             }
-
-           
-            
+       
         }
 
         /// <summary>
@@ -142,7 +147,7 @@ namespace StraviaAPI.Controllers
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
 
             string query = @"
-                             exec post_activity @Id,@name,@route,@date,@duration,@kilometers,@type,@athleteusername
+                             exec post_activity @id,@name,@route,@date,@duration,@kilometers,@type,@athleteusername
                             "; //Query insert sent to SQL Server
             DataTable table = new DataTable(); //Table created to store data
             SqlDataReader myReader;
@@ -152,7 +157,7 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon); //Created command with query and connection
 
                 //Adding parameters and values
-                myCommand.Parameters.AddWithValue("@Id", activity.Id);
+                myCommand.Parameters.AddWithValue("@id", activity.id);
                 myCommand.Parameters.AddWithValue("@name", activity.name);
                 myCommand.Parameters.AddWithValue("@route", activity.route);
                 myCommand.Parameters.AddWithValue("@date", activity.date);
@@ -196,7 +201,7 @@ namespace StraviaAPI.Controllers
                 {
 
                     //Parameters added with value
-                    myCommand.Parameters.AddWithValue("@id", activity.Id);
+                    myCommand.Parameters.AddWithValue("@id", activity.id);
                     myCommand.Parameters.AddWithValue("@name", activity.name);
                     myCommand.Parameters.AddWithValue("@route", activity.route);
                     myCommand.Parameters.AddWithValue("@date", activity.date);

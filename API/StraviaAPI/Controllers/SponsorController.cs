@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 /// <summary>
 /// Sponsor controller
@@ -53,6 +55,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table); //Returns data table
         }
 
@@ -96,8 +105,8 @@ namespace StraviaAPI.Controllers
             lbl_bankaccount = row["BankAccount"].ToString();
             lbl_competitionid = row["CompetitionID"].ToString();
 
-            var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
-                new JProperty("BankAccount", lbl_bankaccount), new JProperty("CompetitionID", lbl_competitionid));
+            var data = new JObject(new JProperty("id", lbl_id), new JProperty("name", lbl_name),
+                new JProperty("bankAccount", lbl_bankaccount), new JProperty("competitionID", lbl_competitionid));
             
             return data.ToString();
         }
@@ -126,10 +135,10 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);
 
                 //Parameters added with value
-                myCommand.Parameters.AddWithValue("@id", sponsor.Id);
-                myCommand.Parameters.AddWithValue("@name", sponsor.Name);
-                myCommand.Parameters.AddWithValue("@bankaccount", sponsor.BankAccount);
-                myCommand.Parameters.AddWithValue("@competitionid", sponsor.CompetitionID);
+                myCommand.Parameters.AddWithValue("@id", sponsor.id);
+                myCommand.Parameters.AddWithValue("@name", sponsor.name);
+                myCommand.Parameters.AddWithValue("@bankaccount", sponsor.bankAccount);
+                myCommand.Parameters.AddWithValue("@competitionid", sponsor.competitionID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -164,10 +173,10 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     //Added parameters with values
-                    myCommand.Parameters.AddWithValue("@id", sponsor.Id);
-                    myCommand.Parameters.AddWithValue("@name", sponsor.Name);
-                    myCommand.Parameters.AddWithValue("@bankaccount", sponsor.BankAccount);
-                    myCommand.Parameters.AddWithValue("@competitionid", sponsor.CompetitionID);
+                    myCommand.Parameters.AddWithValue("@id", sponsor.id);
+                    myCommand.Parameters.AddWithValue("@name", sponsor.name);
+                    myCommand.Parameters.AddWithValue("@bankaccount", sponsor.bankAccount);
+                    myCommand.Parameters.AddWithValue("@competitionid", sponsor.competitionID);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
