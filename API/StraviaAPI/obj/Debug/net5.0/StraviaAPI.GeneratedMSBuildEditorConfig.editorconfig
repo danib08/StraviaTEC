@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = StraviaAPI
-build_property.ProjectDir = C:\Users\dani08\Documents\GitHub\StraviaTEC\API\StraviaAPI\
+build_property.ProjectDir = D:\Daniela\Documents\GitHub\StraviaTEC\API\StraviaAPI\
