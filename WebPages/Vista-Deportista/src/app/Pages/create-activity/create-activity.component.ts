@@ -47,25 +47,25 @@ export class CreateActivityComponent implements OnInit {
   }
 
   activity: ActivityModel = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Duration: '', 
-    Kilometers: 0,
-    Type: '',
-    AthleteUsername: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    duration: '',
+    kilometers: 0,
+    type: '',
+    athleteUsername: ''
   }
 
   activityCompetition: ActivityModel = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Duration: '', 
-    Kilometers: 0,
-    Type: '',
-    AthleteUsername: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    duration: '',
+    kilometers: 0,
+    type: '',
+    athleteUsername: ''
   }
 
   activityInChallenge: ActivityInChallenge = {
@@ -80,7 +80,7 @@ export class CreateActivityComponent implements OnInit {
   }
 
   createActivity(){
-    this.activity.AthleteUsername = this.cookieSvc.get('Username');
+    this.activity.athleteUsername = this.cookieSvc.get('Username');
     this.postService.createActivity(this.activity).subscribe(
       res =>{
       }, err => {
@@ -89,7 +89,7 @@ export class CreateActivityComponent implements OnInit {
     );
 
     if (this.eventType == 'Challenge') {
-      this.activityInChallenge.ActivityID = this.activity.ID;
+      this.activityInChallenge.ActivityID = this.activity.id;
       this.activityInChallenge.ChallengeID = this.currentChallenge.ID;
       this.postService.createActivityInChallenge(this.activityInChallenge).subscribe(
         res =>{
@@ -132,7 +132,7 @@ export class CreateActivityComponent implements OnInit {
       res => {
         this.currentChallenge = res;
         this.haveSelectedChallenge = true;
-        this.activity.Type = this.currentChallenge.Type;
+        this.activity.type = this.currentChallenge.Type;
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -146,8 +146,8 @@ export class CreateActivityComponent implements OnInit {
         this.currentCompetition = res;
         this.getActivityType();
         this.haveSelectedCompetition = true;
-        this.activity.Name = this.currentCompetition.Name;
-        this.activity.Date = this.currentCompetition.Date;
+        this.activity.name = this.currentCompetition.Name;
+        this.activity.date = this.currentCompetition.Date;
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -159,7 +159,7 @@ export class CreateActivityComponent implements OnInit {
       this.getService.getActivity(this.currentCompetition.ActivityID).subscribe(
         res => {
           this.activityCompetition = res;
-          this.activity.Type = this.activityCompetition.Type;
+          this.activity.type = this.activityCompetition.type;
         },
         err=>{
           alert('Ha ocurrido un error')
