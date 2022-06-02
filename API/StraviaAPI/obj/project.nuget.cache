@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3IGmuAYlHhB2YJ6Mk55vsD4BhKrCg7zUGq4dchwWCNXOLFIVCdJJsjDTjgUH6jn3D32MUVK6jhZYGgJVin8E5w==",
+  "dgSpecHash": "rLT6YMm2N7WDRXFZQpjJy3oPLDKsD5rb4YdRVd8ckF5cRaOXQ4Zvn305MXMVpzq/7lgP05PWzbPDu0QxeYVkBg==",
   "success": true,
-  "projectFilePath": "D:\\Daniela\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\StraviaAPI.csproj",
+  "projectFilePath": "C:\\Users\\dani08\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\StraviaAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dani08\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.0\\microsoft.aspnetcore.authentication.jwtbearer.5.0.0.nupkg.sha512",
     "C:\\Users\\dani08\\.nuget\\packages\\microsoft.aspnetcore.authentication.openidconnect\\5.0.0\\microsoft.aspnetcore.authentication.openidconnect.5.0.0.nupkg.sha512",
