@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 
 /// <summary>
 /// Controller to manage athlete's friends
@@ -53,6 +54,12 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table 
         }
 
@@ -98,7 +105,7 @@ namespace StraviaAPI.Controllers
                 lbl_athleteid = row["AthleteID"].ToString();
                 lbl_followerid = row["FollowerID"].ToString();
 
-                var data = new JObject(new JProperty("AthleteID", lbl_athleteid), new JProperty("FollowerID", lbl_followerid));
+                var data = new JObject(new JProperty("athleteID", lbl_athleteid), new JProperty("followerID", lbl_followerid));
 
                 return data.ToString();
             }
@@ -142,6 +149,12 @@ namespace StraviaAPI.Controllers
                 }
             }
 
+            TextInfo ti2 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti2.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table 
         }
 
@@ -177,6 +190,11 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+            TextInfo ti3 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti3.ToLower(column.ColumnName);
+            }
 
             return new JsonResult(table);//Returns table 
         }
@@ -196,8 +214,7 @@ namespace StraviaAPI.Controllers
 
 
 
-            string query = @"
-                             exec post_follower @athleteid,@followerid
+            string query = @"exec post_follower @athleteid,@followerid
                             "; //Insert query sent to sql server
             DataTable table = new DataTable();
             
@@ -208,8 +225,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added
-                myCommand.Parameters.AddWithValue("@athleteid", follower.AthleteID);
-                myCommand.Parameters.AddWithValue("@followerid", follower.FollowerID);
+                myCommand.Parameters.AddWithValue("@athleteid", follower.athleteID);
+                myCommand.Parameters.AddWithValue("@followerid", follower.followerID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);

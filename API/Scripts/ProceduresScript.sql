@@ -332,6 +332,14 @@ where CompetitionID = @CompetitionID and Status = 'Waiting'
 end
 go
 
+create procedure get_comp_Report(CompetitionID varchar(50))
+as begin
+select * from compReport
+where CompetitionID = @CompetitionID
+order by Duration
+end 
+go
+
 
 create procedure post_Athlete_Competition(
 							@AthleteID varchar(50),
@@ -389,9 +397,18 @@ begin
 
 select * from dbo.Challenge
 where Id = @Id
-
 end
 go
+
+
+create procedure get_challenge_creator(@Username varchar(50))
+as
+begin
+select * from dbo.ChallCreator
+where AthleteUsername = @Username
+end
+go
+
 
 
 create procedure post_challenge(
@@ -461,7 +478,13 @@ where Id = @Id
 end
 go
 
-
+create procedure get_competition_creator(@Username varchar(50))
+as
+begin
+select * from dbo.CompsCreator
+where AthleteUsername = @Username
+end
+go
 
 
 create procedure post_competition(

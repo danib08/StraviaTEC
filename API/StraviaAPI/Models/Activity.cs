@@ -9,7 +9,7 @@ namespace StraviaAPI.Models
 {
     public class Activity
     {
-        public string Id { get; set; }
+        public string id { get; set; }
         public string name { get; set; }
         public string route { get; set; }
         public DateTime date { get; set; }

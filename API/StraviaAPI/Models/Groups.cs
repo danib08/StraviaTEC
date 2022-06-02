@@ -9,7 +9,7 @@ namespace StraviaAPI.Models
 {
     public class Groups
     {
-        public string Name { get; set; }
-        public string AdminUsername { get; set; }
+        public string name { get; set; }
+        public string adminUsername { get; set; }
     }
 }

@@ -7,16 +7,29 @@ from( Athlete_Followers inner join Activity
 on Athlete_Followers.FollowerID = Activity.AthleteUsername)
 go
 
-create view competition_pos as
-select AthleteID ,CompetitionID ,Status
-from dbo.Athlete_In_Competition
+
+create view compReport as
+select Name, LastName, Age, Category, Duration, CompetitionID
+from( Athlete inner join Athlete_In_Competition
+on Athlete.Username = Athlete_In_Competition.AthleteID)
+go
+
+
+create view CompsCreator as
+select Competition.ID as CompID, Competition.Name, Competition.Route, Competition.Date, AthleteUsername 
+from(Competition inner join Activity
+on Competition.ActivityID = Activity.ID)
+go
+
+create view ChallCreator as
+select distinct Activity_In_Challenge.ChallengeID, Activity.AthleteUsername
+from(Activity_In_Challenge inner join Activity
+on Activity_In_Challenge.ActivityID = Activity.ID)
 go
 
 
 
-
-
---------------------------------------------------TRIGGERS ----------------------------------
+----------------------------------------TRIGGERS ----------------------------------
 
 create trigger ageAthlete
 on dbo.Athlete

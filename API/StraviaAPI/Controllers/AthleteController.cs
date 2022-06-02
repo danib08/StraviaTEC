@@ -64,6 +64,110 @@ namespace StraviaAPI.Controllers
         }
 
         /// <summary>
+        /// Get method for all athletes 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Feed/{username}")]
+        public JsonResult GeFeed(string username)
+        {
+            string query = @"
+                             exec get_feed @username
+                            "; //Select query sent to SQL Server
+            DataTable table = new DataTable(); //Table to save information
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) //Connection created
+            {
+                myCon.Open(); //Opened Connection
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command created with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username); //Added parameter username
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); //Data loaded to table
+                    myReader.Close();
+                    myCon.Close(); //Closed connection
+                }
+            }
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table); //Returns table
+        }
+
+        /// <summary>
+        /// Get method for all athletes 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("CompetitionCreator/{username}")]
+        public JsonResult GeCompsCreator(string username)
+        {
+            string query = @"
+                             exec get_competition_creator @username
+                            "; //Select query sent to SQL Server
+            DataTable table = new DataTable(); //Table to save information
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) //Connection created
+            {
+                myCon.Open(); //Opened Connection
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command created with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username); //Added parameter username
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); //Data loaded to table
+                    myReader.Close();
+                    myCon.Close(); //Closed connection
+                }
+            }
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table); //Returns table
+        }
+
+
+        /// <summary>
+        /// Get method for all athletes 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("ChallengeCreator/{username}")]
+        public JsonResult GeChallCreator(string username)
+        {
+            string query = @"
+                             exec get_challenge_creator @username
+                            "; //Select query sent to SQL Server
+            DataTable table = new DataTable(); //Table to save information
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) //Connection created
+            {
+                myCon.Open(); //Opened Connection
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command created with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username); //Added parameter username
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader); //Data loaded to table
+                    myReader.Close();
+                    myCon.Close(); //Closed connection
+                }
+            }
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table); //Returns table
+        }
+
+
+        /// <summary>
         /// Get method for a specific athlete
         /// </summary>
         /// <param name="username"></param>
