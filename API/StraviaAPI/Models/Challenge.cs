@@ -9,13 +9,13 @@ namespace StraviaAPI.Models
 {
     public class Challenge
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Privacy { get; set; }
-        public float Kilometers { get; set; }
-        public string Type { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
+        public string privacy { get; set; }
+        public float kilometers { get; set; }
+        public string type { get; set; }
         
     }
 }

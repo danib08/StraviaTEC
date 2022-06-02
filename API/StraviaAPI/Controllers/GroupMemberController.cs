@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 /// <summary>
 /// Group Member 
@@ -55,6 +57,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close();//Close connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table data
         }
 
@@ -100,7 +109,7 @@ namespace StraviaAPI.Controllers
                 lbl_groupname = row["GroupName"].ToString();
                 lbl_memberid = row["MemberID"].ToString();
 
-                var data = new JObject(new JProperty("GroupName", lbl_groupname), new JProperty("MemberID", lbl_memberid));
+                var data = new JObject(new JProperty("groupName", lbl_groupname), new JProperty("memberID", lbl_memberid));
 
                 return data.ToString();
             }
@@ -141,6 +150,12 @@ namespace StraviaAPI.Controllers
                 }
             }
 
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table info
         }
 
@@ -174,6 +189,12 @@ namespace StraviaAPI.Controllers
                 }
             }
 
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table info
         }
 
@@ -203,8 +224,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon); //Command with query and connection
 
                 //Added parameters
-                myCommand.Parameters.AddWithValue("@groupname", groupMember.GroupName);
-                myCommand.Parameters.AddWithValue("@memberid", groupMember.MemberID);
+                myCommand.Parameters.AddWithValue("@groupname", groupMember.groupName);
+                myCommand.Parameters.AddWithValue("@memberid", groupMember.memberID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);

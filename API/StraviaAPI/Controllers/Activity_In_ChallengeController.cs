@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,6 +50,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table 
         }
 		
@@ -94,7 +102,7 @@ namespace StraviaAPI.Controllers
                 lbl_activityid = row["ActivityID"].ToString();
                 lbl_challengeid = row["ChallengeID"].ToString();
 
-                var data = new JObject(new JProperty("ActivityID", lbl_activityid), new JProperty("ChallengeID", lbl_challengeid));
+                var data = new JObject(new JProperty("activityID", lbl_activityid), new JProperty("challengeID", lbl_challengeid));
 
                 return data.ToString();
             }
@@ -136,6 +144,12 @@ namespace StraviaAPI.Controllers
                 }
             }
 
+            TextInfo ti2 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti2.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table info
         }
 
@@ -169,6 +183,12 @@ namespace StraviaAPI.Controllers
                 }
             }
 
+            TextInfo ti3 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti3.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table info
         }
 
@@ -200,8 +220,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added
-                myCommand.Parameters.AddWithValue("@activityid", actChallenge.ActivityID);
-                myCommand.Parameters.AddWithValue("@challengeid", actChallenge.ChallengeID);
+                myCommand.Parameters.AddWithValue("@activityid", actChallenge.activityID);
+                myCommand.Parameters.AddWithValue("@challengeid", actChallenge.challengeID);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
