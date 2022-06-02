@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class GetService {
 
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
+    private baseURL = 'https://localhost:5001/api/';
 
     constructor(private http: HttpClient) {
     }
@@ -33,7 +33,7 @@ export class GetService {
     }
 
     getActivity(ActivityID:string):Observable<any>{
-        let URL = this.baseURL + '/' + ActivityID;
+        let URL = this.baseURL + 'Activity/' + ActivityID;
         return this.http.get<any>(URL);
     }
 

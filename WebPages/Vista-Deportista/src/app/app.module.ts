@@ -7,6 +7,7 @@ import { PagesModule } from './Pages/pages.module';
 import { ComponentsModule } from './Components/components.module';
 import { RouterModule } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { MapService } from './Services/Map/map.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import { CookieService } from 'ngx-cookie-service';
   ],
 
   //Services
-  providers: [CookieService],
+  providers: [CookieService, MapService],
   bootstrap: [AppComponent]
 })
 

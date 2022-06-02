@@ -1,3 +1,6 @@
+/**
+ * Model for the Challenge Table
+ */
 export interface Challenge {
     ID:string,
     Name:string,

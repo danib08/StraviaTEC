@@ -11,6 +11,7 @@ import { CreateActivityComponent } from './create-activity/create-activity.compo
 import { SearchAthletesComponent } from './search-athletes/search-athletes.component';
 import { HomeComponent } from './Home/home/home.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
+import { ActivityComponent } from './activity/activity.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SubscriptionsComponent } from './subscriptions/subscriptions.component'
     CreateActivityComponent,
     SearchAthletesComponent,
     SubscriptionsComponent,
+    ActivityComponent,
   ],
   imports: [
     CommonModule,

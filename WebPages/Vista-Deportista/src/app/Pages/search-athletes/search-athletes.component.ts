@@ -25,6 +25,7 @@ export class SearchAthletesComponent implements OnInit {
     AthleteID: '',
     FriendID: ''
   }
+  
   constructor(private postService: PostService, private cookieSvc:CookieService) { }
 
   ngOnInit(): void {

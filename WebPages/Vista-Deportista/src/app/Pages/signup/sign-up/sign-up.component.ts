@@ -9,31 +9,45 @@ import { PostService } from 'src/app/Services/Post/post-service';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
+
+/**
+ * Sign Up component where the user registers itself on the social app
+ */
 export class SignUpComponent implements OnInit {
 
   public files: any = [];
   imageSrc: string = '';
   constructor(private router: Router, private postSvc: PostService) { }
 
+  // Athlete model for the Sign Up functionality
   newAthlete: AthleteModel = {
-    Name: '',
-    Lastname: '',
-    Birthdate: '',
-    Nationality: '',
-    Age: 0,
-    Pass: '',
-    Category: '',
-    Photo: '',
-    Username: ''
+    username: '',
+    name: '',
+    lastName: '',
+    photo: '',
+    age: 0,
+    birthDate: '2022-05-31T04:35:02.318Z',
+    pass: '',
+    nationality: '',
+    category: ''
   }
+
   
   ngOnInit(): void {
   }
 
+  /**
+   * Navigates to the Sign In page
+   */
   signIn() {
     this.router.navigate(["login"]);
   }
 
+  /**
+   * Receives image uploaded by user, saves it to the
+   * Athlete model and then displays it
+   * @param event 
+   */
   onFileChange(event:any) {
     const reader = new FileReader();
      
@@ -43,11 +57,15 @@ export class SignUpComponent implements OnInit {
      
       reader.onload = () => { 
         this.imageSrc = reader.result as string;
-        this.newAthlete.Photo = this.imageSrc;
+        this.newAthlete.photo = this.imageSrc;
       };   
     }
   }
 
+  /**
+   * Makes a POST request to the API with the sign up info the
+   * athlete (user) entered
+   */
   signUpAthlete(){
     this.postSvc.signUpAthlete(this.newAthlete).subscribe(
       res =>{
@@ -55,6 +73,4 @@ export class SignUpComponent implements OnInit {
       }
     );
   }
-  
-
 }

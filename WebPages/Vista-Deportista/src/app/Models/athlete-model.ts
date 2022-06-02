@@ -1,11 +1,14 @@
+/**
+ * Model for the Athlete Table
+ */
 export interface AthleteModel {
-    Name: string,
-    Lastname: string,
-    Birthdate: string,
-    Nationality: string,
-    Age: number,
-    Pass: string,
-    Category: string,
-    Photo: string,
-    Username: string
+    username: string
+    name: string,
+    lastName: string,
+    photo: string,
+    age: number,
+    birthDate: string,
+    pass: string,
+    nationality: string,
+    category: string
 }

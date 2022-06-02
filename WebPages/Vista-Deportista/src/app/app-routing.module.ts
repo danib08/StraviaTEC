@@ -6,7 +6,9 @@ import { UpdateProfileComponent } from './Pages/update-profile/update-profile/up
 import { SearchAthletesComponent } from './Pages/search-athletes/search-athletes.component';
 import { CreateActivityComponent } from './Pages/create-activity/create-activity.component';
 import { SubscriptionsComponent } from './Pages/subscriptions/subscriptions.component';
+import { ActivityComponent } from './Pages/activity/activity.component';
 
+// Routes for the different Pages on the Web Application
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent},
@@ -14,6 +16,7 @@ const routes: Routes = [
   {path: 'search', component: SearchAthletesComponent},
   {path: 'createActivity', component: CreateActivityComponent},
   {path: 'subscriptions', component: SubscriptionsComponent},
+  {path: 'activityInfo', component: ActivityComponent},
   {path: "**", redirectTo: "login", pathMatch:"full"}
 ];
 
