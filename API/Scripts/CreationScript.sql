@@ -18,7 +18,7 @@ CREATE TABLE dbo.Athlete(
 Username varchar(50) NOT NULL,
 Name varchar(50) NOT NULL,
 LastName varchar(50) NOT NULL,
-Photo varchar(200),
+Photo varchar(MAX),
 Age int,
 BirthDate date NOT NULL,
 Pass varchar(50) NOT NULL,
