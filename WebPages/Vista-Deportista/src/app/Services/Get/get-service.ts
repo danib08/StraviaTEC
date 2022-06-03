@@ -5,11 +5,23 @@ import { Observable } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
+
+/**
+ * Service for the Get Methods to the API
+ */
 export class GetService {
 
     private baseURL = 'https://localhost:5001/api/';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient) {}
+
+    /**
+     * Gets the Athlete specified by its username
+     * @param AthleteID the ID used to retrieve the athlete info
+     * @returns the desired Athlete object
+     */
+    getAthlete(AthleteID:string):Observable<any>{
+        return this.http.get<any>(this.baseURL + "Athlete/" + AthleteID);
     }
 
     getAthleteinChallenge(AthleteID:string):Observable<any>{

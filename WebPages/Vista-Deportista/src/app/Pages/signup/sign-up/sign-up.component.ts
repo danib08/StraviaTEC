@@ -26,12 +26,11 @@ export class SignUpComponent implements OnInit {
     lastName: '',
     photo: '',
     age: 0,
-    birthDate: '2022-05-31T04:35:02.318Z',
+    birthDate: '',
     pass: '',
     nationality: '',
     category: ''
   }
-
   
   ngOnInit(): void {
   }
@@ -46,7 +45,7 @@ export class SignUpComponent implements OnInit {
   /**
    * Receives image uploaded by user, saves it to the
    * Athlete model and then displays it
-   * @param event 
+   * @param event triggered by the file upload
    */
   onFileChange(event:any) {
     const reader = new FileReader();
@@ -57,7 +56,8 @@ export class SignUpComponent implements OnInit {
      
       reader.onload = () => { 
         this.imageSrc = reader.result as string;
-        this.newAthlete.photo = this.imageSrc;
+        var splitted = this.imageSrc.split(",", 2); 
+        this.newAthlete.photo = splitted[1];
       };   
     }
   }
@@ -69,7 +69,14 @@ export class SignUpComponent implements OnInit {
   signUpAthlete(){
     this.postSvc.signUpAthlete(this.newAthlete).subscribe(
       res =>{
-        console.log(res);
+        if (res == "") {
+          this.router.navigate(["login"]);
+        }
+        else {
+          if (res[0].message_id == 2601) {
+            alert("El nombre de usuario ingresado ya existe.");
+          }
+        }
       }
     );
   }

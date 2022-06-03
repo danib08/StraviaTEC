@@ -15,8 +15,6 @@ import { PostService } from 'src/app/Services/Post/post-service';
  */
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private postSvc: PostService, private cookieSvc:CookieService) {}
-
   // Athlete model for the Log In functionality
   newAthlete: AthleteModel = {
     username: '',
@@ -30,11 +28,22 @@ export class LoginComponent implements OnInit {
     category: ''
   }
 
+  /**
+   * Creates the Log In component
+   * @param router Used to re-route the user to different pages
+   * @param postSvc service for POST requests to the API
+   * @param cookieSvc service for cookie creating to store the username
+   */
+  constructor(private router: Router, private postSvc: PostService, private cookieSvc:CookieService) {}
+
   // Filled with validation from the API
   validation = {
     Existe: ""
   }
 
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
   ngOnInit(): void {}
 
   /**
@@ -49,11 +58,9 @@ export class LoginComponent implements OnInit {
    * athlete (user) entered
    */
   logInAthlete(){
-    console.log(this.newAthlete);
     this.postSvc.signInAthlete(this.newAthlete).subscribe(
       res =>{
         this.validation = res;
-        console.log(res);
 
         if (this.validation.Existe == "Si"){
           alert("Inicio de sesión exitoso");

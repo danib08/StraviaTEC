@@ -21,8 +21,7 @@ export class PostService {
     private baseURL = 'https://localhost:5001/api/';
     private searchURL = 'https://pruebaa.free.beeceptor.com/search';
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     /**
      * Posts the provided Athlete to verify its login

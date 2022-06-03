@@ -26,7 +26,6 @@
       [(ngModel)]="newAthlete.pass" name="pass" #pass = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
-    <input type="password" placeholder="Confirmar contraseña">
     <input
       type="file"
       class="form-control"
@@ -34,6 +33,6 @@
     <img [src]="imageSrc" *ngIf="imageSrc" style="height: 200px; width:200px">
 
     <button (click)="signIn()">Iniciar Sesión</button>
-    <button type="button">Registrarse</button>
+    <button>Registrarse</button>
   </form>
   
