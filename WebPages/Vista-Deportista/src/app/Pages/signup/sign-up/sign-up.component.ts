@@ -17,23 +17,31 @@ export class SignUpComponent implements OnInit {
 
   public files: any = [];
   imageSrc: string = '';
-  constructor(private router: Router, private postSvc: PostService) { }
 
   // Athlete model for the Sign Up functionality
   newAthlete: AthleteModel = {
     username: '',
     name: '',
-    lastName: '',
+    lastname: '',
     photo: '',
     age: 0,
-    birthDate: '',
+    birthdate: '',
     pass: '',
     nationality: '',
     category: ''
   }
   
-  ngOnInit(): void {
-  }
+  /**
+   * Creates the Sign Up component
+   * @param router used to re-route the user to different pages
+   * @param postSvc service for POST requests to the API
+   */
+  constructor(private router: Router, private postSvc: PostService) { }
+
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
+  ngOnInit(): void {}
 
   /**
    * Navigates to the Sign In page
@@ -56,8 +64,7 @@ export class SignUpComponent implements OnInit {
      
       reader.onload = () => { 
         this.imageSrc = reader.result as string;
-        var splitted = this.imageSrc.split(",", 2); 
-        this.newAthlete.photo = splitted[1];
+        this.newAthlete.photo = this.imageSrc;
       };   
     }
   }

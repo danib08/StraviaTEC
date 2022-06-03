@@ -25,23 +25,25 @@ export class UpdateProfileComponent implements OnInit {
   athlete: AthleteModel = {
     username: '',
     name: '',
-    lastName: '',
+    lastname: '',
     photo: '',
     age: 0,
-    birthDate: '',
+    birthdate: '',
     pass: '',
     nationality: '',
     category: ''
   }
 
   /**
-   * Creates the Update Profile component
-   * @param getService service for GET requests to the API
-   * @param putService service for PUT requests to the API
-   * @param cookieSvc service for cookie creating to store the username
+   * 
+   * @param getSvc service for GET requests to the API
+   * @param putSvc service for PUT requests to the API
+   * @param deleteSvc service for DELETE requests to the API 
+   * @param cookieSvc service for cookie creating to store the username 
+   * @param router used to re-route the user to different pages
    */
-  constructor(private getService: GetService, private putService: PutService, 
-    private deleteService: DeleteService, private cookieSvc:CookieService, private router: Router) { }
+  constructor(private getSvc: GetService, private putSvc: PutService, 
+    private deleteSvc: DeleteService, private cookieSvc: CookieService, private router: Router) { }
 
   /**
    * Called after Angular has initialized all data-bound properties
@@ -75,7 +77,7 @@ export class UpdateProfileComponent implements OnInit {
    * info of the user
    */
   getProfile() {
-    this.getService.getAthlete(this.cookieSvc.get("Username")).subscribe(
+    this.getSvc.getAthlete(this.cookieSvc.get("Username")).subscribe(
       res =>{
         this.athlete = res;
       }, err => {
@@ -89,7 +91,7 @@ export class UpdateProfileComponent implements OnInit {
    * user desires to modify
    */
   updateProfile(){
-    this.putService.updateAthlete(this.athlete).subscribe(
+    this.putSvc.updateAthlete(this.athlete).subscribe(
       res =>{
         alert("Cambios guardados exitosamente.");
       }, err => {
@@ -103,7 +105,7 @@ export class UpdateProfileComponent implements OnInit {
    * the athlete's account
    */
     deleteProfile(){
-      this.deleteService.deleteAthlete(this.athlete.username).subscribe(
+      this.deleteSvc.deleteAthlete(this.athlete.username).subscribe(
         res =>{
           this.cookieSvc.delete("Username");
           alert("Cuenta borrada permanentemente.");

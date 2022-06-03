@@ -2,12 +2,12 @@
  * Model for the Competition Table
  */
 export interface Competition {
-    ID:string,
-    Name:string,
-    Route:string,
-    Date:string,
-    Privacy:string,
-    BankAccount:string,
-    Price:number,
-    ActivityID:string
+    id:string,
+    name:string,
+    route:string,
+    date:string,
+    privacy:string,
+    bankaccount:string,
+    price:number,
+    activityid:string
 }

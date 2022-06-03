@@ -154,8 +154,8 @@ namespace StraviaAPI.Controllers
                 //Parameters added with values
                 myCommand.Parameters.AddWithValue("@id", challenge.id);
                 myCommand.Parameters.AddWithValue("@name", challenge.name);
-                myCommand.Parameters.AddWithValue("@startdate", challenge.startDate);
-                myCommand.Parameters.AddWithValue("@enddate", challenge.endDate);
+                myCommand.Parameters.AddWithValue("@startdate", challenge.startdate);
+                myCommand.Parameters.AddWithValue("@enddate", challenge.enddate);
                 myCommand.Parameters.AddWithValue("@privacy", challenge.privacy);
                 myCommand.Parameters.AddWithValue("@kilometers", challenge.kilometers);
                 myCommand.Parameters.AddWithValue("@type", challenge.type);
@@ -194,8 +194,8 @@ namespace StraviaAPI.Controllers
                     //Added parameters
                     myCommand.Parameters.AddWithValue("@id", challenge.id);
                     myCommand.Parameters.AddWithValue("@name", challenge.name);
-                    myCommand.Parameters.AddWithValue("@startdate", challenge.startDate);
-                    myCommand.Parameters.AddWithValue("@enddate", challenge.endDate);
+                    myCommand.Parameters.AddWithValue("@startdate", challenge.startdate);
+                    myCommand.Parameters.AddWithValue("@enddate", challenge.enddate);
                     myCommand.Parameters.AddWithValue("@privacy", challenge.privacy);
                     myCommand.Parameters.AddWithValue("@kilometers", challenge.kilometers);
                     myCommand.Parameters.AddWithValue("@type", challenge.type);

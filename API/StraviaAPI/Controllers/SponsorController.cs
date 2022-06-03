@@ -137,8 +137,8 @@ namespace StraviaAPI.Controllers
                 //Parameters added with value
                 myCommand.Parameters.AddWithValue("@id", sponsor.id);
                 myCommand.Parameters.AddWithValue("@name", sponsor.name);
-                myCommand.Parameters.AddWithValue("@bankaccount", sponsor.bankAccount);
-                myCommand.Parameters.AddWithValue("@competitionid", sponsor.competitionID);
+                myCommand.Parameters.AddWithValue("@bankaccount", sponsor.bankaccount);
+                myCommand.Parameters.AddWithValue("@competitionid", sponsor.competitionid);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -175,8 +175,8 @@ namespace StraviaAPI.Controllers
                     //Added parameters with values
                     myCommand.Parameters.AddWithValue("@id", sponsor.id);
                     myCommand.Parameters.AddWithValue("@name", sponsor.name);
-                    myCommand.Parameters.AddWithValue("@bankaccount", sponsor.bankAccount);
-                    myCommand.Parameters.AddWithValue("@competitionid", sponsor.competitionID);
+                    myCommand.Parameters.AddWithValue("@bankaccount", sponsor.bankaccount);
+                    myCommand.Parameters.AddWithValue("@competitionid", sponsor.competitionid);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

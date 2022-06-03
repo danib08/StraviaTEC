@@ -16,6 +16,6 @@ namespace StraviaAPI.Models
         public string duration { get; set; }
         public float kilometers { get; set; }
         public string type { get; set; }
-        public string athleteUsername { get; set; }
+        public string athleteusername { get; set; }
     }
 }

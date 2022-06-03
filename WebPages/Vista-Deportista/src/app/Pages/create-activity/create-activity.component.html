@@ -34,7 +34,7 @@
                       #nBC = "ngModel"
                       required 
                       (change)="getChallengeInfo()">
-                <option *ngFor="let list of challengesArray; index as i" value="{{list.ChallengeID}}">{{list.ChallengeID}}</option>
+                <option *ngFor="let list of challengesArray; index as i" value="{{list.challengeid}}">{{list.challengeid}}</option>
               </select>
               <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" *ngIf=haveSelectedChallenge>
                 <div class="form-input">
@@ -75,15 +75,19 @@
                 <div class="form-input">
                   <label for="tipo">Tipo de Actividad</label>
                   <select class="form-control" id="type" name="type">
-                      <option value={{currentChallenge.Type}}>{{currentChallenge.Type}}</option>
+                      <option value={{currentChallenge.type}}>{{currentChallenge.type}}</option>
                     </select>
-              </div>
+                </div>
+                <div>
+                  <h5>Ruta en archivo .gpx</h5>
+                  <input type="file" (change)="onChange($any($event.target).files)">
+                </div>
                 <div class="form-input text-center">
                   <button class="btn mt-4">Crear Actividad</button>
                 </div>
               </form>
             </div>
-            <div class="isChallenge" *ngIf="(eventType == 'Competition')">
+            <div class="isCompetition" *ngIf="(eventType == 'Competition')">
               <label>Seleccione la carrera asociada a su actividad</label>
               <select class="form-control"
                       name="challenge"
@@ -92,12 +96,12 @@
                       #nBC = "ngModel"
                       required 
                       (change)="getCompetitonInfo()">
-                <option *ngFor="let list of competitionsArray; index as i" value="{{list.CompetitionID}}">{{list.CompetitionID}}</option>
+                <option *ngFor="let list of competitionsArray; index as i" value="{{list.competitionid}}">{{list.competitionid}}</option>
               </select>
               <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" *ngIf=haveSelectedCompetition>
                 <div class="form-input">
                   <i class="material-icons">edit</i>
-                  <input type="text" class="form-control" value={{currentCompetition.Name}} readonly>
+                  <input type="text" class="form-control" value={{currentCompetition.name}} readonly>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">assignment</i>
@@ -108,7 +112,7 @@
                 </div>
                 <div class="form-input">
                   <i class="material-icons">event</i>
-                  <input type="datetime-local" class="form-control" value={{currentCompetition.Date}} readonly>
+                  <input type="datetime-local" class="form-control" value={{currentCompetition.date}} readonly>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">timer</i>
@@ -129,7 +133,7 @@
                   <select class="form-control" id="type" name="type">
                       <option value={{activityCompetition.type}}>{{activityCompetition.type}}</option>
                     </select>
-              </div>
+                </div>
                 <div class="form-input text-center">
                   <button class="btn mt-4">Crear Actividad</button>
                 </div>
@@ -182,7 +186,12 @@
                     <option value="Senderismo">Senderismo</option>
                     <option value="Kayak">Kayak</option>
                   </select>
-            </div>
+              </div>
+              <div>
+                <h5>Ruta en archivo .gpx</h5>
+                <input type="file" (change)="onChange($any($event.target).files)">
+              </div>
+
               <div class="form-input text-center">
                 <button class="btn mt-4">Crear Actividad</button>
               </div>

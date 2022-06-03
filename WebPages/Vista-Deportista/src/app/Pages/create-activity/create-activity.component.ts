@@ -9,13 +9,15 @@ import { Competition } from 'src/app/Models/competition';
 import { GetService } from 'src/app/Services/Get/get-service';
 import { PostService } from 'src/app/Services/Post/post-service';
 
-
 @Component({
   selector: 'app-create-activity',
   templateUrl: './create-activity.component.html',
   styleUrls: ['./create-activity.component.css']
 })
 
+/**
+ * Create Activity component where the athlete registers its own activities
+ */
 export class CreateActivityComponent implements OnInit {
 
   eventType = '';
@@ -25,27 +27,32 @@ export class CreateActivityComponent implements OnInit {
   competitionsArray: AthleteInCompetition[] =[]; 
   haveSelectedChallenge = false;
   haveSelectedCompetition = false;
+  gpxEncoded = '';
   
+  // Holds info about the challenge related to the activity
   currentChallenge: Challenge = {
-    ID: '',
-    Name: '',
-    EndDate: '',
-    StartDate: '',
-    Privacy: '',
-    Kilometers: 0,
-    Type: ''
+    id: '',
+    name: '',
+    enddate: '',
+    startdate: '',
+    privacy: '',
+    kilometers: 0,
+    type: ''
   }
+  
+  // Holds info about the competition related to the activity
   currentCompetition: Competition = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Privacy: '',
-    BankAccount: '',
-    Price: 0,
-    ActivityID: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    privacy: '',
+    bankaccount: '',
+    price: 0,
+    activityid: ''
   }
 
+  // Model for the newly created activity
   activity: ActivityModel = {
     id: '',
     name: '',
@@ -54,9 +61,10 @@ export class CreateActivityComponent implements OnInit {
     duration: '',
     kilometers: 0,
     type: '',
-    athleteUsername: ''
+    athleteusername: ''
   }
 
+  // Info for the activity related to the competition
   activityCompetition: ActivityModel = {
     id: '',
     name: '',
@@ -65,45 +73,35 @@ export class CreateActivityComponent implements OnInit {
     duration: '',
     kilometers: 0,
     type: '',
-    athleteUsername: ''
+    athleteusername: ''
   }
 
+  // Model for associating this activity with a challenge
   activityInChallenge: ActivityInChallenge = {
-    ActivityID: '',
-    ChallengeID: ''
+    activityid: '',
+    challengeid: ''
   }
 
-
+  /**
+   * Creates the Create Activity component
+   * @param postService service for POST requests to the API
+   * @param getService service for GET requests to the API
+   * @param @param cookieService service for cookie creating to store the username
+   */
   constructor(private postService: PostService, private getService: GetService, private cookieSvc:CookieService) { }
 
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
   ngOnInit(): void {
   }
 
-  createActivity(){
-    this.activity.athleteUsername = this.cookieSvc.get('Username');
-    this.postService.createActivity(this.activity).subscribe(
-      res =>{
-      }, err => {
-        alert("Ha ocurrido un error")
-      }
-    );
-
-    if (this.eventType == 'Challenge') {
-      this.activityInChallenge.ActivityID = this.activity.id;
-      this.activityInChallenge.ChallengeID = this.currentChallenge.ID;
-      this.postService.createActivityInChallenge(this.activityInChallenge).subscribe(
-        res =>{
-        }, err => {
-          alert("Ha ocurrido un error")
-        }
-      );
-    }
-
-    location.reload();
-  }
-
+  /**
+   * If challenge or competition is selected as an option, all events where the user
+   * is subscribed are requested to the API
+   * @param event 
+   */
   radioSelect(event: Event) {
-      
       if ((event.target as HTMLInputElement).value == 'Challenge'){
         this.getService.getAthleteinChallenge(this.cookieSvc.get('Username')).subscribe(
           res => {
@@ -127,12 +125,15 @@ export class CreateActivityComponent implements OnInit {
       this.eventType = (event.target as HTMLInputElement).value;
   }
 
+  /**
+   * Gets the info associated to the challenge the athlete chose
+   */
   getChallengeInfo(){
     this.getService.getChallenge(this.challengeSelected).subscribe(
       res => {
         this.currentChallenge = res;
         this.haveSelectedChallenge = true;
-        this.activity.type = this.currentChallenge.Type;
+        this.activity.type = this.currentChallenge.type;
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -140,14 +141,18 @@ export class CreateActivityComponent implements OnInit {
     );
   }
 
+  /**
+   * Gets the info associated to the competition the athlete chose
+   */
   getCompetitonInfo(){
     this.getService.getCompetition(this.competitionSelected).subscribe(
       res => {
         this.currentCompetition = res;
         this.getActivityType();
         this.haveSelectedCompetition = true;
-        this.activity.name = this.currentCompetition.Name;
-        this.activity.date = this.currentCompetition.Date;
+        this.activity.name = this.currentCompetition.name;
+        this.activity.date = this.currentCompetition.date;
+        this.activity.route = this.currentCompetition.route;
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -155,8 +160,11 @@ export class CreateActivityComponent implements OnInit {
     );
   }
 
+  /**
+   * Gets the activity related to the competition the athlete chose
+   */
   getActivityType() {
-      this.getService.getActivity(this.currentCompetition.ActivityID).subscribe(
+      this.getService.getActivity(this.currentCompetition.activityid).subscribe(
         res => {
           this.activityCompetition = res;
           this.activity.type = this.activityCompetition.type;
@@ -165,6 +173,70 @@ export class CreateActivityComponent implements OnInit {
           alert('Ha ocurrido un error')
         }
       );
+  }
+
+  /**
+   * Reads the content of the .gpx when uploaded
+   * @param fileList list of files uploaded
+   */
+  public onChange(fileList: FileList): void {
+
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let self = this;
+
+    fileReader.onloadend = function(x) {
+      let gpxRead = fileReader.result as string;
+      self.encode64(gpxRead);
+    }
+    fileReader.readAsText(file);
+  }
+
+  /**
+   * Encodes string from the .gpx file to base 64 and sets it
+   * to the activity route
+   */
+  encode64(fileText: string) {
+    let gpxEncoded = btoa(fileText);
+    this.activity.route = gpxEncoded;
+  }
+
+  /**
+   * Creates the final activity to be POSTED to the API and also
+   * the ActivityInChallenge object if its associated to a challenge
+   */
+  createActivity(){
+    this.activity.athleteusername = this.cookieSvc.get('Username');
+    this.postService.createActivity(this.activity).subscribe(
+      res =>{
+        if (res == "") {
+          alert("Actividad creada satisfactoriamente.");
+        }
+        else {
+          if (res[0].message_id == 2601) {
+            alert("El ID de la actividad ya existe.");
+          }
+        }
+      }
+    );
+
+    if (this.eventType == 'Competition') {
+      //PUT DE ACTUALIZAR STATUS DE ATHLETE_IN_COMPETITION
+    }
+
+    if (this.eventType == 'Challenge') {
+      this.activityInChallenge.activityid = this.activity.id;
+      this.activityInChallenge.challengeid = this.currentChallenge.id;
+      console.log(this.activityInChallenge);
+      this.postService.createActivityInChallenge(this.activityInChallenge).subscribe(
+        res =>{
+        }, err => {
+          alert("Ha ocurrido un error")
+        }
+      );
+    }
+
+    //location.reload();
   }
 
 }

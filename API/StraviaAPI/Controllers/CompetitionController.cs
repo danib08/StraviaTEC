@@ -118,7 +118,7 @@ namespace StraviaAPI.Controllers
 
                 var data = new JObject(new JProperty("id", lbl_id), new JProperty("name", lbl_name),
                    new JProperty("route", lbl_route), new JProperty("date", DateTime.Parse(lbl_date)), new JProperty("privacy", lbl_privacy),
-                   new JProperty("bankAccount", lbl_bankaccount), new JProperty("price", float.Parse(lbl_price)), new JProperty("activityID", lbl_activityid));
+                   new JProperty("bankaccount", lbl_bankaccount), new JProperty("price", float.Parse(lbl_price)), new JProperty("activityid", lbl_activityid));
 
                 return data.ToString();
             }
@@ -162,9 +162,9 @@ namespace StraviaAPI.Controllers
                 myCommand.Parameters.AddWithValue("@route", competition.route);
                 myCommand.Parameters.AddWithValue("@date", competition.date);
                 myCommand.Parameters.AddWithValue("@privacy", competition.privacy);
-                myCommand.Parameters.AddWithValue("@bankaccount", competition.bankAccount);
+                myCommand.Parameters.AddWithValue("@bankaccount", competition.bankaccount);
                 myCommand.Parameters.AddWithValue("@price", competition.price);
-                myCommand.Parameters.AddWithValue("@activityid", competition.activityID);
+                myCommand.Parameters.AddWithValue("@activityid", competition.activityid);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -203,9 +203,9 @@ namespace StraviaAPI.Controllers
                     myCommand.Parameters.AddWithValue("@route", competition.route);
                     myCommand.Parameters.AddWithValue("@date", competition.date);
                     myCommand.Parameters.AddWithValue("@privacy", competition.privacy);
-                    myCommand.Parameters.AddWithValue("@bankaccount", competition.bankAccount);
+                    myCommand.Parameters.AddWithValue("@bankaccount", competition.bankaccount);
                     myCommand.Parameters.AddWithValue("@price", competition.price);
-                    myCommand.Parameters.AddWithValue("@activityid", competition.activityID);
+                    myCommand.Parameters.AddWithValue("@activityid", competition.activityid);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

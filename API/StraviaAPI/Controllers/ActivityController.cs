@@ -164,7 +164,7 @@ namespace StraviaAPI.Controllers
                 myCommand.Parameters.AddWithValue("@duration", activity.duration);
                 myCommand.Parameters.AddWithValue("@kilometers", activity.kilometers);
                 myCommand.Parameters.AddWithValue("@type", activity.type);
-                myCommand.Parameters.AddWithValue("@athleteusername", activity.athleteUsername);
+                myCommand.Parameters.AddWithValue("@athleteusername", activity.athleteusername);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader); //Loads data to table
@@ -207,7 +207,7 @@ namespace StraviaAPI.Controllers
                     myCommand.Parameters.AddWithValue("@date", activity.date);
                     myCommand.Parameters.AddWithValue("@kilometers", activity.kilometers);
                     myCommand.Parameters.AddWithValue("@type", activity.type);
-                    myCommand.Parameters.AddWithValue("@athleteusername", activity.athleteUsername);
+                    myCommand.Parameters.AddWithValue("@athleteusername", activity.athleteusername);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

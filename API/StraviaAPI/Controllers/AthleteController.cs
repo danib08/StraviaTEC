@@ -241,22 +241,12 @@ namespace StraviaAPI.Controllers
         /// <returns>List of athletes that have the specified name and lastname</returns>
 
         [HttpPost("Search")]
-        public string SearchAthletes(JObject data)
+        public JsonResult SearchAthletes(JObject data)
         {
-
-            string lbl_username;
-            string lbl_name;
-            string lbl_lastname;
-            string lbl_photo;
-            string lbl_age;
-            string lbl_birthdate;
-            string lbl_pass;
-            string lbl_nationality;
-            string lbl_category;
             DataTable table = new DataTable(); //Table created to store information
 
-            var name = data["Name"].ToString();
-            var lastname = data["LastName"].ToString();
+            var name = data["name"].ToString();
+            var lastname = data["lastname"].ToString();
 
             if (lastname.Equals("")){
 
@@ -306,24 +296,13 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            DataRow row = table.Rows[0];
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
 
-            lbl_username = row["Username"].ToString();
-            lbl_name = row["Name"].ToString();
-            lbl_lastname = row["LastName"].ToString();
-            lbl_photo = row["Photo"].ToString();
-            lbl_age = row["Age"].ToString();
-            lbl_birthdate = row["BirthDate"].ToString();
-            lbl_pass = row["Pass"].ToString();
-            lbl_nationality = row["Nationality"].ToString();
-            lbl_category = row["Category"].ToString();
-
-            var result = new JObject(new JProperty("Username", lbl_username), new JProperty("Name", lbl_name),
-                new JProperty("LastName", lbl_lastname), new JProperty("Photo", lbl_photo), new JProperty("Age", Int32.Parse(lbl_age)),
-                new JProperty("BirthDate", DateTime.Parse(lbl_birthdate)), new JProperty("Pass", lbl_pass), new JProperty("Nationality", lbl_nationality),
-                new JProperty("Category", lbl_category));
-
-            return result.ToString();
+            return new JsonResult(table); //Returns table
         }
 
         /// <summary>
@@ -402,10 +381,10 @@ namespace StraviaAPI.Controllers
                 //Added parameters with values
                 myCommand.Parameters.AddWithValue("@username", athlete.username);
                 myCommand.Parameters.AddWithValue("@name", athlete.name);
-                myCommand.Parameters.AddWithValue("@lastname", athlete.lastName);
+                myCommand.Parameters.AddWithValue("@lastname", athlete.lastname);
                 myCommand.Parameters.AddWithValue("@photo", athlete.photo);
                 myCommand.Parameters.AddWithValue("@age", athlete.age);
-                myCommand.Parameters.AddWithValue("@birthdate", athlete.birthDate);
+                myCommand.Parameters.AddWithValue("@birthdate", athlete.birthdate);
                 myCommand.Parameters.AddWithValue("@pass", athlete.pass);
                 myCommand.Parameters.AddWithValue("@nationality", athlete.nationality);
                 myCommand.Parameters.AddWithValue("@category", athlete.category);
@@ -445,10 +424,10 @@ namespace StraviaAPI.Controllers
                     //Added parameters with values
                     myCommand.Parameters.AddWithValue("@username", athlete.username);
                     myCommand.Parameters.AddWithValue("@name", athlete.name);
-                    myCommand.Parameters.AddWithValue("@lastname", athlete.lastName);
+                    myCommand.Parameters.AddWithValue("@lastname", athlete.lastname);
                     myCommand.Parameters.AddWithValue("@photo", athlete.photo);
                     myCommand.Parameters.AddWithValue("@age", athlete.age);
-                    myCommand.Parameters.AddWithValue("@birthdate", athlete.birthDate);
+                    myCommand.Parameters.AddWithValue("@birthdate", athlete.birthdate);
                     myCommand.Parameters.AddWithValue("@pass", athlete.pass);
                     myCommand.Parameters.AddWithValue("@nationality", athlete.nationality);
                     myCommand.Parameters.AddWithValue("@category", athlete.category);

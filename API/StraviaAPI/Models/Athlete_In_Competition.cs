@@ -9,8 +9,8 @@ namespace StraviaAPI.Models
 {
     public class Athlete_In_Competition
     {
-        public string athleteID { get; set; }
-        public string competitionID { get; set; }
+        public string athleteid { get; set; }
+        public string competitionid { get; set; }
         public string status { get; set; }
     }
 }

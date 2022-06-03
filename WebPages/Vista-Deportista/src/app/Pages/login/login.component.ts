@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
   newAthlete: AthleteModel = {
     username: '',
     name: '',
-    lastName: '',
+    lastname: '',
     photo: '',
     age: 0,
-    birthDate: '2022-05-31T04:35:02.318Z',
+    birthdate: '',
     pass: '',
     nationality: '',
     category: ''
@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
 
   /**
    * Creates the Log In component
-   * @param router Used to re-route the user to different pages
+   * @param router used to re-route the user to different pages
    * @param postSvc service for POST requests to the API
    * @param cookieSvc service for cookie creating to store the username
    */
