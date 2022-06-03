@@ -11,13 +11,13 @@
             <select
                 [(ngModel)]="selectedCompetition"
                 (change)="getParticipants()">
-                <option *ngFor="let list of athleteCreatedCompetitions; index as i" value="{{list.ID}}">{{list.Name}} - {{list.ID}}</option>
+                <option *ngFor="let list of athleteCreatedCompetitions; index as i" value="{{list.id}}">{{list.name} - {{list.ID}</option>
             </select>
             <label>Seleccione el atleta: </label>
             <select
                 [(ngModel)]="selectedAthlete"
                 (change)="getCurrentAthlete()">
-                <option *ngFor="let list of athletesArray; index as i" value="{{list.AthleteID}}">{{list.AthleteID}}</option>
+                <option *ngFor="let list of athletesArray; index as i" value="{{list.athleteid}}">{{list.athleteid}}</option>
             </select>      
             
             <button (click)="downloadReceipt()"> Descargar Comprobante</button>
@@ -26,7 +26,7 @@
             <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
                 <div class="form-input">
                     <i class="material-icons">lock</i>
-                    <select class="form-control" id="type" name="type" [(ngModel)]="athlete.Status" #type = "ngModel" required>
+                    <select class="form-control" id="type" name="type" [(ngModel)]="athlete.status" #type = "ngModel" required>
                         <option value="Accepted">Aceptar</option>
                         <option value="Denied">Rechazar</option>
                     </select>

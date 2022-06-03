@@ -14,24 +14,24 @@ import { PostService } from 'src/app/Services/Post/post-service';
 export class CreateChallengeComponent implements OnInit {
 
   associatedActivity: ActivityModel = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Duration: '',
-    Kilometers: 0,
-    Type: '',
-    AthleteUsername: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    duration: '',
+    kilometers: 0,
+    type: '',
+    athleteusername: ''
   } 
   
   challenge:Challenge = {
-    ID: '',
-    Name: '',
-    EndDate: '',
-    StartDate: '',
-    Privacy: '',
-    Kilometers: 0,
-    Type: ''
+    id: '',
+    name: '',
+    enddate: '',
+    startdate: '',
+    privacy: '',
+    kilometers: 0,
+    type: ''
   }
   constructor(private formBuilder: FormBuilder, private getService: GetService, private cookieSvc:CookieService, private postService: PostService) { }
 
@@ -39,41 +39,12 @@ export class CreateChallengeComponent implements OnInit {
   }
 
 
-  registerFormS = this.formBuilder.group({
-    ID: '',
-    Name: '',
-    BankAccount: '',
-    CompetitionID: '',
-    ChallengeID: ''
-  });
 
-  registerFormS2 = this.formBuilder.group({
-    Sponsors: this.formBuilder.array([], Validators.required)
-  });
-  
-  get sponsors(){
-    return this.registerFormS2.get('Sponsors') as FormArray;
-  }
-
-  addSponsor(){
-    const SponsorsFormGroup = this.formBuilder.group({
-      ID: '',
-      Name: '',
-      BankAccount: '',
-      CompetitionID: '',
-      ChallengeID: ''
-    });
-    this.sponsors.push(SponsorsFormGroup);
-  }
-
-  removeSponsor(index : number){
-    this.sponsors.removeAt(index);
-  }
 
   addChallenge(){
-    this.associatedActivity.Name = this.challenge.Name;
-    this.associatedActivity.Kilometers = this.challenge.Kilometers;
-    this.associatedActivity.AthleteUsername = this.cookieSvc.get('Username');
+    this.associatedActivity.name = this.challenge.name;
+    this.associatedActivity.kilometers = this.challenge.kilometers;
+    this.associatedActivity.athleteusername = this.cookieSvc.get('Username');
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
       },
@@ -89,26 +60,6 @@ export class CreateChallengeComponent implements OnInit {
         alert('Ha ocurrido un error')
       }
     );
-
-    this.registerFormS.get('CompetitionID')?.setValue(this.challenge.ID);
-    this.postService.createSponsor(this.registerFormS.value).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-
-    for(let i = 0; i < this.sponsors.length; i++){
-      this.sponsors.at(i).get('ChallengeID')?.setValue(this.challenge.ID);
-      this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
-        res =>{
-        },
-        err=>{
-          alert('Ha ocurrido un error')
-        }
-      );
-    }
     
   }
 }

@@ -62,25 +62,25 @@ export class CompetitionParticipantsComponent implements OnInit {
 
   organizeByCategories(){
     for(let i = 0; i < this.athlete4Report.length; i++){
-      if(this.athlete4Report[i].Category == 'Junior'){
+      if(this.athlete4Report[i].category == 'Junior'){
         this.Junior.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Sub-23'){
+      else if(this.athlete4Report[i].category == 'Sub-23'){
         this.Sub23.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Open'){
+      else if(this.athlete4Report[i].category == 'Open'){
         this.Open.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Elite'){
+      else if(this.athlete4Report[i].category == 'Elite'){
         this.Elite.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Master A'){
+      else if(this.athlete4Report[i].category == 'Master A'){
         this.MasterA.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Master B'){
+      else if(this.athlete4Report[i].category == 'Master B'){
         this.MasterB.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Master C'){
+      else if(this.athlete4Report[i].category == 'Master C'){
         this.MasterC.push(this.athlete4Report[i]);
       }
     }

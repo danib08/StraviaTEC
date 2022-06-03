@@ -20,11 +20,11 @@ export class AcceptRegistrationComponent implements OnInit {
   athletesArray: AthleteInCompetition[] = [];
 
   athlete: AthleteInCompetition = {
-    AthleteID: '',
-    CompetitionID: '',
-    Status: '',
-    Duration: 0,
-    Receipt: ''
+    athleteid: '',
+    competitionid: '',
+    status: '',
+    duration: 0,
+    receipt: ''
   }
   athleteCreatedCompetitions: Competition[] = [];
   constructor(private getService: GetService, private putService: PutService,private cookieSvc:CookieService) { }
@@ -55,7 +55,7 @@ export class AcceptRegistrationComponent implements OnInit {
 
   getCurrentAthlete(){
     for(let i=0; i < this.athletesArray.length; i++){
-      if(this.athletesArray[i].AthleteID == this.selectedAthlete){
+      if(this.athletesArray[i].athleteid == this.selectedAthlete){
         this.athlete = this.athletesArray[i];
         break;
       }
@@ -63,7 +63,7 @@ export class AcceptRegistrationComponent implements OnInit {
   }
 
   downloadReceipt(){
-    const source = `data:application/pdf;base64,${this.athlete.Receipt}`;
+    const source = `data:application/pdf;base64,${this.athlete.receipt}`;
     const link = document.createElement("a");
     link.href = source;
     link.download = `${'recibo'}.pdf`

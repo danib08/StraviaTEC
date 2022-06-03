@@ -15,13 +15,13 @@ import { PutService } from 'src/app/Services/Put/put-service';
 export class ModifyChallengeComponent implements OnInit {
 
   challenge: Challenge = {
-    ID: '',
-    Name: '',
-    EndDate: '',
-    StartDate: '',
-    Privacy: '',
-    Kilometers: 0,
-    Type: ''
+    id: '',
+    name: '',
+    enddate: '',
+    startdate: '',
+    privacy: '',
+    kilometers: 0,
+    type: ''
   }
   challengeSelected = '';
   challengesArray: Challenge[] = [];
@@ -55,7 +55,7 @@ export class ModifyChallengeComponent implements OnInit {
 
   getCurrentChallenge(){
     for(let i = 0; i < this.challengesArray.length; i++){
-      if(this.challengesArray[i].ID == this.challengeSelected){
+      if(this.challengesArray[i].id == this.challengeSelected){
         this.challenge = this.challengesArray[i];
         break;
       }
