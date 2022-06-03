@@ -11,8 +11,8 @@ namespace StraviaAPI.Models
     {
         public string id { get; set; }
         public string name { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
+        public DateTime startdate { get; set; }
+        public DateTime enddate { get; set; }
         public string privacy { get; set; }
         public float kilometers { get; set; }
         public string type { get; set; }

@@ -14,8 +14,8 @@ namespace StraviaAPI.Models
         public string route{ get; set; }
         public DateTime date { get; set; }
         public string privacy { get; set; }
-        public string bankAccount { get; set; }
+        public string bankaccount { get; set; }
         public float price{ get; set; }
-        public string activityID { get; set; }
+        public string activityid { get; set; }
     }
 }

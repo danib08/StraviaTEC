@@ -11,8 +11,8 @@ namespace StraviaAPI.Models
     {
         public string id { get; set; }
         public string name { get; set; }
-        public string bankAccount { get; set; }
-        public string competitionID { get; set; }
+        public string bankaccount { get; set; }
+        public string competitionid { get; set; }
         
     }
 }

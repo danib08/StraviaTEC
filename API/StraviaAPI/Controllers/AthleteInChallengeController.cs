@@ -229,8 +229,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);// SQL Command with query and connection
 
                 //Added parameters with values
-                myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Challenge.athleteID);
-                myCommand.Parameters.AddWithValue("@challengeid", athlete_In_Challenge.challengeID);
+                myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Challenge.athleteid);
+                myCommand.Parameters.AddWithValue("@challengeid", athlete_In_Challenge.challengeid);
                 myCommand.Parameters.AddWithValue("@status", athlete_In_Challenge.status);
 
                 myReader = myCommand.ExecuteReader();

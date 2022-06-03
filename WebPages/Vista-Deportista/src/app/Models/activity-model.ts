@@ -9,5 +9,5 @@ export interface ActivityModel {
     duration: string, 
     kilometers: number,
     type: string,
-    athleteUsername: string
+    athleteusername: string
 }

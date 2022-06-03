@@ -183,7 +183,7 @@ namespace StraviaAPI.Controllers
 
                 //Parameters added
                 myCommand.Parameters.AddWithValue("@name", group.name);
-                myCommand.Parameters.AddWithValue("@adminusername", group.adminUsername);
+                myCommand.Parameters.AddWithValue("@adminusername", group.adminusername);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -223,7 +223,7 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     //Parameters added
-                    myCommand.Parameters.AddWithValue("@adminusername", group.adminUsername);
+                    myCommand.Parameters.AddWithValue("@adminusername", group.adminusername);
                     myCommand.Parameters.AddWithValue("@name", group.name);
 
                     myReader = myCommand.ExecuteReader();

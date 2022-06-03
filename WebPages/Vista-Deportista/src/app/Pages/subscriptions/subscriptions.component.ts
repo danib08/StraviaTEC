@@ -22,15 +22,15 @@ export class SubscriptionsComponent implements OnInit {
   competitionsArray: Competition[] =[]; 
 
   athleteInChallenge: AthleteInChallenge = {
-    AthleteID: '',
-    ChallengeID: '',
-    Status: '0'
+    athleteid: '',
+    challengeid: '',
+    status: ''
   }
 
   athleteInCompetition: AthleteInCompetition = {
-    AthleteID: '',
-    CompetitionID: '',
-    Status: '0'
+    athleteid: '',
+    competitionid: '',
+    status: ''
   }
 
   constructor(private getService: GetService, private postService: PostService, private cookieSvc:CookieService) { }
@@ -65,8 +65,8 @@ export class SubscriptionsComponent implements OnInit {
   joinChallenge(chllngID:string, $event: MouseEvent) {
     ($event.target as HTMLButtonElement).disabled = true;
 
-    this.athleteInChallenge.AthleteID = this.cookieSvc.get('Username');
-    this.athleteInChallenge.ChallengeID = chllngID;
+    this.athleteInChallenge.athleteid = this.cookieSvc.get('Username');
+    this.athleteInChallenge.challengeid = chllngID;
     this.postService.createAthleteInChallenge(this.athleteInChallenge).subscribe(
       res => {
         console.log(res);
@@ -80,8 +80,8 @@ export class SubscriptionsComponent implements OnInit {
   joinCompetition(compID:string, $event: MouseEvent) {
     ($event.target as HTMLButtonElement).disabled = true;
 
-    this.athleteInCompetition.AthleteID = this.cookieSvc.get('Username');
-    this.athleteInCompetition.CompetitionID = compID;
+    this.athleteInCompetition.athleteid = this.cookieSvc.get('Username');
+    this.athleteInCompetition.competitionid = compID;
     this.postService.createAthleteInCompetition(this.athleteInCompetition).subscribe(
       res => {
         console.log(res);

@@ -9,7 +9,7 @@ namespace StraviaAPI.Models
 {
     public class Athlete_Followers
     {
-        public string athleteID { get; set; }
-        public string followerID { get; set; }
+        public string athleteid { get; set; }
+        public string followerid { get; set; }
     }
 }

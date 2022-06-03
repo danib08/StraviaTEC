@@ -17,24 +17,31 @@ export class SignUpComponent implements OnInit {
 
   public files: any = [];
   imageSrc: string = '';
-  constructor(private router: Router, private postSvc: PostService) { }
 
   // Athlete model for the Sign Up functionality
   newAthlete: AthleteModel = {
     username: '',
     name: '',
-    lastName: '',
+    lastname: '',
     photo: '',
     age: 0,
-    birthDate: '2022-05-31T04:35:02.318Z',
+    birthdate: '',
     pass: '',
     nationality: '',
     category: ''
   }
-
   
-  ngOnInit(): void {
-  }
+  /**
+   * Creates the Sign Up component
+   * @param router used to re-route the user to different pages
+   * @param postSvc service for POST requests to the API
+   */
+  constructor(private router: Router, private postSvc: PostService) { }
+
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
+  ngOnInit(): void {}
 
   /**
    * Navigates to the Sign In page
@@ -46,7 +53,7 @@ export class SignUpComponent implements OnInit {
   /**
    * Receives image uploaded by user, saves it to the
    * Athlete model and then displays it
-   * @param event 
+   * @param event triggered by the file upload
    */
   onFileChange(event:any) {
     const reader = new FileReader();
@@ -69,7 +76,14 @@ export class SignUpComponent implements OnInit {
   signUpAthlete(){
     this.postSvc.signUpAthlete(this.newAthlete).subscribe(
       res =>{
-        console.log(res);
+        if (res == "") {
+          this.router.navigate(["login"]);
+        }
+        else {
+          if (res[0].message_id == 2601) {
+            alert("El nombre de usuario ingresado ya existe.");
+          }
+        }
       }
     );
   }
