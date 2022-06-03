@@ -9,13 +9,13 @@ namespace StraviaAPI.Models
 {
     public class Activity
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Route { get; set; }
-        public DateTime Date { get; set; }
-        public string Duration { get; set; }
-        public float Kilometers { get; set; }
-        public string Type { get; set; }
-        public string AthleteUsername { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+        public string route { get; set; }
+        public DateTime date { get; set; }
+        public string duration { get; set; }
+        public float kilometers { get; set; }
+        public string type { get; set; }
+        public string athleteusername { get; set; }
     }
 }

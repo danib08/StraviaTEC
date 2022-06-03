@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 /// <summary>
 /// Competition categories controller with CRUD methods
@@ -53,6 +55,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table); //Returns json with all categories
         }
 
@@ -96,10 +105,10 @@ namespace StraviaAPI.Controllers
             {
                 DataRow row = table.Rows[0];
 
-                lbl_competitionid = row["CompetitionID"].ToString();
-                lbl_category = row["Category"].ToString();
+                lbl_competitionid = row["competitionID"].ToString();
+                lbl_category = row["category"].ToString();
 
-                var data = new JObject(new JProperty("CompetitionID", lbl_competitionid), new JProperty("Category", lbl_category));
+                var data = new JObject(new JProperty("competitionID", lbl_competitionid), new JProperty("category", lbl_category));
 
                 return data.ToString();
             }
@@ -109,6 +118,86 @@ namespace StraviaAPI.Controllers
                 return data.ToString();
             }
         }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Competition/{competition}")]
+        public JsonResult get_OnecompCategories(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_OnecompCategories @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+            TextInfo ti2 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti2.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Category/{category}")]
+        public JsonResult get_comps_OneCategory(string category)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_comps_OneCategory @category
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@category", category);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo ti3 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti3.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+
+
 
         /// <summary>
         /// Post method to add categories in competitions
@@ -134,8 +223,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command qith query and connection
 
                 //Parameters added
-                myCommand.Parameters.AddWithValue("@competitionid", compCategories.CompetitionID);
-                myCommand.Parameters.AddWithValue("@category", compCategories.Category);
+                myCommand.Parameters.AddWithValue("@competitionid", compCategories.competitionid);
+                myCommand.Parameters.AddWithValue("@category", compCategories.category);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);

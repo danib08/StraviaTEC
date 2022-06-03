@@ -34,56 +34,60 @@
                       #nBC = "ngModel"
                       required 
                       (change)="getChallengeInfo()">
-                <option *ngFor="let list of challengesArray; index as i" value="{{list.ChallengeID}}">{{list.ChallengeID}}</option>
+                <option *ngFor="let list of challengesArray; index as i" value="{{list.challengeid}}">{{list.challengeid}}</option>
               </select>
               <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" *ngIf=haveSelectedChallenge>
                 <div class="form-input">
                   <i class="material-icons">edit</i>
                   <input type="text" class="form-control" placeholder="Título de la actividad"
-                  [(ngModel)]="activity.Name" name="Nombre" #name = "ngModel"
+                  [(ngModel)]="activity.name" name="Nombre" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">assignment</i>
                   <input type="text" class="form-control" placeholder="ID de la actividad"
-                  [(ngModel)]="activity.ID" name="id" #name = "ngModel"
+                  [(ngModel)]="activity.id" name="id" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">event</i>
                   <input type="datetime-local" class="form-control" placeholder="Fecha y Hora"
-                  [(ngModel)]="activity.Date" name="Fecha" #name = "ngModel"
+                  [(ngModel)]="activity.date" name="Fecha" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">timer</i>
                   <input type="time" step="1" class="form-control" placeholder="Duración"
-                  [(ngModel)]="activity.Duration" name="Duracion" #name = "ngModel"
+                  [(ngModel)]="activity.duration" name="Duracion" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">directions_run</i>
                   <input type="number" class="form-control" placeholder="Kilometraje"
-                  [(ngModel)]="activity.Kilometers" name="Kilometraje" #name = "ngModel"
+                  [(ngModel)]="activity.kilometers" name="Kilometraje" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <label for="tipo">Tipo de Actividad</label>
                   <select class="form-control" id="type" name="type">
-                      <option value={{currentChallenge.Type}}>{{currentChallenge.Type}}</option>
+                      <option value={{currentChallenge.type}}>{{currentChallenge.type}}</option>
                     </select>
-              </div>
+                </div>
+                <div>
+                  <h5>Ruta en archivo .gpx</h5>
+                  <input type="file" (change)="onChange($any($event.target).files)">
+                </div>
                 <div class="form-input text-center">
                   <button class="btn mt-4">Crear Actividad</button>
                 </div>
               </form>
             </div>
-            <div class="isChallenge" *ngIf="(eventType == 'Competition')">
+            <div class="isCompetition" *ngIf="(eventType == 'Competition')">
               <label>Seleccione la carrera asociada a su actividad</label>
               <select class="form-control"
                       name="challenge"
@@ -92,44 +96,44 @@
                       #nBC = "ngModel"
                       required 
                       (change)="getCompetitonInfo()">
-                <option *ngFor="let list of competitionsArray; index as i" value="{{list.CompetitionID}}">{{list.CompetitionID}}</option>
+                <option *ngFor="let list of competitionsArray; index as i" value="{{list.competitionid}}">{{list.competitionid}}</option>
               </select>
               <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" *ngIf=haveSelectedCompetition>
                 <div class="form-input">
                   <i class="material-icons">edit</i>
-                  <input type="text" class="form-control" value={{currentCompetition.Name}} readonly>
+                  <input type="text" class="form-control" value={{currentCompetition.name}} readonly>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">assignment</i>
                   <input type="text" class="form-control" placeholder="ID de la actividad"
-                  [(ngModel)]="activity.ID" name="id" #name = "ngModel"
+                  [(ngModel)]="activity.id" name="id" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">event</i>
-                  <input type="datetime-local" class="form-control" value={{currentCompetition.Date}} readonly>
+                  <input type="datetime-local" class="form-control" value={{currentCompetition.date}} readonly>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">timer</i>
                   <input type="time" step="1" class="form-control" placeholder="Duración"
-                  [(ngModel)]="activity.Duration" name="Duracion" #name = "ngModel"
+                  [(ngModel)]="activity.duration" name="Duracion" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">speed</i>
                   <input type="number" class="form-control" placeholder="Kilometraje"
-                  [(ngModel)]="activity.Kilometers" name="Kilometraje" #name = "ngModel"
+                  [(ngModel)]="activity.kilometers" name="Kilometraje" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                   required>
                 </div>
                 <div class="form-input">
                   <label for="tipo">Tipo de Actividad</label>
                   <select class="form-control" id="type" name="type">
-                      <option value={{activityCompetition.Type}}>{{activityCompetition.Type}}</option>
+                      <option value={{activityCompetition.type}}>{{activityCompetition.type}}</option>
                     </select>
-              </div>
+                </div>
                 <div class="form-input text-center">
                   <button class="btn mt-4">Crear Actividad</button>
                 </div>
@@ -139,41 +143,41 @@
               <div class="form-input">
                 <i class="material-icons">edit</i>
                 <input type="text" class="form-control" placeholder="Título de la actividad"
-                [(ngModel)]="activity.Name" name="Nombre" #name = "ngModel"
+                [(ngModel)]="activity.name" name="Nombre" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
               </div>
               <div class="form-input">
                 <i class="material-icons">assignment</i>
                 <input type="text" class="form-control" placeholder="ID de la actividad"
-                [(ngModel)]="activity.ID" name="id" #name = "ngModel"
+                [(ngModel)]="activity.id" name="id" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
               </div>
               <div class="form-input">
                 <i class="material-icons">event</i>
                 <input type="datetime-local" class="form-control" placeholder="Fecha y Hora"
-                [(ngModel)]="activity.Date" name="Fecha" #name = "ngModel"
+                [(ngModel)]="activity.date" name="Fecha" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
               </div>
               <div class="form-input">
                 <i class="material-icons">timer</i>
                 <input type="time" step="1" class="form-control" placeholder="Duración"
-                [(ngModel)]="activity.Duration" name="Duracion" #name = "ngModel"
+                [(ngModel)]="activity.duration" name="Duracion" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
               </div>
               <div class="form-input">
                 <i class="material-icons">speed</i>
                 <input type="number" class="form-control" placeholder="Kilometraje"
-                [(ngModel)]="activity.Kilometers" name="Kilometraje" #name = "ngModel"
+                [(ngModel)]="activity.kilometers" name="Kilometraje" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
               </div>
               <div class="form-input">
                 <label for="tipo">Tipo de Actividad</label>
-                <select class="form-control" id="type" name="type" [(ngModel)]="activity.Type" #type = "ngModel" required>
+                <select class="form-control" id="type" name="type" [(ngModel)]="activity.type" #type = "ngModel" required>
                     <option value="Caminata">Caminata</option>
                     <option value="Correr">Correr</option>
                     <option value="CrossFit">CrossFit</option>
@@ -182,7 +186,12 @@
                     <option value="Senderismo">Senderismo</option>
                     <option value="Kayak">Kayak</option>
                   </select>
-            </div>
+              </div>
+              <div>
+                <h5>Ruta en archivo .gpx</h5>
+                <input type="file" (change)="onChange($any($event.target).files)">
+              </div>
+
               <div class="form-input text-center">
                 <button class="btn mt-4">Crear Actividad</button>
               </div>

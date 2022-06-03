@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 /// <summary>
 /// Challenge controler with CRUD methods
@@ -53,6 +55,12 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table); //Returns table data
         }
 
@@ -99,17 +107,17 @@ namespace StraviaAPI.Controllers
 
                 DataRow row = table.Rows[0];
 
-                lbl_id = row["Id"].ToString();
-                lbl_name = row["Name"].ToString();
-                lbl_startdate = row["StartDate"].ToString();
-                lbl_enddate = row["EndDate"].ToString();
-                lbl_privacy = row["Privacy"].ToString();
-                lbl_kilometers = row["Kilometers"].ToString();
-                lbl_type = row["Type"].ToString();
+                lbl_id = row["id"].ToString();
+                lbl_name = row["name"].ToString();
+                lbl_startdate = row["startDate"].ToString();
+                lbl_enddate = row["endDate"].ToString();
+                lbl_privacy = row["privacy"].ToString();
+                lbl_kilometers = row["kilometers"].ToString();
+                lbl_type = row["type"].ToString();
 
-                var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
-                   new JProperty("StartDate", DateTime.Parse(lbl_startdate)), new JProperty("EndDate", DateTime.Parse(lbl_enddate)), new JProperty("Privacy", lbl_privacy),
-                   new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type));
+                var data = new JObject(new JProperty("id", lbl_id), new JProperty("name", lbl_name),
+                   new JProperty("startDate", DateTime.Parse(lbl_startdate)), new JProperty("endDate", DateTime.Parse(lbl_enddate)), new JProperty("privacy", lbl_privacy),
+                   new JProperty("kilometers", float.Parse(lbl_kilometers)), new JProperty("type", lbl_type));
 
                 return data.ToString();
             }
@@ -144,13 +152,13 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);
 
                 //Parameters added with values
-                myCommand.Parameters.AddWithValue("@id", challenge.Id);
-                myCommand.Parameters.AddWithValue("@name", challenge.Name);
-                myCommand.Parameters.AddWithValue("@startdate", challenge.StartDate);
-                myCommand.Parameters.AddWithValue("@enddate", challenge.EndDate);
-                myCommand.Parameters.AddWithValue("@privacy", challenge.Privacy);
-                myCommand.Parameters.AddWithValue("@kilometers", challenge.Kilometers);
-                myCommand.Parameters.AddWithValue("@type", challenge.Type);
+                myCommand.Parameters.AddWithValue("@id", challenge.id);
+                myCommand.Parameters.AddWithValue("@name", challenge.name);
+                myCommand.Parameters.AddWithValue("@startdate", challenge.startdate);
+                myCommand.Parameters.AddWithValue("@enddate", challenge.enddate);
+                myCommand.Parameters.AddWithValue("@privacy", challenge.privacy);
+                myCommand.Parameters.AddWithValue("@kilometers", challenge.kilometers);
+                myCommand.Parameters.AddWithValue("@type", challenge.type);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -184,13 +192,13 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Sql command with query and connection
                 {
                     //Added parameters
-                    myCommand.Parameters.AddWithValue("@id", challenge.Id);
-                    myCommand.Parameters.AddWithValue("@name", challenge.Name);
-                    myCommand.Parameters.AddWithValue("@startdate", challenge.StartDate);
-                    myCommand.Parameters.AddWithValue("@enddate", challenge.EndDate);
-                    myCommand.Parameters.AddWithValue("@privacy", challenge.Privacy);
-                    myCommand.Parameters.AddWithValue("@kilometers", challenge.Kilometers);
-                    myCommand.Parameters.AddWithValue("@type", challenge.Type);
+                    myCommand.Parameters.AddWithValue("@id", challenge.id);
+                    myCommand.Parameters.AddWithValue("@name", challenge.name);
+                    myCommand.Parameters.AddWithValue("@startdate", challenge.startdate);
+                    myCommand.Parameters.AddWithValue("@enddate", challenge.enddate);
+                    myCommand.Parameters.AddWithValue("@privacy", challenge.privacy);
+                    myCommand.Parameters.AddWithValue("@kilometers", challenge.kilometers);
+                    myCommand.Parameters.AddWithValue("@type", challenge.type);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

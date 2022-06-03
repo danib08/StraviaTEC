@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 /// <summary>
 /// Groups Controller with CRUD methods
@@ -53,6 +55,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close();//Closed connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table info
         }
 
@@ -61,7 +70,7 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("{name}")]
+        [HttpGet("Group/{name}")]
         public string GetGroup(string name)
         {
             
@@ -96,7 +105,7 @@ namespace StraviaAPI.Controllers
                 lbl_adminuser = row["AdminUsername"].ToString();
                 lbl_name = row["Name"].ToString();
 
-                var data = new JObject(new JProperty("AdminUsername", lbl_adminuser), new JProperty("Name", lbl_name));
+                var data = new JObject(new JProperty("adminUsername", lbl_adminuser), new JProperty("name", lbl_name));
                 return data.ToString();
             }
             else
@@ -106,21 +115,20 @@ namespace StraviaAPI.Controllers
             }
         }
 
+
         /// <summary>
         /// Method to get a specific group
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("{AdminUsername}")]
-        public string GetGroupByAdmin(string adminUsername)
+        [HttpGet("{athlete}")]
+        public JsonResult get_group_byAdmin(string athlete)
         {
 
-            string lbl_name;
-            string lbl_adminuser;
 
             //SQL Query
             string query = @"
-                             exec get_group_byAdmin @adminusername
+                             exec get_group_byAdmin @username
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -130,7 +138,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Connection opened
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@adminusername", adminUsername);
+                    myCommand.Parameters.AddWithValue("@username", athlete);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Load data to table
@@ -139,22 +147,16 @@ namespace StraviaAPI.Controllers
                 }
             }
 
-            if (table.Rows.Count > 0)
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
             {
-                DataRow row = table.Rows[0];
-
-                lbl_adminuser = row["AdminUsername"].ToString();
-                lbl_name = row["Name"].ToString();
-
-                var data = new JObject(new JProperty("AdminUsername", lbl_adminuser), new JProperty("Name", lbl_name));
-                return data.ToString();
+                column.ColumnName = ti.ToLower(column.ColumnName);
             }
-            else
-            {
-                var data = new JObject(new JProperty("Existe", "no"));
-                return data.ToString();
-            }
+
+            return new JsonResult(table);//Returns table info
         }
+
+
 
         /// <summary>
         /// Post method to create groups
@@ -180,14 +182,20 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);
 
                 //Parameters added
-                myCommand.Parameters.AddWithValue("@name", group.Name);
-                myCommand.Parameters.AddWithValue("@adminusername", group.AdminUsername);
+                myCommand.Parameters.AddWithValue("@name", group.name);
+                myCommand.Parameters.AddWithValue("@adminusername", group.adminusername);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
                 myReader.Close();
                 myCon.Close();//Closed connection
 
+            }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
             }
 
             return new JsonResult(table);//Returns table info
@@ -215,8 +223,8 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     //Parameters added
-                    myCommand.Parameters.AddWithValue("@adminusername", group.AdminUsername);
-                    myCommand.Parameters.AddWithValue("@name", group.Name);
+                    myCommand.Parameters.AddWithValue("@adminusername", group.adminusername);
+                    myCommand.Parameters.AddWithValue("@name", group.name);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

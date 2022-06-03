@@ -9,6 +9,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 
 /// <summary>
 /// Athlete in Competition controller with CRUD methods
@@ -53,6 +54,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table); //Returns table data
         }
 
@@ -97,13 +105,13 @@ namespace StraviaAPI.Controllers
             {
                 DataRow row = table.Rows[0];
 
-                lbl_athleteid = row["AthleteID"].ToString();
-                lbl_competitionid = row["CompetitionID"].ToString();
-                lbl_status = row["Status"].ToString();
+                lbl_athleteid = row["athleteID"].ToString();
+                lbl_competitionid = row["competitionID"].ToString();
+                lbl_status = row["status"].ToString();
                 
 
-                var data = new JObject(new JProperty("AthleteID", lbl_athleteid), new JProperty("CompetitionID", lbl_competitionid),
-                    new JProperty("Status", lbl_status) );
+                var data = new JObject(new JProperty("athleteID", lbl_athleteid), new JProperty("competitionID", lbl_competitionid),
+                    new JProperty("status", lbl_status) );
 
                 return data.ToString();
             }
@@ -115,37 +123,162 @@ namespace StraviaAPI.Controllers
         }
 
         /// <summary>
-        /// Method to get a specific athlete in a specific competition
+        /// Method to get a specific group
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="competition"></param>
-        /// <returns>Json result with athlete in a competition</returns>
-
-        [HttpGet("{id}")]
-        public JsonResult GetAthCompetitions(string id, string competition)
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Athlete/{username}")]
+        public JsonResult get_OneAth_Competitions(string username)
         {
-            
-            //Query sent to SQL Server
+
+            //SQL Query
             string query = @"
-                             exec get_all_AICO
+                             exec get_OneAth_Competitions @username
                             ";
-            DataTable table = new DataTable(); //Created table to store data
+            DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
-            using (SqlConnection myCon = new SqlConnection(sqlDataSource)) // Connection created
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
             {
-                myCon.Open(); //Opened connection
-                using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Command with query and connection
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@athleteid", id);
-                    myReader = myCommand.ExecuteReader(); //Reading command's data
-                    table.Load(myReader); //Loads data to table
+                    myCommand.Parameters.AddWithValue("@username", username);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
                     myReader.Close();
-                    myCon.Close(); //Closed connection
+                    myCon.Close();//Closed data
                 }
             }
-            return new JsonResult(table); //Returns table data
+            TextInfo ti2 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti2.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
         }
+
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Competition/{competition}")]
+        public JsonResult get_Ath_OneCompetition(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Ath_OneCompetition @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo ti3 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti3.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Waiting/{competition}")]
+        public JsonResult get_Ath_OneCompetition_Waiting(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Ath_OneCompetition_Waiting @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo tiw = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = tiw.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Report/{competition}")]
+        public JsonResult get_comp_Report(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_comp_Report @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo tiw = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = tiw.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
 
         /// <summary>
         /// Method to add athlete in competition
@@ -172,9 +305,9 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added with its values
-                myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Comp.AthleteID);
-                myCommand.Parameters.AddWithValue("@competitionid", athlete_In_Comp.CompetitionID);
-                myCommand.Parameters.AddWithValue("@status", athlete_In_Comp.Status);
+                myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Comp.athleteid);
+                myCommand.Parameters.AddWithValue("@competitionid", athlete_In_Comp.competitionid);
+                myCommand.Parameters.AddWithValue("@status", athlete_In_Comp.status);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);

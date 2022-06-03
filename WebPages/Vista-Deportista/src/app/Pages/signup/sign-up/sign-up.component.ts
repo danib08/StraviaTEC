@@ -9,31 +9,52 @@ import { PostService } from 'src/app/Services/Post/post-service';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
+
+/**
+ * Sign Up component where the user registers itself on the social app
+ */
 export class SignUpComponent implements OnInit {
 
   public files: any = [];
   imageSrc: string = '';
-  constructor(private router: Router, private postSvc: PostService) { }
 
+  // Athlete model for the Sign Up functionality
   newAthlete: AthleteModel = {
-    Name: '',
-    Lastname: '',
-    Birthdate: '',
-    Nationality: '',
-    Age: 0,
-    Pass: '',
-    Category: '',
-    Photo: '',
-    Username: ''
+    username: '',
+    name: '',
+    lastname: '',
+    photo: '',
+    age: 0,
+    birthdate: '',
+    pass: '',
+    nationality: '',
+    category: ''
   }
   
-  ngOnInit(): void {
-  }
+  /**
+   * Creates the Sign Up component
+   * @param router used to re-route the user to different pages
+   * @param postSvc service for POST requests to the API
+   */
+  constructor(private router: Router, private postSvc: PostService) { }
 
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
+  ngOnInit(): void {}
+
+  /**
+   * Navigates to the Sign In page
+   */
   signIn() {
     this.router.navigate(["login"]);
   }
 
+  /**
+   * Receives image uploaded by user, saves it to the
+   * Athlete model and then displays it
+   * @param event triggered by the file upload
+   */
   onFileChange(event:any) {
     const reader = new FileReader();
      
@@ -43,18 +64,27 @@ export class SignUpComponent implements OnInit {
      
       reader.onload = () => { 
         this.imageSrc = reader.result as string;
-        this.newAthlete.Photo = this.imageSrc;
+        this.newAthlete.photo = this.imageSrc;
       };   
     }
   }
 
+  /**
+   * Makes a POST request to the API with the sign up info the
+   * athlete (user) entered
+   */
   signUpAthlete(){
     this.postSvc.signUpAthlete(this.newAthlete).subscribe(
       res =>{
-        console.log(res);
+        if (res == "") {
+          this.router.navigate(["login"]);
+        }
+        else {
+          if (res[0].message_id == 2601) {
+            alert("El nombre de usuario ingresado ya existe.");
+          }
+        }
       }
     );
   }
-  
-
 }

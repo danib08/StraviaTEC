@@ -3,35 +3,35 @@
   <form class="login" (ngSubmit)="f.form.valid && signUpAthlete()" #f="ngForm">
     <h1>StraviaTEC</h1>
     <input type="text" placeholder="Nombre" 
-      [(ngModel)]="newAthlete.Name" name="name" #name = "ngModel"
+      [(ngModel)]="newAthlete.name" name="name" #name = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
     <input type="text" placeholder="Apellido"
-      [(ngModel)]="newAthlete.Lastname" name="lastname" #lastname = "ngModel"
+      [(ngModel)]="newAthlete.lastname" name="lastname" #lastname = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
     <input type="date" placeholder="Fecha de nacimiento"
-      [(ngModel)]="newAthlete.Birthdate" name="birthdate" #birthdate = "ngModel"
+      [(ngModel)]="newAthlete.birthdate" name="birthdate" #birthdate = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
     <input type="text" placeholder="Nacionalidad"
-      [(ngModel)]="newAthlete.Nationality" name="nationality" #nationality = "ngModel"
+      [(ngModel)]="newAthlete.nationality" name="nationality" #nationality = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
     <input type="text" placeholder="Nombre de usuario"
-      [(ngModel)]="newAthlete.Username" name="username" #username = "ngModel"
+      [(ngModel)]="newAthlete.username" name="username" #username = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
     <input type="password" placeholder="Contraseña"
-      [(ngModel)]="newAthlete.Pass" name="pass" #pass = "ngModel"
+      [(ngModel)]="newAthlete.pass" name="pass" #pass = "ngModel"
       [ngClass]="{'is-invalid':f.submitted && name.invalid}"
       required>
-    <input type="password" placeholder="Confirmar contraseña">
     <input
       type="file"
       class="form-control"
       (change)="onFileChange($event)">
     <img [src]="imageSrc" *ngIf="imageSrc" style="height: 200px; width:200px">
+
     <button (click)="signIn()">Iniciar Sesión</button>
     <button>Registrarse</button>
   </form>

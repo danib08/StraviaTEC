@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 /// <summary>
 /// Competition controller with CRUD methods
@@ -53,6 +55,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close();//Closed connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns info from table
         }
 
@@ -98,18 +107,18 @@ namespace StraviaAPI.Controllers
             {
                 DataRow row = table.Rows[0];
 
-                lbl_id = row["Id"].ToString();
-                lbl_name = row["Name"].ToString();
-                lbl_route = row["Route"].ToString();
-                lbl_date = row["Date"].ToString();
-                lbl_privacy = row["Privacy"].ToString();
-                lbl_bankaccount = row["BankAccount"].ToString();
-                lbl_price = row["Price"].ToString();
-                lbl_activityid = row["ActivityID"].ToString();
+                lbl_id = row["id"].ToString();
+                lbl_name = row["name"].ToString();
+                lbl_route = row["route"].ToString();
+                lbl_date = row["date"].ToString();
+                lbl_privacy = row["privacy"].ToString();
+                lbl_bankaccount = row["bankAccount"].ToString();
+                lbl_price = row["price"].ToString();
+                lbl_activityid = row["activityID"].ToString();
 
-                var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
-                   new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Privacy", lbl_privacy),
-                   new JProperty("BankAccount", lbl_bankaccount), new JProperty("Price", float.Parse(lbl_price)), new JProperty("ActivityID", lbl_activityid));
+                var data = new JObject(new JProperty("id", lbl_id), new JProperty("name", lbl_name),
+                   new JProperty("route", lbl_route), new JProperty("date", DateTime.Parse(lbl_date)), new JProperty("privacy", lbl_privacy),
+                   new JProperty("bankaccount", lbl_bankaccount), new JProperty("price", float.Parse(lbl_price)), new JProperty("activityid", lbl_activityid));
 
                 return data.ToString();
             }
@@ -119,8 +128,10 @@ namespace StraviaAPI.Controllers
                 return data.ToString();
             }
 
-
         }
+
+
+
 
         /// <summary>
         /// Method to add competitions
@@ -146,14 +157,14 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added with required values
-                myCommand.Parameters.AddWithValue("@id", competition.Id);
-                myCommand.Parameters.AddWithValue("@name", competition.Name);
-                myCommand.Parameters.AddWithValue("@route", competition.Route);
-                myCommand.Parameters.AddWithValue("@date", competition.Date);
-                myCommand.Parameters.AddWithValue("@privacy", competition.Privacy);
-                myCommand.Parameters.AddWithValue("@bankaccount", competition.BankAccount);
-                myCommand.Parameters.AddWithValue("@price", competition.Price);
-                myCommand.Parameters.AddWithValue("@activityid", competition.ActivityID);
+                myCommand.Parameters.AddWithValue("@id", competition.id);
+                myCommand.Parameters.AddWithValue("@name", competition.name);
+                myCommand.Parameters.AddWithValue("@route", competition.route);
+                myCommand.Parameters.AddWithValue("@date", competition.date);
+                myCommand.Parameters.AddWithValue("@privacy", competition.privacy);
+                myCommand.Parameters.AddWithValue("@bankaccount", competition.bankaccount);
+                myCommand.Parameters.AddWithValue("@price", competition.price);
+                myCommand.Parameters.AddWithValue("@activityid", competition.activityid);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -187,14 +198,14 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
                     //Parameters added
-                    myCommand.Parameters.AddWithValue("@id", competition.Id);
-                    myCommand.Parameters.AddWithValue("@name", competition.Name);
-                    myCommand.Parameters.AddWithValue("@route", competition.Route);
-                    myCommand.Parameters.AddWithValue("@date", competition.Date);
-                    myCommand.Parameters.AddWithValue("@privacy", competition.Privacy);
-                    myCommand.Parameters.AddWithValue("@bankaccount", competition.BankAccount);
-                    myCommand.Parameters.AddWithValue("@price", competition.Price);
-                    myCommand.Parameters.AddWithValue("@activityid", competition.ActivityID);
+                    myCommand.Parameters.AddWithValue("@id", competition.id);
+                    myCommand.Parameters.AddWithValue("@name", competition.name);
+                    myCommand.Parameters.AddWithValue("@route", competition.route);
+                    myCommand.Parameters.AddWithValue("@date", competition.date);
+                    myCommand.Parameters.AddWithValue("@privacy", competition.privacy);
+                    myCommand.Parameters.AddWithValue("@bankaccount", competition.bankaccount);
+                    myCommand.Parameters.AddWithValue("@price", competition.price);
+                    myCommand.Parameters.AddWithValue("@activityid", competition.activityid);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

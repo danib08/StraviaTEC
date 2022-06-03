@@ -7,17 +7,29 @@ from( Athlete_Followers inner join Activity
 on Athlete_Followers.FollowerID = Activity.AthleteUsername)
 go
 
-create view competition_pos as
-select AthleteID ,CompetitionID ,Status
-from dbo.Athlete_In_Competition
+
+create view compReport as
+select Name, LastName, Age, Category, Duration, CompetitionID
+from( Athlete inner join Athlete_In_Competition
+on Athlete.Username = Athlete_In_Competition.AthleteID)
 go
 
-create view challActivities as
-select 
+
+create view CompsCreator as
+select Competition.ID as CompID, Competition.Name, Competition.Route, Competition.Date, AthleteUsername 
+from(Competition inner join Activity
+on Competition.ActivityID = Activity.ID)
+go
+
+create view ChallCreator as
+select distinct Activity_In_Challenge.ChallengeID, Activity.AthleteUsername
+from(Activity_In_Challenge inner join Activity
+on Activity_In_Challenge.ActivityID = Activity.ID)
+go
 
 
 
---------------------------------------------------TRIGGERS ----------------------------------
+----------------------------------------TRIGGERS ----------------------------------
 
 create trigger ageAthlete
 on dbo.Athlete
@@ -73,7 +85,8 @@ declare @Username varchar(50)
 select @Username = Username from deleted
 
 	if exists(select top 1 * from Athlete where Username = @Username)
-	begin	
+	begin
+	
 		delete from Activity
 		where AthleteUsername = @Username
 		delete from Athlete_In_Challenge
@@ -86,10 +99,12 @@ select @Username = Username from deleted
 		where AthleteID = @Username
 		delete from Group_Member
 		where MemberID = @Username
+		
+		
 	end
 	else
 	begin
-		print 'Esta Competición no existe'
+		print 'Este Usuario no existe'
 	end
 	
 	delete from Athlete
@@ -142,30 +157,7 @@ select @Id = Id from inserted
 end
 go
 
-create trigger DelActivity
-on dbo.Activity instead of delete
-as
-begin
-declare @Id varchar(50)
-select @Id = Id from deleted
 
-	if exists(select top 1 * from Activity where Id = @Id)
-	begin	
-		delete from Activity_In_Challenge
-		where ActivityID = @Id
-		delete from Competition
-		where ActivityID = @Id		
-	end
-	else
-	begin
-		print 'Esta Competición no existe'
-	end
-	
-	delete from Activity
-	where Id = @Id
-	
-end
-go
 
 
 --------------------------------------------Triggers Athlete Followers---------------------------------

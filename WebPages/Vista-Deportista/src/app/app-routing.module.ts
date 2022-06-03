@@ -8,6 +8,7 @@ import { CreateActivityComponent } from './Pages/create-activity/create-activity
 import { SubscriptionsComponent } from './Pages/subscriptions/subscriptions.component';
 import { ActivityComponent } from './Pages/activity/activity.component';
 
+// Routes for the different Pages on the Web Application
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignUpComponent},

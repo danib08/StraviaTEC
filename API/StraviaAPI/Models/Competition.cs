@@ -9,13 +9,13 @@ namespace StraviaAPI.Models
 {
     public class Competition
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Route{ get; set; }
-        public DateTime Date { get; set; }
-        public string Privacy { get; set; }
-        public string BankAccount { get; set; }
-        public float Price{ get; set; }
-        public string ActivityID { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+        public string route{ get; set; }
+        public DateTime date { get; set; }
+        public string privacy { get; set; }
+        public string bankaccount { get; set; }
+        public float price{ get; set; }
+        public string activityid { get; set; }
     }
 }

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 /// <summary>
 /// Activity Controller with CRUD methods 
@@ -55,6 +56,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close();
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);
         }
 
@@ -102,19 +110,19 @@ namespace StraviaAPI.Controllers
             {
                 DataRow row = table.Rows[0];
 
-                lbl_id = row["Id"].ToString();
-                lbl_name = row["Name"].ToString();
-                lbl_route = row["Route"].ToString();
-                lbl_date = row["Date"].ToString();
-                lbl_duration = row["Duration"].ToString();
-                lbl_kilometers = row["Kilometers"].ToString();
-                lbl_type = row["Type"].ToString();
-                lbl_ahlete_username = row["AthleteUsername"].ToString();
+                lbl_id = row["id"].ToString();
+                lbl_name = row["name"].ToString();
+                lbl_route = row["route"].ToString();
+                lbl_date = row["date"].ToString();
+                lbl_duration = row["duration"].ToString();
+                lbl_kilometers = row["kilometers"].ToString();
+                lbl_type = row["type"].ToString();
+                lbl_ahlete_username = row["athleteUsername"].ToString();
 
 
-                var data = new JObject(new JProperty("Id", lbl_id), new JProperty("Name", lbl_name),
-                    new JProperty("Route", lbl_route), new JProperty("Date", DateTime.Parse(lbl_date)), new JProperty("Duration", DateTime.Parse(lbl_duration)),
-                    new JProperty("Kilometers", float.Parse(lbl_kilometers)), new JProperty("Type", lbl_type), new JProperty("Athlete_username", lbl_ahlete_username));
+                var data = new JObject(new JProperty("id", lbl_id), new JProperty("name", lbl_name),
+                    new JProperty("route", lbl_route), new JProperty("date", DateTime.Parse(lbl_date)), new JProperty("duration", DateTime.Parse(lbl_duration)),
+                    new JProperty("kilometers", float.Parse(lbl_kilometers)), new JProperty("type", lbl_type), new JProperty("athleteUsername", lbl_ahlete_username));
 
                 return data.ToString();
             }
@@ -123,9 +131,7 @@ namespace StraviaAPI.Controllers
                 var data = new JObject(new JProperty("Existe", "no"));
                 return data.ToString();
             }
-
-           
-            
+       
         }
 
         /// <summary>
@@ -151,14 +157,14 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon); //Created command with query and connection
 
                 //Adding parameters and values
-                myCommand.Parameters.AddWithValue("@id", activity.Id);
-                myCommand.Parameters.AddWithValue("@name", activity.Name);
-                myCommand.Parameters.AddWithValue("@route", activity.Route);
-                myCommand.Parameters.AddWithValue("@date", activity.Date);
-                myCommand.Parameters.AddWithValue("@duration", activity.Duration);
-                myCommand.Parameters.AddWithValue("@kilometers", activity.Kilometers);
-                myCommand.Parameters.AddWithValue("@type", activity.Type);
-                myCommand.Parameters.AddWithValue("@athleteusername", activity.AthleteUsername);
+                myCommand.Parameters.AddWithValue("@id", activity.id);
+                myCommand.Parameters.AddWithValue("@name", activity.name);
+                myCommand.Parameters.AddWithValue("@route", activity.route);
+                myCommand.Parameters.AddWithValue("@date", activity.date);
+                myCommand.Parameters.AddWithValue("@duration", activity.duration);
+                myCommand.Parameters.AddWithValue("@kilometers", activity.kilometers);
+                myCommand.Parameters.AddWithValue("@type", activity.type);
+                myCommand.Parameters.AddWithValue("@athleteusername", activity.athleteusername);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader); //Loads data to table
@@ -195,13 +201,13 @@ namespace StraviaAPI.Controllers
                 {
 
                     //Parameters added with value
-                    myCommand.Parameters.AddWithValue("@id", activity.Id);
-                    myCommand.Parameters.AddWithValue("@name", activity.Name);
-                    myCommand.Parameters.AddWithValue("@route", activity.Route);
-                    myCommand.Parameters.AddWithValue("@date", activity.Date);
-                    myCommand.Parameters.AddWithValue("@kilometers", activity.Kilometers);
-                    myCommand.Parameters.AddWithValue("@type", activity.Type);
-                    myCommand.Parameters.AddWithValue("@athleteusername", activity.AthleteUsername);
+                    myCommand.Parameters.AddWithValue("@id", activity.id);
+                    myCommand.Parameters.AddWithValue("@name", activity.name);
+                    myCommand.Parameters.AddWithValue("@route", activity.route);
+                    myCommand.Parameters.AddWithValue("@date", activity.date);
+                    myCommand.Parameters.AddWithValue("@kilometers", activity.kilometers);
+                    myCommand.Parameters.AddWithValue("@type", activity.type);
+                    myCommand.Parameters.AddWithValue("@athleteusername", activity.athleteusername);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);

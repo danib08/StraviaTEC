@@ -15,7 +15,7 @@ export class MapService {
 
   constructor() { }
 
-  plotActivity(gpx: string){
+  plotActivity(gpx: any){
     var myStyle = {
       "color": "#3949AB",
       "weight": 5,

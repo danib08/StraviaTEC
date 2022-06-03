@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { AthleteFriends } from 'src/app/Models/athlete-friends';
+import { AthleteFollower } from 'src/app/Models/athlete-follower';
 import { AthleteModel } from 'src/app/Models/athlete-model';
 import { AthleteSearch } from 'src/app/Models/athlete-search';
 import { PostService } from 'src/app/Services/Post/post-service';
@@ -10,49 +10,92 @@ import { PostService } from 'src/app/Services/Post/post-service';
   templateUrl: './search-athletes.component.html',
   styleUrls: ['./search-athletes.component.css']
 })
-export class SearchAthletesComponent implements OnInit {
 
+/**
+ * Search Athletes component where the user can search for other
+ * athletes on the app and follow them.
+ */
+export class SearchAthletesComponent implements OnInit {
 
   AthleteName: String = '';
   AthletesArray: AthleteModel[] = [];
-  State=false;
-  athleteSearch: AthleteSearch ={
-    Name: '',
-    Lastname: ''
+  State = false;
+
+  // Model for searching other athletes according to name and last name
+  athleteSearch: AthleteSearch = {
+    name: '',
+    lastname: ''
   }
 
-  athleteFriend: AthleteFriends = {
-    AthleteID: '',
-    FriendID: ''
+  // Model that will indicate that the user follows a specified athlete
+  athleteFollower: AthleteFollower = {
+    athleteid: '',
+    followerid: ''
   }
-  constructor(private postService: PostService, private cookieSvc:CookieService) { }
+  
+  /**
+   * 
+   * @param postSvc service for POST requests to the API
+   * @param cookieSvc service for cookie creating to store the username
+   */
+  constructor(private postSvc: PostService, private cookieSvc:CookieService) { }
 
+   /**
+   * Called after Angular has initialized all data-bound properties
+   */
   ngOnInit(): void {
   }
 
+  /**
+   * Obtains a list of all the athletes that match the name and
+   * last name the user entered
+   */
   getAthletes(){
-    var splitted = this.AthleteName.split(" ", 2); 
-    this.athleteSearch.Name = splitted[0];
-    this.athleteSearch.Lastname = splitted[1];
-    this.postService.searchAthletes(this.athleteSearch).subscribe(
-      res => {
-        this.AthletesArray = res;
-        this.State = true;
-      },
-      err => {
-        alert('Ha ocurrido un error')
+    if (this.AthleteName != '') {
+      var splitted = this.AthleteName.split(" ", 2); 
+
+      if (splitted.length > 0) {
+        if (splitted.length == 1) {
+          this.athleteSearch.name = splitted[0];
+          this.athleteSearch.lastname = "";
+        }
+        else if (splitted.length == 2) {
+          this.athleteSearch.name = splitted[0];
+          this.athleteSearch.lastname = splitted[1];
+        }
+
+        this.postSvc.searchAthletes(this.athleteSearch).subscribe(
+        res => {
+          this.AthletesArray = res;
+
+          this.AthletesArray.forEach((element, index) => {
+            if (element.username == this.cookieSvc.get("Username")) {
+              this.AthletesArray.splice(index, 1);
+            }
+          });
+
+          this.State = true;
+        },
+        err => {
+          alert('No se encontraron atletas coincidentes.');
+        }
+        );
       }
-    );
+    }
   }
 
-  followAthlete(Username: string,  $event: MouseEvent){
+  /**
+   * Lets the user follow the selected athlete
+   * @param username the username of the athlete to follow
+   * @param $event triggered by a mouse click
+   */
+  followAthlete(username: string,  $event: MouseEvent){
     ($event.target as HTMLButtonElement).disabled = true;
 
-    this.athleteFriend.AthleteID = this.cookieSvc.get('Username');
-    this.athleteFriend.FriendID = Username;
-    this.postService.addFollower(this.athleteFriend).subscribe(
+    this.athleteFollower.athleteid = this.cookieSvc.get('Username');
+    this.athleteFollower.followerid = username;
+    this.postSvc.addFollower(this.athleteFollower).subscribe(
       res => {
-        console.log(res);
       },
       err => {
         alert('No se pudo seguir al atleta')

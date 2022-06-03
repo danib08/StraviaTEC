@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,6 +50,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table 
         }
 		
@@ -94,7 +102,7 @@ namespace StraviaAPI.Controllers
                 lbl_activityid = row["ActivityID"].ToString();
                 lbl_challengeid = row["ChallengeID"].ToString();
 
-                var data = new JObject(new JProperty("ActivityID", lbl_activityid), new JProperty("ChallengeID", lbl_challengeid));
+                var data = new JObject(new JProperty("activityID", lbl_activityid), new JProperty("challengeID", lbl_challengeid));
 
                 return data.ToString();
             }
@@ -104,8 +112,89 @@ namespace StraviaAPI.Controllers
                 return data.ToString();
             }
         }
-		
-		/// <summary>
+
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Activity/{id}")]
+        public JsonResult get_OneAct_Challenges(string id)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_OneAct_Challenges @id
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@id", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo ti2 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti2.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Challenge/{id}")]
+        public JsonResult get_Acts_OneChallenge(string id)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Acts_OneChallenge @id
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@id", id);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo ti3 = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti3.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+
+
+        /// <summary>
         /// Post method for activity in challenge
         /// </summary>
         /// <param name="friend"></param>
@@ -131,8 +220,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon);//Command with query and connection
 
                 //Parameters added
-                myCommand.Parameters.AddWithValue("@activityid", actChallenge.ActivityID);
-                myCommand.Parameters.AddWithValue("@challengeid", actChallenge.ChallengeID);
+                myCommand.Parameters.AddWithValue("@activityid", actChallenge.activityid);
+                myCommand.Parameters.AddWithValue("@challengeid", actChallenge.challengeid);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);

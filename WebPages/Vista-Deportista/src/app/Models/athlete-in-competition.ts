@@ -1,5 +1,8 @@
+/**
+ * Model for the AthleteInCompetition
+ */
 export interface AthleteInCompetition {
-    AthleteID: string,
-    CompetitionID: string,
-    Status: string
+    athleteid: string,
+    competitionid: string,
+    status: string
 }

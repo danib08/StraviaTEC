@@ -21,7 +21,7 @@ go
 create procedure post_activity(
 								@Id varchar(50),
 								@Name varchar(50),
-								@Route varchar(50),
+								@Route varchar(MAX),
 								@Date date,
 								@Duration time,
 								@Kilometers decimal(5,2),
@@ -39,7 +39,7 @@ go
 
 create procedure put_activity(	@Id varchar(50),
 								@Name varchar(50),
-								@Route varchar(50),
+								@Route varchar(MAX),
 								@Date date,
 								@Kilometers decimal(5,2),
 								@Type varchar(50),
@@ -85,7 +85,7 @@ create procedure post_athlete(
 								@Username varchar(50),
 								@Name varchar(50),
 								@LastName varchar(50),
-								@Photo varchar(50),
+								@Photo varchar(MAX),
 								@Age int,
 								@BirthDate date,
 								@Pass varchar(50),
@@ -136,7 +136,7 @@ go
 create procedure put_athlete(@Username varchar(50),
 								@Name varchar(50),
 								@LastName varchar(50),
-								@Photo varchar(50),
+								@Photo varchar(MAX),
 								@Age int,
 								@BirthDate date,
 								@Pass varchar(50),
@@ -316,11 +316,28 @@ where AthleteID = @AthleteID
 end
 go
 
+
 create procedure get_Ath_OneCompetition(@CompetitionID varchar(50))
 as begin
 select * from dbo.Athlete_In_Competition
 where CompetitionID = @CompetitionID
 end
+go
+
+
+create procedure get_Ath_OneCompetition_Waiting(@CompetitionID varchar(50))
+as begin
+select * from dbo.Athlete_In_Competition
+where CompetitionID = @CompetitionID and Status = 'Waiting'
+end
+go
+
+create procedure get_comp_Report(@CompetitionID varchar(50))
+as begin
+select * from compReport
+where CompetitionID = @CompetitionID
+order by Duration
+end 
 go
 
 
@@ -380,9 +397,18 @@ begin
 
 select * from dbo.Challenge
 where Id = @Id
-
 end
 go
+
+
+create procedure get_challenge_creator(@Username varchar(50))
+as
+begin
+select * from dbo.ChallCreator
+where AthleteUsername = @Username
+end
+go
+
 
 
 create procedure post_challenge(
@@ -452,13 +478,19 @@ where Id = @Id
 end
 go
 
-
+create procedure get_competition_creator(@Username varchar(50))
+as
+begin
+select * from dbo.CompsCreator
+where AthleteUsername = @Username
+end
+go
 
 
 create procedure post_competition(
 								@Id varchar(50),
 								@Name varchar(50),
-								@Route varchar(50),
+								@Route varchar(MAX),
 								@Date date,
 								@Privacy varchar(50),
 								@BankAccount varchar(50),
@@ -477,7 +509,7 @@ go
 
 create procedure put_competition(@Id varchar(50),
 								@Name varchar(50),
-								@Route varchar(50),
+								@Route varchar(MAX),
 								@Date date,
 								@Privacy varchar(50),
 								@BankAccount varchar(50),
@@ -579,17 +611,15 @@ begin
 
 select * from dbo.Groups
 where Name = @Name
-
 end
 go
 
-create procedure get_group_byAdmin(@AdminUsername varchar(50))
+create procedure get_group_byAdmin(@Name varchar(50))
 as
 begin
 
 select * from dbo.Groups
-where AdminUsername = @AdminUsername
-
+where AdminUsername = @Name
 end
 go
 
@@ -811,8 +841,6 @@ delete from dbo.Activity_In_Challenge
 where ActivityID = ActivityID and ChallengeID = @ChallengeID
 end
 go
-
-
 
 
 ---------------------------------------------------------------------------------------------

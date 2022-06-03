@@ -9,6 +9,8 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
+
 
 /// <summary>
 /// Group Member 
@@ -55,6 +57,13 @@ namespace StraviaAPI.Controllers
                     myCon.Close();//Close connection
                 }
             }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
             return new JsonResult(table);//Returns table data
         }
 
@@ -100,7 +109,7 @@ namespace StraviaAPI.Controllers
                 lbl_groupname = row["GroupName"].ToString();
                 lbl_memberid = row["MemberID"].ToString();
 
-                var data = new JObject(new JProperty("GroupName", lbl_groupname), new JProperty("MemberID", lbl_memberid));
+                var data = new JObject(new JProperty("groupName", lbl_groupname), new JProperty("memberID", lbl_memberid));
 
                 return data.ToString();
             }
@@ -110,6 +119,85 @@ namespace StraviaAPI.Controllers
                 return data.ToString();
             }
         }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Group/{name}")]
+        public JsonResult get_One_groupMembers(string name)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_One_groupMembers @name
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@name", name);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Athlete/{username}")]
+        public JsonResult get_groups_OneMembers(string username)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_groups_OneMembers @username
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = ti.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
 
         /// <summary>
         /// Method to add gruoup members
@@ -136,8 +224,8 @@ namespace StraviaAPI.Controllers
                 SqlCommand myCommand = new SqlCommand(query, myCon); //Command with query and connection
 
                 //Added parameters
-                myCommand.Parameters.AddWithValue("@groupname", groupMember.GroupName);
-                myCommand.Parameters.AddWithValue("@memberid", groupMember.MemberID);
+                myCommand.Parameters.AddWithValue("@groupname", groupMember.groupname);
+                myCommand.Parameters.AddWithValue("@memberid", groupMember.memberid);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
