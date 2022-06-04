@@ -211,7 +211,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_Ath_OneCompetition_Waiting @competition
+                             exec get_Ath_OneCompetition_Accepted @competition
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -238,6 +238,10 @@ namespace StraviaAPI.Controllers
 
             return new JsonResult(table);//Returns table info
         }
+
+
+        
+
 
 
         /// <summary>
@@ -294,7 +298,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Server query sent
             string query = @"
-                             exec post_Athlete_Competition @athleteid,@competitionid,@status
+                             exec post_Athlete_Competition @athleteid,@competitionid,@status,@receipt,@duration
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -308,6 +312,8 @@ namespace StraviaAPI.Controllers
                 myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Comp.athleteid);
                 myCommand.Parameters.AddWithValue("@competitionid", athlete_In_Comp.competitionid);
                 myCommand.Parameters.AddWithValue("@status", athlete_In_Comp.status);
+                myCommand.Parameters.AddWithValue("@receipt", athlete_In_Comp.receipt);
+                myCommand.Parameters.AddWithValue("@duration", athlete_In_Comp.duration);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -319,6 +325,44 @@ namespace StraviaAPI.Controllers
             return new JsonResult(table); //Returns info stored in table
 
         }
+
+        /// <summary>
+        /// Put method fot athletes
+        /// </summary>
+        /// <param name="athlete"></param>
+        /// <returns>Acceptance of query</returns>
+
+        [HttpPut]
+        public ActionResult PutAthleteInCompetition(Athlete_In_Competition athlete_In_Comp)
+        {
+            string query = @"
+                             exec put_Athlete_Competition @athleteid,@competitionid,@status,@receipt,@duration
+                            "; //update query sent to sql server
+            DataTable table = new DataTable();
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec"); //Connection started
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open(); //Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Command with query and connection
+                {
+                    //Added parameters with values
+                    myCommand.Parameters.AddWithValue("@athleteid", athlete_In_Comp.athleteid);
+                    myCommand.Parameters.AddWithValue("@competitionid", athlete_In_Comp.competitionid);
+                    myCommand.Parameters.AddWithValue("@status", athlete_In_Comp.status);
+                    myCommand.Parameters.AddWithValue("@receipt", athlete_In_Comp.receipt);
+                    myCommand.Parameters.AddWithValue("@duration", athlete_In_Comp.duration);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();//Closed connection
+                }
+            }
+            return Ok(); //Returns acceptance
+        }
+
+
 
         /// <summary>
         /// Delete method for athletes in competition

@@ -12,5 +12,7 @@ namespace StraviaAPI.Models
         public string athleteid { get; set; }
         public string competitionid { get; set; }
         public string status { get; set; }
+        public string receipt { get; set; }
+        public string duration { get; set; }
     }
 }

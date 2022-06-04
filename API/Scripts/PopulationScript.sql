@@ -5,12 +5,12 @@ exec post_athlete 'mjhca13', 'Maria Jesus', 'Hernandez', 'foto.png', 22, '1999-1
 
 
 
-exec post_activity  'Act1','Nado en piscina','archivo.gpx','2022-05-17','09:29:02', 10.51, 'Fondo','gabogh99'
-exec post_activity  'Act2','Pista atletismo','archivo.gpx','2022-05-17','02:12:42', 2.51, 'Fondo','gabogh99'
-exec post_activity  'Act3','Subir el Chirripó','archivo.gpx','2022-05-17','20:15:11', 42.72, 'Altura','gabogh99'
-exec post_activity 'Act4','Mejenguita','archivo.gpx','2022-05-17','01:45:41', 7.51, 'Fondo','gabogh99'
-exec post_activity 'Act5','Trote por la ciudad','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Fondo','gabogh99'
-exec post_activity 'Act7','Ciclismo montaña','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Fondo','gabogh99'
+exec post_activity  'Act1','Nado en piscina','archivo.gpx','2022-05-17','09:29:02', 10.51, 'Nadar','gabogh99'
+exec post_activity  'Act2','Pista atletismo','archivo.gpx','2022-05-17','02:12:42', 2.51, 'Correr','gabogh99'
+exec post_activity  'Act3','Subir el Chirripó','archivo.gpx','2022-05-17','20:15:11', 42.72, 'Caminata','gabogh99'
+exec post_activity 'Act4','Rafting por el Pacuare','archivo.gpx','2022-05-17','01:45:41', 7.51, 'Kayak','gabogh99'
+exec post_activity 'Act5','Trote por la ciudad','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Correr','gabogh99'
+exec post_activity 'Act7','Ciclismo montaña','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Ciclismo','gabogh99'
 
 exec post_follower 'dani_08','gabogh99'
 exec post_follower 'gabogh99','dani_08'
@@ -54,11 +54,11 @@ values('Ciclismo TEC', 'gabogh99'),
 
 insert into dbo.Athlete_In_Challenge
 (AthleteID,ChallengeID,Status)
-values('gabogh99', 'Chal1','Waiting'),
+values('gabogh99', 'Chal1','Finalizado'),
 ('dani_08', 'Chal1','En curso'),
 ('omend', 'Chal3','En curso'),
-('gabogh99', 'Chal3','Waiting'),
-('omend', 'Chal2','Waiting')
+('gabogh99', 'Chal3','Finalizado'),
+('omend', 'Chal2','Finalizado')
 
 
 insert into dbo.Activity_In_Challenge
@@ -71,8 +71,8 @@ values('Act2', 'Chal1'),
 
 insert into dbo.Athlete_In_Competition
 (AthleteID,CompetitionID,Status,Receipt, Duration)
-values('gabogh99', 'Comp1','Waiting','recibo.pdf','02:21:14'),
-('dani_08', 'Comp1','En curso','recibo.pdf','02:21:14'),
-('omend', 'Comp1','En curso','recibo.pdf','02:21:14'),
-('gabogh99', 'Comp3','Waiting','recibo.pdf','02:21:14'),
-('omend', 'Comp3','Waiting','recibo.pdf','02:21:14')
+values('gabogh99', 'Comp1','No aceptado','recibo.pdf','02:21:14'),
+('dani_08', 'Comp1','Aceptado','recibo.pdf','02:21:14'),
+('omend', 'Comp1','Aceptado','recibo.pdf','02:21:14'),
+('gabogh99', 'Comp3','No aceptado','recibo.pdf','02:21:14'),
+('omend', 'Comp3','No aceptado','recibo.pdf','02:21:14')

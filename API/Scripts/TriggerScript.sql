@@ -30,19 +30,6 @@ go
 
 
 ----------------------------------------TRIGGERS ----------------------------------
-
-create trigger ageAthlete
-on dbo.Athlete
-AFTER INSERT
-NOT FOR REPLICATION
-AS
-BEGIN
-update dbo.Athlete
-set Age = year(getdate())-year(BirthDate)
-end
-go
-
-
 create trigger statusComp
 on dbo.Athlete_In_Competition
 AFTER INSERT
@@ -50,7 +37,18 @@ NOT FOR REPLICATION
 AS
 BEGIN
 update dbo.Athlete_In_Competition
-set Status = 'Waiting'
+set Status = 'No aceptado'
+end
+go
+
+create trigger statusChall
+on dbo.Athlete_In_Challenge
+AFTER INSERT
+NOT FOR REPLICATION
+AS
+BEGIN
+update dbo.Athlete_In_Challenge
+set Status = 'En curso'
 end
 go
 

@@ -22,7 +22,7 @@ create procedure post_activity(
 								@Id varchar(50),
 								@Name varchar(50),
 								@Route varchar(MAX),
-								@Date date,
+								@Date datetime,
 								@Duration time,
 								@Kilometers decimal(5,2),
 								@Type varchar(50),
@@ -40,7 +40,7 @@ go
 create procedure put_activity(	@Id varchar(50),
 								@Name varchar(50),
 								@Route varchar(MAX),
-								@Date date,
+								@Date datetime,
 								@Kilometers decimal(5,2),
 								@Type varchar(50),
 								@AthleteUsername varchar(50))
@@ -97,8 +97,44 @@ as
 begin
 
 	insert into dbo.Athlete(Username,Name,LastName,Photo,Age,BirthDate,Pass,Nationality,Category)
-	values(@Username,@Name,@LastName,@Photo,@Age,@BirthDate,@Pass,@Nationality,@Category)
-
+	values(@Username,@Name,@LastName,@Photo,year(getdate())-year(@BirthDate),@BirthDate,@Pass,@Nationality,@Category)
+	if (year(getdate())-year(@BirthDate)) < 15
+	begin
+		update dbo.Athlete 
+		set Category = 'Junior'
+		where Username = @Username
+	end
+	if( 14 < (year(getdate())-year(@BirthDate)) and (year(getdate())-year(@BirthDate)) < 24)
+	begin
+		update dbo.Athlete 
+		set Category = 'Sub-23'
+		where Username = @Username
+	end
+	if( 23 < (year(getdate())-year(@BirthDate)) and (year(getdate())-year(@BirthDate)) < 30)
+	begin
+		update dbo.Athlete 
+		set Category = 'Open'
+		where Username = @Username
+	end
+	if( 30 < (year(getdate())-year(@BirthDate)) and (year(getdate())-year(@BirthDate)) < 41)
+	begin
+		update dbo.Athlete 
+		set Category = 'Master A'
+		where Username = @Username
+	end
+	if( 40 < (year(getdate())-year(@BirthDate)) and (year(getdate())-year(@BirthDate)) < 51)
+	begin
+		update dbo.Athlete 
+		set Category = 'Master B'
+		where Username = @Username
+	end
+	if( 50 < (year(getdate())-year(@BirthDate)))
+	begin
+		update dbo.Athlete 
+		set Category = 'Master C'
+		where Username = @Username
+	end
+	
 end
 go
 
@@ -263,6 +299,14 @@ where ChallengeID = @ChallengeID
 end
 go
 
+create procedure get_Ath_OneChallenge_Accepted(@ChallengeID varchar(50))
+as begin
+select * from dbo.Athlete_In_Challenge
+where ChallengeID = @ChallengeID and Status = 'En curso'
+end
+go
+
+
 
 create procedure post_Athlete_Challenge(
 							@AthleteID varchar(50),
@@ -325,10 +369,10 @@ end
 go
 
 
-create procedure get_Ath_OneCompetition_Waiting(@CompetitionID varchar(50))
+create procedure get_Ath_OneCompetition_Accepted(@CompetitionID varchar(50))
 as begin
 select * from dbo.Athlete_In_Competition
-where CompetitionID = @CompetitionID and Status = 'Waiting'
+where CompetitionID = @CompetitionID and Status = 'Aceptado'
 end
 go
 
