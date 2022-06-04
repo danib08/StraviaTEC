@@ -34,13 +34,13 @@ FollowerID varchar(50) NOT NULL
 CREATE TABLE dbo.Athlete_In_Challenge(
 AthleteID varchar(50) NOT NULL,
 ChallengeID varchar(50) NOT NULL,
-Status varchar(50) DEFAULT 'Waiting'
+Status varchar(50) 
 )
 
 CREATE TABLE dbo.Athlete_In_Competition(
 AthleteID varchar(50) NOT NULL,
 CompetitionID varchar(50) NOT NULL,
-Status varchar(50) DEFAULT 'Waiting',
+Status varchar(50),
 Receipt varchar(MAX),
 Duration time,
 )

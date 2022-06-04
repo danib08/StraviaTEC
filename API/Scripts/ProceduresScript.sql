@@ -299,6 +299,14 @@ where ChallengeID = @ChallengeID
 end
 go
 
+create procedure get_Ath_OneChallenge_Accepted(@ChallengeID varchar(50))
+as begin
+select * from dbo.Athlete_In_Challenge
+where ChallengeID = @ChallengeID and Status = 'En curso'
+end
+go
+
+
 
 create procedure post_Athlete_Challenge(
 							@AthleteID varchar(50),
@@ -361,10 +369,10 @@ end
 go
 
 
-create procedure get_Ath_OneCompetition_Waiting(@CompetitionID varchar(50))
+create procedure get_Ath_OneCompetition_Accepted(@CompetitionID varchar(50))
 as begin
 select * from dbo.Athlete_In_Competition
-where CompetitionID = @CompetitionID and Status = 'Waiting'
+where CompetitionID = @CompetitionID and Status = 'Aceptado'
 end
 go
 

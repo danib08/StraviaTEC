@@ -54,11 +54,11 @@ values('Ciclismo TEC', 'gabogh99'),
 
 insert into dbo.Athlete_In_Challenge
 (AthleteID,ChallengeID,Status)
-values('gabogh99', 'Chal1','Waiting'),
+values('gabogh99', 'Chal1','Finalizado'),
 ('dani_08', 'Chal1','En curso'),
 ('omend', 'Chal3','En curso'),
-('gabogh99', 'Chal3','Waiting'),
-('omend', 'Chal2','Waiting')
+('gabogh99', 'Chal3','Finalizado'),
+('omend', 'Chal2','Finalizado')
 
 
 insert into dbo.Activity_In_Challenge
@@ -71,8 +71,8 @@ values('Act2', 'Chal1'),
 
 insert into dbo.Athlete_In_Competition
 (AthleteID,CompetitionID,Status,Receipt, Duration)
-values('gabogh99', 'Comp1','Waiting','recibo.pdf','02:21:14'),
-('dani_08', 'Comp1','En curso','recibo.pdf','02:21:14'),
-('omend', 'Comp1','En curso','recibo.pdf','02:21:14'),
-('gabogh99', 'Comp3','Waiting','recibo.pdf','02:21:14'),
-('omend', 'Comp3','Waiting','recibo.pdf','02:21:14')
+values('gabogh99', 'Comp1','No aceptado','recibo.pdf','02:21:14'),
+('dani_08', 'Comp1','Aceptado','recibo.pdf','02:21:14'),
+('omend', 'Comp1','Aceptado','recibo.pdf','02:21:14'),
+('gabogh99', 'Comp3','No aceptado','recibo.pdf','02:21:14'),
+('omend', 'Comp3','No aceptado','recibo.pdf','02:21:14')
