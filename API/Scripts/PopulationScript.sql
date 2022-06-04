@@ -6,11 +6,11 @@ exec post_athlete 'mjhca13', 'Maria Jesus', 'Hernandez', 'foto.png', 22, '1999-1
 
 
 exec post_activity  'Act1','Nado en piscina','archivo.gpx','2022-05-17','09:29:02', 10.51, 'Nadar','gabogh99'
-exec post_activity  'Act2','Pista atletismo','archivo.gpx','2022-05-17','02:12:42', 2.51, 'Correr','gabogh99'
-exec post_activity  'Act3','Subir el Chirripó','archivo.gpx','2022-05-17','20:15:11', 42.72, 'Caminata','gabogh99'
+exec post_activity  'Act2','Pista atletismo','archivo.gpx','2022-05-17','02:12:42', 2.51, 'Correr','omend'
+exec post_activity  'Act3','Subir el Chirripó','archivo.gpx','2022-05-17','20:15:11', 42.72, 'Caminata','dani_08'
 exec post_activity 'Act4','Rafting por el Pacuare','archivo.gpx','2022-05-17','01:45:41', 7.51, 'Kayak','gabogh99'
-exec post_activity 'Act5','Trote por la ciudad','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Correr','gabogh99'
-exec post_activity 'Act7','Ciclismo montaña','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Ciclismo','gabogh99'
+exec post_activity 'Act5','Trote por la ciudad','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Correr','omend'
+exec post_activity 'Act7','Ciclismo montaña','archivo.gpx','2022-05-18','02:32:41', 8.91, 'Ciclismo','dani_08'
 
 exec post_follower 'dani_08','gabogh99'
 exec post_follower 'gabogh99','dani_08'

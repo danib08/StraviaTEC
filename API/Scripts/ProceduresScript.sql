@@ -933,7 +933,7 @@ go
 create procedure get_feed(@Username varchar(50))
 as
 begin
-select * from dbo.friends_Act
+select FollowerID,ID,Name,Route,Date,Duration,Kilometers,Type from dbo.friends_Act
 where  AthleteID = @Username
 end
 go
