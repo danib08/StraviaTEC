@@ -1,7 +1,7 @@
 --------------------------------------------------VIEWS----------------------------------
 
 
-create view friends_Act as
+alter view friends_Act as
 select AthleteID, FollowerID,ID,Name,Route,Date,Duration,Kilometers,Type 
 from( Athlete_Followers inner join Activity 
 on Athlete_Followers.FollowerID = Activity.AthleteUsername)
