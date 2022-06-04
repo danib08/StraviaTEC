@@ -112,7 +112,7 @@ namespace MobileApp
         //Get single Athlete
         public Athlete GetAthlete(string username){
             try{
-                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "TecAir.db"));
+                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
                 List<Athlete> athlete = connection.Query<Athlete>("SELECT * FROM Athlete Where username=?", username);
                 return athlete.Find(athlete => athlete.username == username);
             }catch (SQLiteException ex){
@@ -125,7 +125,7 @@ namespace MobileApp
         public bool PutAthlete(Athlete user){
             try
             {
-                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "TecAir.db"));
+                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
                 connection.Insert(user);
                 return true;
             }
@@ -139,7 +139,7 @@ namespace MobileApp
         public bool PutAthletLocal(AthleteLocal user){
             try
             {
-                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "TecAir.db"));
+                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
                 connection.Insert(user);
                 return true;
             }

@@ -27,16 +27,17 @@ namespace AppMobile.Activities
         private LatLng lastPosition;
         private LatLng myPosition;
 
-        private bool stop;
-        private bool first;
-        
-        private double totalDistance;
+
         private TextView textTotalDistance;
         private TextView textVelocidad;
         private TextView txtTimer;
         private Button buttonStop;
         private Button buttonFinish;
         private Timer timer;
+
+        private bool stop;
+        private bool first;
+        private double totalDistance;
         private int hour = 0, min = 0, sec = 0, velocidad = 0;
         private string trkpt;
 
@@ -168,7 +169,7 @@ namespace AppMobile.Activities
         {
             base.OnResume();
             this.timer.Start();
-            locationManager.RequestLocationUpdates(locationProvider, 1000, 1, this);
+            locationManager.RequestLocationUpdates(locationProvider, 2000, 1, this);
         }
         //Adjust map values
         public void OnLocationChanged(Android.Locations.Location location){

@@ -31,7 +31,6 @@ namespace AppMobile.Activities{
             editTextPassIn = FindViewById<EditText>(Resource.Id.editTextPassIn);
             bottonsendHome = FindViewById<Button>(Resource.Id.sendHome);
 
-            //
             bottonsendHome.Click += (sender, e) =>{
                 if (editTextIdIn.Text.Equals("") || editTextPassIn.Text.Equals(""))
                 {
