@@ -14,14 +14,14 @@ import { PutService } from 'src/app/Services/Put/put-service';
 export class CreateGroupComponent implements OnInit {
 
   group:Group = {
-    Name: '',
-    AdminUsername: '',
+    name: '',
+    adminusername: ''
   }
 
   editedGroup:Group = {
-    Name: '',
-    AdminUsername: '',
-    OlderName: ''
+    name: '',
+    adminusername: '',
+    oldername:''
   }
 
   groupSelected = '';
@@ -35,7 +35,7 @@ export class CreateGroupComponent implements OnInit {
   }
 
   addGroup(){
-    this.group.AdminUsername = this.cookieSvc.get('Username')
+    this.group.adminusername = this.cookieSvc.get('Username')
     this.postService.createGroup(this.group).subscribe(
       res=>{
         location.reload()
@@ -48,7 +48,7 @@ export class CreateGroupComponent implements OnInit {
 
   getCurrentGroup(){
     for(let i = 0; i < this.groupsArray.length; i++){
-      if(this.groupsArray[i].Name == this.groupSelected){
+      if(this.groupsArray[i].name == this.groupSelected){
         this.editedGroup = this.groupsArray[i];
         break;
       }
@@ -68,8 +68,8 @@ export class CreateGroupComponent implements OnInit {
   }
 
   changeGroup(){
-    this.editedGroup.AdminUsername = this.cookieSvc.get('Username');
-    this.editedGroup.OlderName = this.groupSelected;
+    this.editedGroup.adminusername = this.cookieSvc.get('Username');
+    this.editedGroup.oldername = this.groupSelected;
     this.putService.modifyGroup(this.editedGroup).subscribe(
       res=>{
         location.reload()

@@ -5,7 +5,7 @@
     <select
         [(ngModel)]="competitionSelected"
         (change)="getCurrentCompetitionReport()">
-        <option *ngFor="let list of athleteCompetitions; index as i" value="{{list.CompetitionID}}">{{list.CompetitionID}}</option>
+        <option *ngFor="let list of athleteCompetitions; index as i" value="{{list.competitionid}}">{{list.competitionid}}</option>
     </select>
     <button (click)="downloadPDF()">Descargar</button>
 </div>
@@ -20,11 +20,11 @@
         <div class="col col-5">Tiempo</div>
       </li>
       <li class="table-row" *ngFor="let athlete of athlete4Report">
-        <div class="col col-1" data-label="Name">{{athlete.Name}}</div>
-        <div class="col col-2" data-label="LastName">{{athlete.LastName}}</div>
-        <div class="col col-3" data-label="Age">{{athlete.Age}}</div>
-        <div class="col col-4" data-label="Category">{{athlete.Category}}</div>
-        <div class="col col-5" data-label="Time">{{athlete.Time}}</div>
+        <div class="col col-1" data-label="Name">{{athlete.name}}</div>
+        <div class="col col-2" data-label="LastName">{{athlete.lastname}}</div>
+        <div class="col col-3" data-label="Age">{{athlete.age}}</div>
+        <div class="col col-4" data-label="Category">{{athlete.category}</div>
+        <div class="col col-5" data-label="Time">{{athlete.time}}</div>
       </li>
     </ul>
   </div>

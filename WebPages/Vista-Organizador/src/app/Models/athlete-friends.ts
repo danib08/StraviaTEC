@@ -1,4 +1,4 @@
 export interface AthleteFriends {
-    AthleteID: string,
-    FriendID: string
+    athleteid: string,
+    friendid: string
 }

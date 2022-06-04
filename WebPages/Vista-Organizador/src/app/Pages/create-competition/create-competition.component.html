@@ -13,42 +13,42 @@
             <div class="form-input">
               <i class="material-icons">flag</i>
               <input type="text" class="form-control" placeholder="Nombre"
-              [(ngModel)]="competition.Name" name="Nombre" #name = "ngModel"
+              [(ngModel)]="competition.name" name="Nombre" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
             <div class="form-input">
                 <i class="material-icons">insert_comment</i>
                 <input type="text" class="form-control" placeholder="ID de la carrera"
-                [(ngModel)]="competition.ID" name="ID" #name = "ngModel"
+                [(ngModel)]="competition.id" name="ID" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
                 <i class="material-icons">calendar_today</i>
                 <input type="datetime-local" class="form-control" placeholder="Fecha de la carrera"
-                [(ngModel)]="competition.Date" name="Date" #name = "ngModel"
+                [(ngModel)]="competition.date" name="Date" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
                 <i class="material-icons">attach_file</i>
                 <input type="file" class="form-control" placeholder="Ruta"
-                [(ngModel)]="competition.Route" name="Route" #name = "ngModel"
+                [(ngModel)]="competition.route" name="Route" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
               <i class="material-icons">attach_money</i>
-              <input type="text" class="form-control" placeholder="#### - #### - #### - ####"
-              [(ngModel)]="competition.BankAccount" name="BankAccount" #name = "ngModel"
+              <input type="text" class="form-control" placeholder="Cuenta Bancaria"
+              [(ngModel)]="competition.bankaccount" name="BankAccount" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
             <label for="tipo">Privacidad de la Carrera</label>
             <div class="form-input">
               <i class="material-icons">lock</i>
-              <select class="form-control" id="type" name="type" [(ngModel)]="competition.Privacy" #type = "ngModel" required>
+              <select class="form-control" id="type" name="type" [(ngModel)]="competition.privacy" #type = "ngModel" required>
                   <option value="public">Pública</option>
                   <option value="private">Privada</option>
                 </select>
@@ -57,28 +57,28 @@
             <div class="form-input">
               <i class="material-icons">insert_comment</i>
               <input type="text" class="form-control" placeholder="ID de la actividad"
-              [(ngModel)]="associatedActivity.ID" name="Name" #name = "ngModel"
+              [(ngModel)]="associatedActivity.id" name="Name" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
             <div class="form-input">
               <i class="material-icons">timer</i>
               <input type="time" step="1" class="form-control" placeholder="Duración"
-              [(ngModel)]="associatedActivity.Duration" name="Duracion" #name = "ngModel"
+              [(ngModel)]="associatedActivity.duration" name="Duracion" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
             <div class="form-input">
               <i class="material-icons">speed</i>
               <input type="number" class="form-control" placeholder="Kilometraje"
-              [(ngModel)]="associatedActivity.Kilometers" name="Kilometraje" #name = "ngModel"
+              [(ngModel)]="associatedActivity.kilometers" name="Kilometraje" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
             <label for="tipo">Tipo de Actividad</label>
             <div class="form-input">
               <i class="material-icons">list</i>
-              <select class="form-control" id="type" name="type" [(ngModel)]="associatedActivity.Type" #type = "ngModel" required>
+              <select class="form-control" id="type" name="type" [(ngModel)]="associatedActivity.type" #type = "ngModel" required>
                   <option value="Caminata">Caminata</option>
                   <option value="Correr">Correr</option>
                   <option value="CrossFit">CrossFit</option>
@@ -92,18 +92,18 @@
           <form [formGroup]="registerFormS">
             <div class="form-input">
               <i class="material-icons">insert_comment</i>
-              <input type="text" class="form-control" placeholder="Nombre del Patrocinador" formControlName="Name"
+              <input type="text" class="form-control" placeholder="Nombre del Patrocinador" formControlName="name"
               required>
             </div>
   
             <div class="form-input">
               <i class="material-icons">insert_comment</i>
-              <input type="text" class="form-control" placeholder="Cédula Jurídica del Patrocinador" formControlName="ID"
+              <input type="text" class="form-control" placeholder="Cédula Jurídica del Patrocinador" formControlName="id"
               required>
             </div>
             <div class="form-input">
                 <i class="material-icons">attach_money</i>
-                <input type="text" class="form-control" placeholder="#### - #### - #### - ####" formControlName="BankAccount"
+                <input type="text" class="form-control" placeholder="Cuenta Bancaria" formControlName="bankaccount"
                 required>
             </div>
           </form>
@@ -113,17 +113,17 @@
               <div [formGroupName]="i" >
                 <div class="form-input">
                   <i class="material-icons">insert_comment</i>
-                  <input type="text" [attr.id]="'Name' + i" class="form-control" formControlName="Name" placeholder="Nombre del Patrocinador"
+                  <input type="text" [attr.id]="'name' + i" class="form-control" formControlName="name" placeholder="Nombre del Patrocinador"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">insert_comment</i>
-                  <input type="text" [attr.id]="'ID' + i" class="form-control" formControlName="ID" placeholder="Cédula Jurídica"
+                  <input type="text" [attr.id]="'id' + i" class="form-control" formControlName="id" placeholder="Cédula Jurídica"
                   required>
                 </div>
                 <div class="form-input">
                   <i class="material-icons">insert_comment</i>
-                  <input type="text" [attr.id]="'BankAccount' + i" class="form-control" formControlName="BankAccount" placeholder="Cuenta Bancaria"
+                  <input type="text" [attr.id]="'bankaccount' + i" class="form-control" formControlName="bankaccount" placeholder="Cuenta Bancaria"
                   required>
                 </div>
                 <button class="btn col-7 col-9" (click)="removeSponsor(i)">Eliminar</button>
@@ -135,7 +135,7 @@
               <label for="Category">Seleccione la categoría o las categorías</label>    
               <div class="form-input">
                   <i class="material-icons">list</i>
-                  <select class="form-control" id="Category" name="Category" formControlName="Category">
+                  <select class="form-control" id="Category" name="category" formControlName="category">
                     <option value="Junior">Junior</option>
                     <option value="Sub-23">Sub-23</option>
                     <option value="Elite">Elite</option>
@@ -151,7 +151,7 @@
                   <div [formGroupName]="i">
                       <div class="row">
                           <div class="col-1 col-7">
-                              <select class="form-control" [attr.id]="'Category' + i" formControlName="Category"> 
+                              <select class="form-control" [attr.id]="'category' + i" formControlName="category"> 
                                 <option value="Junior">Junior</option>
                                 <option value="Sub-23">Sub-23</option>
                                 <option value="Elite">Elite</option>

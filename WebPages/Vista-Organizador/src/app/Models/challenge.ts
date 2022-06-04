@@ -1,9 +1,9 @@
 export interface Challenge {
-    ID:string,
-    Name:string,
-    EndDate:string,
-    StartDate:string,
-    Privacy:string,
-    Kilometers:number,
-    Type:string
+    id:string,
+    name:string,
+    enddate:string,
+    startdate:string,
+    privacy:string,
+    kilometers:number,
+    type:string
 }

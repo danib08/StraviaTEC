@@ -14,15 +14,15 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private postSvc: PostService, private cookieSvc:CookieService) {}
 
   newAthlete: AthleteModel = {
-    Name: '',
-    Lastname: '',
-    Birthdate: '',
-    Nationality: '',
-    Age: 0,
-    Pass: '',
-    Category: '',
-    Photo: '',
-    Username: ''
+    name: '',
+    lastname: '',
+    birthdate: '',
+    nationality: '',
+    age: 0,
+    pass: '',
+    category: '',
+    photo: '',
+    username: ''
   }
 
   ngOnInit(): void {}
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.postSvc.signInAthlete(this.newAthlete).subscribe(
       res =>{
         console.log(res);
-        this.cookieSvc.set('Username', this.newAthlete.Username);
+        this.cookieSvc.set('Username', this.newAthlete.username);
       },err => {
         alert('Contraseña o Username incorrectos')
       }
