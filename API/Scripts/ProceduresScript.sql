@@ -309,7 +309,7 @@ go
 create procedure get_not_inscribed(@Username varchar(50))
 as begin
 select * from dbo.Athlete_In_Challenge
-where Username = @Username 
+where AthleteID = @Username 
 end
 go
 
@@ -933,7 +933,7 @@ go
 create procedure get_feed(@Username varchar(50))
 as
 begin
-select * from dbo.friends_Act
+select FollowerID,ID,Name,Route,Date,Duration,Kilometers,Type from dbo.friends_Act
 where  AthleteID = @Username
 end
 go
