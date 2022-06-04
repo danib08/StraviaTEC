@@ -406,9 +406,10 @@ go
 create procedure get_not_inscribed_Comp(@Username varchar(50))
 as begin
 select distinct ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
-from (Athlete_In_Competition inner join Competition
+from (Athlete_In_Competition right join Competition
 on Athlete_In_Competition.CompetitionID = Competition.ID)
-where CompetitionID not in 
+where AthleteID is null or
+CompetitionID not in 
 (select CompetitionID from Athlete_In_Competition 
 where AthleteID = @Username)
 end
@@ -775,9 +776,10 @@ go
 create procedure get_not_inscribed_Groups(@Username varchar(50))
 as begin
 select distinct Name, AdminUsername
-from (Groups inner join Group_Member
+from (Group_Member right join Groups
 on Groups.Name= Group_Member.GroupName)
-where GroupName not in 
+where MemberID is null or
+GroupName not in 
 (select GroupName from Group_Member
 where MemberID = @Username)
 end
