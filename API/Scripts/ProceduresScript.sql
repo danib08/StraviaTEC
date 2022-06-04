@@ -61,6 +61,7 @@ go
 
 
 ----------------------Athlete stored procedures------------------
+/*
 
 create procedure get_all_athletes
 as
@@ -194,6 +195,8 @@ delete from dbo.Athlete
 where Username = @Username
 end 
 go
+
+*/
 
 ----------------------Athlete friend's stored procedures------------------
 
@@ -476,7 +479,7 @@ where Id = @Id
 end
 go
 
-
+/*
 create procedure get_challenge_creator(@Username varchar(50))
 as
 begin
@@ -484,7 +487,7 @@ select * from dbo.ChallCreator
 where AthleteUsername = @Username
 end
 go
-
+*/
 
 
 create procedure post_challenge(
@@ -554,6 +557,7 @@ where Id = @Id
 end
 go
 
+/*
 create procedure get_competition_creator(@Username varchar(50))
 as
 begin
@@ -561,7 +565,7 @@ select * from dbo.CompsCreator
 where AthleteUsername = @Username
 end
 go
-
+*/
 
 create procedure post_competition(
 								@Id varchar(50),

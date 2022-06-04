@@ -38,7 +38,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthletes()
         {
             string query = @"
-                             exec get_all_athletes
+                             exec proc_athlete '','','','',0,'2000-12-12','','','','Select'
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table to save information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -71,7 +71,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GeFeed(string username)
         {
             string query = @"
-                             exec get_feed @username
+                             exec proc_athlete @username,'','','',0,'2000-12-12','','','','Feed'
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table to save information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -105,7 +105,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GeCompsCreator(string username)
         {
             string query = @"
-                             exec get_competition_creator @username
+                             exec proc_athlete @username,'','','',0,'2000-12-12','','','','CompCreator'
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table to save information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -140,7 +140,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GeChallCreator(string username)
         {
             string query = @"
-                             exec get_challenge_creator @username
+                             exec proc_athlete @username,'','','',0,'2000-12-12','','','','ChallCreator' 
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table to save information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -188,7 +188,7 @@ namespace StraviaAPI.Controllers
 
 
             string query = @"
-                             exec get_athlete @user
+                             exec proc_athlete @user,'','','',0,'2000-12-12','','','','Select'
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table created to store information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -251,7 +251,7 @@ namespace StraviaAPI.Controllers
             if (lastname.Equals("")){
 
                 string query = @"
-                             exec  search_athlete_name @name
+                             exec proc_athlete '',@name,'','',0,'2000-12-12','','','','SearchName'
                             "; //Select query sent to SQL Server
 
 
@@ -274,7 +274,7 @@ namespace StraviaAPI.Controllers
             else
             {
                 string query = @"
-                             exec search_athlete_lastname @name,@lastname
+                             exec proc_athlete '',@name,@lastname,'',0,'2000-12-12','','','','SearchLastName'
                             "; //Select query sent to SQL Server
 
                 
@@ -318,7 +318,7 @@ namespace StraviaAPI.Controllers
             //Insert query sent to SQL Server 
 
             string query = @"
-                             exec login_athlete @username,@pass
+                             exec proc_athlete @username,'','','',0,'2000-12-12',@pass,'','','Select'
                             ";
             DataTable table = new DataTable();
 
@@ -368,7 +368,7 @@ namespace StraviaAPI.Controllers
             //Insert query sent to SQL Server 
 
             string query = @"
-                             exec post_athlete @username,@name,@lastname,@photo,@age,@birthdate,@pass,@nationality,@category
+                             exec proc_athlete @username,@name,@lastname,@photo,@age,@birthdate,@pass,@nationality,@category,'Insert'
                             "; 
             DataTable table = new DataTable();
             
@@ -411,7 +411,7 @@ namespace StraviaAPI.Controllers
         public ActionResult PutAthlete(Athlete athlete)
         {
             string query = @"
-                             exec put_athlete @username,@name,@lastname,@photo,@age,@birthdate,@pass,@nationality,@category
+                             exec proc_athlete @username,@name,@lastname,@photo,@age,@birthdate,@pass,@nationality,@category,'Update'
                             "; //update query sent to sql server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec"); //Connection started
@@ -451,7 +451,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteAthlete(string username)
         {
             string query = @"
-                             exec delete_athlete @username
+                            exec proc_athlete @user,'','','',0,'2000-12-12','','','','Delete'
                             "; //delete query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");//Connection getted
