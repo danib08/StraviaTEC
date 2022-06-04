@@ -1,4 +1,4 @@
-create procedure proc_athlete(@Username varchar(50),
+alter procedure proc_athlete(@Username varchar(50),
 								@Name varchar(50),
 								@LastName varchar(50),
 								@Photo varchar(MAX),
@@ -83,7 +83,7 @@ as begin
 
 	if @StatementType = 'Feed'
 	begin
-		select FollowerID,ID,Name,Route,Date,Duration,Kilometers,Type from dbo.friends_Act
+		select FollowerID as AthleteUsername,ID,Name,Route,Date,Duration,Kilometers,Type from dbo.friends_Act
 		where  AthleteID = @Username
 	end
 

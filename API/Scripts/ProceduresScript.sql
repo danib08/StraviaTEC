@@ -937,7 +937,7 @@ go
 
 ---------------------------------------------------------------------------------------------
 
-create procedure get_feed(@Username varchar(50))
+alter procedure get_feed(@Username varchar(50))
 as
 begin
 select FollowerID,ID,Name,Route,Date,Duration,Kilometers,Type from dbo.friends_Act
