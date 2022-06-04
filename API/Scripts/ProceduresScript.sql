@@ -61,7 +61,6 @@ go
 
 
 ----------------------Athlete stored procedures------------------
-/*
 
 create procedure get_all_athletes
 as
@@ -196,8 +195,6 @@ where Username = @Username
 end 
 go
 
-*/
-
 ----------------------Athlete friend's stored procedures------------------
 
 
@@ -319,11 +316,10 @@ go
 create procedure get_not_inscribed_Chall(@Username varchar(50))
 as begin
 select distinct ID, Name, StartDate, EndDate, Privacy, Kilometers, Type
-from(Athlete_In_Challenge right join Challenge
+from (Athlete_In_Challenge right join Challenge
 on Athlete_In_Challenge.ChallengeID = Challenge.ID)
-where AthleteID is null or
-ChallengeID not in
-(select ChallengeID from Athlete_In_Challenge
+where AthleteID is null or ChallengeID not in 
+(select ChallengeID from Athlete_In_Challenge 
 where AthleteID = @Username)
 end
 go
@@ -409,10 +405,9 @@ go
 create procedure get_not_inscribed_Comp(@Username varchar(50))
 as begin
 select distinct ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
-from (Athlete_In_Competition right join Competition
+from (Athlete_In_Competition inner join Competition
 on Athlete_In_Competition.CompetitionID = Competition.ID)
-where AthleteID is null or
-CompetitionID not in 
+where CompetitionID not in 
 (select CompetitionID from Athlete_In_Competition 
 where AthleteID = @Username)
 end
@@ -479,7 +474,7 @@ where Id = @Id
 end
 go
 
-/*
+
 create procedure get_challenge_creator(@Username varchar(50))
 as
 begin
@@ -487,7 +482,7 @@ select * from dbo.ChallCreator
 where AthleteUsername = @Username
 end
 go
-*/
+
 
 
 create procedure post_challenge(
@@ -557,7 +552,6 @@ where Id = @Id
 end
 go
 
-/*
 create procedure get_competition_creator(@Username varchar(50))
 as
 begin
@@ -565,7 +559,7 @@ select * from dbo.CompsCreator
 where AthleteUsername = @Username
 end
 go
-*/
+
 
 create procedure post_competition(
 								@Id varchar(50),
@@ -780,10 +774,9 @@ go
 create procedure get_not_inscribed_Groups(@Username varchar(50))
 as begin
 select distinct Name, AdminUsername
-from (Group_Member right join Groups
+from (Groups inner join Group_Member
 on Groups.Name= Group_Member.GroupName)
-where MemberID is null or
-GroupName not in 
+where GroupName not in 
 (select GroupName from Group_Member
 where MemberID = @Username)
 end
@@ -942,6 +935,5 @@ as
 begin
 select FollowerID,ID,Name,Route,Date,Duration,Kilometers,Type from dbo.friends_Act
 where  AthleteID = @Username
-order by Date asc
 end
 go
