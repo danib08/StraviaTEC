@@ -39,6 +39,7 @@ namespace AppMobile.Activities
         private Timer timer;
         private int hour = 0, min = 0, sec = 0, velocidad = 0;
         private string trkpt;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -70,6 +71,7 @@ namespace AppMobile.Activities
             buttonFinish.Click += (sender, e) => {
                 OnPause();
                 string ruta = makeGpx();
+
 
             };
             buttonStop.Click += (sender, e) => {
@@ -138,10 +140,12 @@ namespace AppMobile.Activities
         //Make the xml of the gpx
         public string makeGpx(){
             string gpx = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-            + "<gpx xmlns=\"http://www.topografix.com/GPX/1/1\" xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\" " +
-            "xmlns:gpxx=\"http://www.garmin.com/xmlschemas/GpxExtensions/v3\" xmlns:ns1=\"http://www.cluetrust.com/XML/GPXDATA/1/0\" " +
-            "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" creator=\"Zamfit\" version=\"1.3\" " +
-            "xsi:schemaLocation=\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd\">"
+            + "<gpx version=\"1.0\" creator = Runkeeper-http://www.runkeeper.com"
+            + "xmlns: xsi =\"http://www.w3.org/2001/XMLSchema-instance\""
+            + "xmlns=\"http://www.topografix.com/GPX/1/1\""
+            + "xsi: schemaLocation =\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+            + "xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\""
+            
             + "<metadata><time>"+DateTime.Now.ToString("s")+"Z</time></metadata>"
             + "<trk>"
             + "<name>Activity Name</name>"
@@ -171,13 +175,13 @@ namespace AppMobile.Activities
             Double lat, lng, ele;
             lat = location.Latitude;
             lng = location.Longitude;
-            //ele = location.Altitude;
-
-            //this.trkpt +=
-            //        "<trkpt" + "lat=" + lat.ToString("s") + "lon=" + lng.ToString("s") + ">"
-            //        + "<ele>" + ele.ToString("s") + "</ele>"
-            //        + "<time>" + DateTime.Now.ToString("s") + "Z</time>"
-            //        + "</trkpt>";
+            ele = location.Altitude;
+            string timer = DateTime.Now.ToString("s");
+            this.trkpt +=
+                    "<trkpt" + "lat=" + lat.ToString("s") + "lon=" + lng.ToString("s") + ">"
+                    + "<ele>" + ele.ToString("s") + "</ele>"
+                    + "<time>" + timer + "Z</time>"
+                    + "</trkpt>";
             
             if (this.first){
                 this.myPosition.Latitude = lat;

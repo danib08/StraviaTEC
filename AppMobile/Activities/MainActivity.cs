@@ -27,9 +27,9 @@ namespace AppMobile.Activities
             Platform.Init(this, savedInstanceState);
             
             // Database synchronization
-            db = new Database();
-            db.CreateDatabase();
-            await db.SyncAsync();
+            //db = new Database();
+            //db.CreateDatabase();
+            //await db.SyncAsync();
 
 
             SetContentView(Resource.Layout.activity_main);

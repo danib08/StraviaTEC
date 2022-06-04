@@ -5,7 +5,7 @@ namespace AppMobile.Models
     class Athlete
     {
         [PrimaryKey]
-
+        public string username { get; set; }
         public string name { get; set; }
         public string lastname { get; set; }
         public string birthdate { get; set; }
@@ -14,6 +14,6 @@ namespace AppMobile.Models
         public string pass { get; set; }
         public string category { get; set; }
         public string photo { get; set; }
-        public string username { get; set; }
+
     }
 }
