@@ -221,7 +221,7 @@ namespace StraviaAPI.Controllers
                 lbl_category = row["category"].ToString();
 
                 var data = new JObject(new JProperty("username", lbl_username), new JProperty("name", lbl_name),
-                    new JProperty("lastName", lbl_lastname), new JProperty("photo", lbl_photo), new JProperty("age", Int32.Parse(lbl_age)),
+                    new JProperty("lastname", lbl_lastname), new JProperty("photo", lbl_photo), new JProperty("age", Int32.Parse(lbl_age)),
                     new JProperty("birthDate", DateTime.Parse(lbl_birthdate)), new JProperty("pass", lbl_pass), new JProperty("nationality", lbl_nationality),
                     new JProperty("category", lbl_category));
 

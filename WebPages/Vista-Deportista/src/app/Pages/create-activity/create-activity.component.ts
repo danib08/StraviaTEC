@@ -87,7 +87,9 @@ export class CreateActivityComponent implements OnInit {
   athleteInCompetition: AthleteInCompetition = {
     athleteid: '',
     competitionid: '',
-    status: ''
+    status: '',
+    receipt: '',
+    duration: ''
   }
 
  /**
@@ -231,12 +233,19 @@ export class CreateActivityComponent implements OnInit {
     );
 
     if (this.eventType == 'Competition') {
-      this.athleteInCompetition.athleteid = this.cookieSvc.get('Username');
-      this.athleteInCompetition.competitionid = this.currentCompetition.id;
+
+      for (let i = 0; i < this.competitionsArray.length; i++) {
+        if (this.competitionsArray[i].competitionid == this.competitionSelected) {
+          this.athleteInCompetition = this.competitionsArray[i];
+          break;
+        }
+      }
+
       this.athleteInCompetition.status = "Finalizado";
+      this.athleteInCompetition.duration = this.activity.duration;
+
       this.putService.updateAthleteInCompetition(this.athleteInCompetition).subscribe(
         res => {
-          
         }, err => {
           alert('Ha ocurrido un error')
         }

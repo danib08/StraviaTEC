@@ -60,7 +60,7 @@
                     <span class="right"><button class="btn" (click)="onClick(comp.id)" style="float: right;">Inscribirse</button></span>
                     <div *ngIf="(flag && selectedCompetition == comp.id)">
                         <label>Cuenta bancaria: {{comp.bankaccount}}</label>
-                        <input type="file" name="receipt">
+                        <input type="file" name="receipt" (change)="onChange($any($event.target).files)">
                         <button class="btn" (click)="joinCompetition(comp.id, $event)" style="float: right;">Pagar</button>
                     </div>
                   </div>

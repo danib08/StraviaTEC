@@ -34,7 +34,9 @@ export class SubscriptionsComponent implements OnInit {
   athleteInCompetition: AthleteInCompetition = {
     athleteid: '',
     competitionid: '',
-    status: 'En curso'
+    status: 'No Aceptado',
+    receipt: '',
+    duration: '00:00:00'
   }
 
   /**
@@ -99,6 +101,33 @@ export class SubscriptionsComponent implements OnInit {
     );
   }
 
+  
+  /**
+   * Reads the content of the .gpx when uploaded
+   * @param fileList list of files uploaded
+   */
+   public onChange(fileList: FileList): void {
+
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let self = this;
+
+    fileReader.onloadend = function(x) {
+      let receiptRead = fileReader.result as string;
+      self.encode64(receiptRead);
+    }
+    fileReader.readAsText(file);
+  }
+
+  /**
+   * Encodes string from the .gpx file to base 64 and sets it
+   * to the activity route
+   */
+  encode64(fileText: string) {
+    let receiptEncoded = btoa(fileText);
+    this.athleteInCompetition.receipt = receiptEncoded;
+  }
+
   /**
    * Adds the user to the selected competition
    * @param compID the ID of the selected competition
@@ -109,12 +138,14 @@ export class SubscriptionsComponent implements OnInit {
 
     this.athleteInCompetition.athleteid = this.cookieSvc.get('Username');
     this.athleteInCompetition.competitionid = compID;
+    console.log(this.athleteInCompetition);
     this.postService.createAthleteInCompetition(this.athleteInCompetition).subscribe(
       res => {
-        console.log(res);
+        alert('Inscripción exitosa');
+        location.reload()
       },
       err => {
-        alert('No se pudo inscribir a la competencia')
+        alert('No se pudo inscribir a la competencia');
       }
     );
   }
