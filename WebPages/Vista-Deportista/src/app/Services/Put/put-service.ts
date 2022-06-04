@@ -19,12 +19,20 @@ export class PutService {
     
     /**
      * Puts the provided Athlete to change its info
-     * @param athlete the AthleteModel with the new info of the athlete 
+     * @param athlete the Athlete Model with the new info of the athlete 
      * to be modified
      * @returns the API response
      */
     updateAthlete(athlete: AthleteModel):Observable<any>{
-        let URL = this.baseURL + "Athlete";
-        return this.http.put<any>(URL, athlete);
+        return this.http.put<any>(this.baseURL + "Athlete", athlete);
    }
+
+   /**
+     * Puts the provided AthleteInCompetition to change its info
+     * @param aIC the AthleteInCompetition Model with the new info to be modified
+     * @returns the API response
+     */
+   updateAthleteInCompetition(aIC: AthleteInCompetition):Observable<any>{
+    return this.http.put<any>(this.baseURL + "AthleteInCompetition", aIC);
+}
 }

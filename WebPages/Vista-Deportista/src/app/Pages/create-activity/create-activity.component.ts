@@ -8,6 +8,7 @@ import { Challenge } from 'src/app/Models/challenge';
 import { Competition } from 'src/app/Models/competition';
 import { GetService } from 'src/app/Services/Get/get-service';
 import { PostService } from 'src/app/Services/Post/post-service';
+import { PutService } from 'src/app/Services/Put/put-service';
 
 @Component({
   selector: 'app-create-activity',
@@ -82,13 +83,22 @@ export class CreateActivityComponent implements OnInit {
     challengeid: ''
   }
 
-  /**
-   * Creates the Create Activity component
-   * @param postService service for POST requests to the API
-   * @param getService service for GET requests to the API
-   * @param @param cookieService service for cookie creating to store the username
-   */
-  constructor(private postService: PostService, private getService: GetService, private cookieSvc:CookieService) { }
+  // Model for changing the competition status to finished
+  athleteInCompetition: AthleteInCompetition = {
+    athleteid: '',
+    competitionid: '',
+    status: ''
+  }
+
+ /**
+  * Creates the Create Activity component
+  * @param postService service for POST requests to the API
+  * @param getService service for GET requests to the API
+  * @param putService service for PUT requests to the API
+  * @param cookievc service for cookie creating to store the username
+  */
+  constructor(private postService: PostService, private getService: GetService, 
+    private putService: PutService, private cookieSvc:CookieService) { }
 
   /**
    * Called after Angular has initialized all data-bound properties
@@ -221,7 +231,16 @@ export class CreateActivityComponent implements OnInit {
     );
 
     if (this.eventType == 'Competition') {
-      //PUT DE ACTUALIZAR STATUS DE ATHLETE_IN_COMPETITION
+      this.athleteInCompetition.athleteid = this.cookieSvc.get('Username');
+      this.athleteInCompetition.competitionid = this.currentCompetition.id;
+      this.athleteInCompetition.status = "Finalizado";
+      this.putService.updateAthleteInCompetition(this.athleteInCompetition).subscribe(
+        res => {
+          
+        }, err => {
+          alert('Ha ocurrido un error')
+        }
+      );
     }
 
     if (this.eventType == 'Challenge') {
