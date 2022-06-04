@@ -1,4 +1,4 @@
-alter procedure proc_athlete(@Username varchar(50),
+create procedure proc_athlete(@Username varchar(50),
 								@Name varchar(50),
 								@LastName varchar(50),
 								@Photo varchar(MAX),
@@ -112,3 +112,47 @@ as begin
 	end
 
 end
+go
+
+create procedure proc_activity(@Id varchar(50),
+								@Name varchar(50),
+								@Route varchar(MAX),
+								@Date datetime,
+								@Duration time,
+								@Kilometers decimal(5,2),
+								@Type varchar(50),
+								@AthleteUsername varchar(50),
+								@StatementType nvarchar(50) = '')
+as begin
+
+	if @StatementType = 'Insert'
+	begin
+		insert into dbo.Activity(Id,Name,Route,Date,Duration,Kilometers	,Type,AthleteUsername)
+		values(@Id,@Name,@Route,@Date,@Duration,@Kilometers,@Type,@AthleteUsername)
+	end
+
+	if @StatementType = 'Select'
+	begin
+		select * from dbo.Activity
+	end
+
+	if @StatementType = 'Select One'
+	begin
+		select * from dbo.Activity
+		where Id = @Id
+	end
+
+
+	if @StatementType = 'Update'
+	begin
+		update dbo.Activity set Name=@Name,Route=@Route,Date=@Date,Type=@Type,AthleteUsername=@AthleteUsername
+		where Id=@Id 	
+	end
+
+	if @StatementType = 'Delete'
+	begin
+		delete from dbo.Activity
+		where Id = @Id
+	end
+end
+go
