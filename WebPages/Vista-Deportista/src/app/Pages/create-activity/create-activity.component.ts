@@ -115,8 +115,10 @@ export class CreateActivityComponent implements OnInit {
    */
   radioSelect(event: Event) {
       if ((event.target as HTMLInputElement).value == 'Challenge'){
-        this.getService.getAthleteinChallenge(this.cookieSvc.get('Username')).subscribe(
+        // PROBAR CON NUEVOS URLS
+        this.getService.getOnGoingChallenges(this.cookieSvc.get('Username')).subscribe(
           res => {
+            console.log(res);
             this.challengesArray = res;
           },
           err=>{
@@ -125,7 +127,8 @@ export class CreateActivityComponent implements OnInit {
         );
       }
       else if ((event.target as HTMLInputElement).value == 'Competition'){
-        this.getService.getAthleteinCompetition(this.cookieSvc.get('Username')).subscribe(
+        // PROBAR CON NUEVOS URLS
+        this.getService.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
           res => {
             this.competitionsArray = res;
           },

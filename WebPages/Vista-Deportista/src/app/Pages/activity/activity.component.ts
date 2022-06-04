@@ -1,8 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { ActivityModel } from 'src/app/Models/activity-model';
 import { GetService } from 'src/app/Services/Get/get-service';
 import { MapService } from 'src/app/Services/Map/map.service';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-activity',

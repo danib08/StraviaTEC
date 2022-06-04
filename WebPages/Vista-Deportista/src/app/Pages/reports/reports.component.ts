@@ -59,7 +59,7 @@ export class ReportsComponent implements OnInit {
    * Gets all of the challenges where the user is participating
    */
   getAthleteChallenges(){
-    this.getSvc.getAthleteinChallenge(this.cookieSvc.get('Username')).subscribe(
+    this.getSvc.getAthleteChallenges(this.cookieSvc.get('Username')).subscribe(
       res=>{
         this.athleteChallenges = res;
       },
@@ -70,10 +70,11 @@ export class ReportsComponent implements OnInit {
   }
 
   /**
-   * Gets all of the competitions where the user is participating
+   * Gets all of the competitions where the user is participating and accepted
    */
   getAthleteCompetitions(){
-    this.getSvc.getAthleteinCompetition(this.cookieSvc.get('Username')).subscribe(
+    //PROBAR NUEVO URL
+    this.getSvc.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
       res=>{
         this.athleteCompetitions = res;
       },

@@ -1,0 +1,30 @@
+body{
+    height: auto;
+    background-color:#eee;
+} 
+
+.time{
+    font-size: 12px !important
+} 
+
+.socials i{
+    margin-right: 14px;
+    font-size: 17px;
+    color: #d2c8c8;
+    cursor: pointer;
+}
+
+.feed-image img{
+    width: 100%;
+    height: auto;
+}
+
+span.hola {
+    font-size: 20px;
+    color: #40798C;
+    margin-bottom: 5px;
+}
+
+table {
+    width: 400px; 
+}

@@ -59,7 +59,7 @@ export class SubscriptionsComponent implements OnInit {
    */
   radioSelect(event: Event) {
     if ((event.target as HTMLInputElement).value == 'Challenge'){
-      this.getService.getChallenges().subscribe(
+      this.getService.getNotJoinedChallenges(this.cookieSvc.get("Username")).subscribe(
         res => {
           this.challengesArray = res;
         },
@@ -69,7 +69,7 @@ export class SubscriptionsComponent implements OnInit {
       );
     }
     else if ((event.target as HTMLInputElement).value == 'Competition'){
-      this.getService.getCompetitions().subscribe(
+      this.getService.getNotJoinedCompetitions(this.cookieSvc.get("Username")).subscribe(
         res => {
           this.competitionsArray = res;
         },

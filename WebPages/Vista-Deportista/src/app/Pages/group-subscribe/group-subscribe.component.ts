@@ -41,7 +41,7 @@ export class GroupSubscribeComponent implements OnInit {
    * Gets all groups that the athlete is a member of
    */
   getGroups() {
-    this.getSvc.getGroups().subscribe(
+    this.getSvc.getNotJoinedGroups(this.cookieSvc.get("Username")).subscribe(
       res => {
         this.GroupsArray = res;
       },
