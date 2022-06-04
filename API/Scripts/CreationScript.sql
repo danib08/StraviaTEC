@@ -2,7 +2,7 @@ CREATE TABLE dbo.Activity(
 ID varchar(50) NOT NULL,
 Name varchar(50) NOT NULL,
 Route varchar(MAX),
-Date date NOT NULL,
+Date datetime NOT NULL,
 Duration time,
 Kilometers decimal(5,2) DEFAULT 0,
 Type varchar(50),
@@ -34,14 +34,14 @@ FollowerID varchar(50) NOT NULL
 CREATE TABLE dbo.Athlete_In_Challenge(
 AthleteID varchar(50) NOT NULL,
 ChallengeID varchar(50) NOT NULL,
-Status varchar(50) DEFAULT 'Waiting'
+Status varchar(50) 
 )
 
 CREATE TABLE dbo.Athlete_In_Competition(
 AthleteID varchar(50) NOT NULL,
 CompetitionID varchar(50) NOT NULL,
-Status varchar(50) DEFAULT 'Started',
-Receipt varchar(200),
+Status varchar(50),
+Receipt varchar(MAX),
 Duration time,
 )
 
