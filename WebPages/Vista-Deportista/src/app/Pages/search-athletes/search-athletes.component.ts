@@ -34,7 +34,7 @@ export class SearchAthletesComponent implements OnInit {
   }
   
   /**
-   * 
+   * Creates the Search Athletes component
    * @param postSvc service for POST requests to the API
    * @param cookieSvc service for cookie creating to store the username
    */

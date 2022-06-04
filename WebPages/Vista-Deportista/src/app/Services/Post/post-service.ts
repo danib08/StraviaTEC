@@ -8,6 +8,7 @@ import { ActivityModel } from "src/app/Models/activity-model";
 import { ActivityInChallenge } from "src/app/Models/activity-in-challenge";
 import { AthleteInChallenge } from "src/app/Models/athlete-in-challenge";
 import { AthleteInCompetition } from "src/app/Models/athlete-in-competition";
+import { GroupMember } from "src/app/Models/group-member";
 
 
 @Injectable({
@@ -73,19 +74,40 @@ export class PostService {
     /**
      * Posts a new ActivityInChallenge object to the API indicating that the user
      * registered an activity related to a challenge
-     * @param activityInChallenge the object containing the necessary information to
-     * post the ActivityInChallenge object
+     * @param activityInChallenge the ActivityInChallenge object
      * @returns the API response
      */
     createActivityInChallenge(activityInChallenge: ActivityInChallenge): Observable<any>{
         return this.http.post<any>(this.baseURL + "Activity_In_Challenge", activityInChallenge);
     }
 
+    /**
+     * Posts a new AthleteInChallenge object to the API indicating that the user
+     * joined a challenge
+     * @param aIC the AthleteInChallenge object
+     * @returns the API response
+     */
     createAthleteInChallenge(aIC: AthleteInChallenge): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
+        return this.http.post<any>(this.baseURL + "AthleteInChallenge", aIC);
     }
 
+    /**
+     * Posts a new AthleteInCompetition object to the API indicating that the user
+     * joined a competition
+     * @param aIC the AthleteInCompetition object
+     * @returns the API response
+     */
     createAthleteInCompetition(aIC: AthleteInCompetition): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
+        return this.http.post<any>(this.baseURL + "AthleteInCompetition", aIC);
+    }
+    
+    /**
+     * Posts a new GroupMember object to the API indicating that the user
+     * joined a group
+     * @param groupMember the GroupMember object
+     * @returns the API response
+     */
+    createGroupMember(groupMember: GroupMember): Observable<any>{
+        return this.http.post<any>(this.baseURL + "GroupMember", groupMember);
     }
 }

@@ -1,0 +1,61 @@
+<app-header></app-header>
+<br><br><br>
+<!-- Radio Buttons -->
+<div class="w3-container ">
+  <label for="tipo">¿Desea ver sus competencias o retos?</label>
+  <div>
+      <input type="radio" id="yes" name="radiogroup" value="Challenge" (change)="radioSelect($event)">
+      <label for="yes">Retos</label>
+  </div>
+  <div>
+      <input type="radio" id="no" name="radiogroup" value="Competition" (change)="radioSelect($event)">
+      <label for="no">Competencias</label>
+  </div>
+</div>
+
+<!-- Select for Competitions -->
+<div *ngIf="(eventType == 'Competition')">
+  <div class="container">
+    <label>Seleccione la carrera: </label>
+    <select
+        [(ngModel)]="competitionSelected"
+        (change)="getCurrentCompetitionReport()">
+        <option *ngFor="let list of athleteCompetitions; index as i" value="{{list.competitionid}}">{{list.competitionid}}</option>
+    </select>
+  </div>
+
+  <div class="container"  id="htmlData" #content>
+      <h2>Reporte de posiciones de la carrera: {{competitionSelected}}</h2>
+      <ul class="responsive-table">
+        <li class="table-header">
+          <div class="col col-1">Nombre</div>
+          <div class="col col-2">Apellido</div>
+          <div class="col col-3">Edad</div>
+          <div class="col col-4">Categoría</div>
+          <div class="col col-5">Tiempo</div>
+        </li>
+        <li class="table-row" *ngFor="let athlete of competitionReport">
+          <div class="col col-1" data-label="Name">{{athlete.name}}</div>
+          <div class="col col-2" data-label="LastName">{{athlete.lastname}}</div>
+          <div class="col col-3" data-label="Age">{{athlete.age}}</div>
+          <div class="col col-4" data-label="Category">{{athlete.category}}</div>
+          <div class="col col-5" data-label="Time">{{athlete.duration}}</div>
+        </li>
+      </ul>
+    </div>
+</div>
+
+<!-- Select for Challenges -->
+<div *ngIf="(eventType == 'Challenge')">
+  <div class="container">
+    <label>Seleccione el reto: </label>
+    <select
+        [(ngModel)]="challengeSelected"
+        (change)="getCurrentChallengeReport()">
+        <option *ngFor="let list of athleteChallenges; index as i" value="{{list.challengeid}}">{{list.challengeid}}</option>
+    </select>
+  </div>
+
+</div>
+
+<app-footer></app-footer>

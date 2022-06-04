@@ -30,8 +30,7 @@ export class GetService {
      * @returns array of challenges
      */
     getAthleteinChallenge(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + 'AthleteInChallenge/Athlete/' + AthleteID;
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'AthleteInChallenge/Athlete/' + AthleteID);
     }
 
     /**
@@ -40,8 +39,7 @@ export class GetService {
      * @returns the challenge object
      */
     getChallenge(ChallengeID:string):Observable<any>{
-        let URL = this.baseURL + 'Challenge/' + ChallengeID;
-        return this.http.get<any>(URL);
+        return this.http.get<any>(this.baseURL + 'Challenge/' + ChallengeID);
     }
 
     /**
@@ -50,8 +48,7 @@ export class GetService {
      * @returns array of competitions
      */
     getAthleteinCompetition(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + 'AthleteInCompetition/Athlete/' + AthleteID;
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/Athlete/' + AthleteID);
     }
 
     /**
@@ -60,8 +57,7 @@ export class GetService {
      * @returns the competition object
      */
     getCompetition(CompetitionID:string):Observable<any>{
-        let URL = this.baseURL + 'Competition/' + CompetitionID;
-        return this.http.get<any>(URL);
+        return this.http.get<any>(this.baseURL + 'Competition/' + CompetitionID);
     }
 
     /**
@@ -70,17 +66,39 @@ export class GetService {
      * @returns  the activity object
      */
     getActivity(ActivityID:string):Observable<any>{
-        let URL = this.baseURL + 'Activity/' + ActivityID;
-        return this.http.get<any>(URL);
+        return this.http.get<any>(this.baseURL + 'Activity/' + ActivityID);
     }
 
+    //*****
     getCompetitions():Observable<any>{
-        let URL = this.baseURL + '/competitions';
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'Competition');
     }
 
+    //*****
     getChallenges():Observable<any>{
-        let URL = this.baseURL + '/challenges';
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'Challenge');
+    }
+
+    //*****
+    getGroups():Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'Groups');
+    }
+
+    /**
+     * Gets information on the rankings of a specific competition
+     * @param CompetitionID the ID of the competition to search for the ranking
+     * @returns the ranking of the desired competition
+     */
+    getPositionsReport(CompetitionID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/Report/' + CompetitionID);
+    }
+
+    /**
+     * Gets information on the progress of a challenge
+     * @param ChallengeID the ID of the challenge to search for
+     * @returns the progress of the challenge
+     */
+    getChallengeReport(ChallengeID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + '' + ChallengeID);
     }
 }

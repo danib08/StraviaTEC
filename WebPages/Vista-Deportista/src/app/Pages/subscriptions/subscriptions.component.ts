@@ -13,6 +13,10 @@ import { PostService } from 'src/app/Services/Post/post-service';
   styleUrls: ['./subscriptions.component.css']
 })
 
+/**
+ * Subscriptions component where the user registers itself on challenges
+ * or competitions
+ */
 export class SubscriptionsComponent implements OnInit {
 
   flag = false;
@@ -24,20 +28,33 @@ export class SubscriptionsComponent implements OnInit {
   athleteInChallenge: AthleteInChallenge = {
     athleteid: '',
     challengeid: '',
-    status: ''
+    status: 'En curso'
   }
 
   athleteInCompetition: AthleteInCompetition = {
     athleteid: '',
     competitionid: '',
-    status: ''
+    status: 'En curso'
   }
 
+  /**
+   * Creates the Subscriptions component
+   * @param getService service for GET requests to the API
+   * @param postService service for POST requests to the API
+   * @param cookieSvc service for cookie creating to store the username
+   */
   constructor(private getService: GetService, private postService: PostService, private cookieSvc:CookieService) { }
 
-  ngOnInit(): void {
-  }
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
+  ngOnInit(): void {}
 
+  /**
+   * Gets all challenges or competitions available for subscriptions
+   * depending on the user's radio button choice
+   * @param event the radio button event
+   */
   radioSelect(event: Event) {
     if ((event.target as HTMLInputElement).value == 'Challenge'){
       this.getService.getChallenges().subscribe(
@@ -62,6 +79,11 @@ export class SubscriptionsComponent implements OnInit {
     this.eventType = (event.target as HTMLInputElement).value;
   }
 
+  /**
+   * Adds the user to the selected challenge
+   * @param chllngID the ID of the selected challenge
+   * @param $event the mouse event
+   */
   joinChallenge(chllngID:string, $event: MouseEvent) {
     ($event.target as HTMLButtonElement).disabled = true;
 
@@ -77,6 +99,11 @@ export class SubscriptionsComponent implements OnInit {
     );
   }
 
+  /**
+   * Adds the user to the selected competition
+   * @param compID the ID of the selected competition
+   * @param $event the mouse event
+   */
   joinCompetition(compID:string, $event: MouseEvent) {
     ($event.target as HTMLButtonElement).disabled = true;
 
@@ -92,7 +119,12 @@ export class SubscriptionsComponent implements OnInit {
     );
   }
 
-  onClick(compID:string) {
+  /**
+   * This method gets called when a competition is chosen by the user, and the flag gets 
+   * activated in order to show the payment option
+   * @param compID the ID of the selected competition
+   */
+  onClick(compID: string) {
     this.flag = true;
     this.selectedCompetition = compID;
   }

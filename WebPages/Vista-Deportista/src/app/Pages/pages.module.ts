@@ -12,6 +12,8 @@ import { SearchAthletesComponent } from './search-athletes/search-athletes.compo
 import { HomeComponent } from './Home/home/home.component';
 import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 import { ActivityComponent } from './activity/activity.component';
+import { GroupSubscribeComponent } from './group-subscribe/group-subscribe.component';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { ActivityComponent } from './activity/activity.component';
     SearchAthletesComponent,
     SubscriptionsComponent,
     ActivityComponent,
+    GroupSubscribeComponent,
+    ReportsComponent,
   ],
   imports: [
     CommonModule,
