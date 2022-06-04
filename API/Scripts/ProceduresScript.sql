@@ -316,10 +316,11 @@ go
 create procedure get_not_inscribed_Chall(@Username varchar(50))
 as begin
 select distinct ID, Name, StartDate, EndDate, Privacy, Kilometers, Type
-from (Athlete_In_Challenge inner join Challenge
+from(Athlete_In_Challenge right join Challenge
 on Athlete_In_Challenge.ChallengeID = Challenge.ID)
-where ChallengeID not in 
-(select ChallengeID from Athlete_In_Challenge 
+where AthleteID is null or
+ChallengeID not in
+(select ChallengeID from Athlete_In_Challenge
 where AthleteID = @Username)
 end
 go
