@@ -306,6 +306,24 @@ where ChallengeID = @ChallengeID and Status = 'En curso'
 end
 go
 
+create procedure get_not_inscribed(@Username varchar(50))
+as begin
+select * from dbo.Athlete_In_Challenge
+where Username = @Username 
+end
+go
+
+create procedure get_not_inscribed_Chall(@Username varchar(50))
+as begin
+select distinct ID, Name, StartDate, EndDate, Privacy, Kilometers, Type
+from (Athlete_In_Challenge inner join Challenge
+on Athlete_In_Challenge.ChallengeID = Challenge.ID)
+where ChallengeID not in 
+(select ChallengeID from Athlete_In_Challenge 
+where AthleteID = @Username)
+end
+go
+
 
 
 create procedure post_Athlete_Challenge(
@@ -383,6 +401,18 @@ where CompetitionID = @CompetitionID
 order by Duration
 end 
 go
+
+create procedure get_not_inscribed_Comp(@Username varchar(50))
+as begin
+select distinct ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
+from (Athlete_In_Competition inner join Competition
+on Athlete_In_Competition.CompetitionID = Competition.ID)
+where CompetitionID not in 
+(select CompetitionID from Athlete_In_Competition 
+where AthleteID = @Username)
+end
+go
+
 
 
 create procedure post_Athlete_Competition(
@@ -738,6 +768,17 @@ begin
 
 select * from dbo.Group_Member
 where MemberID = @MemberID 
+end
+go
+
+create procedure get_not_inscribed_Groups(@Username varchar(50))
+as begin
+select distinct Name, AdminUsername
+from (Groups inner join Group_Member
+on Groups.Name= Group_Member.GroupName)
+where GroupName not in 
+(select GroupName from Group_Member
+where MemberID = @Username)
 end
 go
 

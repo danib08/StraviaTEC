@@ -34,6 +34,7 @@ exec post_group 'Ciclismo TEC','gabogh99'
 exec post_group 'Natación Cartago','gabogh99'
 exec post_group 'Futbol Cot','omend'
 exec post_group 'Ciclistas San José','dani_08'
+exec post_group 'Compra venta Red Velvet','dani_08'
 
 
 exec post_sponsors '3-1293-1873','Gatorade','1-1359-2598-7','Comp1'
@@ -48,7 +49,9 @@ values('Ciclismo TEC', 'gabogh99'),
 ('Ciclismo TEC', 'dani_08'),
 ('Ciclismo TEC', 'omend'),
 ('Futbol Cot ', 'gabogh99'),
-('Futbol Cot ', 'omend')
+('Futbol Cot ', 'omend'),
+('Compra venta Red Velvet', 'omend'),
+('Compra venta Red Velvet', 'dani_08')
 
 
 
@@ -71,8 +74,12 @@ values('Act2', 'Chal1'),
 
 insert into dbo.Athlete_In_Competition
 (AthleteID,CompetitionID,Status,Receipt, Duration)
-values('gabogh99', 'Comp1','No aceptado','recibo.pdf','02:21:14'),
-('dani_08', 'Comp1','Aceptado','recibo.pdf','02:21:14'),
+values('gabogh99', 'Comp1','No aceptado','recibo.pdf','01:57:14'),
+('dani_08', 'Comp1','Aceptado','recibo.pdf','02:08:14'),
 ('omend', 'Comp1','Aceptado','recibo.pdf','02:21:14'),
 ('gabogh99', 'Comp3','No aceptado','recibo.pdf','02:21:14'),
-('omend', 'Comp3','No aceptado','recibo.pdf','02:21:14')
+('omend', 'Comp3','No aceptado','recibo.pdf','02:10:14'),
+insert into dbo.Athlete_In_Competition
+(AthleteID,CompetitionID,Status,Receipt, Duration)
+values('omend', 'Comp2','No aceptado','recibo.pdf','02:21:14'),
+('dani_08', 'Comp2','Aceptado','recibo.pdf','02:21:14')
