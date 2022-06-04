@@ -208,7 +208,7 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("Waiting/{challenge}")]
+        [HttpGet("Accepted/{challenge}")]
         public JsonResult get_Ath_OneCompetition_Waiting(string challenge)
         {
 
@@ -243,7 +243,44 @@ namespace StraviaAPI.Controllers
         }
 
 
-        
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("NotInscribed/{username}")]
+        public JsonResult get_not_inscribed_Chal(string username)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_not_inscribed_Chall @username
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo tiw = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = tiw.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
 
 
         /// <summary>
