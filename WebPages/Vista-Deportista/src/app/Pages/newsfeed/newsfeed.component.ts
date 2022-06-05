@@ -30,7 +30,6 @@ export class NewsfeedComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked(): void {
     this.displayMaps();
-
   }
 
   getFeed() {
@@ -44,7 +43,7 @@ export class NewsfeedComponent implements OnInit, AfterViewChecked {
   }
 
   displayMaps() {
-    if (!this.mapsInitialized){
+    if (!this.mapsInitialized) {
       for (let i = 0; i < this.ActivitiesArray.length; i++) {
         this.routeDecode(this.ActivitiesArray[i].route, this.ActivitiesArray[i].id);
       }
