@@ -39,7 +39,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query sent
             string query = @"
-                             exec proc_groups '','','Select'
+                             exec proc_groups '','','','Select'
                             ";
             DataTable table = new DataTable(); //DataTable to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -79,7 +79,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec proc_groups @name,'','Select One'
+                             exec proc_groups @name,'','','Select One'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -128,7 +128,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec proc_groups '', @username,'GroupAdmin'
+                             exec proc_groups '', @username,'','GroupAdmin'
 
                             ";
             DataTable table = new DataTable();//Table to store data
@@ -172,7 +172,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec proc_groups @name,@adminusername,'Insert'
+                             exec proc_groups @name,@adminusername,'','Insert'
                             ";
             DataTable table = new DataTable(); 
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -208,12 +208,12 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="group"></param>
         /// <returns>Query result</returns>
-        [HttpPut]
-        public ActionResult PutGroup(Groups group)
+        [HttpGet("{name}/{oldname}")]
+        public ActionResult PutGroup(string name, string oldname)
         {
             //SQL Query
             string query = @"
-                             exec proc_groups @name,@adminusername,'Update'
+                             exec proc_groups @name,'',@oldname,'Update'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -224,8 +224,9 @@ namespace StraviaAPI.Controllers
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))
                 {
                     //Parameters added
-                    myCommand.Parameters.AddWithValue("@adminusername", group.adminusername);
-                    myCommand.Parameters.AddWithValue("@name", group.name);
+
+                    myCommand.Parameters.AddWithValue("@name", name);
+                    myCommand.Parameters.AddWithValue("@oldname", oldname);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -246,7 +247,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec proc_groups @name,'','Delete'
+                             exec proc_groups @name,'','','Delete'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

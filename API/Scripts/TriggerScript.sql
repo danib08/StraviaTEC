@@ -182,6 +182,32 @@ end
 go
 
 
+CREATE trigger DelAct
+on dbo.Activity instead of delete
+as
+begin
+declare @Id varchar(50)
+select @Id = Id from deleted
+
+	if exists(select top 1 * from Activity where Id = @Id)
+	begin	
+		delete from Competition
+		where ActivityID = @Id
+		delete from Activity_In_Challenge
+		where ActivityID = @Id
+		
+	end
+	else
+	begin
+		print 'Esta Competición no existe'
+	end
+	
+	delete from Activity
+	where Id = @Id
+	
+end
+go
+
 
 
 --------------------------------------------Triggers Athlete Followers---------------------------------
@@ -274,19 +300,22 @@ select @Id = Id from inserted
 end
 go
 
-create trigger DelChall
+CREATE trigger DelChall
 on dbo.Challenge instead of delete
 as
 begin
 declare @Id varchar(50)
 select @Id = Id from deleted
+declare @ActID varchar(50)
+select @ActID = ActivityID from deleted
 
 	if exists(select top 1 * from Challenge where Id = @Id)
 	begin	
 		delete from Activity_In_Challenge
 		where ChallengeID = @Id
 		delete from Athlete_In_Challenge
-		where ChallengeID = @Id		
+		where ChallengeID = @Id	
+
 	end
 	else
 	begin
