@@ -84,7 +84,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                            exec proc_challenge @id,'','','','',0.0,'','','','Select One'";
+                            exec proc_challenge @id,'','','','',0.0,'','','Select One'";
             DataTable table = new DataTable();//Created table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
