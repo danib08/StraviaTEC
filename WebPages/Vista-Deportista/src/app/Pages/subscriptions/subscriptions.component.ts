@@ -28,8 +28,9 @@ export class SubscriptionsComponent implements OnInit {
   athleteInChallenge: AthleteInChallenge = {
     athleteid: '',
     challengeid: '',
-    status: 'En curso'
-  }
+    status: 'En curso',
+    kilometers: 0
+   }
 
   athleteInCompetition: AthleteInCompetition = {
     athleteid: '',
