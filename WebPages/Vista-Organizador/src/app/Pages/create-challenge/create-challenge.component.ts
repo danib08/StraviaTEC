@@ -42,19 +42,23 @@ export class CreateChallengeComponent implements OnInit {
 
 
 
-  addChallenge(){
+  addActivity(){
     this.associatedActivity.name = this.challenge.name;
     this.associatedActivity.kilometers = this.challenge.kilometers;
     this.associatedActivity.athleteusername = this.cookieSvc.get('Username');
     console.log(this.associatedActivity)
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
+        this.createChallenge()
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
+    
+  }
 
+  createChallenge(){
     this.challenge.activityid = this.associatedActivity.id;
     this.postService.createChallenge(this.challenge).subscribe(
       res =>{
@@ -63,6 +67,5 @@ export class CreateChallengeComponent implements OnInit {
         alert('Ha ocurrido un error')
       }
     );
-    
   }
 }

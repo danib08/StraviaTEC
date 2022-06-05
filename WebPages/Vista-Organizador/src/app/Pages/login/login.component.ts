@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
 
         // Saves username to a cookie
         this.cookieSvc.set('Username', this.newAthlete.username);
-        this.router.navigate(["feed"]);
+        this.router.navigate(["createChallenges"]);
       }
       else {
         alert("Nombre de usuario o contraseña incorrectos");

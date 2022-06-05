@@ -31,7 +31,6 @@ export class DeleteService {
     }
 
     deleteChallenge(challenge:string):Observable<any>{
-        let URL = this.baseURL + '/' + challenge;
-        return this.http.delete<any>(URL);
+        return this.http.delete<any>(this.baseURL + 'Challenge/' + challenge);
     }
 }
