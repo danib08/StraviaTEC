@@ -296,7 +296,7 @@ go
 
 create procedure get_Ath_OneChallenge_Accepted(@Username varchar(50))
 as begin
-select distinct ID,Name,StartDate,EndDate,Privacy,Kilometers,Type
+select distinct ID,Name,StartDate,EndDate,Privacy,Challenge.Kilometers,Type
 from(Athlete_In_Challenge inner join Challenge
 on Athlete_In_Challenge.ChallengeID = Challenge.ID)
 where AthleteID = @Username and Status = 'En curso'
@@ -312,7 +312,7 @@ go
 
 create procedure get_not_inscribed_Chall(@Username varchar(50))
 as begin
-select distinct ID, Name, StartDate, EndDate, Privacy, Kilometers, Type
+select distinct ID, Name, StartDate, EndDate, Privacy, Challenge.Kilometers, Type
 from(Athlete_In_Challenge right join Challenge
 on Athlete_In_Challenge.ChallengeID = Challenge.ID)
 where AthleteID is null or
@@ -327,13 +327,14 @@ go
 create procedure post_Athlete_Challenge(
 							@AthleteID varchar(50),
 							@ChallengeID varchar(50),
-							@Status varchar(50)
+							@Status varchar(50),
+							@Kilometers decimal(5,2)
 )
 as
 begin
 
-	insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status)
-	values(@AthleteID,@ChallengeID,@Status)
+	insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status,Kilometers)
+	values(@AthleteID,@ChallengeID,@Status,@Kilometers)
 
 end
 go

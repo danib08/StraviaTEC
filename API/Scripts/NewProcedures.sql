@@ -90,13 +90,13 @@ as begin
 
 	if @StatementType = 'CompCreator'
 	begin
-		select * from dbo.CompsCreator
+		select Id, Name, Route, Date, Privacy, BankAccount, Price, ActivityID from dbo.CompsCreator
 		where AthleteUsername = @Username
 	end
 
 	if @StatementType = 'ChallCreator'
 	begin
-		select * from dbo.ChallCreator
+		select Id, Name, StartDate, EndDate, Privacy, Kilometers, Type,ActivityID  from dbo.ChallCreator
 		where AthleteUsername = @Username
 	end
 
@@ -205,13 +205,14 @@ go
 create procedure proc_athlete_in_challenge(@AthleteID varchar(50),
 										   @ChallengeID varchar(50),
 										   @Status varchar(50),
+										   @Kilometers decimal(5,2),
 										   @StatementType nvarchar(50) = '')
 as begin
 
 	if @StatementType = 'Insert'
 	begin
-		insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status)
-		values(@AthleteID,@ChallengeID,@Status)
+		insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status,Kilometers)
+		values(@AthleteID,@ChallengeID,@Status,@Kilometers)
 	end
 
 	if @StatementType = 'Select'
@@ -239,7 +240,7 @@ as begin
 
 	if @StatementType = 'ChalAccepted'
 	begin
-		select distinct ID,Name,StartDate,EndDate,Privacy,Kilometers,Type
+		select distinct ID,Name,StartDate,EndDate,Privacy,Challenge.Kilometers,Type
 		from(Athlete_In_Challenge inner join Challenge
 		on Athlete_In_Challenge.ChallengeID = Challenge.ID)
 		where AthleteID = @AthleteID and Status = 'En curso'			
@@ -247,7 +248,7 @@ as begin
 
 	if @StatementType = 'ChalNotInscribed'
 	begin
-		select distinct ID, Name, StartDate, EndDate, Privacy, Kilometers, Type
+		select distinct ID, Name, StartDate, EndDate, Privacy, Challenge.Kilometers, Type
 		from(Athlete_In_Challenge right join Challenge
 		on Athlete_In_Challenge.ChallengeID = Challenge.ID)
 		where AthleteID is null or
@@ -365,13 +366,14 @@ create procedure proc_challenge(@Id varchar(50),
 								@Privacy varchar(50),
 								@Kilometers decimal(5,2),
 								@Type varchar(50),
+								@ActivityID varchar(50),
 								@StatementType varchar(50) = '')
 as begin
 
 	if @StatementType = 'Insert'
 	begin
-		insert into dbo.Challenge(Id,Name,StartDate,EndDate,Privacy,Kilometers,Type)
-		values(@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type)
+		insert into dbo.Challenge(Id,Name,StartDate,EndDate,Privacy,Kilometers,Type,ActivityID)
+		values(@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type,@ActivityID)
 	end
 
 	if @StatementType = 'Select'
@@ -388,7 +390,7 @@ as begin
 
 	if @StatementType = 'Update'
 	begin
-		update dbo.Challenge set Name=@Name,StartDate=@StartDate,EndDate=@EndDate,Privacy=@Privacy,Kilometers=@Kilometers,Type=@Type
+		update dbo.Challenge set Name=@Name,StartDate=@StartDate,EndDate=@EndDate,Privacy=@Privacy,Kilometers=@Kilometers,Type=@Type,ActivityID=@ActivityID
 		where Id=@Id 	
 	end
 

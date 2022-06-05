@@ -34,7 +34,8 @@ FollowerID varchar(50) NOT NULL
 CREATE TABLE dbo.Athlete_In_Challenge(
 AthleteID varchar(50) NOT NULL,
 ChallengeID varchar(50) NOT NULL,
-Status varchar(50) 
+Status varchar(50),
+Kilometers decimal(5,2)
 )
 
 CREATE TABLE dbo.Athlete_In_Competition(
@@ -52,7 +53,8 @@ StartDate date NOT NULL,
 EndDate date,
 Privacy varchar(10),
 Kilometers decimal(5,2),
-Type varchar(50)
+Type varchar(50),
+ActivityID varchar(50)
 )
 
 CREATE TABLE dbo.Competition(
@@ -137,6 +139,10 @@ REFERENCES dbo.Athlete(Username)
 
 ALTER TABLE dbo.Competition
 ADD CONSTRAINT Competition_Activity_FK FOREIGN KEY(ActivityID)
+REFERENCES dbo.Activity(ID)
+
+ALTER TABLE dbo.Challenge
+ADD CONSTRAINT Challenge_Activity_FK FOREIGN KEY(ActivityID)
 REFERENCES dbo.Activity(ID)
 
 ALTER TABLE dbo.Sponsor
