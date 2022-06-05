@@ -24,9 +24,10 @@ namespace AppMobile.Activities{
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.login);
 
-            //db = new Database();
-            //db.CreateDatabase();
+            db = new Database();
+            db.CreateDatabase();
 
+            //Set all variable of the interface
             editTextIdIn = FindViewById<EditText>(Resource.Id.editTextIdIn);
             editTextPassIn = FindViewById<EditText>(Resource.Id.editTextPassIn);
             bottonsendHome = FindViewById<Button>(Resource.Id.sendHome);
@@ -36,7 +37,7 @@ namespace AppMobile.Activities{
                 {
                     this.messengerText = "Por favor llene todos los espacios requeridos";
                 }else{
-                    Athlete user = db.GetAthlete(editTextIdIn.Text);
+                    Athlete user = db.GetAthlete(editTextIdIn.Text.ToString());
                     if (user == null){
                         this.messengerText = "Este usuario no se encuentra registrado";
                     }else{
@@ -45,6 +46,7 @@ namespace AppMobile.Activities{
                             this.messengerText = "Sesión iniciada";
                             Intent intent = new Intent(this, typeof(home));
                             OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
+                            intent.PutExtra("idUser", editTextIdIn.Text.ToString());
                             StartActivity(intent);
                         }else{
                             this.messengerText = "Contraseña incorrecta";

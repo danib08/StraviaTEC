@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
 using AppMobile.Models;
+using Android.Content;
 
 namespace AppMobile.Activities
 {
@@ -27,7 +28,6 @@ namespace AppMobile.Activities
         private LatLng lastPosition;
         private LatLng myPosition;
 
-
         private TextView textTotalDistance;
         private TextView textVelocidad;
         private TextView txtTimer;
@@ -35,11 +35,13 @@ namespace AppMobile.Activities
         private Button buttonFinish;
         private Timer timer;
 
+        private List<Gpx> activityStats;
         private bool stop;
         private bool first;
         private double totalDistance;
         private int hour = 0, min = 0, sec = 0, velocidad = 0;
         private string trkpt;
+        private string user;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -57,7 +59,9 @@ namespace AppMobile.Activities
             this.stop = true;
             this.first = true;
             this.totalDistance = 0;
-
+            this.activityStats = new List<Gpx>();
+            this.user = Intent.GetStringExtra("idUser");
+            
             //Set the google map
             SetUpMap();
             //Set the manager location of the user
@@ -71,8 +75,39 @@ namespace AppMobile.Activities
 
             buttonFinish.Click += (sender, e) => {
                 OnPause();
-                string ruta = makeGpx();
+                //Create the GPX data
+                for (int i = 0; i < this.activityStats.Count; i++)
+                {
+                    this.trkpt +=
+                        "<trkpt" + "lat=" + this.activityStats[i].lat.ToString("s") + "lon=" + this.activityStats[i].lon.ToString("s") + ">"
+                        + "<ele>" + this.activityStats[i].ele.ToString("s") + "</ele>"
+                        + "<time>" + this.activityStats[i].time + "Z</time>"
+                        + "</trkpt>";
+                }
+                string gpx = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+                + "<gpx version=\"1.0\" creator = Runkeeper-http://www.runkeeper.com"
+                + "xmlns: xsi =\"http://www.w3.org/2001/XMLSchema-instance\""
+                + "xmlns=\"http://www.topografix.com/GPX/1/1\""
+                + "xsi: schemaLocation =\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
+                + "xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\""
+                + "<metadata><time>" + DateTime.Now.ToString("s") + "Z</time></metadata>"
+                + "<trk>"
+                + "<name>Activity Name</name>"
+                + "<trkseg>"
+                + this.trkpt
+                + "</trkseg>"
+                + "</trk>"
+                + "</gpx>";
 
+                string totalTime = hour.ToString()+":"+ min.ToString() + ":"+sec.ToString();
+
+                Intent intent = new Intent(this, typeof(homeActivity));
+                OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
+                intent.PutExtra("totalDistance", this.totalDistance.ToString("0.00"));
+                intent.PutExtra("totalTime",totalTime);
+                intent.PutExtra("gpx", gpx);
+                intent.PutExtra("idUser",user);
+                StartActivity(intent);
 
             };
             buttonStop.Click += (sender, e) => {
@@ -90,12 +125,12 @@ namespace AppMobile.Activities
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             sec++;
+            velocidad++;
             if (sec == 60){
                 min++;
-                velocidad++;
+                sec = 0;
                 double res = this.totalDistance / (velocidad);
                 this.textVelocidad.Text = res.ToString("0.00");
-                sec = 0;
             }if (min == 60){
                 hour++;
                 min = 0;
@@ -138,25 +173,6 @@ namespace AppMobile.Activities
             googleMap.MoveCamera(CameraUpdateFactory.ZoomIn());
 
         }
-        //Make the xml of the gpx
-        public string makeGpx(){
-            string gpx = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-            + "<gpx version=\"1.0\" creator = Runkeeper-http://www.runkeeper.com"
-            + "xmlns: xsi =\"http://www.w3.org/2001/XMLSchema-instance\""
-            + "xmlns=\"http://www.topografix.com/GPX/1/1\""
-            + "xsi: schemaLocation =\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
-            + "xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\""
-            
-            + "<metadata><time>"+DateTime.Now.ToString("s")+"Z</time></metadata>"
-            + "<trk>"
-            + "<name>Activity Name</name>"
-            + "<trkseg>"
-            + this.trkpt
-            + "</trkseg>"
-            + "</trk>"
-            + "</gpx>";
-            return gpx;
-        }
         //Pause the aplication
         protected override void OnPause()
         {
@@ -178,27 +194,17 @@ namespace AppMobile.Activities
             lng = location.Longitude;
             ele = location.Altitude;
             string timer = DateTime.Now.ToString("s");
-            this.trkpt +=
-                    "<trkpt" + "lat=" + lat.ToString("s") + "lon=" + lng.ToString("s") + ">"
-                    + "<ele>" + ele.ToString("s") + "</ele>"
-                    + "<time>" + timer + "Z</time>"
-                    + "</trkpt>";
-            
+            this.activityStats.Add(new Gpx(lat, lng, ele, timer));
+            //Initial position
             if (this.first){
-                this.myPosition.Latitude = lat;
-                this.myPosition.Longitude = lng;
-
-                this.lastPosition.Latitude = this.myPosition.Latitude;
-                this.lastPosition.Longitude = this.myPosition.Longitude;
-                
+                this.myPosition = new LatLng(lat, lng);
+                this.lastPosition = this.myPosition;             
                 this.first = false;
             }else{
-                this.lastPosition.Latitude= this.myPosition.Latitude;
-                this.lastPosition.Longitude= this.myPosition.Longitude;
-
-                this.myPosition.Latitude = lat;
-                this.myPosition.Longitude = lng;
-
+                //Current position
+                this.lastPosition = this.myPosition;
+                this.myPosition= new LatLng(lat, lng);
+                
                 double distance = Xamarin.Essentials.Location.CalculateDistance(lastPosition.Latitude, lastPosition.Longitude, myPosition.Latitude, myPosition.Longitude, DistanceUnits.Kilometers);
                 this.totalDistance += distance;
                 this.textTotalDistance.Text = this.totalDistance.ToString("0.00");

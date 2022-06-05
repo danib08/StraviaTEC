@@ -28,6 +28,9 @@ namespace MobileApp
             try{
                 using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
                 connection.CreateTable<Athlete>();
+                connection.CreateTable<AthleteLocal>();
+                connection.CreateTable<ActivityModel>();
+                connection.CreateTable<ActivityModelLocal>();
                 return true;
             }
             catch (SQLiteException ex)
@@ -48,6 +51,7 @@ namespace MobileApp
             //http://192.168.0.16:5000/api/Athlete
             //https://jsonplaceholder.typicode.com/posts
             //https://localhost:5001/api/Activity
+            //https://192.168.0.16:5001/api/Athlete
 
             request.RequestUri = new Uri("https://localhost:5001/api/Activity");
             request.Method = HttpMethod.Get;
@@ -119,7 +123,6 @@ namespace MobileApp
                 Log.Info("SQLiteEx", ex.Message);
                 return null;
             }
-
         }
         //Put a new Athlete
         public bool PutAthlete(Athlete user){
@@ -136,11 +139,12 @@ namespace MobileApp
             }
         }
         //Put a new Athlete in the db
-        public bool PutAthletLocal(AthleteLocal user){
+        public bool PutAthletLocal(AthleteLocal newActivity)
+        {
             try
             {
                 using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
-                connection.Insert(user);
+                connection.Insert(newActivity);
                 return true;
             }
             catch (SQLiteException ex)
@@ -149,6 +153,50 @@ namespace MobileApp
                 return false;
             }
         }
-
+        //Put a new Activity
+        public bool PutActivityModel(ActivityModel newActivity)
+        {
+            try
+            {
+                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
+                connection.Insert(newActivity);
+                return true;
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx", ex.Message);
+                return false;
+            }
+        }
+        //Put a new Activity in the db
+        public bool PutActivityModelLocal(ActivityModel newActivit)
+        {
+            try
+            {
+                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
+                connection.Insert(newActivit);
+                return true;
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx", ex.Message);
+                return false;
+            }
+        }
+        //Get single Activity
+        public ActivityModelLocal GetActivity(string IdActivity)
+        {
+            try
+            {
+                using var connection = new SQLiteConnection(System.IO.Path.Combine(folder, "StraviaTec.db"));
+                List<ActivityModelLocal> Activity = connection.Query<ActivityModelLocal>("SELECT * FROM ActivityModelLocal Where id=?", IdActivity);
+                return Activity.Find(Activity => Activity.id == IdActivity);
+            }
+            catch (SQLiteException ex)
+            {
+                Log.Info("SQLiteEx", ex.Message);
+                return null;
+            }
+        }
     }
 }

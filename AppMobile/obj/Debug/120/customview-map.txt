@@ -17,6 +17,7 @@ corners;obj\Debug\120\res\drawable\button_light.xml
 corners;obj\Debug\120\res\drawable\button_round.xml
 corners;obj\Debug\120\res\drawable\button_search.xml
 dimen;obj\Debug\120\res\values\dimens.xml
+EditText;obj\Debug\120\res\layout\homeactivity.xml
 EditText;obj\Debug\120\res\layout\login.xml
 EditText;obj\Debug\120\res\layout\register.xml
 external-cache-path;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\57\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
@@ -29,6 +30,7 @@ gradient;obj\Debug\120\res\drawable\button_light.xml
 gradient;obj\Debug\120\res\drawable\button_round.xml
 gradient;obj\Debug\120\res\drawable\button_search.xml
 item;obj\Debug\120\res\menu\bottom_nav_menu.xml
+item;obj\Debug\120\res\values\strings.xml
 item;obj\Debug\120\res\values\styles.xml
 LinearLayout;obj\Debug\120\res\layout\activity.xml
 LinearLayout;obj\Debug\120\res\layout\activity_main.xml
@@ -36,6 +38,7 @@ LinearLayout;obj\Debug\120\res\layout\home.xml
 LinearLayout;obj\Debug\120\res\layout\homeactivity.xml
 LinearLayout;obj\Debug\120\res\layout\login.xml
 LinearLayout;obj\Debug\120\res\layout\register.xml
+ListView;obj\Debug\120\res\layout\homeactivity.xml
 menu;obj\Debug\120\res\menu\bottom_nav_menu.xml
 paths;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\57\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 resources;obj\Debug\120\res\values\colors.xml
@@ -53,6 +56,7 @@ size;obj\Debug\120\res\drawable\button_round.xml
 size;obj\Debug\120\res\drawable\button_search.xml
 Spinner;obj\Debug\120\res\layout\homeactivity.xml
 string;obj\Debug\120\res\values\strings.xml
+string-array;obj\Debug\120\res\values\strings.xml
 style;obj\Debug\120\res\values\styles.xml
 TextView;obj\Debug\120\res\layout\activity.xml
 TextView;obj\Debug\120\res\layout\activity_main.xml

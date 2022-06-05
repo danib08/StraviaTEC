@@ -13,6 +13,8 @@ using System.Linq;
 using Android.Content;
 using MobileApp;
 using System.Threading.Tasks;
+using Java.Util.Jar;
+using AppMobile.Models;
 
 namespace AppMobile.Activities
 {
@@ -21,23 +23,20 @@ namespace AppMobile.Activities
         private Button buttonlogin;
         private Button buttonregister;
         private Database db;
-
         protected override async void OnCreate(Bundle savedInstanceState){
             base.OnCreate(savedInstanceState);
             Platform.Init(this, savedInstanceState);
-            
-            // Database synchronization
-            //db = new Database();
-            //db.CreateDatabase();
+            //Database synchronization
+            db = new Database();
+            db.CreateDatabase();
             //await db.SyncAsync();
-
 
             SetContentView(Resource.Layout.activity_main);
             this.buttonlogin = FindViewById<Button>(Resource.Id.btnlogin);
             this.buttonregister = FindViewById<Button>(Resource.Id.btnregister);
             
-            
             buttonlogin.Click += (sender, e) =>{
+                //Intent intent = new Intent(this, typeof(activity));
                 Intent intent = new Intent(this, typeof(login));
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
                 StartActivity(intent);
@@ -51,8 +50,8 @@ namespace AppMobile.Activities
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
         }
 
     }

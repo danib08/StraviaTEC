@@ -13,19 +13,24 @@ namespace AppMobile.Activities
     public class home : AppCompatActivity
     {
         private Button btnsendHomeActivity;
+        private string user;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
+            
             SetContentView(Resource.Layout.home);
+            
             btnsendHomeActivity = FindViewById<Button>(Resource.Id.Activity_usuario);
-
+            user = Intent.GetStringExtra("idUser");
+            
             btnsendHomeActivity.Click += (sender, e) =>
             {
-                Intent intent = new Intent(this, typeof(homeActivity));
+                Intent intent = new Intent(this, typeof(activity));
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
+                intent.PutExtra("idUser", user);
                 StartActivity(intent);
             };
         }

@@ -4,7 +4,7 @@ namespace AppMobile.Models
 {
     class Gpx{
 
-        public Gpx(Double lat, Double lon, Double ele, DateTime time)
+        public Gpx(Double lat, Double lon, Double ele, string time)
         { 
             this.lat = lat;
             this.lon = lon;
@@ -14,7 +14,7 @@ namespace AppMobile.Models
         public Double lat { get; set; }
         public Double lon { get; set; }
         public Double ele { get; set; }
-        public DateTime time { get; set; }
+        public string time { get; set; }
 
     }
 }

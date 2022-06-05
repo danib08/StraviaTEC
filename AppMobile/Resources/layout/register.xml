@@ -74,7 +74,7 @@
         android:layout_marginStart="10dp"
         android:hint="@string/nationality"
         android:autofillHints="@string/nationality"
-        android:inputType="textPassword"/>
+        android:inputType="text"/>
 
     <android.widget.Button
         android:id="@+id/photo"

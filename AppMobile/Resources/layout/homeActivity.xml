@@ -15,56 +15,101 @@
         android:text="@string/InfoActivity"
         android:textColor="@color/blackPalette"
         android:layout_marginBottom="0.0dp"
-        android:layout_marginTop="86.0dp" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
+        android:layout_marginTop="16.0dp" />
+    <EditText
+        style="@style/edit_text"
+        android:id="@+id/editTextIDActivity"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:hint="@string/IDActivity"
+        android:autofillHints="@string/id"
+        android:inputType="text"
+        android:layout_marginTop="26.7dp" />
+    <EditText
+        style="@style/edit_text"
+        android:id="@+id/editTextNameActivity"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:hint="@string/NameActivity"
+        android:autofillHints="@string/id"
+        android:inputType="text"
+        android:layout_marginTop="1.4dp" />
+    <TextView
+        style="@style/edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:text="@string/GPX"
+        android:textColor="@color/blackPalette"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginTop="16.0dp"
+        android:layout_marginLeft="12.3dp" />
+    <TextView
+        style="@style/edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:text="--"
+        android:id="@+id/txtDisplayDay"
+        android:textColor="@color/blackPalette"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginTop="16.0dp"
+        android:layout_marginLeft="12.3dp" />
+    <TextView
+        style="@style/edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:text="--"
+        android:id="@+id/txtDisplayTimer"
+        android:textColor="@color/blackPalette"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginTop="16.0dp"
+        android:layout_marginLeft="12.3dp" />
+    <TextView
+        style="@style/edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:text="--"
+        android:id="@+id/txtDisplayDistance"
+        android:textColor="@color/blackPalette"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginTop="16.0dp"
+        android:layout_marginLeft="12.3dp" />
+    <TextView
+        style="@style/edit_text"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:gravity="left"
+        android:text="--"
+        android:id="@+id/txtDisplayIdUser"
+        android:textColor="@color/blackPalette"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginTop="16.0dp"
+        android:layout_marginLeft="12.3dp" />
+    <Spinner
+        style="@style/edit_text"
+        android:padding="2dp"
+        android:entries="@array/dropdown_arrays"
         android:layout_width="match_parent"
-        android:layout_height="77.5dp"
-        android:id="@+id/linearLayout1"
-        android:layout_marginBottom="0.0dp">
-        <android.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5.0dp"
-            android:id="@+id/btnlogin11"
-            android:textAllCaps="false"
-            android:text="@string/Challenge"
-            style="@style/button_dark"
-            android:layout_marginBottom="0.5dp" />
-        <android.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5.0dp"
-            android:id="@+id/btnregister45"
-            android:text="@string/Competition"
-            style="@style/button_dark"/>
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:layout_width="match_parent"
-        android:layout_height="83.3dp"
-        android:id="@+id/linearLayout2" >
-        <Spinner
-            style="@style/subHeader"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/blackPalette"
-            android:text="@string/idlabel"
-            android:id="@+id/spinner"/>
-    </LinearLayout>
+        android:layout_height="65.3dp"
+        android:id="@+id/spinner1"
+        android:layout_marginTop="0.0dp"
+        android:layout_marginBottom="0.0dp" />
     <android.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="5.0dp"
-            android:id="@+id/btnDoActivity"
-            android:text="@string/StartActivity"
-            style="@style/button_dark"/>
-
+        android:layout_width="176.3dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="34.0dp"
+        android:id="@+id/btnRegActivity"
+        android:text="@string/finishActivity"
+        style="@style/button_dark"/>
 </LinearLayout>

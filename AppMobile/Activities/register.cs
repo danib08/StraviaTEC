@@ -8,12 +8,14 @@ using AppMobile.Models;
 using MobileApp;
 using MobileApp.Models;
 using Plugin.Media;
+using System;
 using System.Drawing;
 
 namespace AppMobile.Activities{
 
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = false)]
-    public class register : AppCompatActivity{
+    public class register : AppCompatActivity
+    {
 
         private EditText editTextId;
         private EditText editTextPass;
@@ -27,7 +29,8 @@ namespace AppMobile.Activities{
         private string messengerText;
         private Database db;
 
-        protected override void OnCreate(Bundle savedInstanceState){
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
             base.OnCreate(savedInstanceState);
             
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -62,15 +65,18 @@ namespace AppMobile.Activities{
                     }else{
                         username = editTextId.Text;
                     }
+                    int age= GetCurrentAge();
+                    string categoria = GetCategory(age);
+
                     Athlete user = new Athlete {
                         username = username,
                         name = editTextName.Text,
                         lastname = editTextLastName.Text,
                         birthdate = editTextbirthDate.Text,
                         nationality = editTextNationality.Text,
-                        age = 0,
+                        age = age,
                         pass = editTextPass.Text,
-                        category = "",
+                        category = categoria,
                         photo=""
                     };
                     if (db.PutAthlete(user))
@@ -83,9 +89,9 @@ namespace AppMobile.Activities{
                             lastname = editTextLastName.Text,
                             birthdate = editTextbirthDate.Text,
                             nationality = editTextNationality.Text,
-                            age = 0,
+                            age = age,
                             pass = editTextPass.Text,
-                            category = "",
+                            category = categoria,
                             photo = ""
                         };
                         db.PutAthletLocal(userLocal);
@@ -118,6 +124,39 @@ namespace AppMobile.Activities{
                 //byte[] imageArray = System.IO.File.ReadAllBytes(file.Path);
                 //Bitmap bitmap = BitmapFactory.DecodeByteArray(imageArray, 0, imageArray.Length);
             }
+        }
+        //Method for getting the current Age of the user
+        public int GetCurrentAge()
+        {
+            DateTime oDate = Convert.ToDateTime(editTextbirthDate.Text);
+            int now = int.Parse(DateTime.Now.ToString("yyyyMMdd"));
+            int dob = int.Parse(oDate.ToString("yyyyMMdd"));
+            int currentAge = (now - dob) / 10000;
+            return currentAge;
+        }
+        //Method for getting the category of the user
+        public string GetCategory(int age){
+            string categoria;
+            if (age < 15) {
+                categoria = "Junior";
+            } else if (15<age && age < 23) {
+                categoria = "Sub";
+            }
+            else if (24 < age && age < 30)
+            {
+                categoria = "Open";
+            }
+            else if (30 < age && age < 40)
+            {
+                categoria = "Master A";
+            }else if (41 < age && age < 50)
+            {
+                categoria = "Master B";
+            }
+            else{
+                categoria = "Master C";
+            }
+            return categoria;
         }
     }
 }
