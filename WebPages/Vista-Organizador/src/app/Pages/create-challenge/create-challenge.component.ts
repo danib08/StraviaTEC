@@ -17,7 +17,7 @@ export class CreateChallengeComponent implements OnInit {
     id: '',
     name: '',
     route: '',
-    date: '',
+    date: '2022-06-30T07:23',
     duration: '',
     kilometers: 0,
     type: '',
@@ -33,7 +33,7 @@ export class CreateChallengeComponent implements OnInit {
     kilometers: 0,
     type: ''
   }
-  constructor(private formBuilder: FormBuilder, private getService: GetService, private cookieSvc:CookieService, private postService: PostService) { }
+  constructor(private formBuilder: FormBuilder, private cookieSvc:CookieService, private postService: PostService) { }
 
   ngOnInit(): void {
   }
@@ -45,6 +45,7 @@ export class CreateChallengeComponent implements OnInit {
     this.associatedActivity.name = this.challenge.name;
     this.associatedActivity.kilometers = this.challenge.kilometers;
     this.associatedActivity.athleteusername = this.cookieSvc.get('Username');
+    console.log(this.associatedActivity)
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
       },
@@ -53,6 +54,7 @@ export class CreateChallengeComponent implements OnInit {
       }
     );
 
+    console.log(this.challenge)
     this.postService.createChallenge(this.challenge).subscribe(
       res =>{
       },

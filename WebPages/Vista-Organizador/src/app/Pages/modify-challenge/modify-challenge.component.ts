@@ -26,7 +26,7 @@ export class ModifyChallengeComponent implements OnInit {
   challengeSelected = '';
   challengesArray: Challenge[] = [];
 
-  constructor(private getService: GetService, private cookieSvc:CookieService, private postService: PostService, private putService: PutService, private deleteService: DeleteService) { }
+  constructor(private getService: GetService, private cookieSvc:CookieService, private putService: PutService, private deleteService: DeleteService) { }
 
   ngOnInit(): void {
     this.getAllChallenges(this.cookieSvc.get('Username'));

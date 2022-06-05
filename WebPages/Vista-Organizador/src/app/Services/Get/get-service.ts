@@ -8,7 +8,7 @@ import { Competition } from "src/app/Models/competition";
 })
 export class GetService {
 
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
+    private baseURL = 'https://localhost:5001/api/';
 
     constructor(private http: HttpClient) {
     }
@@ -33,9 +33,13 @@ export class GetService {
         return this.http.get<any>(URL);
     }
 
+    /**
+     * Gets activity info according to the provided ID
+     * @param ActivityID the ID of the desired activity
+     * @returns  the activity object
+     */
     getActivity(ActivityID:string):Observable<any>{
-        let URL = this.baseURL + '/' + ActivityID;
-        return this.http.get<any>(URL);
+        return this.http.get<any>(this.baseURL + 'Activity/' + ActivityID);
     }
 
     getCompetitions():Observable<any>{
@@ -48,33 +52,49 @@ export class GetService {
         return this.http.get<any[]>(URL);
     }
 
+    /**
+     * Gets the info according to the provided ID
+     * @param CompetitionID the ID of the desired competition
+     * @returns  an array with the info for the report
+     */
     getAthletesReport(CompetitionID:string):Observable<any>{
-        let URL = this.baseURL + '/report/' + CompetitionID;
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + '/AthleteInCompetition/Report/' + CompetitionID);
     }
 
-    getPositionsReport(CompetitionID:string):Observable<any>{
-        let URL = this.baseURL + '/position/' + CompetitionID;
-        return this.http.get<any[]>(URL);
-    }
 
+    /**
+     * Gets Athlete created competition according to the provided ID
+     * @param AthleteID the ID of the Athlete
+     * @returns  An array object
+     */
     getAthleteCreatedCompetitions(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + '/competition/' + AthleteID;
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'Athlete/CompetitionCreator/' + AthleteID);
     }
 
+    /**
+     * Gets Athlete created groups according to the provided ID
+     * @param AthleteID the ID of the Athlete
+     * @returns  An array object
+     */
     getAthleteCreatedGroups(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + '/groups/' + AthleteID;
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'Groups/' + AthleteID );
     }
 
+    /**
+     * Gets Athlete created challenges according to the provided ID
+     * @param AthleteID the ID of the Athlete
+     * @returns  An array object
+     */
     getAthleteCreatedChallenges(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + '/challenge/' + AthleteID;
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'Athlete/ChallengeCreator/' + AthleteID);
     }
 
+    /**
+     * Gets Athletes with the status No Aceptado in a Competition
+     * @param CompetitionID the ID of the Athlete
+     * @returns  An array object
+     */
     getAthleteRegister(CompetitionID:string){
-        let URL = this.baseURL + '/register/' + CompetitionID;
-        return this.http.get<any[]>(URL);
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/NotAcceptedAthletes/' + CompetitionID);
     }
 }

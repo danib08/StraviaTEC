@@ -144,7 +144,7 @@ export class ModifyCompetitionComponent implements OnInit {
   }
   
   deleteCompetition(){
-    this.deleteService.deleteActivity(this.competition.activityid).subscribe(
+    /* this.deleteService.deleteActivity(this.competition.activityid).subscribe(
       res =>{
       },
       err=>{
@@ -157,7 +157,7 @@ export class ModifyCompetitionComponent implements OnInit {
       err=>{
         alert('Ha ocurrido un error')
       }
-    );
+    );*/
     this.deleteService.deleteCompetition(this.competition.id).subscribe(
       res =>{
       },

@@ -145,8 +145,7 @@ export class CreateCompetitionComponent implements OnInit {
     );
 
     this.registerFormS.get('competitionid')?.setValue(this.competition.id);
-
-    /*this.postService.createSponsor(this.registerFormS.value).subscribe(
+    this.postService.createSponsor(this.registerFormS.value).subscribe(
       res =>{
       },
       err=>{
@@ -154,7 +153,7 @@ export class CreateCompetitionComponent implements OnInit {
       }
     );
 
-    /*for(let i = 0; i < this.sponsors.length; i++){
+    for(let i = 0; i < this.sponsors.length; i++){
       this.sponsors.at(i).get('competitionid')?.setValue(this.competition.id);
       this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
         res =>{
@@ -183,6 +182,6 @@ export class CreateCompetitionComponent implements OnInit {
           alert('Ha ocurrido un error')
         }
       );
-    }*/
+    }
   }
 }

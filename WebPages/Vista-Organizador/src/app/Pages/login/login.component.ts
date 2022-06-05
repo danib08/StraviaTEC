@@ -11,34 +11,62 @@ import { PostService } from 'src/app/Services/Post/post-service';
 })
 export class LoginComponent implements OnInit {
 
+   /**
+   * Creates the Log In component
+   * @param router used to re-route the user to different pages
+   * @param postSvc service for POST requests to the API
+   * @param cookieSvc service for cookie creating to store the username
+   */
   constructor(private router: Router, private postSvc: PostService, private cookieSvc:CookieService) {}
 
+    // Athlete model for the Log In functionality
   newAthlete: AthleteModel = {
+    username: '',
     name: '',
     lastname: '',
-    birthdate: '',
-    nationality: '',
-    age: 0,
-    pass: '',
-    category: '',
     photo: '',
-    username: ''
+    age: 0,
+    birthdate: '2022-06-04T23:52:43.803Z',
+    pass: '',
+    nationality: '',
+    category: ''
   }
 
+  // Filled with validation from the API
+  validation = {
+    Existe: ""
+  }
+
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
   ngOnInit(): void {}
 
-  signUp() {
-    this.router.navigate(["signup"]);
-  }
 
-  logInAthlete(){
-    this.postSvc.signInAthlete(this.newAthlete).subscribe(
-      res =>{
-        console.log(res);
+
+/**
+   * Makes a POST request to the API with the login info the
+   * athlete (user) entered
+   */
+ logInAthlete(){
+  this.postSvc.signInAthlete(this.newAthlete).subscribe(
+    res =>{
+      this.validation = res;
+
+      if (this.validation.Existe == "Si"){
+        alert("Inicio de sesión exitoso");
+
+        // Saves username to a cookie
         this.cookieSvc.set('Username', this.newAthlete.username);
-      },err => {
-        alert('Contraseña o Username incorrectos')
+        this.router.navigate(["feed"]);
       }
-    );
-  }
+      else {
+        alert("Nombre de usuario o contraseña incorrectos");
+      }
+    },
+    err => {
+      alert('Error')
+    }
+  );
+}
 }

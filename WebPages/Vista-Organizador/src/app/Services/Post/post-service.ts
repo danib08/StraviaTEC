@@ -29,7 +29,7 @@ export class PostService {
     }
 
     signInAthlete(athlete: AthleteModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, athlete);
+        return this.http.post<any>(this.baseURL + 'Athlete/LogIn', athlete);
     }
 
     signUpAthlete(athlete: AthleteModel): Observable<any>{
@@ -74,8 +74,13 @@ export class PostService {
         return this.http.post<any>(this.baseURL, aIC);
     }
 
+    /**
+     * Posts a new Challenge to register it on the database 
+     * @param challenge the new challenge to be registered
+     * @returns the API response
+     */
     createChallenge(challenge:Challenge):Observable<any>{
-        return this.http.post<any>(this.baseURL,challenge);
+        return this.http.post<any>(this.baseURL + 'Challenge',challenge);
     }
 
     /**
@@ -96,7 +101,12 @@ export class PostService {
         return this.http.post<any>(this.baseURL + "Sponsor", sponsor);
     }
 
+    /**
+     * Posts a new Group to register it on the database 
+     * @param group the new group to be registered
+     * @returns the API response
+     */
     createGroup(group:Group):Observable<any>{
-        return this.http.post<any>(this.baseURL,group);
+        return this.http.post<any>(this.baseURL + 'Groups',group);
     }
 }
