@@ -13,25 +13,6 @@ export class GetService {
     constructor(private http: HttpClient) {
     }
 
-    getAthleteinChallenge(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + '/' + AthleteID;
-        return this.http.get<any[]>(URL);
-    }
-
-    getChallenge(ChallengeID:string):Observable<any>{
-        let URL = this.baseURL + '/' + ChallengeID;
-        return this.http.get<any>(URL);
-    }
-
-    getAthleteinCompetition(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + '/' + AthleteID;
-        return this.http.get<any[]>(URL);
-    }
-
-    getCompetition(CompetitionID:string):Observable<any>{
-        let URL = this.baseURL + '/' + CompetitionID;
-        return this.http.get<any>(URL);
-    }
 
     /**
      * Gets activity info according to the provided ID
@@ -42,16 +23,6 @@ export class GetService {
         return this.http.get<any>(this.baseURL + 'Activity/' + ActivityID);
     }
 
-    getCompetitions():Observable<any>{
-        let URL = this.baseURL + '/competitions';
-        return this.http.get<any[]>(URL);
-    }
-
-    getChallenges():Observable<any>{
-        let URL = this.baseURL + '/challenges';
-        return this.http.get<any[]>(URL);
-    }
-
     /**
      * Gets the info according to the provided ID
      * @param CompetitionID the ID of the desired competition
@@ -60,7 +31,6 @@ export class GetService {
     getAthletesReport(CompetitionID:string):Observable<any>{
         return this.http.get<any[]>(this.baseURL + '/AthleteInCompetition/Report/' + CompetitionID);
     }
-
 
     /**
      * Gets Athlete created competition according to the provided ID

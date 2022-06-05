@@ -21,7 +21,8 @@ export class ModifyChallengeComponent implements OnInit {
     startdate: '',
     privacy: '',
     kilometers: 0,
-    type: ''
+    type: '',
+    activityid: ''
   }
   challengeSelected = '';
   challengesArray: Challenge[] = [];

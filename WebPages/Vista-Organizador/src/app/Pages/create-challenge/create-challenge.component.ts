@@ -31,7 +31,8 @@ export class CreateChallengeComponent implements OnInit {
     startdate: '',
     privacy: '',
     kilometers: 0,
-    type: ''
+    type: '',
+    activityid: ''
   }
   constructor(private formBuilder: FormBuilder, private cookieSvc:CookieService, private postService: PostService) { }
 
@@ -54,7 +55,7 @@ export class CreateChallengeComponent implements OnInit {
       }
     );
 
-    console.log(this.challenge)
+    this.challenge.activityid = this.associatedActivity.id;
     this.postService.createChallenge(this.challenge).subscribe(
       res =>{
       },

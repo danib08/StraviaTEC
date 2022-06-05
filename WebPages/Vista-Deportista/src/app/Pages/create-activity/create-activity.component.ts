@@ -38,7 +38,8 @@ export class CreateActivityComponent implements OnInit {
     startdate: '',
     privacy: '',
     kilometers: 0,
-    type: ''
+    type: '',
+    activityid: ''
   }
   
   // Holds info about the competition related to the activity

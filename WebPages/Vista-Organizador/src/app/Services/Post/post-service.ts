@@ -28,20 +28,14 @@ export class PostService {
     constructor(private http: HttpClient) {
     }
 
+     /**
+     * Posts the provided Athlete to verify its login
+     * @param athlete the AthleteModel with the username and 
+     * password intended for login
+     * @returns the API response
+     */
     signInAthlete(athlete: AthleteModel): Observable<any>{
         return this.http.post<any>(this.baseURL + 'Athlete/LogIn', athlete);
-    }
-
-    signUpAthlete(athlete: AthleteModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, athlete);
-    }
-
-    searchAthletes(athlete:AthleteSearch): Observable<any>{
-        return this.http.post<any>(this.baseURL,athlete);
-    }
-
-    addFollower(athleteFriend: AthleteFriends): Observable<any>{
-        return this.http.post<any>(this.baseURL, athleteFriend);
     }
 
     /**
@@ -60,18 +54,6 @@ export class PostService {
      */
      createCompetition(comp: Competition): Observable<any>{
         return this.http.post<any>(this.baseURL + "Competition", comp);
-    }
-
-    createActivityInChallenge(activityInChallenge: ActivityInChallenge): Observable<any>{
-        return this.http.post<any>(this.baseURL, activityInChallenge);
-    }
-
-    createAthleteInChallenge(aIC: AthleteInChallenge): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
-    }
-
-    createAthleteInCompetition(aIC: AthleteInCompetition): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
     }
 
     /**
