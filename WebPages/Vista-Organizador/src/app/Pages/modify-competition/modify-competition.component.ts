@@ -55,7 +55,7 @@ export class ModifyCompetitionComponent implements OnInit {
   });
 
   get categories(){
-    return this.registerForm2.get('Categories') as FormArray;
+    return this.registerForm2.get('categories') as FormArray;
   }
   
   addCategories(){
@@ -144,20 +144,6 @@ export class ModifyCompetitionComponent implements OnInit {
   }
   
   deleteCompetition(){
-    this.deleteService.deleteActivity(this.competition.activityid).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-    this.deleteService.deleteCategory(this.competition.id).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
     this.deleteService.deleteCompetition(this.competition.id).subscribe(
       res =>{
       },

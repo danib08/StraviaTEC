@@ -66,7 +66,7 @@ export class AcceptRegistrationComponent implements OnInit {
     const source = `data:application/pdf;base64,${this.athlete.receipt}`;
     const link = document.createElement("a");
     link.href = source;
-    link.download = `${'recibo'}.pdf`
+    link.download = `${'recibo'}.txt`
     link.click();
   }
 

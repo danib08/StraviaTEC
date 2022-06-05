@@ -28,20 +28,14 @@ export class PostService {
     constructor(private http: HttpClient) {
     }
 
+     /**
+     * Posts the provided Athlete to verify its login
+     * @param athlete the AthleteModel with the username and 
+     * password intended for login
+     * @returns the API response
+     */
     signInAthlete(athlete: AthleteModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, athlete);
-    }
-
-    signUpAthlete(athlete: AthleteModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, athlete);
-    }
-
-    searchAthletes(athlete:AthleteSearch): Observable<any>{
-        return this.http.post<any>(this.baseURL,athlete);
-    }
-
-    addFollower(athleteFriend: AthleteFriends): Observable<any>{
-        return this.http.post<any>(this.baseURL, athleteFriend);
+        return this.http.post<any>(this.baseURL + 'Athlete/LogIn', athlete);
     }
 
     /**
@@ -62,20 +56,13 @@ export class PostService {
         return this.http.post<any>(this.baseURL + "Competition", comp);
     }
 
-    createActivityInChallenge(activityInChallenge: ActivityInChallenge): Observable<any>{
-        return this.http.post<any>(this.baseURL, activityInChallenge);
-    }
-
-    createAthleteInChallenge(aIC: AthleteInChallenge): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
-    }
-
-    createAthleteInCompetition(aIC: AthleteInCompetition): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
-    }
-
+    /**
+     * Posts a new Challenge to register it on the database 
+     * @param challenge the new challenge to be registered
+     * @returns the API response
+     */
     createChallenge(challenge:Challenge):Observable<any>{
-        return this.http.post<any>(this.baseURL,challenge);
+        return this.http.post<any>(this.baseURL + 'Challenge',challenge);
     }
 
     /**
@@ -96,7 +83,12 @@ export class PostService {
         return this.http.post<any>(this.baseURL + "Sponsor", sponsor);
     }
 
+    /**
+     * Posts a new Group to register it on the database 
+     * @param group the new group to be registered
+     * @returns the API response
+     */
     createGroup(group:Group):Observable<any>{
-        return this.http.post<any>(this.baseURL,group);
+        return this.http.post<any>(this.baseURL + 'Groups',group);
     }
 }

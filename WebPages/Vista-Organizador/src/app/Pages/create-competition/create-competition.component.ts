@@ -121,53 +121,42 @@ export class CreateCompetitionComponent implements OnInit {
     this.competition.route = gpxEncoded;
   }
 
-  addCompetition(){
+  addActivity(){
     this.associatedActivity.name = this.competition.name;
     this.associatedActivity.route = this.competition.route;
     this.associatedActivity.date = this.competition.date;
     this.associatedActivity.athleteusername = this.cookieSvc.get('Username');
-
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
+        this.createCompetition();
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
 
+
+  }
+
+  createCompetition(){
     this.competition.activityid = this.associatedActivity.id;
+    console.log(this.competition)
     this.postService.createCompetition(this.competition).subscribe(
       res =>{
+        this.createCategories();
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
+  }
 
-    this.registerFormS.get('competitionid')?.setValue(this.competition.id);
-
-    /*this.postService.createSponsor(this.registerFormS.value).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-
-    /*for(let i = 0; i < this.sponsors.length; i++){
-      this.sponsors.at(i).get('competitionid')?.setValue(this.competition.id);
-      this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
-        res =>{
-        },
-        err=>{
-          alert('Ha ocurrido un error')
-        }
-      );
-    }
-
+  createCategories(){
     this.registerForm.get('competitionid')?.setValue(this.competition.id);
+    console.log(this.registerForm.value)
     this.postService.createCompetitionCategories(this.registerForm.value).subscribe(
       res =>{
+        this.createSponsors();
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -183,6 +172,31 @@ export class CreateCompetitionComponent implements OnInit {
           alert('Ha ocurrido un error')
         }
       );
-    }*/
+    }
+  }
+
+  createSponsors(){
+    this.registerFormS.get('competitionid')?.setValue(this.competition.id);
+    console.log(this.registerFormS.value)
+    this.postService.createSponsor(this.registerFormS.value).subscribe(
+      res =>{
+      },
+      err=>{
+        alert('Ha ocurrido un error')
+      }
+    );
+
+    for(let i = 0; i < this.sponsors.length; i++){
+      this.sponsors.at(i).get('competitionid')?.setValue(this.competition.id);
+      this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
+        res =>{
+        },
+        err=>{
+          alert('Ha ocurrido un error')
+        }
+      );
+    }
   }
 }
+
+

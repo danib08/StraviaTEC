@@ -71,7 +71,7 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Activity with given id</returns>
-        
+
         [HttpGet("{id}")]
         public string GetActivity(string id)
         {
@@ -83,14 +83,14 @@ namespace StraviaAPI.Controllers
             string lbl_kilometers;
             string lbl_type;
             string lbl_ahlete_username;
-            
+
 
             string query = @"
                              exec proc_activity @id,'','','2022-04-06','00:00:00',0.0,'','','Select One'
                             ";  //Query select sent to SQL Server
             DataTable table = new DataTable(); //Table creation for saving data
-            string sqlDataSource = _configuration.GetConnectionString("StraviaTec"); 
-            SqlDataReader myReader; 
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource)) //Connection stated
             {
                 myCon.Open(); //Open connection
@@ -106,7 +106,7 @@ namespace StraviaAPI.Controllers
 
 
 
-            if(table.Rows.Count > 0)
+            if (table.Rows.Count > 0)
             {
                 DataRow row = table.Rows[0];
 
@@ -131,7 +131,7 @@ namespace StraviaAPI.Controllers
                 var data = new JObject(new JProperty("Existe", "no"));
                 return data.ToString();
             }
-       
+
         }
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace StraviaAPI.Controllers
         [HttpPost]
         public JsonResult PostActivity(Activity activity)
         {
-            
+
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
 
             string query = @"
@@ -173,9 +173,9 @@ namespace StraviaAPI.Controllers
 
             }
 
-            
-             return new JsonResult(table); //Returns table with info
-            
+
+            return new JsonResult(table); //Returns table with info
+
 
         }
 

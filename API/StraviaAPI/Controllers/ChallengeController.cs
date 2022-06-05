@@ -39,7 +39,7 @@ namespace StraviaAPI.Controllers
         {
             //Query sent to SQL Server
             string query = @"
-                             exec proc_challenge '','','','','',0.0,'','Select'
+                             exec proc_challenge '','','','','',0.0,'','','Select'
                             ";
             DataTable table = new DataTable(); //Table created to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -80,10 +80,11 @@ namespace StraviaAPI.Controllers
             string lbl_privacy;
             string lbl_kilometers;
             string lbl_type;
+            string lbl_activityid;
 
             //SQL Query
             string query = @"
-                            exec proc_challenge @id,'','','','',0.0,'','Select One'                            ";
+                            exec proc_challenge @id,'','','','',0.0,'','','Select One'";
             DataTable table = new DataTable();//Created table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
@@ -113,10 +114,11 @@ namespace StraviaAPI.Controllers
                 lbl_privacy = row["privacy"].ToString();
                 lbl_kilometers = row["kilometers"].ToString();
                 lbl_type = row["type"].ToString();
+                lbl_activityid = row["activityid"].ToString();
 
                 var data = new JObject(new JProperty("id", lbl_id), new JProperty("name", lbl_name),
                    new JProperty("startDate", DateTime.Parse(lbl_startdate)), new JProperty("endDate", DateTime.Parse(lbl_enddate)), new JProperty("privacy", lbl_privacy),
-                   new JProperty("kilometers", float.Parse(lbl_kilometers)), new JProperty("type", lbl_type));
+                   new JProperty("kilometers", float.Parse(lbl_kilometers)), new JProperty("type", lbl_type), new JProperty("activityid", lbl_activityid));
 
                 return data.ToString();
             }
@@ -140,7 +142,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec proc_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type,'Insert'
+                             exec proc_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type,@activityid,'Insert'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -158,6 +160,7 @@ namespace StraviaAPI.Controllers
                 myCommand.Parameters.AddWithValue("@privacy", challenge.privacy);
                 myCommand.Parameters.AddWithValue("@kilometers", challenge.kilometers);
                 myCommand.Parameters.AddWithValue("@type", challenge.type);
+                myCommand.Parameters.AddWithValue("@activityid", challenge.activityid);
 
                 myReader = myCommand.ExecuteReader();
                 table.Load(myReader);
@@ -180,7 +183,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec proc_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type,'Update'
+                             exec proc_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type,@activityid,'Update'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -198,6 +201,7 @@ namespace StraviaAPI.Controllers
                     myCommand.Parameters.AddWithValue("@privacy", challenge.privacy);
                     myCommand.Parameters.AddWithValue("@kilometers", challenge.kilometers);
                     myCommand.Parameters.AddWithValue("@type", challenge.type);
+                    myCommand.Parameters.AddWithValue("@activityid", challenge.activityid);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
@@ -218,7 +222,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                            exec proc_challenge @id,'','','','',0.0,'','Delete'
+                            exec proc_challenge @id,'','','','',0.0,'','','Delete'
             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

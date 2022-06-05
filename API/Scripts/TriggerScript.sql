@@ -16,15 +16,15 @@ go
 
 
 create view CompsCreator as
-select Competition.ID as CompID, Competition.Name, Competition.Route, Competition.Date, AthleteUsername 
+select Competition.ID as Id, Competition.Name, Competition.Route, Competition.Date, Competition.Privacy,Competition.BankAccount,Competition.Price,Competition.ActivityID, AthleteUsername 
 from(Competition inner join Activity
 on Competition.ActivityID = Activity.ID)
 go
 
 create view ChallCreator as
-select distinct Activity_In_Challenge.ChallengeID, Activity.AthleteUsername
-from(Activity_In_Challenge inner join Activity
-on Activity_In_Challenge.ActivityID = Activity.ID)
+select Challenge.ID as Id, Challenge.Name, Challenge.StartDate, Challenge.EndDate, Challenge.Privacy, Challenge.Kilometers, Challenge.Type, Challenge.ActivityID, AthleteUsername
+from(Challenge inner join Activity
+on Challenge.ActivityID = Activity.ID)
 go
 
 
@@ -52,7 +52,33 @@ set Status = 'En curso'
 end
 go
 
+/*
+create trigger KmChallenge
+on dbo.KilometersChall
+AFTER INSERT
+NOT FOR REPLICATION
+AS
+BEGIN
+declare @Username varchar(50)
+select @Username = AthleteUsername from inserted
+update Athlete_In_Challenge
+set Kilometers = (select SUM(ActKM) as actualkm from KilometersChall
+where chalid = athchalid and AthleteUsername = 'gabogh99' and chalid = 'Chal1'
+GROUP BY chalid)
+where AthleteUsername = @Username
+end
+go
 
+select SUM(ActKM) as actualkm from KilometersChall
+where chalid = athchalid and AthleteUsername = 'gabogh99' and chalid = 'Chal1'
+GROUP BY chalid
+
+select * from Activity_In_Challenge
+
+insert into dbo.Activity_In_Challenge
+(ActivityID,ChallengeID)
+values('Act8', 'Chal1')
+*/
 --------------------------------------------------TRIGGERS ATHLETE----------------------------------
 
 
@@ -156,6 +182,32 @@ end
 go
 
 
+CREATE trigger DelAct
+on dbo.Activity instead of delete
+as
+begin
+declare @Id varchar(50)
+select @Id = Id from deleted
+
+	if exists(select top 1 * from Activity where Id = @Id)
+	begin	
+		delete from Competition
+		where ActivityID = @Id
+		delete from Activity_In_Challenge
+		where ActivityID = @Id
+		
+	end
+	else
+	begin
+		print 'Esta Competición no existe'
+	end
+	
+	delete from Activity
+	where Id = @Id
+	
+end
+go
+
 
 
 --------------------------------------------Triggers Athlete Followers---------------------------------
@@ -192,7 +244,7 @@ select @AthleteID = AthleteID, @ChallengeID = ChallengeID from inserted
 
 	if not exists(select top 1 * from dbo.Athlete_In_Challenge where AthleteID = @AthleteID and ChallengeID = @ChallengeID )
 	begin	
-		insert into dbo.Athlete_In_Challenge(AthleteID, ChallengeID, Status)
+		insert into dbo.Athlete_In_Challenge(AthleteID, ChallengeID, Status,Kilometers)
 		select * from inserted i
 	end
 	else
@@ -238,7 +290,7 @@ select @Id = Id from inserted
 
 	if not exists(select top 1 * from dbo.Challenge where Id = @Id)
 	begin	
-		insert into dbo.Challenge(Id, Name, StartDate, EndDate, Privacy, Kilometers, Type)
+		insert into dbo.Challenge(Id, Name, StartDate, EndDate, Privacy, Kilometers, Type, ActivityID)
 		select * from inserted i
 	end
 	else
@@ -248,19 +300,22 @@ select @Id = Id from inserted
 end
 go
 
-create trigger DelChall
+CREATE trigger DelChall
 on dbo.Challenge instead of delete
 as
 begin
 declare @Id varchar(50)
 select @Id = Id from deleted
+declare @ActID varchar(50)
+select @ActID = ActivityID from deleted
 
 	if exists(select top 1 * from Challenge where Id = @Id)
 	begin	
 		delete from Activity_In_Challenge
 		where ChallengeID = @Id
 		delete from Athlete_In_Challenge
-		where ChallengeID = @Id		
+		where ChallengeID = @Id	
+
 	end
 	else
 	begin
@@ -416,6 +471,9 @@ select @GroupName = GroupName, @MemberID = MemberID from inserted
 	end
 end
 go
+
+
+
 
 --------------------------------------------Triggers SPONSOR---------------------------------
 

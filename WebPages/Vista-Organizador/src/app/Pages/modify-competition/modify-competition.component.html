@@ -96,7 +96,7 @@
           </div>
           <form [formGroup]="registerForm">
             <div>
-              <label for="Category">Agregue más categorías</label>    
+              <label for="category">Agregue más categorías</label>    
               <div class="form-input">
                   <i class="material-icons">list</i>
                   <select class="form-control" id="category" name="category" formControlName="category">
@@ -111,7 +111,7 @@
               
             </div>
             <form [formGroup]="registerForm2">
-              <div formArrayName="Categories" *ngFor="let category of categories.controls; let i = index">
+              <div formArrayName="categories" *ngFor="let category of categories.controls; let i = index">
                   <div [formGroupName]="i">
                       <div class="row">
                           <div class="col-1 col-7">

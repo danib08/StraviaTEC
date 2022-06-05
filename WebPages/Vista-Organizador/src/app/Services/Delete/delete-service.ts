@@ -7,14 +7,13 @@ import { Observable } from "rxjs";
 })
 export class DeleteService {
 
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
+    private baseURL = 'https://localhost:5001/api/';
 
     constructor(private http: HttpClient) {
     }
 
     deleteCompetition(CompetitionID:string):Observable<any>{
-        let URL = this.baseURL + '/' + CompetitionID;
-        return this.http.delete<any>(URL);
+        return this.http.delete<any>(this.baseURL + 'Competition/' + CompetitionID);
     }
 
     deleteCategory(CompetitionID:string):Observable<any>{
@@ -28,12 +27,10 @@ export class DeleteService {
     }
 
     deleteGroup(groupName:string):Observable<any>{
-        let URL = this.baseURL + '/' + groupName;
-        return this.http.delete<any>(URL);
+        return this.http.delete<any>(this.baseURL + 'Groups/' + groupName);
     }
 
     deleteChallenge(challenge:string):Observable<any>{
-        let URL = this.baseURL + '/' + challenge;
-        return this.http.delete<any>(URL);
+        return this.http.delete<any>(this.baseURL + 'Challenge/' + challenge);
     }
 }

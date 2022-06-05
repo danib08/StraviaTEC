@@ -5,5 +5,6 @@ export interface Challenge {
     startdate:string,
     privacy:string,
     kilometers:number,
-    type:string
+    type:string,
+    activityid: string
 }

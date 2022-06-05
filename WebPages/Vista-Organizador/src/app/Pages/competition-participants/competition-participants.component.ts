@@ -5,6 +5,7 @@ import { AthleteInCompetition } from 'src/app/Models/athlete-in-competition';
 import { ParticipantsReport } from 'src/app/Models/participants-report';
 import { GetService } from 'src/app/Services/Get/get-service';
 import html2canvas from 'html2canvas';
+import { Competition } from 'src/app/Models/competition';
 
 @Component({
   selector: 'app-competition-participants',
@@ -14,7 +15,7 @@ import html2canvas from 'html2canvas';
 export class CompetitionParticipantsComponent implements OnInit {
 
   competitionSelected = '';
-  athleteCompetitions: AthleteInCompetition[] = [];
+  athleteCompetitions: Competition[] = [];
   athlete4Report: ParticipantsReport[] = [];
   Junior:ParticipantsReport[] = [];
   Sub23:ParticipantsReport[] = [];
@@ -31,7 +32,7 @@ export class CompetitionParticipantsComponent implements OnInit {
   }
 
   getAthleteCompetitions(){
-    this.getService.getAthleteinCompetition(this.cookieSvc.get('Username')).subscribe(
+    this.getService.getAthleteCreatedCompetitions(this.cookieSvc.get('Username')).subscribe(
       res=>{
         this.athleteCompetitions = res;
       },

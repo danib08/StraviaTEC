@@ -70,7 +70,7 @@ export class CreateGroupComponent implements OnInit {
   changeGroup(){
     this.editedGroup.adminusername = this.cookieSvc.get('Username');
     this.editedGroup.oldername = this.groupSelected;
-    this.putService.modifyGroup(this.editedGroup).subscribe(
+    this.getService.modifyGroup(this.editedGroup.name, this.editedGroup.oldername).subscribe(
       res=>{
         location.reload()
       },

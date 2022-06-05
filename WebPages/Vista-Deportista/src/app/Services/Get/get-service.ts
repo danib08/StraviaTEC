@@ -132,4 +132,14 @@ export class GetService {
     getFeed(AthleteID: string):Observable<any>{
         return this.http.get<any[]>(this.baseURL + 'Athlete/Feed/' + AthleteID);
     }
+
+    /**
+     * Gets an specific athleteInChallenge
+     * @param AthleteID the ID of the athlete
+     * @param ChallengeID the ID of the challenge
+     * @returns an athleteInCompetition object
+     */
+    getAthleteInChallenge(AthleteID: string, ChallengeID: string):Observable<any>{
+        return this.http.get<any>(this.baseURL + 'AthleteInChallenge' + AthleteID + '/' + ChallengeID);
+    }
 }

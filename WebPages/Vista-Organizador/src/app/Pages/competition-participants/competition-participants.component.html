@@ -5,7 +5,7 @@
     <select
         [(ngModel)]="competitionSelected"
         (change)="getCurrentCompetitionReport()">
-        <option *ngFor="let list of athleteCompetitions; index as i" value="{{list.competitionid}}">{{list.competitionid}}</option>
+        <option *ngFor="let list of athleteCompetitions; index as i" value="{{list.id}}">{{list.name}}</option>
     </select>
     <button (click)="downloadPDF()">Descargar</button>
 </div>

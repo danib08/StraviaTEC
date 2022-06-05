@@ -3,5 +3,5 @@ export interface ParticipantsReport {
     lastname:string,
     age:number,
     category:string,
-    time?:string
+    duration?:string
 }
