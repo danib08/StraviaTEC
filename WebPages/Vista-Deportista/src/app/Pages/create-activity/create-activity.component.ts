@@ -93,6 +93,13 @@ export class CreateActivityComponent implements OnInit {
     duration: ''
   }
 
+  athleteInChallenge: AthleteInChallenge = {
+    athleteid: '',
+    challengeid: '',
+    status: '',
+    kilometers: 0
+  }
+
  /**
   * Creates the Create Activity component
   * @param postService service for POST requests to the API
@@ -143,6 +150,13 @@ export class CreateActivityComponent implements OnInit {
    * Gets the info associated to the challenge the athlete chose
    */
   getChallengeInfo(){
+    this.getService.getAthleteInChallenge(this.cookieSvc.get('Username'), this.challengeSelected).subscribe(
+      res=>{
+        this.athleteInChallenge = res;
+      }, err =>{
+        alert('Ha ocurrido un error')
+      }
+    );
     this.getService.getChallenge(this.challengeSelected).subscribe(
       res => {
         this.currentChallenge = res;
@@ -270,6 +284,14 @@ export class CreateActivityComponent implements OnInit {
         }
       );
     }
+    this.athleteInChallenge.kilometers += this.athleteInChallenge.kilometers;
+    this.putService.updateAthleteInChallenge(this.athleteInChallenge).subscribe(
+      res => {
+        
+      }, err => {
+        alert("Ha ocurrido un error")
+      }
+    );
   }
 
 }

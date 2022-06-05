@@ -30,9 +30,7 @@ export class PutService {
         return this.http.put<any>(this.baseURL + 'Competition' , competition);
     }
 
-    modifyGroup(group:Group):Observable<any>{
-        return this.http.put<any>(this.baseURL + 'Groups', group);
-    }
+    
 
 
     modifyChallenge(challenge:Challenge):Observable<any>{

@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { AthleteInChallenge } from "src/app/Models/athlete-in-challenge";
 import { AthleteInCompetition } from "src/app/Models/athlete-in-competition";
 import { AthleteModel } from "src/app/Models/athlete-model";
 
@@ -32,7 +33,16 @@ export class PutService {
      * @param aIC the AthleteInCompetition Model with the new info to be modified
      * @returns the API response
      */
-   updateAthleteInCompetition(aIC: AthleteInCompetition):Observable<any>{
-    return this.http.put<any>(this.baseURL + "AthleteInCompetition", aIC);
-}
+    updateAthleteInCompetition(aIC: AthleteInCompetition):Observable<any>{
+        return this.http.put<any>(this.baseURL + "AthleteInCompetition", aIC);
+    }
+
+    /**
+     * Puts the provided AthleteInChallenge to change its info
+     * @param aIC the AthleteInChallenge Model with the new info to be modified
+     * @returns the API response
+     */
+     updateAthleteInChallenge(aIC: AthleteInChallenge):Observable<any>{
+        return this.http.put<any>(this.baseURL + "AthleteInChallenge", aIC);
+    }
 }

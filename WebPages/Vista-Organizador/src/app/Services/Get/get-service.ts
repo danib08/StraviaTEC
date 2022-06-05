@@ -67,4 +67,14 @@ export class GetService {
     getAthleteRegister(CompetitionID:string){
         return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/NotAcceptedAthletes/' + CompetitionID);
     }
+
+    /**
+     * Modify the GroupName 
+     * @param newName the new name for the group
+     * @param oldName the old name for the group
+     * @returns  An Api response
+     */
+    modifyGroup(newName: string, oldName:string):Observable<any>{
+        return this.http.get<any>(this.baseURL + 'Groups/' + newName + '/' + oldName);
+    }
 }
