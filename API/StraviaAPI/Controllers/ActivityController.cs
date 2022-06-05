@@ -40,7 +40,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetActivities()
         {
             string query = @"
-                             exec get_all_activities
+                             exec proc_activity '','','','2022-04-06','00:00:00',0.0,'','','Select'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -86,7 +86,7 @@ namespace StraviaAPI.Controllers
             
 
             string query = @"
-                            exec get_activity @id
+                             exec proc_activity @id,'','','2022-04-06','00:00:00',0.0,'','','Select One'
                             ";  //Query select sent to SQL Server
             DataTable table = new DataTable(); //Table creation for saving data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec"); 
@@ -122,7 +122,7 @@ namespace StraviaAPI.Controllers
 
                 var data = new JObject(new JProperty("id", lbl_id), new JProperty("name", lbl_name),
                     new JProperty("route", lbl_route), new JProperty("date", DateTime.Parse(lbl_date)), new JProperty("duration", DateTime.Parse(lbl_duration)),
-                    new JProperty("kilometers", float.Parse(lbl_kilometers)), new JProperty("type", lbl_type), new JProperty("athleteUsername", lbl_ahlete_username));
+                    new JProperty("kilometers", float.Parse(lbl_kilometers)), new JProperty("type", lbl_type), new JProperty("athleteusername", lbl_ahlete_username));
 
                 return data.ToString();
             }
@@ -147,7 +147,7 @@ namespace StraviaAPI.Controllers
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
 
             string query = @"
-                             exec post_activity @id,@name,@route,@date,@duration,@kilometers,@type,@athleteusername
+                             exec proc_activity @id,@name,@route,@date,@duration,@kilometers,@type,@athleteusername,'Insert'
                             "; //Query insert sent to SQL Server
             DataTable table = new DataTable(); //Table created to store data
             SqlDataReader myReader;
@@ -189,7 +189,7 @@ namespace StraviaAPI.Controllers
         public ActionResult PutActivity(Activity activity)
         {
             string query = @"
-                             exec put_activity @id,@name,@route,@date,@kilometers,@type,@athleteusername
+                             exec proc_activity @id,@name,@route,@date,@kilometers,@type,@athleteusername,'Update'
                             "; //Update query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -225,10 +225,10 @@ namespace StraviaAPI.Controllers
         /// <returns>Action result of query</returns>
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteActivity(string id)
+        public JsonResult DeleteActivity(string id)
         {
             string query = @"
-                             exec delete_activity @id
+                             exec proc_activity @id,'','','2022-04-06','00:00:00',0.0,'','','Delete'
                             "; //Delete query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -245,7 +245,7 @@ namespace StraviaAPI.Controllers
                     myCon.Close(); //Closed connection
                 }
             }
-            return Ok(); //Returns acceptance
+            return new JsonResult(table); //Returns table with info
         }
 
 

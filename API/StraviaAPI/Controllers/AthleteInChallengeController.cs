@@ -39,7 +39,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthChallenges()
         {
             string query = @"
-                             exec get_all_AICH
+                             exec proc_athlete_in_challenge '','','','Select'
                             "; //Select query sent to sql
             DataTable table = new DataTable(); //Created table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");//Sets connection string
@@ -81,7 +81,7 @@ namespace StraviaAPI.Controllers
             string lbl_status;
 
             string query = @"
-                             exec get_Athlete_Challenge @athleteid,@challengeid
+                             exec proc_athlete_in_challenge @athleteid,@challengeid,'','Select One'
                             "; //select query sent to sql server
 
             DataTable table = new DataTable(); //Table created to store info
@@ -136,7 +136,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_One_Athlete_Challenges @username
+                             exec proc_athlete_in_challenge @username ,'','','AthleteChallenges'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -176,7 +176,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_Athlete_OneChallenge @challenge
+                             exec proc_athlete_in_challenge '', @challenge,'','ChallengeAthletes'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -214,7 +214,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_Ath_OneChallenge_Accepted @username
+                             exec proc_athlete_in_challenge @username,'','','ChalAccepted'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -254,7 +254,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_not_inscribed_Chall @username
+                             exec proc_athlete_in_challenge @username,'','','ChalNotInscribed'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -297,7 +297,7 @@ namespace StraviaAPI.Controllers
 
             //Insert query sent to SQL Server
             string query = @"
-                             exec post_Athlete_Challenge @athleteid, @challengeid,@status
+                             exec proc_athlete_in_challenge @athleteid, @challengeid,@status,'Insert'
                             "; 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -330,11 +330,11 @@ namespace StraviaAPI.Controllers
         /// <param name="challengeID"></param>
         /// <returns>Result of query</returns>
         [HttpDelete("{id}/{challenge}")]
-        public ActionResult DeleteAthChallenge(string id, string challengeID)
+        public ActionResult DeleteAthChallenge(string id, string challenge)
         {
             // SQL Server query
             string query = @"
-                             exec delete_Athlete_Challenge @athleteid, @challengeid
+                             exec proc_athlete_in_challenge @athleteid, @challengeid, '', 'Delete'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -346,7 +346,7 @@ namespace StraviaAPI.Controllers
                 {
                     //Added parameters
                     myCommand.Parameters.AddWithValue("@athleteid", id);
-                    myCommand.Parameters.AddWithValue("@challengeid", challengeID);
+                    myCommand.Parameters.AddWithValue("@challengeid", challenge);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
