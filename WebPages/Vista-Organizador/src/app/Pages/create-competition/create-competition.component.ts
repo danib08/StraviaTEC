@@ -25,6 +25,7 @@ export class CreateCompetitionComponent implements OnInit {
     type: '',
     athleteusername: ''
   } 
+
   competition: Competition = {
     id: '',
     name: '',
@@ -53,8 +54,7 @@ export class CreateCompetitionComponent implements OnInit {
     id: '',
     name: '',
     bankaccount: '',
-    competitionid: '',
-    challengeid: ''
+    competitionid: ''
   });
 
   registerFormS2 = this.formBuilder.group({
@@ -74,8 +74,7 @@ export class CreateCompetitionComponent implements OnInit {
       id: '',
       name: '',
       bankaccount: '',
-      competitionid: '',
-      challengeid: ''
+      competitionid: ''
     });
     this.sponsors.push(SponsorsFormGroup);
   }
@@ -96,11 +95,38 @@ export class CreateCompetitionComponent implements OnInit {
     this.categories.removeAt(index);
   }
 
+  /**
+   * Reads the content of the .gpx when uploaded
+   * @param fileList list of files uploaded
+   */
+   public onChange(fileList: FileList): void {
+
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let self = this;
+
+    fileReader.onloadend = function(x) {
+      let gpxRead = fileReader.result as string;
+      self.encode64(gpxRead);
+    }
+    fileReader.readAsText(file);
+  }
+
+  /**
+   * Encodes string from the .gpx file to base 64 and sets it
+   * to the activity route
+   */
+  encode64(fileText: string) {
+    let gpxEncoded = btoa(fileText);
+    this.competition.route = gpxEncoded;
+  }
+
   addCompetition(){
     this.associatedActivity.name = this.competition.name;
     this.associatedActivity.route = this.competition.route;
     this.associatedActivity.date = this.competition.date;
     this.associatedActivity.athleteusername = this.cookieSvc.get('Username');
+
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
       },
@@ -118,7 +144,8 @@ export class CreateCompetitionComponent implements OnInit {
     );
 
     this.registerFormS.get('competitionid')?.setValue(this.competition.id);
-    this.postService.createSponsor(this.registerFormS.value).subscribe(
+
+    /*this.postService.createSponsor(this.registerFormS.value).subscribe(
       res =>{
       },
       err=>{
@@ -126,7 +153,7 @@ export class CreateCompetitionComponent implements OnInit {
       }
     );
 
-    for(let i = 0; i < this.sponsors.length; i++){
+    /*for(let i = 0; i < this.sponsors.length; i++){
       this.sponsors.at(i).get('competitionid')?.setValue(this.competition.id);
       this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
         res =>{
@@ -136,11 +163,6 @@ export class CreateCompetitionComponent implements OnInit {
         }
       );
     }
-
-
-
-
-
 
     this.registerForm.get('competitionid')?.setValue(this.competition.id);
     this.postService.createCompetitionCategories(this.registerForm.value).subscribe(
@@ -160,8 +182,6 @@ export class CreateCompetitionComponent implements OnInit {
           alert('Ha ocurrido un error')
         }
       );
-    }
-    
+    }*/
   }
-
 }

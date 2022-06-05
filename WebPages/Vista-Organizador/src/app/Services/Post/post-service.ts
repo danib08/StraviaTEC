@@ -19,8 +19,8 @@ import { Group } from "src/app/Models/group";
     providedIn: 'root'
 })
 export class PostService {
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
-    private searchURL = 'https://straviatec.free.beeceptor.com/search';
+    private baseURL = 'https://localhost:5001/api/';
+
     /**
     * Método constructor
     * @param http 
@@ -37,15 +37,29 @@ export class PostService {
     }
 
     searchAthletes(athlete:AthleteSearch): Observable<any>{
-        return this.http.post<any>(this.searchURL,athlete);
+        return this.http.post<any>(this.baseURL,athlete);
     }
 
     addFollower(athleteFriend: AthleteFriends): Observable<any>{
         return this.http.post<any>(this.baseURL, athleteFriend);
     }
 
-    createActivity(activity: ActivityModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, activity);
+    /**
+     * Posts a new Activity to register it on the database 
+     * @param activity the new activity to be registered
+     * @returns the API response
+     */
+     createActivity(activity: ActivityModel): Observable<any>{
+        return this.http.post<any>(this.baseURL + "Activity", activity);
+    }
+
+    /**
+     * Posts a new Competition to register it on the database 
+     * @param comp the new competition to be registered
+     * @returns the API response
+     */
+     createCompetition(comp: Competition): Observable<any>{
+        return this.http.post<any>(this.baseURL + "Competition", comp);
     }
 
     createActivityInChallenge(activityInChallenge: ActivityInChallenge): Observable<any>{
@@ -60,20 +74,26 @@ export class PostService {
         return this.http.post<any>(this.baseURL, aIC);
     }
 
-    createCompetition(competition:Competition):Observable<any>{
-        return this.http.post<any>(this.baseURL,competition);
-    }
-
     createChallenge(challenge:Challenge):Observable<any>{
         return this.http.post<any>(this.baseURL,challenge);
     }
 
+    /**
+     * Posts a new CompetitionCategories to register it on the database 
+     * @param category the new competition categories to be registered
+     * @returns the API response
+     */
     createCompetitionCategories(category:FormControl):Observable<any>{
-        return this.http.post<any>(this.baseURL, category);
+        return this.http.post<any>(this.baseURL + "CompetitionCategories", category);
     }
 
+     /**
+     * Posts a new Sponsor to register it on the database 
+     * @param sponsor the new sponsor to be registered
+     * @returns the API response
+     */
     createSponsor(sponsor:Sponsor):Observable<any>{
-        return this.http.post<any>(this.baseURL,sponsor);
+        return this.http.post<any>(this.baseURL + "Sponsor", sponsor);
     }
 
     createGroup(group:Group):Observable<any>{
