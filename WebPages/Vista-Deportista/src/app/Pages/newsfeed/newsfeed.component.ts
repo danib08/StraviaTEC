@@ -19,6 +19,12 @@ export class NewsfeedComponent implements OnInit, AfterViewChecked {
   mapsInitialized = false;
   ActivitiesArray: ActivityModel[] = [];
 
+  /**
+   * 
+   * @param getSvc service for GET requests to the API
+   * @param cookieSvc service for cookie creating to store the username
+   * @param mapSvc service for loading gpx files into a leaflet map
+   */
   constructor(private getSvc: GetService, private cookieSvc: CookieService, private mapSvc: MapService) { }
 
   /**
@@ -28,10 +34,16 @@ export class NewsfeedComponent implements OnInit, AfterViewChecked {
     this.getFeed();
   }
 
+  /**
+   * Called after view is initialized so maps are displayed
+   */
   ngAfterViewChecked(): void {
     this.displayMaps();
   }
 
+  /**
+   * Gets the acitivity feed for the athlete
+   */
   getFeed() {
     this.getSvc.getFeed(this.cookieSvc.get("Username")).subscribe(
       res =>{
@@ -42,6 +54,9 @@ export class NewsfeedComponent implements OnInit, AfterViewChecked {
     );
   }
 
+  /**
+   * Iterates through the ActivitiesArray to decode each route (.gpx)
+   */
   displayMaps() {
     if (!this.mapsInitialized) {
       for (let i = 0; i < this.ActivitiesArray.length; i++) {
@@ -50,6 +65,11 @@ export class NewsfeedComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  /**
+   * Decodes each .gpx file and then displays it as a map
+   * @param base64 encoded content of the gpx file
+   * @param mapid ID of map div on the HTML file
+   */
   routeDecode(base64: string, mapid: string) {
     let decoded = atob(base64);
     this.mapSvc.plotActivity(decoded, mapid);

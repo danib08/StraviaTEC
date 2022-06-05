@@ -34,7 +34,7 @@
                       #nBC = "ngModel"
                       required 
                       (change)="getChallengeInfo()">
-                <option *ngFor="let list of challengesArray; index as i" value="{{list.challengeid}}">{{list.challengeid}}</option>
+                <option *ngFor="let list of challengesArray; index as i" value="{{list.id}}">{{list.name}}</option>
               </select>
               <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" *ngIf=haveSelectedChallenge>
                 <div class="form-input">

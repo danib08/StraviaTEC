@@ -10,10 +10,19 @@ const defaultZoom: number = 3
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Receives the content of a gpx file and shows it on-screen
+ */
 export class MapService {
 
   constructor() { }
 
+  /**
+   * Uses Leaflet and its GPX plugin to display maps on the HTML file
+   * @param gpx the string content of the gpx file
+   * @param mapId the ID of the HTML div element where the map will be displayed
+   */
   plotActivity(gpx: any, mapId: string){
 
     var map = leaflet.map(mapId).setView(defaultCoords, defaultZoom);
@@ -29,7 +38,5 @@ export class MapService {
     new leaflet.GPX(gpx, {async: true}).on('loaded', function(e: { target: { getBounds: () => any; }; }) {
       map.fitBounds(e.target.getBounds());
     }).addTo(map);
-
   }
-  
 }

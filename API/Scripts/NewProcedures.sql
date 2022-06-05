@@ -85,6 +85,7 @@ as begin
 	begin
 		select FollowerID as AthleteUsername,ID,Name,Route,Date,Duration,Kilometers,Type from dbo.friends_Act
 		where  AthleteID = @Username
+		order by Date asc
 	end
 
 	if @StatementType = 'CompCreator'

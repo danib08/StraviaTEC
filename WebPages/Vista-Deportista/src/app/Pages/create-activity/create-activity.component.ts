@@ -24,7 +24,7 @@ export class CreateActivityComponent implements OnInit {
   eventType = '';
   challengeSelected = '';
   competitionSelected = '';
-  challengesArray: AthleteInChallenge[] =[]; 
+  challengesArray: Challenge[] =[]; 
   competitionsArray: AthleteInCompetition[] =[]; 
   haveSelectedChallenge = false;
   haveSelectedCompetition = false;
@@ -115,10 +115,8 @@ export class CreateActivityComponent implements OnInit {
    */
   radioSelect(event: Event) {
       if ((event.target as HTMLInputElement).value == 'Challenge'){
-        // PROBAR CON NUEVOS URLS
         this.getService.getOnGoingChallenges(this.cookieSvc.get('Username')).subscribe(
           res => {
-            console.log(res);
             this.challengesArray = res;
           },
           err=>{

@@ -39,7 +39,7 @@ export class GetService {
      * @returns array of challenges
      */
      getOnGoingChallenges(AthleteID:string):Observable<any>{
-        return this.http.get<any[]>(this.baseURL + '');
+        return this.http.get<any[]>(this.baseURL + 'AthleteInChallenge/Accepted/' + AthleteID);
     }
 
     /**
@@ -58,7 +58,7 @@ export class GetService {
      * @returns array of competitions
      */
      getAcceptedCompetitions(AthleteID:string):Observable<any>{
-        return this.http.get<any[]>(this.baseURL + '');
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/AcceptedComps/' + AthleteID);
     }
 
     /**
@@ -124,6 +124,11 @@ export class GetService {
         return this.http.get<any[]>(this.baseURL + '' + ChallengeID);
     }
 
+    /**
+     * Gets the activity feed of an athlete according to who it follows
+     * @param AthleteID the ID of the athlete
+     * @returns array of activities
+     */
     getFeed(AthleteID: string):Observable<any>{
         return this.http.get<any[]>(this.baseURL + 'Athlete/Feed/' + AthleteID);
     }

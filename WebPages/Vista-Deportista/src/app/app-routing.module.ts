@@ -7,7 +7,6 @@ import { SearchAthletesComponent } from './Pages/search-athletes/search-athletes
 import { CreateActivityComponent } from './Pages/create-activity/create-activity.component';
 import { SubscriptionsComponent } from './Pages/subscriptions/subscriptions.component';
 import { GroupSubscribeComponent } from './Pages/group-subscribe/group-subscribe.component';
-import { ActivityComponent } from './Pages/activity/activity.component';
 import { ReportsComponent } from './Pages/reports/reports.component';
 import { NewsfeedComponent } from './Pages/newsfeed/newsfeed.component';
 
@@ -19,7 +18,6 @@ const routes: Routes = [
   {path: 'search', component: SearchAthletesComponent},
   {path: 'createActivity', component: CreateActivityComponent},
   {path: 'subscriptions', component: SubscriptionsComponent},
-  {path: 'activityInfo', component: ActivityComponent},
   {path: 'groups', component: GroupSubscribeComponent},
   {path: 'reports', component: ReportsComponent},
   {path: 'feed', component: NewsfeedComponent},
