@@ -224,6 +224,7 @@ export class CreateActivityComponent implements OnInit {
       res =>{
         if (res == "") {
           alert("Actividad creada satisfactoriamente.");
+          this.createChallenge();
         }
         else {
           if (res[0].message_id == 2601) {
@@ -253,19 +254,21 @@ export class CreateActivityComponent implements OnInit {
       );
     }
 
+    //location.reload();
+  }
+
+  createChallenge() {
     if (this.eventType == 'Challenge') {
       this.activityInChallenge.activityid = this.activity.id;
       this.activityInChallenge.challengeid = this.currentChallenge.id;
-      console.log(this.activityInChallenge);
       this.postService.createActivityInChallenge(this.activityInChallenge).subscribe(
         res =>{
         }, err => {
+          console.log(err);
           alert("Ha ocurrido un error")
         }
       );
     }
-
-    //location.reload();
   }
 
 }

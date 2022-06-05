@@ -76,6 +76,7 @@ export class ReportsComponent implements OnInit {
     //PROBAR NUEVO URL
     this.getSvc.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
       res=>{
+        console.log(res);
         this.athleteCompetitions = res;
       },
       err=> {
