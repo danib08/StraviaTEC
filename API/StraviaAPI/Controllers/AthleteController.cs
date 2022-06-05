@@ -188,7 +188,7 @@ namespace StraviaAPI.Controllers
 
 
             string query = @"
-                             exec proc_athlete @user,'','','',0,'2000-12-12','','','','Select'
+                             exec proc_athlete @user,'','','',0,'2000-12-12','','','','Select One'
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Table created to store information
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -221,8 +221,8 @@ namespace StraviaAPI.Controllers
                 lbl_category = row["category"].ToString();
 
                 var data = new JObject(new JProperty("username", lbl_username), new JProperty("name", lbl_name),
-                    new JProperty("lastName", lbl_lastname), new JProperty("photo", lbl_photo), new JProperty("age", Int32.Parse(lbl_age)),
-                    new JProperty("birthDate", DateTime.Parse(lbl_birthdate)), new JProperty("pass", lbl_pass), new JProperty("nationality", lbl_nationality),
+                    new JProperty("lastname", lbl_lastname), new JProperty("photo", lbl_photo), new JProperty("age", Int32.Parse(lbl_age)),
+                    new JProperty("birthdate", DateTime.Parse(lbl_birthdate)), new JProperty("pass", lbl_pass), new JProperty("nationality", lbl_nationality),
                     new JProperty("category", lbl_category));
 
                 return data.ToString();
@@ -318,7 +318,7 @@ namespace StraviaAPI.Controllers
             //Insert query sent to SQL Server 
 
             string query = @"
-                             exec proc_athlete @username,'','','',0,'2000-12-12',@pass,'','','Select'
+                             exec proc_athlete @username,'','','',0,'2000-12-12',@pass,'','','LogIn'
                             ";
             DataTable table = new DataTable();
 
@@ -451,7 +451,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteAthlete(string username)
         {
             string query = @"
-                            exec proc_athlete @user,'','','',0,'2000-12-12','','','','Delete'
+                            exec proc_athlete @Username,'','','',0,'2000-12-12','','','','Delete'
                             "; //delete query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");//Connection getted

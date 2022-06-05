@@ -28,11 +28,8 @@ export class ActivityComponent implements OnInit {
 
   routeDecode(base64: string) {
     let decoded = atob(base64);
-    var gpxFile = new File([decoded], 'sample.gpx');
-    //saveAs(gpxFile);
-    this.mapService.plotActivity(decoded);
+    this.mapService.plotActivity(decoded, "map");
 
-    //FileSaver.saveAs(decoded, "sample.gpx");
   }
 
 

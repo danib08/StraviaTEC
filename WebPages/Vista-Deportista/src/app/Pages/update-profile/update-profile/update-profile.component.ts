@@ -110,7 +110,6 @@ export class UpdateProfileComponent implements OnInit {
           this.cookieSvc.delete("Username");
           alert("Cuenta borrada permanentemente.");
           this.router.navigate(["login"]);
-
         }, err => {
           alert("Ha ocurrido un error");
         }

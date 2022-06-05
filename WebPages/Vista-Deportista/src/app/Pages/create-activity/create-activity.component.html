@@ -87,6 +87,7 @@
                 </div>
               </form>
             </div>
+
             <div class="isCompetition" *ngIf="(eventType == 'Competition')">
               <label>Seleccione la carrera asociada a su actividad</label>
               <select class="form-control"
@@ -122,7 +123,7 @@
                   required>
                 </div>
                 <div class="form-input">
-                  <i class="material-icons">speed</i>
+                  <i class="material-icons">directions_run</i>
                   <input type="number" class="form-control" placeholder="Kilometraje"
                   [(ngModel)]="activity.kilometers" name="Kilometraje" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
@@ -169,7 +170,7 @@
                 required>
               </div>
               <div class="form-input">
-                <i class="material-icons">speed</i>
+                <i class="material-icons">directions_run</i>
                 <input type="number" class="form-control" placeholder="Kilometraje"
                 [(ngModel)]="activity.kilometers" name="Kilometraje" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"

@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
     lastname: '',
     photo: '',
     age: 0,
-    birthdate: '',
+    birthdate: '2022-06-04T23:52:43.803Z',
     pass: '',
     nationality: '',
     category: ''
@@ -67,6 +67,7 @@ export class LoginComponent implements OnInit {
 
           // Saves username to a cookie
           this.cookieSvc.set('Username', this.newAthlete.username);
+          this.router.navigate(["feed"]);
         }
         else {
           alert("Nombre de usuario o contraseña incorrectos");
