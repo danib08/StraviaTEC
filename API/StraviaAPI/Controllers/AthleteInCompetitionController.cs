@@ -205,7 +205,7 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("Accepted/{competition}")]
+        [HttpGet("AcceptedAthletes/{competition}")]
         public JsonResult get_Ath_OneCompetition_Waiting(string competition)
         {
 
@@ -238,6 +238,86 @@ namespace StraviaAPI.Controllers
 
             return new JsonResult(table);//Returns table info
         }
+
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("AcceptedComps/{username}")]
+        public JsonResult get_Ath_Accepted_Comps(string username)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Ath_Accepted_Comps @username
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo tiw = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = tiw.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("NotAcceptedAthletes/{competition}")]
+        public JsonResult get_Not_Accepted_AIC(string competition)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec get_Accepted_AIC @competition
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@competition", competition);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo tiw = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = tiw.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
+
 
 
         /// <summary>
