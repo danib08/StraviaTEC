@@ -669,3 +669,21 @@ as begin
 	end
 end
 go
+
+/*
+alter view challReport as
+select  Challenge.ID, Challenge.Name, datediff(day, cast(Challenge.EndDate as date) ,GETDATE()) as daysleft, 
+Challenge.Kilometers as totalkm, (select sum(Activity.Kilometers) from Activity group by) as actualkm, Athlete_In_Challenge.AthleteID 
+from(((Challenge inner join Athlete_In_Challenge
+on Challenge.ID = Athlete_In_Challenge.ChallengeID)
+inner join Activity_In_Challenge
+on Challenge.ID = Activity_In_Challenge.ChallengeID)
+inner join Activity
+on Activity_In_Challenge.ActivityID = Activity.ID)
+group by Challenge.ID
+
+select ChallengeID, sum(Activity.Kilometers)  as km from 
+Activity_In_Challenge inner join Activity
+on Activity_In_Challenge.ActivityID = Activity.ID
+group by Activity_In_Challenge.ChallengeID
+*/

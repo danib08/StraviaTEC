@@ -135,12 +135,9 @@ ALTER TABLE dbo.Activity
 ADD CONSTRAINT Activity_Athlete_FK FOREIGN KEY(AthleteUsername)
 REFERENCES dbo.Athlete(Username)
 
-
-
 ALTER TABLE dbo.Competition
 ADD CONSTRAINT Competition_Activity_FK FOREIGN KEY(ActivityID)
 REFERENCES dbo.Activity(ID)
-
 
 ALTER TABLE dbo.Sponsor
 ADD CONSTRAINT Sponsor_compId_FK FOREIGN KEY(CompetitionID)
@@ -170,7 +167,6 @@ REFERENCES dbo.Athlete(Username)
 ALTER TABLE dbo.Athlete_In_Competition
 ADD CONSTRAINT AICo_Chal_FK FOREIGN KEY(CompetitionID)
 REFERENCES dbo.Competition(ID)
-
 
 ALTER TABLE dbo.Competition_Categories
 ADD CONSTRAINT Comp_Cat_FK FOREIGN KEY(CompetitionID)
@@ -205,3 +201,5 @@ REFERENCES dbo.Activity(ID)
 ALTER TABLE dbo.Activity_In_Challenge
 ADD CONSTRAINT ActCha_ChId_FK FOREIGN KEY(ChallengeID)
 REFERENCES dbo.Challenge(ID)
+
+

@@ -1,4 +1,4 @@
-/*
+
 
 create procedure get_activity(@Id varchar(50))
 as
@@ -737,7 +737,7 @@ where Name = @Name
 end 
 go
 
-*/
+
 ----------------------Group member stored procedures------------------
 
 create procedure get_all_groupMembers
