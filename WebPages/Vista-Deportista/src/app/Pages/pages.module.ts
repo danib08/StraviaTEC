@@ -15,6 +15,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { GroupSubscribeComponent } from './group-subscribe/group-subscribe.component';
 import { ReportsComponent } from './reports/reports.component';
 import { NewsfeedComponent } from './newsfeed/newsfeed.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NewsfeedComponent } from './newsfeed/newsfeed.component';
     GroupSubscribeComponent,
     ReportsComponent,
     NewsfeedComponent,
+    CommentsComponent,
   ],
   imports: [
     CommonModule,

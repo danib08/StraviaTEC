@@ -9,6 +9,7 @@ import { SubscriptionsComponent } from './Pages/subscriptions/subscriptions.comp
 import { GroupSubscribeComponent } from './Pages/group-subscribe/group-subscribe.component';
 import { ReportsComponent } from './Pages/reports/reports.component';
 import { NewsfeedComponent } from './Pages/newsfeed/newsfeed.component';
+import { CommentsComponent } from './Pages/comments/comments.component';
 
 // Routes for the different Pages on the Web Application
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'groups', component: GroupSubscribeComponent},
   {path: 'reports', component: ReportsComponent},
   {path: 'feed', component: NewsfeedComponent},
+  {path: 'comments', component: CommentsComponent},
   {path: "**", redirectTo: "login", pathMatch:"full"}
 ];
 

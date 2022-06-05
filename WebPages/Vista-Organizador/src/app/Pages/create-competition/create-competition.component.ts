@@ -135,6 +135,7 @@ export class CreateCompetitionComponent implements OnInit {
       }
     );
 
+    this.competition.activityid = this.associatedActivity.id;
     this.postService.createCompetition(this.competition).subscribe(
       res =>{
       },
