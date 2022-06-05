@@ -39,7 +39,7 @@ namespace StraviaAPI.Controllers
         {
             //Query sent to SQL Server
             string query = @"
-                             exec get_all_challenges
+                             exec proc_challenge '','','','','',0.0,'','Select'
                             ";
             DataTable table = new DataTable(); //Table created to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -83,8 +83,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_challenge @id
-                            ";
+                            exec proc_challenge @id,'','','','',0.0,'','Select One'                            ";
             DataTable table = new DataTable();//Created table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;
@@ -141,7 +140,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec post_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type
+                             exec proc_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type,'Insert'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -181,7 +180,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec put_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type
+                             exec proc_challenge @id,@name,@startdate,@enddate,@privacy,@kilometers,@type,'Update'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -219,8 +218,8 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec delete_challenge @id
-                            ";
+                            exec proc_challenge @id,'','','','',0.0,'','Delete'
+            ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
             SqlDataReader myReader;

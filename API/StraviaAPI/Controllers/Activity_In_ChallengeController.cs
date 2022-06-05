@@ -34,7 +34,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetActivitiesChallenges()
         {
             string query = @"
-                             exec get_all_ActChallenge
+                             exec proc_activity_in_Chall '','','Select'
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Created table to save data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -74,7 +74,7 @@ namespace StraviaAPI.Controllers
             string lbl_challengeid;
 
             string query = @"
-                             exec get_ActChallenge @activityid,@challengeid
+                             exec proc_activity_in_Chall @activityid,@challengeid,'Select One'
                             "; //Select query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -125,7 +125,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_OneAct_Challenges @id
+                             exec proc_activity_in_Chall @id,'','ChallengesAct'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -164,7 +164,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_Acts_OneChallenge @id
+                             exec proc_activity_in_Chall '',@id,'ActivityChall'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -209,7 +209,7 @@ namespace StraviaAPI.Controllers
 
 
             string query = @"
-                             exec post_ActChallenge @activityid,@challengeid
+                             exec proc_activity_in_Chall @activityid,@challengeid,'Insert'
                             "; //Insert query sent to sql server
             DataTable table = new DataTable();
             
@@ -245,7 +245,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteAthFriend(string activityid, string challengeid)
         {
             string query = @"
-                             exec delete_ActChallenge @activityid,@challengeid
+                             exec proc_activity_in_Chall @activityid,@challengeid,'Delete'
                             "; //Delete query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

@@ -38,7 +38,7 @@ namespace StraviaAPI.Controllers
         public JsonResult GetAthletesFriends()
         {
             string query = @"
-                             exec get_all_followers
+                             exec proc_athlete_followers '','','Select'
                             "; //Select query sent to SQL Server
             DataTable table = new DataTable(); //Created table to save data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -77,7 +77,7 @@ namespace StraviaAPI.Controllers
             string lbl_followerid;
 
             string query = @"
-                             exec get_follower @athleteid,@followerid
+                             exec proc_athlete_followers @athleteid,@followerid,'Select One'
                             "; //Select query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -123,12 +123,12 @@ namespace StraviaAPI.Controllers
         /// <param name="friendid"></param>
         /// <returns>Athlete's requested friend</returns>
 
-        [HttpGet("Followers/{id}")]
+        [HttpGet("FollowedBy/{id}")]
         public JsonResult GetAthFriends(string id)
         {
 
             string query = @"
-                             exec get_ath_followers @athleteid
+                             exec proc_athlete_followers @athleteid,'','Followed'
                             "; //Select query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -165,12 +165,12 @@ namespace StraviaAPI.Controllers
         /// <param name="friendid"></param>
         /// <returns>Athlete's requested friend</returns>
 
-        [HttpGet("FollowedBy/{id}")]
+        [HttpGet("Followers/{id}")]
         public JsonResult get_aths_follower(string id)
         {
 
             string query = @"
-                             exec get_aths_follower @athleteid
+                             exec proc_athlete_followers '', @athleteid,'Following'
                             "; //Select query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -214,7 +214,7 @@ namespace StraviaAPI.Controllers
 
 
 
-            string query = @"exec post_follower @athleteid,@followerid
+            string query = @"exec proc_athlete_followers @athleteid,@followerid,'Insert'
                             "; //Insert query sent to sql server
             DataTable table = new DataTable();
             
@@ -250,7 +250,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteAthFriend(string id, string followerID)
         {
             string query = @"
-                             exec delete_follower @athleteid,@followerid
+                             exec proc_athlete_followers @athleteid,@followerid,'Delete'
                             "; //Delete query sent to sql
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

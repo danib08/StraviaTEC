@@ -41,7 +41,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec get_all_groupMembers
+                             exec proc_group_members '','','Select'
                             ";
             DataTable table = new DataTable(); //Create table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -81,7 +81,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_groupMember @groupname,@memberid
+                             exec proc_group_members @groupname,@memberid,'Select One'
                             ";
             DataTable table = new DataTable(); //Create table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -131,7 +131,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_One_groupMembers @name
+                             exec proc_group_members @name,'','GroupMembers'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -170,7 +170,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_groups_OneMembers @username
+                             exec proc_group_members '', @username,'MemberGroups'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -209,7 +209,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_not_inscribed_Groups @username
+                             exec proc_group_members '', @username,'NotSubscribedGroup'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -253,7 +253,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec post_groupMember @groupname,@memberid
+                             exec proc_group_members @groupname,@memberid,'Insert'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -290,7 +290,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec delete_groupMember @groupname,@memberid
+                             exec proc_group_members @groupname,@memberid,'Delete'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

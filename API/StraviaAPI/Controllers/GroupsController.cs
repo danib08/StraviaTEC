@@ -39,7 +39,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query sent
             string query = @"
-                             exec get_all_groups
+                             exec proc_groups '','','Select'
                             ";
             DataTable table = new DataTable(); //DataTable to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -79,7 +79,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_group @name
+                             exec proc_groups @name,'','Select One'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -128,7 +128,8 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_group_byAdmin @username
+                             exec proc_groups '', @username,'GroupAdmin'
+
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -171,7 +172,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec post_group @name,@adminusername
+                             exec proc_groups @name,@adminusername,'Insert'
                             ";
             DataTable table = new DataTable(); 
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -212,7 +213,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec put_group @name,@adminusername
+                             exec proc_groups @name,@adminusername,'Update'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -245,7 +246,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec delete_group @name
+                             exec proc_groups @name,'','Delete'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
