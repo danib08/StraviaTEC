@@ -212,7 +212,7 @@ namespace StraviaAPI.Controllers
 
                 lbl_username = row["username"].ToString();
                 lbl_name = row["name"].ToString();
-                lbl_lastname = row["lastName"].ToString();
+                lbl_lastname = row["lastname"].ToString();
                 lbl_photo = row["photo"].ToString();
                 lbl_age = row["age"].ToString();
                 lbl_birthdate = row["birthDate"].ToString();
@@ -222,7 +222,7 @@ namespace StraviaAPI.Controllers
 
                 var data = new JObject(new JProperty("username", lbl_username), new JProperty("name", lbl_name),
                     new JProperty("lastname", lbl_lastname), new JProperty("photo", lbl_photo), new JProperty("age", Int32.Parse(lbl_age)),
-                    new JProperty("birthdate", DateTime.Parse(lbl_birthdate)), new JProperty("pass", lbl_pass), new JProperty("nationality", lbl_nationality),
+                    new JProperty("birthDate", DateTime.Parse(lbl_birthdate)), new JProperty("pass", lbl_pass), new JProperty("nationality", lbl_nationality),
                     new JProperty("category", lbl_category));
 
                 return data.ToString();
@@ -451,7 +451,7 @@ namespace StraviaAPI.Controllers
         public ActionResult DeleteAthlete(string username)
         {
             string query = @"
-                            exec proc_athlete @Username,'','','',0,'2000-12-12','','','','Delete'
+                            exec proc_athlete @username,'','','',0,'2000-12-12','','','','Delete'
                             "; //delete query sent to SQL Server
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");//Connection getted
@@ -461,7 +461,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open(); //Connection opened
                 using (SqlCommand myCommand = new SqlCommand(query, myCon)) //Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@Username", username); //Parameter added
+                    myCommand.Parameters.AddWithValue("@username", username); //Parameter added
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
                     myReader.Close();

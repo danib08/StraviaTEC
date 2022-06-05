@@ -208,13 +208,13 @@ namespace StraviaAPI.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("Accepted/{challenge}")]
-        public JsonResult get_Ath_OneCompetition_Waiting(string challenge)
+        [HttpGet("Accepted/{username}")]
+        public JsonResult get_Ath_OneCompetition_Waiting(string username)
         {
 
             //SQL Query
             string query = @"
-                             exec get_Ath_OneChallenge_Accepted @challenge
+                             exec get_Ath_OneChallenge_Accepted @username
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -224,7 +224,7 @@ namespace StraviaAPI.Controllers
                 myCon.Open();//Connection opened
                 using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
                 {
-                    myCommand.Parameters.AddWithValue("@challenge", challenge);
+                    myCommand.Parameters.AddWithValue("@username", username);
 
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);//Load data to table

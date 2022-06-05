@@ -302,10 +302,12 @@ where ChallengeID = @ChallengeID
 end
 go
 
-create procedure get_Ath_OneChallenge_Accepted(@ChallengeID varchar(50))
+create procedure get_Ath_OneChallenge_Accepted(@Username varchar(50))
 as begin
-select * from dbo.Athlete_In_Challenge
-where ChallengeID = @ChallengeID and Status = 'En curso'
+select distinct ID,Name,StartDate,EndDate,Privacy,Kilometers,Type
+from(Athlete_In_Challenge inner join Challenge
+on Athlete_In_Challenge.ChallengeID = Challenge.ID)
+where AthleteID = @Username and Status = 'En curso'
 end
 go
 
@@ -415,6 +417,25 @@ where AthleteID is null or
 CompetitionID not in 
 (select CompetitionID from Athlete_In_Competition 
 where AthleteID = @Username)
+end
+go
+
+create procedure get_Ath_Accepted_Comps(@Username varchar(50))
+as begin
+select ID, Name, Route, Date, Privacy, BankAccount, Privacy, BankAccount, Price, ActivityID
+from (Athlete_In_Competition right join Competition
+on Athlete_In_Competition.CompetitionID = Competition.ID)
+where AthleteID = @Username and Status = 'Aceptado'
+end
+go
+
+create procedure get_Accepted_AIC(@Competition varchar(50))
+as begin
+select Username, Athlete.Name, LastName,Photo,Age,BirthDate,Nationality, Category
+from ((Athlete_In_Competition inner join Competition
+on Athlete_In_Competition.CompetitionID = Competition.ID) inner join Athlete
+on Athlete_In_Competition.AthleteID = Athlete.Username)
+where CompetitionID = @Competition and Status = 'No Aceptado'
 end
 go
 

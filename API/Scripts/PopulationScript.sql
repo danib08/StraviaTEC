@@ -28,7 +28,7 @@ exec post_challenge 'Chal4','Torneo Futbol 5 2022','2022-05-22','2022-05-24','Pr
 exec post_competition 'Comp1','Ruta de los conquistadores','archivo.gpx','2022-05-18','Público','1-3129-9123', 120, 'Act7'
 exec post_competition 'Comp2','Iron Man','archivo.gpx','2022-05-20','Público','1-3239-4574', 250, 'Act2'
 exec post_competition 'Comp3','IV Escalada Anual Chirripó','archivo.gpx','2022-05-20','Público','1-3239-4574', 175, 'Act3'
-
+exec post_competition 'Comp4','Cuarta Carrera','archivo.gpx','2022-05-20','Público','1-3239-4574', 175, 'Act4'
 
 exec post_group 'Ciclismo TEC','gabogh99'
 exec post_group 'Natación Cartago','gabogh99'
