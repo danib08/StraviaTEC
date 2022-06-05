@@ -257,6 +257,12 @@ as begin
 		where AthleteID = @AthleteID)			
 	end
 
+	if @StatementType = 'Update'
+	begin
+		update dbo.Athlete_In_Competition set AthleteID=@AthleteID,CompetitionID=@CompetitionID,Status=@Status,Receipt=@Receipt,Duration=@Duration
+		where AthleteID=@AthleteID and CompetitionID=@CompetitionID
+	end
+
 	if @StatementType = 'Delete'
 	begin
 		delete from dbo.Athlete_In_Challenge
@@ -493,6 +499,7 @@ go
 
 create procedure proc_groups(@Name varchar(50),
 							@AdminUsername varchar(50),
+							@Oldname varchar(50),
 							@StatementType varchar(50) = '')
 as begin
 
@@ -522,8 +529,8 @@ as begin
 
 	if @StatementType = 'Update'
 	begin
-		update dbo.Groups set Name=@Name, AdminUsername=@AdminUsername
-		where Name=@Name
+		update dbo.Groups set Name=@Name
+		where Name=@Oldname
 	end
 
 	if @StatementType = 'Delete'
@@ -671,21 +678,3 @@ as begin
 	end
 end
 go
-
-/*
-alter view challReport as
-select  Challenge.ID, Challenge.Name, datediff(day, cast(Challenge.EndDate as date) ,GETDATE()) as daysleft, 
-Challenge.Kilometers as totalkm, (select sum(Activity.Kilometers) from Activity group by) as actualkm, Athlete_In_Challenge.AthleteID 
-from(((Challenge inner join Athlete_In_Challenge
-on Challenge.ID = Athlete_In_Challenge.ChallengeID)
-inner join Activity_In_Challenge
-on Challenge.ID = Activity_In_Challenge.ChallengeID)
-inner join Activity
-on Activity_In_Challenge.ActivityID = Activity.ID)
-group by Challenge.ID
-
-select ChallengeID, sum(Activity.Kilometers)  as km from 
-Activity_In_Challenge inner join Activity
-on Activity_In_Challenge.ActivityID = Activity.ID
-group by Activity_In_Challenge.ChallengeID
-*/
