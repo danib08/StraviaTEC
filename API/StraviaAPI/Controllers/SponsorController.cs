@@ -39,7 +39,7 @@ namespace StraviaAPI.Controllers
         {
             //Query sent 
             string query = @"
-                             exec get_all_sponsors
+                             exec proc_sponsor '','','','','Select'
                             ";
             DataTable table = new DataTable(); //Data table created to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -80,7 +80,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_sponsors @id
+                             exec proc_sponsor @id,'','','','Select One'
                             ";
             DataTable table = new DataTable();//Datatable to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -124,7 +124,7 @@ namespace StraviaAPI.Controllers
             //SQL Query
 
             string query = @"
-                             exec post_sponsors @id,@name,@bankaccount,@competitionid
+                             exec proc_sponsor @id,@name,@bankaccount,@competitionid,'Insert'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -162,7 +162,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec put_sponsor @id,@name,@bankaccount,@competitionid
+                             exec proc_sponsor @id,@name,@bankaccount,@competitionid,'Update'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -197,7 +197,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec delete_sponsors @id
+                             exec proc_sponsor @id,'','','','Delete'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");

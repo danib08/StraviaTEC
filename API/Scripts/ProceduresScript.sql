@@ -1,12 +1,4 @@
------------------------Activity stored procedures------------------
-
-create procedure get_all_activities
-as
-begin
-
-select * from dbo.Activity
-end
-go
+/*
 
 create procedure get_activity(@Id varchar(50))
 as
@@ -61,7 +53,7 @@ go
 
 
 ----------------------Athlete stored procedures------------------
-/*
+
 
 create procedure get_all_athletes
 as
@@ -196,7 +188,7 @@ where Username = @Username
 end 
 go
 
-*/
+
 
 ----------------------Athlete friend's stored procedures------------------
 
@@ -224,7 +216,7 @@ create procedure get_ath_followers(@AthleteID varchar(50))
 as
 begin
 select * from dbo.Athlete_Followers
-where AthleteID = @AthleteID
+where AthleteID = 'omend'
 end
 go
 
@@ -234,7 +226,7 @@ as
 begin
 
 select * from dbo.Athlete_Followers
-where FollowerID = @FollowerID
+where FollowerID = 'gabogh99'
 
 end
 go
@@ -354,6 +346,7 @@ delete from dbo.Athlete_In_Challenge
 where AthleteID = @AthleteID and ChallengeID = @ChallengeID
 end 
 go
+
 
 ----------------------Athlete In Competition stored procedures------------------
 
@@ -480,6 +473,7 @@ where AthleteID = @AthleteID and CompetitionID = @CompetitionID
 end 
 go
 
+
 ----------------------Challenge stored procedures------------------
 
 create procedure get_all_challenges
@@ -500,15 +494,7 @@ where Id = @Id
 end
 go
 
-/*
-create procedure get_challenge_creator(@Username varchar(50))
-as
-begin
-select * from dbo.ChallCreator
-where AthleteUsername = @Username
-end
-go
-*/
+
 
 
 create procedure post_challenge(
@@ -578,15 +564,7 @@ where Id = @Id
 end
 go
 
-/*
-create procedure get_competition_creator(@Username varchar(50))
-as
-begin
-select * from dbo.CompsCreator
-where AthleteUsername = @Username
-end
-go
-*/
+
 
 create procedure post_competition(
 								@Id varchar(50),
@@ -695,6 +673,8 @@ where CompetitionID = @CompetitionID and Category = @Category
 end 
 go
 
+
+
 ----------------------Group stored procedures------------------
 
 create procedure get_all_groups
@@ -757,7 +737,7 @@ where Name = @Name
 end 
 go
 
-
+*/
 ----------------------Group member stored procedures------------------
 
 create procedure get_all_groupMembers
@@ -917,7 +897,6 @@ go
 create procedure get_OneAct_Challenges(@ActivityID varchar(50))
 as
 begin
-
 select * from dbo.Activity_In_Challenge
 where ActivityID = @ActivityID 
 end

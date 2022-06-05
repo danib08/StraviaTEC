@@ -39,7 +39,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query
             string query = @"
-                             exec get_all_compCategories
+                             exec proc_competition_categories '','','Select'
                             ";
             DataTable table = new DataTable(); //Create table to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -80,7 +80,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_compCategories @competitionid,@category
+                             exec proc_competition_categories @competitionid,@category,'Select One'
                             ";
             DataTable table = new DataTable(); //Table created to store info
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -130,7 +130,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_OnecompCategories @competition
+                             exec proc_competition_categories @competition,'','CompCategories'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -168,7 +168,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec get_comps_OneCategory @category
+                             exec proc_competition_categories '',@category,'CatCompeetition'
                             ";
             DataTable table = new DataTable();//Table to store data
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -212,7 +212,7 @@ namespace StraviaAPI.Controllers
 
             //SQL Query
             string query = @"
-                             exec post_compCategories @competitionid,@category
+                             exec proc_competition_categories @competitionid,@category,'Insert'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
@@ -248,7 +248,7 @@ namespace StraviaAPI.Controllers
         {
             //SQL Query sent 
             string query = @"
-                             delete_compCategories @competitionid,@category
+                             exec proc_competition_categories @competitionid,@category,'Delete'
                             ";
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
