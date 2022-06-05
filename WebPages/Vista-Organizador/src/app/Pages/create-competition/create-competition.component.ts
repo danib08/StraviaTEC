@@ -140,16 +140,17 @@ export class CreateCompetitionComponent implements OnInit {
 
   createCompetition(){
     this.competition.activityid = this.associatedActivity.id;
+    console.log(this.competition)
     this.postService.createCompetition(this.competition).subscribe(
       res =>{
         this.createCategories();
-        
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
   }
+
   createCategories(){
     this.registerForm.get('competitionid')?.setValue(this.competition.id);
     console.log(this.registerForm.value)
