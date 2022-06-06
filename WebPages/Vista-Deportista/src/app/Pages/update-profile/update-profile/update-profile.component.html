@@ -1,0 +1,60 @@
+<app-header></app-header>
+<body>
+  <div class="container">
+    <div class="row d-flex align-items-center justify-content-left">
+      <div class="col-md-6">
+        <div class="card px-5 py-3">
+
+          <!--Section about Register users -->
+          <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
+            <h3 class="mt-3">Actualización de información</h3>
+            <small class="mt-2">Hacer ejercicio ayuda a tu salud física y mental</small>
+            
+            <div class="form-input">
+              <i class="material-icons">account_circle</i>
+              <input type="text" class="form-control" placeholder="Nombre"
+              [(ngModel)]="athlete.name" name="Nombre" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+            </div>
+            <div class="form-input">
+                <i class="material-icons">account_circle</i>
+                <input type="text" class="form-control" placeholder="Apellido"
+                [(ngModel)]="athlete.lastname" name="lastname" #name = "ngModel"
+                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                required>
+            </div>
+            <div class="form-input">
+                <i class="material-icons">lock</i>
+                <input type="password" class="form-control" placeholder="Contraseña"
+                [(ngModel)]="athlete.pass" name="password" #name = "ngModel"
+                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                required>
+            </div>
+            <div class="form-input">
+                <i class="material-icons">push_pin</i>
+                <input type="text" class="form-control" placeholder="Nacionalidad"
+                [(ngModel)]="athlete.nationality" name="nationality" #name = "ngModel"
+                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                required>
+            </div>
+            <div class="form-input">
+                <i class="material-icons">image</i>
+                <input type="file" class="form-control" (change)="onFileChange($event)">
+                <img [src]="imageSrc" *ngIf="imageSrc" style="height: 200px; width:200px">
+            </div>
+            <div class="form-input text-center">
+              <div class="row">
+                <button class="btn mt-4" (click)="updateProfile()"> Guardar cambios </button>
+                <button class="btn mt-4" (click)="deleteProfile()"> Eliminar mi cuenta </button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<app-footer></app-footer>

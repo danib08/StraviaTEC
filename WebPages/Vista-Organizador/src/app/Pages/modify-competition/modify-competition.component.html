@@ -1,0 +1,149 @@
+<app-header></app-header>
+<body>
+  <div class="container">
+    <div class="row d-flex align-items-center justify-content-left">
+      <div class="col-md-6">
+        <div class="card px-5 py-3">
+        <label>Seleccione la carrera: </label>
+            <select
+                [(ngModel)]="competitionSelected"
+                (change)="getCurrentCompetition()">
+                <option *ngFor="let list of competitionsArray; index as i" value="{{list.ID}}">{{list.ID}}</option>
+            </select>
+            <button (click)="deleteCompetition()">Eliminar Carrera</button>
+          <!--Section about Register users -->
+          <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
+            <h5 class="mt-3">Modificación de Carreras <br> Gracias por utilizar StraviaTEC</h5>
+            <small class="mt-2">Hacer ejercicio ayuda a tu salud física y mental</small>
+            
+            <div class="form-input">
+              <i class="material-icons">flag</i>
+              <input type="text" class="form-control" placeholder="Nombre"
+              [(ngModel)]="competition.Name" name="Nombre" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+            </div>
+            <div class="form-input">
+                <i class="material-icons">insert_comment</i>
+                <input type="text" class="form-control" placeholder="ID de la carrera" 
+                [(ngModel)]="competition.ID" name="ID" #name = "ngModel"
+                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                readonly>
+            </div>
+            <div class="form-input">
+                <i class="material-icons">calendar_today</i>
+                <input type="datetime-local" class="form-control" placeholder="Fecha de la carrera"
+                [(ngModel)]="competition.Date" name="Date" #name = "ngModel"
+                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                required>
+            </div>
+            <div class="form-input">
+                <i class="material-icons">attach_file</i>
+                <input type="file" class="form-control" placeholder="Ruta"
+                [(ngModel)]="competition.Route" name="Route" #name = "ngModel"
+                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+                required>
+            </div>
+            <div class="form-input">
+              <i class="material-icons">attach_money</i>
+              <input type="text" class="form-control" placeholder="#### - #### - #### - ####"
+              [(ngModel)]="competition.BankAccount" name="BankAccount" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+            </div>
+            <label for="tipo">Privacidad de la Carrera</label>
+            <div class="form-input">
+              <i class="material-icons">lock</i>
+              <select class="form-control" id="type" name="type" [(ngModel)]="competition.Privacy" #type = "ngModel" required>
+                  <option value="public">Pública</option>
+                  <option value="private">Privada</option>
+                </select>
+            </div>
+            <label for="tipo">Actividad Asociada a la carrera</label>
+            <div class="form-input">
+              <i class="material-icons">insert_comment</i>
+              <input type="text" class="form-control" placeholder="ID de la actividad"
+              [(ngModel)]="associatedActivity.ID" name="Name" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              readonly>
+            </div>
+            <div class="form-input">
+              <i class="material-icons">timer</i>
+              <input type="time" step="1" class="form-control" placeholder="Duración"
+              [(ngModel)]="associatedActivity.Duration" name="Duracion" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+            </div>
+            <div class="form-input">
+              <i class="material-icons">speed</i>
+              <input type="number" class="form-control" placeholder="Kilometraje"
+              [(ngModel)]="associatedActivity.Kilometers" name="Kilometraje" #name = "ngModel"
+              [ngClass]="{'is-invalid':f.submitted && name.invalid}"
+              required>
+            </div>
+            <label for="tipo">Tipo de Actividad</label>
+            <div class="form-input">
+              <i class="material-icons">list</i>
+              <select class="form-control" id="type" name="type" [(ngModel)]="associatedActivity.Type" #type = "ngModel" required>
+                  <option value="Caminata">Caminata</option>
+                  <option value="Correr">Correr</option>
+                  <option value="CrossFit">CrossFit</option>
+                  <option value="Natación">Natación</option>
+                  <option value="Ciclismo">Ciclismo</option>
+                  <option value="Senderismo">Senderismo</option>
+                  <option value="Kayak">Kayak</option>
+                </select>
+          </div>
+          <form [formGroup]="registerForm">
+            <div>
+              <label for="Category">Agregue más categorías</label>    
+              <div class="form-input">
+                  <i class="material-icons">list</i>
+                  <select class="form-control" id="Category" name="Category" formControlName="Category">
+                    <option value="Junior">Junior</option>
+                    <option value="Sub-23">Sub-23</option>
+                    <option value="Elite">Elite</option>
+                    <option value="Master A">Master A</option>
+                    <option value="Master B">Master B</option>
+                    <option value="Master C">Master C</option>
+                  </select>
+              </div>
+              
+            </div>
+            <form [formGroup]="registerForm2">
+              <div formArrayName="Categories" *ngFor="let category of categories.controls; let i = index">
+                  <div [formGroupName]="i">
+                      <div class="row">
+                          <div class="col-1 col-7">
+                              <select class="form-control" [attr.id]="'Category' + i" formControlName="Category"> 
+                                <option value="Junior">Junior</option>
+                                <option value="Sub-23">Sub-23</option>
+                                <option value="Elite">Elite</option>
+                                <option value="Master A">Master A</option>
+                                <option value="Master B">Master B</option>
+                                <option value="Master C">Master C</option>
+                              </select>   
+                          </div>
+                            <button class="btn col-7 col-9" (click)="removeCategory(i)">Eliminar</button>
+                      </div>
+                      <br>
+                  </div>
+              </div>
+          </form>
+          </form>
+            <div class="form-input text-center">
+              <div class="row6">
+                <button class="btn col-1 col-4" (click)="modifyCompetition()">Agregar Carrera</button>
+                <button class="btn col-1 col-7" (click)="addCategories()">Agregar otra Categoría</button>
+              </div>
+            </div>
+              
+          </form>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<app-footer></app-footer>
