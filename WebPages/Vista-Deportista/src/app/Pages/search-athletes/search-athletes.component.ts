@@ -97,9 +97,10 @@ export class SearchAthletesComponent implements OnInit {
     this.athleteFollower.followerid = username;
     this.postSvc.addFollower(this.athleteFollower).subscribe(
       res => {
+        alert('Atleta seguido exitosamente');
       },
       err => {
-        alert('No se pudo seguir al atleta')
+        alert('No se pudo seguir al atleta');
       }
     );
   }

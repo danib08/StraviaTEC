@@ -72,6 +72,7 @@ export class SubscriptionsComponent implements OnInit {
     else if ((event.target as HTMLInputElement).value == 'Competition'){
       this.getService.getNotJoinedCompetitions(this.cookieSvc.get("Username")).subscribe(
         res => {
+          console.log(res);
           this.competitionsArray = res;
         },
         err=>{
@@ -100,6 +101,7 @@ export class SubscriptionsComponent implements OnInit {
         alert('No se pudo inscribir al reto')
       }
     );
+    location.reload();
   }
 
   
@@ -149,6 +151,7 @@ export class SubscriptionsComponent implements OnInit {
         alert('No se pudo inscribir a la competencia');
       }
     );
+    //location.reload();
   }
 
   /**

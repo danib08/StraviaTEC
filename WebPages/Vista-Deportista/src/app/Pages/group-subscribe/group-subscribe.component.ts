@@ -43,7 +43,6 @@ export class GroupSubscribeComponent implements OnInit {
   getGroups() {
     this.getSvc.getNotJoinedGroups(this.cookieSvc.get("Username")).subscribe(
       res => {
-        console.log(res)
         this.GroupsArray = res;
       },
       err => {
@@ -65,12 +64,12 @@ export class GroupSubscribeComponent implements OnInit {
     this.groupMember.groupname = groupID;
     this.postSvc.createGroupMember(this.groupMember).subscribe(
       res => {
-        console.log(this.groupMember);
       },
       err => {
         alert('No se pudo unir al grupo')
       }
     );
+    location.reload();
   }
 
 }

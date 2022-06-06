@@ -268,8 +268,7 @@ export class CreateActivityComponent implements OnInit {
         }
       );
     }
-
-    //location.reload();
+    location.reload();
   }
 
   createChallenge() {
@@ -279,14 +278,12 @@ export class CreateActivityComponent implements OnInit {
       this.postService.createActivityInChallenge(this.activityInChallenge).subscribe(
         res =>{
         }, err => {
-          console.log(err);
           alert("Ha ocurrido un error")
         }
       );
     }
     let value = (Number(this.athleteInChallenge.kilometers) + Number(this.activity.kilometers));
     this.athleteInChallenge.kilometers = value;
-    console.log(this.athleteInChallenge);
     this.putService.updateAthleteInChallenge(this.athleteInChallenge).subscribe(
       res => {
         

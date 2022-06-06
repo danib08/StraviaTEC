@@ -66,8 +66,7 @@ export class UpdateProfileComponent implements OnInit {
      
       reader.onload = () => { 
         this.imageSrc = reader.result as string;
-        var splitted = this.imageSrc.split(",", 2); 
-        this.athlete.photo = splitted[1];
+        this.athlete.photo = this.imageSrc;
       };   
     }
   }
@@ -91,9 +90,11 @@ export class UpdateProfileComponent implements OnInit {
    * user desires to modify
    */
   updateProfile(){
+    console.log(this.athlete);
     this.putSvc.updateAthlete(this.athlete).subscribe(
       res =>{
         alert("Cambios guardados exitosamente.");
+        location.reload();
       }, err => {
         alert("Ha ocurrido un error");
       }

@@ -1,7 +1,13 @@
 body {
     font-family: "lato", sans-serif;
-  }
-  
+    height: 100;
+    background-color:#CFD7C7;
+}
+
+label {
+  font-size:20px;
+  font-weight: bold;
+}
   .container {
     max-width: 1000px;
     margin-left: auto;
