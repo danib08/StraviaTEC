@@ -1165,25 +1165,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\omend\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\dani08\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\omend\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\StraviaAPI.csproj",
+      "projectUniqueName": "D:\\Daniela\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\StraviaAPI.csproj",
       "projectName": "StraviaAPI",
-      "projectPath": "C:\\Users\\omend\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\StraviaAPI.csproj",
-      "packagesPath": "C:\\Users\\omend\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\omend\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\obj\\",
+      "projectPath": "D:\\Daniela\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\StraviaAPI.csproj",
+      "packagesPath": "C:\\Users\\dani08\\.nuget\\packages\\",
+      "outputPath": "D:\\Daniela\\Documents\\GitHub\\StraviaTEC\\API\\StraviaAPI\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\omend\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\dani08\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -1253,7 +1248,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

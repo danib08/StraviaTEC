@@ -134,7 +134,7 @@ export class CreateActivityComponent implements OnInit {
       }
       else if ((event.target as HTMLInputElement).value == 'Competition'){
         // PROBAR CON NUEVOS URLS
-        this.getService.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
+        this.getService.getReportCompetitions(this.cookieSvc.get('Username')).subscribe(
           res => {
             this.competitionsArray = res;
           },

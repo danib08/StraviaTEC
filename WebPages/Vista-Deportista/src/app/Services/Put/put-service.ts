@@ -14,7 +14,7 @@ import { AthleteModel } from "src/app/Models/athlete-model";
  */
 export class PutService {
     
-    private baseURL = 'https://localhost:5001/api/';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
 
     constructor(private http: HttpClient) {}
     

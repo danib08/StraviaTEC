@@ -9,6 +9,7 @@ import { ActivityInChallenge } from "src/app/Models/activity-in-challenge";
 import { AthleteInChallenge } from "src/app/Models/athlete-in-challenge";
 import { AthleteInCompetition } from "src/app/Models/athlete-in-competition";
 import { GroupMember } from "src/app/Models/group-member";
+import { CommentModel } from "src/app/Models/comment-model";
 
 
 @Injectable({
@@ -19,7 +20,8 @@ import { GroupMember } from "src/app/Models/group-member";
  * Service for the Post Methods to the API
  */
 export class PostService {
-    private baseURL = 'https://localhost:5001/api/';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
+    private mongoURL = 'https://localhost:5050/api/';
 
     constructor(private http: HttpClient) {}
 
@@ -109,5 +111,14 @@ export class PostService {
      */
     createGroupMember(groupMember: GroupMember): Observable<any>{
         return this.http.post<any>(this.baseURL + "GroupMember", groupMember);
+    }
+
+    /**
+     * Posts a new activity comment 
+     * @param comment the comment to post
+     * @returns the API response
+     */
+    postComment(comment: CommentModel): Observable<any>{
+        return this.http.post<any>(this.mongoURL + "Comment", comment);
     }
 }

@@ -69,7 +69,8 @@ export class SearchAthletesComponent implements OnInit {
           this.AthletesArray = res;
 
           this.AthletesArray.forEach((element, index) => {
-            if (element.username == this.cookieSvc.get("Username")) {
+            let username = this.cookieSvc.get("Username");
+            if (element.username == username) {
               this.AthletesArray.splice(index, 1);
             }
           });
