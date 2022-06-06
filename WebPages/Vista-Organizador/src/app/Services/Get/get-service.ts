@@ -29,7 +29,7 @@ export class GetService {
      * @returns  an array with the info for the report
      */
     getAthletesReport(CompetitionID:string):Observable<any>{
-        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/Report/' + CompetitionID);
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/   º/' + CompetitionID);
     }
 
     /**

@@ -73,10 +73,8 @@ export class ReportsComponent implements OnInit {
    * Gets all of the competitions where the user is participating and accepted
    */
   getAthleteCompetitions(){
-    //PROBAR NUEVO URL
-    this.getSvc.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
+    this.getSvc.getReportCompetitions(this.cookieSvc.get('Username')).subscribe(
       res=>{
-        console.log(res);
         this.athleteCompetitions = res;
       },
       err=> {

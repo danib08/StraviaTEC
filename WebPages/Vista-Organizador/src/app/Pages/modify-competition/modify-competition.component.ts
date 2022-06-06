@@ -78,8 +78,11 @@ export class ModifyCompetitionComponent implements OnInit {
         alert('Ha ocurrido un error')
       }
     );
+
     this.putService.modifyCompetition(this.competition).subscribe(
       res => {
+        console.log(this.competition);
+        console.log(res)
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -106,7 +109,7 @@ export class ModifyCompetitionComponent implements OnInit {
       );
       
     }
-    location.reload()
+    //location.reload()
   }
 
 
@@ -125,7 +128,6 @@ export class ModifyCompetitionComponent implements OnInit {
     this.getService.getAthleteCreatedCompetitions(AthleteID).subscribe(
       res => {
         this.competitionsArray = res;
-        console.log(this.competitionsArray)
       },
       err=>{
         alert('Ha ocurrido un error')

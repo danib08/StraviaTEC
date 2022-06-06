@@ -73,7 +73,7 @@
               required>
             </div>
             <div class="form-input">
-              <i class="material-icons">speed</i>
+              <i class="material-icons">directions_run</i>
               <input type="number" class="form-control" placeholder="Kilometraje"
               [(ngModel)]="associatedActivity.kilometers" name="Kilometraje" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
@@ -142,6 +142,7 @@
                   <select class="form-control" id="Category" name="category" formControlName="category">
                     <option value="Junior">Junior</option>
                     <option value="Sub-23">Sub-23</option>
+                    <option value="Open">Open</option>
                     <option value="Elite">Elite</option>
                     <option value="Master A">Master A</option>
                     <option value="Master B">Master B</option>
@@ -158,6 +159,7 @@
                               <select class="form-control" [attr.id]="'category' + i" formControlName="category"> 
                                 <option value="Junior">Junior</option>
                                 <option value="Sub-23">Sub-23</option>
+                                <option value="Open">Open</option>
                                 <option value="Elite">Elite</option>
                                 <option value="Master A">Master A</option>
                                 <option value="Master B">Master B</option>

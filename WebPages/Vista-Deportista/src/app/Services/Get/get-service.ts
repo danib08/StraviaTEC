@@ -69,7 +69,7 @@ export class GetService {
      * @returns array of competitions
      */
      getReportCompetitions(AthleteID:string):Observable<any>{
-        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/' + AthleteID);
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/Ended/' + AthleteID);
     }
 
     /**

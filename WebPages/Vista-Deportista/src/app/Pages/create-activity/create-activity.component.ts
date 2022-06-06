@@ -133,8 +133,7 @@ export class CreateActivityComponent implements OnInit {
         );
       }
       else if ((event.target as HTMLInputElement).value == 'Competition'){
-        // PROBAR CON NUEVOS URLS
-        this.getService.getReportCompetitions(this.cookieSvc.get('Username')).subscribe(
+        this.getService.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
           res => {
             this.competitionsArray = res;
           },
@@ -260,6 +259,7 @@ export class CreateActivityComponent implements OnInit {
 
       this.athleteInCompetition.status = "Finalizado";
       this.athleteInCompetition.duration = this.activity.duration;
+      console.log(this.athleteInCompetition);
 
       this.putService.updateAthleteInCompetition(this.athleteInCompetition).subscribe(
         res => {
@@ -286,6 +286,7 @@ export class CreateActivityComponent implements OnInit {
     }
     let value = (Number(this.athleteInChallenge.kilometers) + Number(this.activity.kilometers));
     this.athleteInChallenge.kilometers = value;
+    console.log(this.athleteInChallenge);
     this.putService.updateAthleteInChallenge(this.athleteInChallenge).subscribe(
       res => {
         

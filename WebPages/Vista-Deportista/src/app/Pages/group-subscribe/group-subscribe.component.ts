@@ -43,6 +43,7 @@ export class GroupSubscribeComponent implements OnInit {
   getGroups() {
     this.getSvc.getNotJoinedGroups(this.cookieSvc.get("Username")).subscribe(
       res => {
+        console.log(res)
         this.GroupsArray = res;
       },
       err => {
