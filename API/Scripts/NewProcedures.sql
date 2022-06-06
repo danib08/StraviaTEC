@@ -318,13 +318,13 @@ select * from dbo.Athlete_In_Competition
 	if @StatementType = 'CompReport'
 	begin
 		select * from compReport
-		where CompetitionID = @CompetitionID
+		where CompetitionID = @CompetitionID and Duration != '00:00:00'
 		order by Duration			
 	end
 
 	if @StatementType = 'NotSubscribed'
 	begin
-		select distinct ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
+		select  ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
 		from (Athlete_In_Competition right join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID)
 		where AthleteID is null or
@@ -335,15 +335,23 @@ select * from dbo.Athlete_In_Competition
 
 	if @StatementType = 'AthleteAcceptedComp'
 	begin
-		select ID, Name, Route, Date, Privacy, BankAccount, Privacy, BankAccount, Price, ActivityID
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
 		from (Athlete_In_Competition right join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID)
 		where AthleteID = @AthleteID and Status = 'Aceptado'	
 	end
 
+	if @StatementType = 'AthleteEndedComp'
+	begin
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
+		from (Athlete_In_Competition inner join Competition
+		on Athlete_In_Competition.CompetitionID = Competition.ID)
+		where AthleteID = @AthleteID and (Status = 'Aceptado' or Status = 'Finalizado')
+	end
+
 	if @StatementType = 'NotAccepted'
 	begin
-		select Username, Athlete.Name, LastName,Photo,Age,BirthDate,Nationality, Category
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
 		from ((Athlete_In_Competition inner join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID) inner join Athlete
 		on Athlete_In_Competition.AthleteID = Athlete.Username)
@@ -585,7 +593,7 @@ as begin
 		where MemberID is null or
 		GroupName not in 
 		(select GroupName from Group_Member
-		where MemberID = MemberID) 
+		where MemberID = @MemberID) 
 	end
 
 	if @StatementType = 'Delete'

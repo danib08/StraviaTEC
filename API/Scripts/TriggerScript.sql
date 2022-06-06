@@ -36,8 +36,13 @@ AFTER INSERT
 NOT FOR REPLICATION
 AS
 BEGIN
+declare @Username varchar(50) 
+select @Username = AthleteID from inserted
+declare @CompetitionID varchar(50)
+select @CompetitionID = CompetitionID from inserted
 update dbo.Athlete_In_Competition
 set Status = 'No aceptado'
+where AthleteID = @Username and CompetitionID = @CompetitionID
 end
 go
 
@@ -47,38 +52,38 @@ AFTER INSERT
 NOT FOR REPLICATION
 AS
 BEGIN
+declare @Username varchar(50) 
+select @Username = AthleteID from inserted
+declare @ChallengeID varchar(50)
+select @ChallengeID = ChallengeID from inserted
 update dbo.Athlete_In_Challenge
 set Status = 'En curso'
+where AthleteID = @Username and ChallengeID = @ChallengeID
 end
 go
 
-/*
-create trigger KmChallenge
-on dbo.KilometersChall
-AFTER INSERT
-NOT FOR REPLICATION
-AS
-BEGIN
-declare @Username varchar(50)
-select @Username = AthleteUsername from inserted
-update Athlete_In_Challenge
-set Kilometers = (select SUM(ActKM) as actualkm from KilometersChall
-where chalid = athchalid and AthleteUsername = 'gabogh99' and chalid = 'Chal1'
-GROUP BY chalid)
-where AthleteUsername = @Username
+create trigger EndChall
+on dbo.Athlete_In_Challenge after update
+as
+begin
+declare @Username varchar(50) 
+select @Username = AthleteID from inserted
+declare @ChallengeID varchar(50)
+select @ChallengeID = ChallengeID from inserted
+	if (select Athlete_In_Challenge.Kilometers from Athlete_In_Challenge inner join Challenge
+	on Athlete_In_Challenge.ChallengeID = Challenge.ID
+	where AthleteID = @Username and ChallengeID = @ChallengeID) >= (select Challenge.Kilometers from Athlete_In_Challenge inner join Challenge
+	on Athlete_In_Challenge.ChallengeID = Challenge.ID
+	where AthleteID = @Username and ChallengeID = @ChallengeID)
+	begin
+		update Athlete_In_Challenge
+		set Status = 'Finalizado'
+		where AthleteID = @Username and ChallengeID = @ChallengeID
+	end
 end
 go
 
-select SUM(ActKM) as actualkm from KilometersChall
-where chalid = athchalid and AthleteUsername = 'gabogh99' and chalid = 'Chal1'
-GROUP BY chalid
 
-select * from Activity_In_Challenge
-
-insert into dbo.Activity_In_Challenge
-(ActivityID,ChallengeID)
-values('Act8', 'Chal1')
-*/
 --------------------------------------------------TRIGGERS ATHLETE----------------------------------
 
 
