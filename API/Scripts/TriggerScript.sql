@@ -30,14 +30,19 @@ go
 
 
 ----------------------------------------TRIGGERS ----------------------------------
-create trigger statusComp
+alter trigger statusComp
 on dbo.Athlete_In_Competition
 AFTER INSERT
 NOT FOR REPLICATION
 AS
 BEGIN
+declare @Username varchar(50) 
+select @Username = AthleteID from inserted
+declare @CompetitionID varchar(50)
+select @CompetitionID = CompetitionID from inserted
 update dbo.Athlete_In_Competition
 set Status = 'No aceptado'
+where AthleteID = @Username and CompetitionID = @CompetitionID
 end
 go
 
@@ -52,33 +57,7 @@ set Status = 'En curso'
 end
 go
 
-/*
-create trigger KmChallenge
-on dbo.KilometersChall
-AFTER INSERT
-NOT FOR REPLICATION
-AS
-BEGIN
-declare @Username varchar(50)
-select @Username = AthleteUsername from inserted
-update Athlete_In_Challenge
-set Kilometers = (select SUM(ActKM) as actualkm from KilometersChall
-where chalid = athchalid and AthleteUsername = 'gabogh99' and chalid = 'Chal1'
-GROUP BY chalid)
-where AthleteUsername = @Username
-end
-go
 
-select SUM(ActKM) as actualkm from KilometersChall
-where chalid = athchalid and AthleteUsername = 'gabogh99' and chalid = 'Chal1'
-GROUP BY chalid
-
-select * from Activity_In_Challenge
-
-insert into dbo.Activity_In_Challenge
-(ActivityID,ChallengeID)
-values('Act8', 'Chal1')
-*/
 --------------------------------------------------TRIGGERS ATHLETE----------------------------------
 
 

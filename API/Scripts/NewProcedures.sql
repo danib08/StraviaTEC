@@ -202,7 +202,7 @@ as begin
 end
 go
 
-create procedure proc_athlete_in_challenge(@AthleteID varchar(50),
+alter procedure proc_athlete_in_challenge(@AthleteID varchar(50),
 										   @ChallengeID varchar(50),
 										   @Status varchar(50),
 										   @Kilometers decimal(5,2),
@@ -259,8 +259,8 @@ as begin
 
 	if @StatementType = 'Update'
 	begin
-		update dbo.Athlete_In_Competition set AthleteID=@AthleteID,CompetitionID=@CompetitionID,Status=@Status,Receipt=@Receipt,Duration=@Duration
-		where AthleteID=@AthleteID and CompetitionID=@CompetitionID
+		update dbo.Athlete_In_Challenge set Status=@Status,Kilometers=@Kilometers
+		where AthleteID=@AthleteID and ChallengeID=@ChallengeID
 	end
 
 	if @StatementType = 'Delete'
@@ -272,7 +272,7 @@ end
 go
 
 
-create procedure proc_athlete_in_competition(@AthleteID varchar(50),
+alter procedure proc_athlete_in_competition(@AthleteID varchar(50),
 											@CompetitionID varchar(50),
 											@Status varchar(50),
 											@Receipt varchar(200),
@@ -324,7 +324,7 @@ select * from dbo.Athlete_In_Competition
 
 	if @StatementType = 'NotSubscribed'
 	begin
-		select distinct ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
+		select  ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
 		from (Athlete_In_Competition right join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID)
 		where AthleteID is null or
@@ -335,15 +335,23 @@ select * from dbo.Athlete_In_Competition
 
 	if @StatementType = 'AthleteAcceptedComp'
 	begin
-		select ID, Name, Route, Date, Privacy, BankAccount, Privacy, BankAccount, Price, ActivityID
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
 		from (Athlete_In_Competition right join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID)
 		where AthleteID = @AthleteID and Status = 'Aceptado'	
 	end
 
+	if @StatementType = 'AthleteEndedComp'
+	begin
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
+		from (Athlete_In_Competition inner join Competition
+		on Athlete_In_Competition.CompetitionID = Competition.ID)
+		where AthleteID = @AthleteID and (Status = 'Aceptado' or Status = 'Finalizado')
+	end
+
 	if @StatementType = 'NotAccepted'
 	begin
-		select Username, Athlete.Name, LastName,Photo,Age,BirthDate,Nationality, Category
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
 		from ((Athlete_In_Competition inner join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID) inner join Athlete
 		on Athlete_In_Competition.AthleteID = Athlete.Username)
@@ -585,7 +593,7 @@ as begin
 		where MemberID is null or
 		GroupName not in 
 		(select GroupName from Group_Member
-		where MemberID = MemberID) 
+		where MemberID = 'gabogh99') 
 	end
 
 	if @StatementType = 'Delete'

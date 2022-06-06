@@ -114,7 +114,7 @@ namespace StraviaAPI.Controllers
                 lbl_km = row["Kilometers"].ToString();
 
 
-                var data = new JObject(new JProperty("athleteID", lbl_athleteid), new JProperty("challengeID", lbl_challengeid),
+                var data = new JObject(new JProperty("athleteid", lbl_athleteid), new JProperty("challengeid", lbl_challengeid),
                                     new JProperty("status", lbl_status), new JProperty("kilometers", lbl_km));
                 return data.ToString();
             }
