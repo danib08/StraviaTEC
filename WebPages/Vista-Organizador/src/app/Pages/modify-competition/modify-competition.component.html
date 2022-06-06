@@ -39,10 +39,7 @@
             </div>
             <div class="form-input">
                 <i class="material-icons">attach_file</i>
-                <input type="file" class="form-control" placeholder="Ruta"
-                [(ngModel)]="competition.route" name="Route" #name = "ngModel"
-                [ngClass]="{'is-invalid':f.submitted && name.invalid}"
-                required>
+                <input type="file" (change)="onChange($any($event.target).files)">
             </div>
             <div class="form-input">
               <i class="material-icons">attach_money</i>

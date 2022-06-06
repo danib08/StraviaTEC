@@ -13,7 +13,7 @@ export class DeleteService {
     }
 
     deleteCompetition(CompetitionID:string):Observable<any>{
-        return this.http.delete<any>(this.baseURL + 'Competition/' + CompetitionID);
+        return this.http.delete<any>(this.baseURL + 'Competition/Competition/' + CompetitionID);
     }
 
     deleteCategory(CompetitionID:string):Observable<any>{
