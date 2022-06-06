@@ -284,7 +284,8 @@ export class CreateActivityComponent implements OnInit {
         }
       );
     }
-    this.athleteInChallenge.kilometers += this.athleteInChallenge.kilometers;
+    let value = (Number(this.athleteInChallenge.kilometers) + Number(this.activity.kilometers));
+    this.athleteInChallenge.kilometers = value;
     this.putService.updateAthleteInChallenge(this.athleteInChallenge).subscribe(
       res => {
         
