@@ -145,6 +145,6 @@ export class GetService {
     }
 
     getComments():Observable<any>{
-        return this.http.get<any[]>(this.mongoURL);
+        return this.http.get<any[]>(this.mongoURL + 'Comment');
     }
 }

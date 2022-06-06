@@ -3,7 +3,7 @@
  */
  export interface CommentModel {
     id:string,
-    activityid:string,
-    athleteid:string,
+    activityID:string,
+    athleteID:string,
     text:string
 }
