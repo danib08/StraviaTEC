@@ -257,6 +257,14 @@ as begin
 		where AthleteID = @AthleteID)			
 	end
 
+	if @StatementType = 'ChallReport'
+	begin
+		select Name as challengename, Challenge.Kilometers as totalkm,Athlete_In_Challenge.Kilometers as actualkm, (datediff(day,EndDate,getdate())) as daysleft  from
+		Athlete_In_Challenge inner join  Challenge
+		on Athlete_In_Challenge.ChallengeID = Challenge.ID
+		where AthleteID = @AthleteID and ChallengeID = @ChallengeID
+	end
+
 	if @StatementType = 'Update'
 	begin
 		update dbo.Athlete_In_Challenge set Status=@Status,Kilometers=@Kilometers
@@ -318,7 +326,7 @@ select * from dbo.Athlete_In_Competition
 	if @StatementType = 'CompReport'
 	begin
 		select * from compReport
-		where CompetitionID = @CompetitionID and Duration != '00:00:00'
+		where CompetitionID = @CompetitionID
 		order by Duration			
 	end
 
@@ -335,7 +343,7 @@ select * from dbo.Athlete_In_Competition
 
 	if @StatementType = 'AthleteAcceptedComp'
 	begin
-		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
+		select distinct AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
 		from (Athlete_In_Competition right join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID)
 		where AthleteID = @AthleteID and Status = 'Aceptado'	
@@ -593,7 +601,7 @@ as begin
 		where MemberID is null or
 		GroupName not in 
 		(select GroupName from Group_Member
-		where MemberID = @MemberID) 
+		where MemberID = 'gabogh99') 
 	end
 
 	if @StatementType = 'Delete'
