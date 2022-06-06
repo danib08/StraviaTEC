@@ -16,24 +16,25 @@ export class CreateCompetitionComponent implements OnInit {
 
 
   associatedActivity: ActivityModel = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Duration: '',
-    Kilometers: 0,
-    Type: '',
-    AthleteUsername: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    duration: '',
+    kilometers: 0,
+    type: '',
+    athleteusername: ''
   } 
+
   competition: Competition = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Privacy: '',
-    BankAccount: '',
-    Price: 0,
-    ActivityID: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    privacy: '',
+    bankaccount: '',
+    price: 0,
+    activityid: ''
   }
 
   constructor(private formBuilder: FormBuilder, private getService: GetService, private cookieSvc:CookieService, private postService: PostService) { }
@@ -41,8 +42,8 @@ export class CreateCompetitionComponent implements OnInit {
   }
 
   registerForm = this.formBuilder.group({
-    CompetitionID: '',
-    Category: ''
+    competitionid: '',
+    category: ''
   });
   
   registerForm2 = this.formBuilder.group({
@@ -50,11 +51,10 @@ export class CreateCompetitionComponent implements OnInit {
   });
 
   registerFormS = this.formBuilder.group({
-    ID: '',
-    Name: '',
-    BankAccount: '',
-    CompetitionID: '',
-    ChallengeID: ''
+    id: '',
+    name: '',
+    bankaccount: '',
+    competitionid: ''
   });
 
   registerFormS2 = this.formBuilder.group({
@@ -71,11 +71,10 @@ export class CreateCompetitionComponent implements OnInit {
 
   addSponsor(){
     const SponsorsFormGroup = this.formBuilder.group({
-      ID: '',
-      Name: '',
-      BankAccount: '',
-      CompetitionID: '',
-      ChallengeID: ''
+      id: '',
+      name: '',
+      bankaccount: '',
+      competitionid: ''
     });
     this.sponsors.push(SponsorsFormGroup);
   }
@@ -86,8 +85,8 @@ export class CreateCompetitionComponent implements OnInit {
 
   addCategories(){
     const CategoriesFormGroup = this.formBuilder.group({
-      CompetitionID: '',
-      Category: ''
+      competitionid: '',
+      category: ''
     });
     this.categories.push(CategoriesFormGroup);
   }
@@ -96,28 +95,89 @@ export class CreateCompetitionComponent implements OnInit {
     this.categories.removeAt(index);
   }
 
-  addCompetition(){
-    this.associatedActivity.Name = this.competition.Name;
-    this.associatedActivity.Route = this.competition.Route;
-    this.associatedActivity.Date = this.competition.Date;
-    this.associatedActivity.AthleteUsername = this.cookieSvc.get('Username');
+  /**
+   * Reads the content of the .gpx when uploaded
+   * @param fileList list of files uploaded
+   */
+   public onChange(fileList: FileList): void {
+
+    let file = fileList[0];
+    let fileReader: FileReader = new FileReader();
+    let self = this;
+
+    fileReader.onloadend = function(x) {
+      let gpxRead = fileReader.result as string;
+      self.encode64(gpxRead);
+    }
+    fileReader.readAsText(file);
+  }
+
+  /**
+   * Encodes string from the .gpx file to base 64 and sets it
+   * to the activity route
+   */
+  encode64(fileText: string) {
+    let gpxEncoded = btoa(fileText);
+    this.competition.route = gpxEncoded;
+  }
+
+  addActivity(){
+    this.associatedActivity.name = this.competition.name;
+    this.associatedActivity.route = this.competition.route;
+    this.associatedActivity.date = this.competition.date;
+    this.associatedActivity.athleteusername = this.cookieSvc.get('Username');
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
+        this.createCompetition();
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
 
+
+  }
+
+  createCompetition(){
+    this.competition.activityid = this.associatedActivity.id;
+    console.log(this.competition)
     this.postService.createCompetition(this.competition).subscribe(
       res =>{
+        this.createCategories();
+      },
+      err=>{
+        alert('Ha ocurrido un error')
+      }
+    );
+  }
+
+  createCategories(){
+    this.registerForm.get('competitionid')?.setValue(this.competition.id);
+    console.log(this.registerForm.value)
+    this.postService.createCompetitionCategories(this.registerForm.value).subscribe(
+      res =>{
+        this.createSponsors();
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
 
-    this.registerFormS.get('CompetitionID')?.setValue(this.competition.ID);
+    for(let i = 0; i < this.categories.length; i++){
+      this.categories.at(i).get('competitionid')?.setValue(this.competition.id);
+      this.postService.createCompetitionCategories(this.categories.at(i).value).subscribe(
+        res =>{
+        },
+        err=>{
+          alert('Ha ocurrido un error')
+        }
+      );
+    }
+  }
+
+  createSponsors(){
+    this.registerFormS.get('competitionid')?.setValue(this.competition.id);
+    console.log(this.registerFormS.value)
     this.postService.createSponsor(this.registerFormS.value).subscribe(
       res =>{
       },
@@ -127,7 +187,7 @@ export class CreateCompetitionComponent implements OnInit {
     );
 
     for(let i = 0; i < this.sponsors.length; i++){
-      this.sponsors.at(i).get('CompetitionID')?.setValue(this.competition.ID);
+      this.sponsors.at(i).get('competitionid')?.setValue(this.competition.id);
       this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
         res =>{
         },
@@ -136,32 +196,8 @@ export class CreateCompetitionComponent implements OnInit {
         }
       );
     }
-
-
-
-
-
-
-    this.registerForm.get('CompetitionID')?.setValue(this.competition.ID);
-    this.postService.createCompetitionCategories(this.registerForm.value).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-
-    for(let i = 0; i < this.categories.length; i++){
-      this.categories.at(i).get('CompetitionID')?.setValue(this.competition.ID);
-      this.postService.createCompetitionCategories(this.categories.at(i).value).subscribe(
-        res =>{
-        },
-        err=>{
-          alert('Ha ocurrido un error')
-        }
-      );
-    }
-    
+    location.reload()
   }
-
 }
+
+

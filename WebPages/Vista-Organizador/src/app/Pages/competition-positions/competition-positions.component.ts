@@ -5,6 +5,7 @@ import { ParticipantsReport } from 'src/app/Models/participants-report';
 import { GetService } from 'src/app/Services/Get/get-service';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { Competition } from 'src/app/Models/competition';
 
 @Component({
   selector: 'app-competition-positions',
@@ -14,7 +15,7 @@ import jsPDF from 'jspdf';
 export class CompetitionPositionsComponent implements OnInit {
 
   competitionSelected = '';
-  athleteCompetitions: AthleteInCompetition[] = [];
+  athleteCompetitions: Competition[] = [];
   athlete4Report: ParticipantsReport[] = [];
   constructor(private getService:GetService, private cookieSvc:CookieService) { }
 
@@ -23,7 +24,7 @@ export class CompetitionPositionsComponent implements OnInit {
   }
 
   getAthleteCompetitions(){
-    this.getService.getAthleteinCompetition(this.cookieSvc.get('Username')).subscribe(
+    this.getService.getAthleteCreatedCompetitions(this.cookieSvc.get('Username')).subscribe(
       res=>{
         this.athleteCompetitions = res;
       },
@@ -34,7 +35,7 @@ export class CompetitionPositionsComponent implements OnInit {
   }
 
   getCurrentCompetitionReport(){
-    this.getService.getPositionsReport(this.competitionSelected).subscribe(
+    this.getService.getAthletesReport(this.competitionSelected).subscribe(
       res=>{
         this.athlete4Report = res;
       },

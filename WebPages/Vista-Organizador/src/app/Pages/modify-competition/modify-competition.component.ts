@@ -17,24 +17,24 @@ import { PutService } from 'src/app/Services/Put/put-service';
 export class ModifyCompetitionComponent implements OnInit {
 
   associatedActivity: ActivityModel = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Duration: '',
-    Kilometers: 0,
-    Type: '',
-    AthleteUsername: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    duration: '',
+    kilometers: 0,
+    type: '',
+    athleteusername: ''
   } 
   competition: Competition = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Privacy: '',
-    BankAccount: '',
-    Price: 0,
-    ActivityID: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    privacy: '',
+    bankaccount: '',
+    price: 0,
+    activityid: ''
   }
   competitionSelected = '';
   competitionsArray: Competition[] = [];
@@ -46,22 +46,22 @@ export class ModifyCompetitionComponent implements OnInit {
   }
 
   registerForm = this.formBuilder.group({
-    CompetitionID: '',
-    Category: ''
+    competitionid: '',
+    category: ''
   });
   
   registerForm2 = this.formBuilder.group({
-    Categories: this.formBuilder.array([], Validators.required)
+    categories: this.formBuilder.array([], Validators.required)
   });
 
   get categories(){
-    return this.registerForm2.get('Categories') as FormArray;
+    return this.registerForm2.get('categories') as FormArray;
   }
   
   addCategories(){
     const CategoriesFormGroup = this.formBuilder.group({
-      CompetitionID: '',
-      Category: ''
+      competitionid: '',
+      category: ''
     });
     this.categories.push(CategoriesFormGroup);
   }
@@ -73,11 +73,13 @@ export class ModifyCompetitionComponent implements OnInit {
   modifyCompetition(){
     this.putService.modifyActivity(this.associatedActivity).subscribe(
       res => {
+
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
+
     this.putService.modifyCompetition(this.competition).subscribe(
       res => {
       },
@@ -86,7 +88,7 @@ export class ModifyCompetitionComponent implements OnInit {
       }
     );
 
-    this.registerForm.get('CompetitionID')?.setValue(this.competition.ID);
+    this.registerForm.get('competitionid')?.setValue(this.competition.id);
     this.postService.createCompetitionCategories(this.registerForm.value).subscribe(
       res =>{
       },
@@ -96,7 +98,7 @@ export class ModifyCompetitionComponent implements OnInit {
     );
 
     for(let i = 0; i < this.categories.length; i++){
-      this.categories.at(i).get('CompetitionID')?.setValue(this.competition.ID);
+      this.categories.at(i).get('competitionid')?.setValue(this.competition.id);
       this.postService.createCompetitionCategories(this.categories.at(i).value).subscribe(
         res =>{
         },
@@ -106,12 +108,11 @@ export class ModifyCompetitionComponent implements OnInit {
       );
       
     }
-    location.reload()
   }
 
 
   getActivity(){
-    this.getService.getActivity(this.competition.ActivityID).subscribe(
+    this.getService.getActivity(this.competition.activityid).subscribe(
       res => {
         this.associatedActivity = res;
       },
@@ -125,7 +126,6 @@ export class ModifyCompetitionComponent implements OnInit {
     this.getService.getAthleteCreatedCompetitions(AthleteID).subscribe(
       res => {
         this.competitionsArray = res;
-        console.log(this.competitionsArray)
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -135,7 +135,7 @@ export class ModifyCompetitionComponent implements OnInit {
 
   getCurrentCompetition(){
     for(let i = 0; i < this.competitionsArray.length; i++){
-      if(this.competitionsArray[i].ID == this.competitionSelected){
+      if(this.competitionsArray[i].id == this.competitionSelected){
         this.competition = this.competitionsArray[i];
         break;
       }
@@ -144,27 +144,13 @@ export class ModifyCompetitionComponent implements OnInit {
   }
   
   deleteCompetition(){
-    this.deleteService.deleteActivity(this.competition.ActivityID).subscribe(
+    this.deleteService.deleteCompetition(this.competition.id).subscribe(
       res =>{
+        location.reload()
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
-    this.deleteService.deleteCategory(this.competition.ID).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-    this.deleteService.deleteCompetition(this.competition.ID).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-    location.reload()
   }
 }

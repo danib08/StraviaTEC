@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+.mapdisplay { 
+    height: 400px;
+    margin-left: 140px; 
+}
+
+body{
+    height: auto;
+    background-color:#CFD7C7;
+} 
+
+.time{
+    font-size: 12px !important
+} 
+
+.socials i{
+    margin-right: 14px;
+    font-size: 17px;
+    color: #d2c8c8;
+    cursor: pointer;
+}
+
+.feed-image img{
+    width: 100%;
+    height: auto;
+}
+
+span.hola {
+    font-size: 20px;
+    color: #40798C;
+    margin-bottom: 5px;
+}
+
+table {
+    width: 400px; 
+}

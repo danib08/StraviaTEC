@@ -1,5 +1,5 @@
 export interface Group {
-    Name:string,
-    AdminUsername:string
-    OlderName?:string,
+    name:string,
+    adminusername:string
+    oldername?:string,
 }

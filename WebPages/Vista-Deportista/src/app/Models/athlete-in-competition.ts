@@ -4,5 +4,7 @@
 export interface AthleteInCompetition {
     athleteid: string,
     competitionid: string,
-    status: string
+    status: string,
+    receipt: string,
+    duration: string
 }

@@ -19,8 +19,8 @@ import { Group } from "src/app/Models/group";
     providedIn: 'root'
 })
 export class PostService {
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
-    private searchURL = 'https://straviatec.free.beeceptor.com/search';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
+
     /**
     * Método constructor
     * @param http 
@@ -28,55 +28,67 @@ export class PostService {
     constructor(private http: HttpClient) {
     }
 
+     /**
+     * Posts the provided Athlete to verify its login
+     * @param athlete the AthleteModel with the username and 
+     * password intended for login
+     * @returns the API response
+     */
     signInAthlete(athlete: AthleteModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, athlete);
+        return this.http.post<any>(this.baseURL + 'Athlete/LogIn', athlete);
     }
 
-    signUpAthlete(athlete: AthleteModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, athlete);
+    /**
+     * Posts a new Activity to register it on the database 
+     * @param activity the new activity to be registered
+     * @returns the API response
+     */
+     createActivity(activity: ActivityModel): Observable<any>{
+        return this.http.post<any>(this.baseURL + "Activity", activity);
     }
 
-    searchAthletes(athlete:AthleteSearch): Observable<any>{
-        return this.http.post<any>(this.searchURL,athlete);
+    /**
+     * Posts a new Competition to register it on the database 
+     * @param comp the new competition to be registered
+     * @returns the API response
+     */
+     createCompetition(comp: Competition): Observable<any>{
+        return this.http.post<any>(this.baseURL + "Competition", comp);
     }
 
-    addFollower(athleteFriend: AthleteFriends): Observable<any>{
-        return this.http.post<any>(this.baseURL, athleteFriend);
-    }
-
-    createActivity(activity: ActivityModel): Observable<any>{
-        return this.http.post<any>(this.baseURL, activity);
-    }
-
-    createActivityInChallenge(activityInChallenge: ActivityInChallenge): Observable<any>{
-        return this.http.post<any>(this.baseURL, activityInChallenge);
-    }
-
-    createAthleteInChallenge(aIC: AthleteInChallenge): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
-    }
-
-    createAthleteInCompetition(aIC: AthleteInCompetition): Observable<any>{
-        return this.http.post<any>(this.baseURL, aIC);
-    }
-
-    createCompetition(competition:Competition):Observable<any>{
-        return this.http.post<any>(this.baseURL,competition);
-    }
-
+    /**
+     * Posts a new Challenge to register it on the database 
+     * @param challenge the new challenge to be registered
+     * @returns the API response
+     */
     createChallenge(challenge:Challenge):Observable<any>{
-        return this.http.post<any>(this.baseURL,challenge);
+        return this.http.post<any>(this.baseURL + 'Challenge',challenge);
     }
 
+    /**
+     * Posts a new CompetitionCategories to register it on the database 
+     * @param category the new competition categories to be registered
+     * @returns the API response
+     */
     createCompetitionCategories(category:FormControl):Observable<any>{
-        return this.http.post<any>(this.baseURL, category);
+        return this.http.post<any>(this.baseURL + "CompetitionCategories", category);
     }
 
+     /**
+     * Posts a new Sponsor to register it on the database 
+     * @param sponsor the new sponsor to be registered
+     * @returns the API response
+     */
     createSponsor(sponsor:Sponsor):Observable<any>{
-        return this.http.post<any>(this.baseURL,sponsor);
+        return this.http.post<any>(this.baseURL + "Sponsor", sponsor);
     }
 
+    /**
+     * Posts a new Group to register it on the database 
+     * @param group the new group to be registered
+     * @returns the API response
+     */
     createGroup(group:Group):Observable<any>{
-        return this.http.post<any>(this.baseURL,group);
+        return this.http.post<any>(this.baseURL + 'Groups',group);
     }
 }

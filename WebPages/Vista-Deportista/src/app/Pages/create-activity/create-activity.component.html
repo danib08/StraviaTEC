@@ -34,7 +34,7 @@
                       #nBC = "ngModel"
                       required 
                       (change)="getChallengeInfo()">
-                <option *ngFor="let list of challengesArray; index as i" value="{{list.challengeid}}">{{list.challengeid}}</option>
+                <option *ngFor="let list of challengesArray; index as i" value="{{list.id}}">{{list.name}}</option>
               </select>
               <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" *ngIf=haveSelectedChallenge>
                 <div class="form-input">
@@ -73,7 +73,7 @@
                   required>
                 </div>
                 <div class="form-input">
-                  <label for="tipo">Tipo de Actividad</label>
+                  <label for="tipo">Tipo de Reto</label>
                   <select class="form-control" id="type" name="type">
                       <option value={{currentChallenge.type}}>{{currentChallenge.type}}</option>
                     </select>
@@ -87,6 +87,7 @@
                 </div>
               </form>
             </div>
+
             <div class="isCompetition" *ngIf="(eventType == 'Competition')">
               <label>Seleccione la carrera asociada a su actividad</label>
               <select class="form-control"
@@ -122,7 +123,7 @@
                   required>
                 </div>
                 <div class="form-input">
-                  <i class="material-icons">speed</i>
+                  <i class="material-icons">directions_run</i>
                   <input type="number" class="form-control" placeholder="Kilometraje"
                   [(ngModel)]="activity.kilometers" name="Kilometraje" #name = "ngModel"
                   [ngClass]="{'is-invalid':f.submitted && name.invalid}"
@@ -169,7 +170,7 @@
                 required>
               </div>
               <div class="form-input">
-                <i class="material-icons">speed</i>
+                <i class="material-icons">directions_run</i>
                 <input type="number" class="form-control" placeholder="Kilometraje"
                 [(ngModel)]="activity.kilometers" name="Kilometraje" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"

@@ -13,7 +13,8 @@ import { Group } from "src/app/Models/group";
 })
 export class PutService {
 
-    private baseURL = 'https://pruebaa.free.beeceptor.com';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
+
     constructor(private http: HttpClient) {
     }
     
@@ -22,22 +23,21 @@ export class PutService {
     }
 
     modifyActivity(activity:ActivityModel):Observable<any>{
-        return this.http.put<any>(this.baseURL, activity);
+        return this.http.put<any>(this.baseURL + 'Activity' , activity);
     }
 
     modifyCompetition(competition:Competition):Observable<any>{
-        return this.http.put<any>(this.baseURL, competition);
+        return this.http.put<any>(this.baseURL + 'Competition' , competition);
     }
 
-    modifyGroup(group:Group):Observable<any>{
-        return this.http.put<any>(this.baseURL, group);
-    }
+    
+
 
     modifyChallenge(challenge:Challenge):Observable<any>{
-        return this.http.put<any>(this.baseURL, challenge);
+        return this.http.put<any>(this.baseURL + 'Challenge', challenge);
     }
 
     modifyAthleteStatusInCompetition(athlete:AthleteInCompetition):Observable<any>{
-        return this.http.put<any>(this.baseURL, athlete);
+        return this.http.put<any>(this.baseURL + 'AthleteInCompetition', athlete);
     }
 }

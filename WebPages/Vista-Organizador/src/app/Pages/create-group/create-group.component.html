@@ -13,7 +13,7 @@
             <div class="form-input">
               <i class="material-icons">comment</i>
               <input type="text" class="form-control" placeholder="Nombre"
-              [(ngModel)]="group.Name" name="Nombre" #name = "ngModel"
+              [(ngModel)]="group.name" name="Nombre" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
@@ -33,14 +33,14 @@
             <select
                 [(ngModel)]="groupSelected"
                 (change)="getCurrentGroup()">
-                <option *ngFor="let list of groupsArray; index as i" value="{{list.Name}}">{{list.Name}}</option>
+                <option *ngFor="let list of groupsArray; index as i" value="{{list.name}}">{{list.name}}</option>
             </select>
             <button (click)="deleteGroup()">Eliminar Grupo</button>
           <form name="form" (ngSubmit)="f.form.valid" #f="ngForm">
             <div class="form-input">
               <i class="material-icons">comment</i>
               <input type="text" class="form-control" placeholder="Nuevo nombre"
-              [(ngModel)]="editedGroup.Name" name="Nombre" #name = "ngModel"
+              [(ngModel)]="editedGroup.name" name="Nombre" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>

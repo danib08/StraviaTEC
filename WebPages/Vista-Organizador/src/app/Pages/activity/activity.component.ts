@@ -12,14 +12,14 @@ import { GetService } from 'src/app/Services/Get/get-service';
 export class ActivityComponent implements OnInit {
 
   activity: ActivityModel = {
-    ID: '1',
-    Name: 'Actividadcita',
-    Route: '../../assets/gpx/sample.gpx',
-    Date: '13/04/22',
-    Duration: '1:30:00',
-    Kilometers: 10,
-    Type: 'Senderismo',
-    AthleteUsername: 'osquitar'
+    id: '',
+    name: '',
+    route: '',
+    date: '',
+    duration: '',
+    kilometers: 0,
+    type: '',
+    athleteusername: ''
   }
   
   constructor(private getService: GetService, private mapService: MapService, private route: ActivatedRoute) { }
@@ -33,7 +33,7 @@ export class ActivityComponent implements OnInit {
       }
     );*/
 
-    this.mapService.plotActivity(this.activity.Route);
+    this.mapService.plotActivity(this.activity.route);
   }
 
 }

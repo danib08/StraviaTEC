@@ -34,7 +34,7 @@ export class SearchAthletesComponent implements OnInit {
   }
   
   /**
-   * 
+   * Creates the Search Athletes component
    * @param postSvc service for POST requests to the API
    * @param cookieSvc service for cookie creating to store the username
    */
@@ -69,7 +69,8 @@ export class SearchAthletesComponent implements OnInit {
           this.AthletesArray = res;
 
           this.AthletesArray.forEach((element, index) => {
-            if (element.username == this.cookieSvc.get("Username")) {
+            let username = this.cookieSvc.get("Username");
+            if (element.username == username) {
               this.AthletesArray.splice(index, 1);
             }
           });
@@ -96,9 +97,10 @@ export class SearchAthletesComponent implements OnInit {
     this.athleteFollower.followerid = username;
     this.postSvc.addFollower(this.athleteFollower).subscribe(
       res => {
+        alert('Atleta seguido exitosamente');
       },
       err => {
-        alert('No se pudo seguir al atleta')
+        alert('No se pudo seguir al atleta');
       }
     );
   }

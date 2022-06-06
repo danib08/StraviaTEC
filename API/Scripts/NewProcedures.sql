@@ -90,13 +90,13 @@ as begin
 
 	if @StatementType = 'CompCreator'
 	begin
-		select * from dbo.CompsCreator
+		select Id, Name, Route, Date, Privacy, BankAccount, Price, ActivityID from dbo.CompsCreator
 		where AthleteUsername = @Username
 	end
 
 	if @StatementType = 'ChallCreator'
 	begin
-		select * from dbo.ChallCreator
+		select Id, Name, StartDate, EndDate, Privacy, Kilometers, Type,ActivityID  from dbo.ChallCreator
 		where AthleteUsername = @Username
 	end
 
@@ -205,13 +205,14 @@ go
 create procedure proc_athlete_in_challenge(@AthleteID varchar(50),
 										   @ChallengeID varchar(50),
 										   @Status varchar(50),
+										   @Kilometers decimal(5,2),
 										   @StatementType nvarchar(50) = '')
 as begin
 
 	if @StatementType = 'Insert'
 	begin
-		insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status)
-		values(@AthleteID,@ChallengeID,@Status)
+		insert into dbo.Athlete_In_Challenge(AthleteID,ChallengeID,Status,Kilometers)
+		values(@AthleteID,@ChallengeID,@Status,@Kilometers)
 	end
 
 	if @StatementType = 'Select'
@@ -239,7 +240,7 @@ as begin
 
 	if @StatementType = 'ChalAccepted'
 	begin
-		select distinct ID,Name,StartDate,EndDate,Privacy,Kilometers,Type
+		select distinct ID,Name,StartDate,EndDate,Privacy,Challenge.Kilometers,Type
 		from(Athlete_In_Challenge inner join Challenge
 		on Athlete_In_Challenge.ChallengeID = Challenge.ID)
 		where AthleteID = @AthleteID and Status = 'En curso'			
@@ -247,13 +248,19 @@ as begin
 
 	if @StatementType = 'ChalNotInscribed'
 	begin
-		select distinct ID, Name, StartDate, EndDate, Privacy, Kilometers, Type
+		select distinct ID, Name, StartDate, EndDate, Privacy, Challenge.Kilometers, Type
 		from(Athlete_In_Challenge right join Challenge
 		on Athlete_In_Challenge.ChallengeID = Challenge.ID)
 		where AthleteID is null or
 		ChallengeID not in
 		(select ChallengeID from Athlete_In_Challenge
 		where AthleteID = @AthleteID)			
+	end
+
+	if @StatementType = 'Update'
+	begin
+		update dbo.Athlete_In_Challenge set Status=@Status,Kilometers=@Kilometers
+		where AthleteID=@AthleteID and ChallengeID=@ChallengeID
 	end
 
 	if @StatementType = 'Delete'
@@ -311,13 +318,13 @@ select * from dbo.Athlete_In_Competition
 	if @StatementType = 'CompReport'
 	begin
 		select * from compReport
-		where CompetitionID = @CompetitionID
+		where CompetitionID = @CompetitionID and Duration != '00:00:00'
 		order by Duration			
 	end
 
 	if @StatementType = 'NotSubscribed'
 	begin
-		select distinct ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
+		select  ID, Name, Route, Date, Privacy, BankAccount, Price, ActivityID
 		from (Athlete_In_Competition right join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID)
 		where AthleteID is null or
@@ -328,15 +335,23 @@ select * from dbo.Athlete_In_Competition
 
 	if @StatementType = 'AthleteAcceptedComp'
 	begin
-		select ID, Name, Route, Date, Privacy, BankAccount, Privacy, BankAccount, Price, ActivityID
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
 		from (Athlete_In_Competition right join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID)
 		where AthleteID = @AthleteID and Status = 'Aceptado'	
 	end
 
+	if @StatementType = 'AthleteEndedComp'
+	begin
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
+		from (Athlete_In_Competition inner join Competition
+		on Athlete_In_Competition.CompetitionID = Competition.ID)
+		where AthleteID = @AthleteID and (Status = 'Aceptado' or Status = 'Finalizado')
+	end
+
 	if @StatementType = 'NotAccepted'
 	begin
-		select Username, Athlete.Name, LastName,Photo,Age,BirthDate,Nationality, Category
+		select  AthleteID, Athlete_In_Competition.CompetitionID, Athlete_In_Competition.Status,Athlete_In_Competition.Duration,Athlete_In_Competition.Receipt
 		from ((Athlete_In_Competition inner join Competition
 		on Athlete_In_Competition.CompetitionID = Competition.ID) inner join Athlete
 		on Athlete_In_Competition.AthleteID = Athlete.Username)
@@ -365,13 +380,14 @@ create procedure proc_challenge(@Id varchar(50),
 								@Privacy varchar(50),
 								@Kilometers decimal(5,2),
 								@Type varchar(50),
+								@ActivityID varchar(50),
 								@StatementType varchar(50) = '')
 as begin
 
 	if @StatementType = 'Insert'
 	begin
-		insert into dbo.Challenge(Id,Name,StartDate,EndDate,Privacy,Kilometers,Type)
-		values(@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type)
+		insert into dbo.Challenge(Id,Name,StartDate,EndDate,Privacy,Kilometers,Type,ActivityID)
+		values(@Id,@Name,@StartDate,@EndDate,@Privacy,@Kilometers,@Type,@ActivityID)
 	end
 
 	if @StatementType = 'Select'
@@ -388,7 +404,7 @@ as begin
 
 	if @StatementType = 'Update'
 	begin
-		update dbo.Challenge set Name=@Name,StartDate=@StartDate,EndDate=@EndDate,Privacy=@Privacy,Kilometers=@Kilometers,Type=@Type
+		update dbo.Challenge set Name=@Name,StartDate=@StartDate,EndDate=@EndDate,Privacy=@Privacy,Kilometers=@Kilometers,Type=@Type,ActivityID=@ActivityID
 		where Id=@Id 	
 	end
 
@@ -491,6 +507,7 @@ go
 
 create procedure proc_groups(@Name varchar(50),
 							@AdminUsername varchar(50),
+							@Oldname varchar(50),
 							@StatementType varchar(50) = '')
 as begin
 
@@ -520,8 +537,8 @@ as begin
 
 	if @StatementType = 'Update'
 	begin
-		update dbo.Groups set Name=@Name, AdminUsername=@AdminUsername
-		where Name=@Name
+		update dbo.Groups set Name=@Name
+		where Name=@Oldname
 	end
 
 	if @StatementType = 'Delete'
@@ -576,7 +593,7 @@ as begin
 		where MemberID is null or
 		GroupName not in 
 		(select GroupName from Group_Member
-		where MemberID = MemberID) 
+		where MemberID = @MemberID) 
 	end
 
 	if @StatementType = 'Delete'

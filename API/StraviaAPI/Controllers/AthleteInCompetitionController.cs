@@ -239,6 +239,44 @@ namespace StraviaAPI.Controllers
             return new JsonResult(table);//Returns table info
         }
 
+        /// <summary>
+        /// Method to get a specific group
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Required group</returns>
+        [HttpGet("Ended/{username}")]
+        public JsonResult get_Ended_Comp(string username)
+        {
+
+            //SQL Query
+            string query = @"
+                             exec proc_athlete_in_competition @username,'','','','','AthleteEndedComp'
+                            ";
+            DataTable table = new DataTable();//Table to store data
+            string sqlDataSource = _configuration.GetConnectionString("StraviaTec");
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))//Connection created
+            {
+                myCon.Open();//Connection opened
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))//Command with query and connection
+                {
+                    myCommand.Parameters.AddWithValue("@username", username);
+
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);//Load data to table
+                    myReader.Close();
+                    myCon.Close();//Closed data
+                }
+            }
+
+            TextInfo tiw = CultureInfo.CurrentCulture.TextInfo;
+            foreach (DataColumn column in table.Columns)
+            {
+                column.ColumnName = tiw.ToLower(column.ColumnName);
+            }
+
+            return new JsonResult(table);//Returns table info
+        }
 
         /// <summary>
         /// Method to get a specific group
@@ -246,7 +284,7 @@ namespace StraviaAPI.Controllers
         /// <param name="name"></param>
         /// <returns>Required group</returns>
         [HttpGet("AcceptedComps/{username}")]
-        public JsonResult get_Ath_Accepted_Comps(string username)
+        public JsonResult getAcceptedComps(string username)
         {
 
             //SQL Query
@@ -278,6 +316,7 @@ namespace StraviaAPI.Controllers
 
             return new JsonResult(table);//Returns table info
         }
+
 
         /// <summary>
         /// Method to get a specific group

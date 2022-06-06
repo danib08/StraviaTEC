@@ -8,6 +8,7 @@ import { Challenge } from 'src/app/Models/challenge';
 import { Competition } from 'src/app/Models/competition';
 import { GetService } from 'src/app/Services/Get/get-service';
 import { PostService } from 'src/app/Services/Post/post-service';
+import { PutService } from 'src/app/Services/Put/put-service';
 
 @Component({
   selector: 'app-create-activity',
@@ -23,7 +24,7 @@ export class CreateActivityComponent implements OnInit {
   eventType = '';
   challengeSelected = '';
   competitionSelected = '';
-  challengesArray: AthleteInChallenge[] =[]; 
+  challengesArray: Challenge[] =[]; 
   competitionsArray: AthleteInCompetition[] =[]; 
   haveSelectedChallenge = false;
   haveSelectedCompetition = false;
@@ -37,7 +38,8 @@ export class CreateActivityComponent implements OnInit {
     startdate: '',
     privacy: '',
     kilometers: 0,
-    type: ''
+    type: '',
+    activityid: ''
   }
   
   // Holds info about the competition related to the activity
@@ -82,13 +84,31 @@ export class CreateActivityComponent implements OnInit {
     challengeid: ''
   }
 
-  /**
-   * Creates the Create Activity component
-   * @param postService service for POST requests to the API
-   * @param getService service for GET requests to the API
-   * @param @param cookieService service for cookie creating to store the username
-   */
-  constructor(private postService: PostService, private getService: GetService, private cookieSvc:CookieService) { }
+  // Model for changing the competition status to finished
+  athleteInCompetition: AthleteInCompetition = {
+    athleteid: '',
+    competitionid: '',
+    status: '',
+    receipt: '',
+    duration: ''
+  }
+
+  athleteInChallenge: AthleteInChallenge = {
+    athleteid: '',
+    challengeid: '',
+    status: '',
+    kilometers: 0
+  }
+
+ /**
+  * Creates the Create Activity component
+  * @param postService service for POST requests to the API
+  * @param getService service for GET requests to the API
+  * @param putService service for PUT requests to the API
+  * @param cookievc service for cookie creating to store the username
+  */
+  constructor(private postService: PostService, private getService: GetService, 
+    private putService: PutService, private cookieSvc:CookieService) { }
 
   /**
    * Called after Angular has initialized all data-bound properties
@@ -103,7 +123,7 @@ export class CreateActivityComponent implements OnInit {
    */
   radioSelect(event: Event) {
       if ((event.target as HTMLInputElement).value == 'Challenge'){
-        this.getService.getAthleteinChallenge(this.cookieSvc.get('Username')).subscribe(
+        this.getService.getOnGoingChallenges(this.cookieSvc.get('Username')).subscribe(
           res => {
             this.challengesArray = res;
           },
@@ -113,7 +133,7 @@ export class CreateActivityComponent implements OnInit {
         );
       }
       else if ((event.target as HTMLInputElement).value == 'Competition'){
-        this.getService.getAthleteinCompetition(this.cookieSvc.get('Username')).subscribe(
+        this.getService.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
           res => {
             this.competitionsArray = res;
           },
@@ -129,6 +149,13 @@ export class CreateActivityComponent implements OnInit {
    * Gets the info associated to the challenge the athlete chose
    */
   getChallengeInfo(){
+    this.getService.getAthleteInChallenge(this.cookieSvc.get('Username'), this.challengeSelected).subscribe(
+      res=>{
+        this.athleteInChallenge = res;
+      }, err =>{
+        alert('Ha ocurrido un error')
+      }
+    );
     this.getService.getChallenge(this.challengeSelected).subscribe(
       res => {
         this.currentChallenge = res;
@@ -211,6 +238,7 @@ export class CreateActivityComponent implements OnInit {
       res =>{
         if (res == "") {
           alert("Actividad creada satisfactoriamente.");
+          this.createChallenge();
         }
         else {
           if (res[0].message_id == 2601) {
@@ -221,13 +249,32 @@ export class CreateActivityComponent implements OnInit {
     );
 
     if (this.eventType == 'Competition') {
-      //PUT DE ACTUALIZAR STATUS DE ATHLETE_IN_COMPETITION
-    }
 
+      for (let i = 0; i < this.competitionsArray.length; i++) {
+        if (this.competitionsArray[i].competitionid == this.competitionSelected) {
+          this.athleteInCompetition = this.competitionsArray[i];
+          break;
+        }
+      }
+
+      this.athleteInCompetition.status = "Finalizado";
+      this.athleteInCompetition.duration = this.activity.duration;
+      console.log(this.athleteInCompetition);
+
+      this.putService.updateAthleteInCompetition(this.athleteInCompetition).subscribe(
+        res => {
+        }, err => {
+          alert('Ha ocurrido un error')
+        }
+      );
+    }
+    location.reload();
+  }
+
+  createChallenge() {
     if (this.eventType == 'Challenge') {
       this.activityInChallenge.activityid = this.activity.id;
       this.activityInChallenge.challengeid = this.currentChallenge.id;
-      console.log(this.activityInChallenge);
       this.postService.createActivityInChallenge(this.activityInChallenge).subscribe(
         res =>{
         }, err => {
@@ -235,8 +282,15 @@ export class CreateActivityComponent implements OnInit {
         }
       );
     }
-
-    //location.reload();
+    let value = (Number(this.athleteInChallenge.kilometers) + Number(this.activity.kilometers));
+    this.athleteInChallenge.kilometers = value;
+    this.putService.updateAthleteInChallenge(this.athleteInChallenge).subscribe(
+      res => {
+        
+      }, err => {
+        alert("Ha ocurrido un error")
+      }
+    );
   }
 
 }

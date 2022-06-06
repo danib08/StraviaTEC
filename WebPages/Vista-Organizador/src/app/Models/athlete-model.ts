@@ -1,11 +1,11 @@
 export interface AthleteModel {
-    Name: string,
-    Lastname: string,
-    Birthdate: string,
-    Nationality: string,
-    Age: number,
-    Pass: string,
-    Category: string,
-    Photo: string,
-    Username: string
+    name: string,
+    lastname: string,
+    birthdate: string,
+    nationality: string,
+    age: number,
+    pass: string,
+    category: string,
+    photo: string,
+    username: string
 }

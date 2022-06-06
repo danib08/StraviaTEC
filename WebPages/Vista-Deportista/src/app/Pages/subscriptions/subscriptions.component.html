@@ -25,7 +25,7 @@
             <div class="row">
               <div class="col-sm">
                 <span class="col-3"> <i class="material-icons">subject</i>{{chllng.name}} <br>
-                                     <i class="material-icons">date_range</i>na
+                                     <i class="material-icons">date_range</i>
                                         {{'Fecha de Inicio: ' + chllng.startdate.split("T", 2)[0] + ' | ' + chllng.startdate.split("T", 2)[1]}} 
                                      <br>
                                      <i class="material-icons">event</i>
@@ -60,7 +60,7 @@
                     <span class="right"><button class="btn" (click)="onClick(comp.id)" style="float: right;">Inscribirse</button></span>
                     <div *ngIf="(flag && selectedCompetition == comp.id)">
                         <label>Cuenta bancaria: {{comp.bankaccount}}</label>
-                        <input type="file" name="receipt">
+                        <input type="file" name="receipt" (change)="onChange($any($event.target).files)">
                         <button class="btn" (click)="joinCompetition(comp.id, $event)" style="float: right;">Pagar</button>
                     </div>
                   </div>
