@@ -47,6 +47,7 @@ export class ModifyChallengeComponent implements OnInit {
   getAllChallenges(AthleteID:string){
     this.getService.getAthleteCreatedChallenges(AthleteID).subscribe(
       res => {
+        console.log(res)
         this.challengesArray = res;
       },
       err=>{

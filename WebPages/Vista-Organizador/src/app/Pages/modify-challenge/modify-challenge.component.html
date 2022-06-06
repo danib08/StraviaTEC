@@ -54,7 +54,7 @@
             <label for="tipo">Privacidad del Reto</label>
             <div class="form-input">
               <i class="material-icons">lock</i>
-              <select class="form-control" id="type" name="type" [(ngModel)]="challenge.type" #type = "ngModel" required>
+              <select class="form-control" id="type" name="type" [(ngModel)]="challenge.privacy" #type = "ngModel" required>
                   <option value="public">Pública</option>
                   <option value="private">Privada</option>
                 </select>
@@ -63,8 +63,8 @@
             <div class="form-input">
               <i class="material-icons">lock</i>
               <select class="form-control" id="type" name="type" [(ngModel)]="challenge.type" #type = "ngModel" required>
-                  <option value="public">Fondo</option>
-                  <option value="private">Altitud</option>
+                  <option value="Fondo">Fondo</option>
+                  <option value="Altitud">Altitud</option>
                 </select>
             </div>
             <div class="form-input text-center">
