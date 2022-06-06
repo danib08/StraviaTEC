@@ -25,7 +25,7 @@ namespace AppMobile.Activities
             
             btnsendHomeActivity = FindViewById<Button>(Resource.Id.Activity_usuario);
             user = Intent.GetStringExtra("idUser");
-            
+            //btn activity
             btnsendHomeActivity.Click += (sender, e) =>
             {
                 Intent intent = new Intent(this, typeof(activity));
