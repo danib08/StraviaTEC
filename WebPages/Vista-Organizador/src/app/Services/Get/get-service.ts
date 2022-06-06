@@ -8,7 +8,7 @@ import { Competition } from "src/app/Models/competition";
 })
 export class GetService {
 
-    private baseURL = 'https://localhost:5001/api/';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
 
     constructor(private http: HttpClient) {
     }
