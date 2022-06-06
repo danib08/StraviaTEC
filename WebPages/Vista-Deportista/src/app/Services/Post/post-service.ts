@@ -20,7 +20,7 @@ import { CommentModel } from "src/app/Models/comment-model";
  * Service for the Post Methods to the API
  */
 export class PostService {
-    private baseURL = 'https://localhost:5001/api/';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
     private mongoURL = 'https://localhost:5050/api/';
 
     constructor(private http: HttpClient) {}
@@ -113,6 +113,11 @@ export class PostService {
         return this.http.post<any>(this.baseURL + "GroupMember", groupMember);
     }
 
+    /**
+     * Posts a new activity comment 
+     * @param comment the comment to post
+     * @returns the API response
+     */
     postComment(comment: CommentModel): Observable<any>{
         return this.http.post<any>(this.mongoURL + "Comment", comment);
     }

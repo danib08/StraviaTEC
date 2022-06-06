@@ -17,7 +17,7 @@ import { PutService } from 'src/app/Services/Put/put-service';
 })
 
 /**
- * Create Activity component where the athlete registers its own activities
+ * CreateActivity component where the athlete registers its own activities
  */
 export class CreateActivityComponent implements OnInit {
 
@@ -269,7 +269,7 @@ export class CreateActivityComponent implements OnInit {
       );
     }
 
-    //location.reload();
+    location.reload();
   }
 
   createChallenge() {

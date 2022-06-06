@@ -10,6 +10,10 @@ import { PostService } from 'src/app/Services/Post/post-service';
   styleUrls: ['./comments.component.css']
 })
 
+/**
+ * Comments component where the athlete can post a comment on an activity
+ * and also see other comments
+ */
 export class CommentsComponent implements OnInit {
 
   text: string = '';
@@ -21,13 +25,24 @@ export class CommentsComponent implements OnInit {
     athleteID: '',
     text: ""
   }
-
+ /**
+  * Creates the Comments component
+  * @param cookieSvc service for cookie creating to store the username
+  * @param getSvc service for GET requests to the API
+  * @param postSvc service for POST requests to the API
+  */
   constructor(private cookieSvc: CookieService, private getSvc: GetService, private postSvc: PostService) { }
 
+  /**
+   * Called after Angular has initialized all data-bound properties
+   */
   ngOnInit(): void {
     this.getComments();
   }
 
+  /**
+   * Gets all of the comments on the MongoDB database
+   */
   getComments() {
     this.getSvc.getComments().subscribe(
       res => {
@@ -40,6 +55,10 @@ export class CommentsComponent implements OnInit {
     );
   }
 
+  /**
+   * Adds only the comments related to this activity to
+   * a new array
+   */
   organizeComments() {
     let id = this.cookieSvc.get("ActivityID");
     this.commentsTmp.forEach(element => {
@@ -49,6 +68,9 @@ export class CommentsComponent implements OnInit {
     });
   }
 
+  /**
+   * Posts a new user comment
+   */
   postComment() {
     this.comment.athleteID = this.cookieSvc.get("Username");
     this.comment.activityID = this.cookieSvc.get("ActivityID");

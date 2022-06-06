@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
  */
 export class GetService {
 
-    private baseURL = 'https://localhost:5001/api/';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
     private mongoURL = 'https://localhost:5050/api/';
 
     constructor(private http: HttpClient) {}
@@ -144,6 +144,10 @@ export class GetService {
         return this.http.get<any>(this.baseURL + 'AthleteInChallenge' + AthleteID + '/' + ChallengeID);
     }
 
+    /**
+     * Gets all of the activity comments
+     * @returns array of Comments
+     */
     getComments():Observable<any>{
         return this.http.get<any[]>(this.mongoURL + 'Comment');
     }
