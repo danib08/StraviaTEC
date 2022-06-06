@@ -12,6 +12,7 @@ import { Observable } from "rxjs";
 export class GetService {
 
     private baseURL = 'https://localhost:5001/api/';
+    private mongoURL = 'https://localhost:5050/api/';
 
     constructor(private http: HttpClient) {}
 
@@ -141,5 +142,9 @@ export class GetService {
      */
     getAthleteInChallenge(AthleteID: string, ChallengeID: string):Observable<any>{
         return this.http.get<any>(this.baseURL + 'AthleteInChallenge' + AthleteID + '/' + ChallengeID);
+    }
+
+    getComments():Observable<any>{
+        return this.http.get<any[]>(this.mongoURL);
     }
 }

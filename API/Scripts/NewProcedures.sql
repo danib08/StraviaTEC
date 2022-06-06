@@ -259,8 +259,8 @@ as begin
 
 	if @StatementType = 'Update'
 	begin
-		update dbo.Athlete_In_Competition set AthleteID=@AthleteID,CompetitionID=@CompetitionID,Status=@Status,Receipt=@Receipt,Duration=@Duration
-		where AthleteID=@AthleteID and CompetitionID=@CompetitionID
+		update dbo.Athlete_In_Challenge set Status=@Status,Kilometers=@Kilometers
+		where AthleteID=@AthleteID and ChallengeID=@ChallengeID
 	end
 
 	if @StatementType = 'Delete'
