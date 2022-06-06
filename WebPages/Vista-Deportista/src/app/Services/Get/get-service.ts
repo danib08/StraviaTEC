@@ -63,6 +63,16 @@ export class GetService {
     }
 
     /**
+     * Gets all the competitions where the athelete is participating
+     * or has completed
+     * @param AthleteID the desired athlete's username
+     * @returns array of competitions
+     */
+     getReportCompetitions(AthleteID:string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/' + AthleteID);
+    }
+
+    /**
      * Gets competition info according to the provided ID
      * @param CompetitionID the ID of the desired competition
      * @returns the competition object
@@ -141,7 +151,7 @@ export class GetService {
      * @returns an athleteInCompetition object
      */
     getAthleteInChallenge(AthleteID: string, ChallengeID: string):Observable<any>{
-        return this.http.get<any>(this.baseURL + 'AthleteInChallenge' + AthleteID + '/' + ChallengeID);
+        return this.http.get<any>(this.baseURL + 'AthleteInChallenge/' + AthleteID + '/' + ChallengeID);
     }
 
     /**

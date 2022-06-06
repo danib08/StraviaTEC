@@ -17,7 +17,7 @@ import { PutService } from 'src/app/Services/Put/put-service';
 })
 
 /**
- * CreateActivity component where the athlete registers its own activities
+ * Create Activity component where the athlete registers its own activities
  */
 export class CreateActivityComponent implements OnInit {
 
@@ -134,7 +134,7 @@ export class CreateActivityComponent implements OnInit {
       }
       else if ((event.target as HTMLInputElement).value == 'Competition'){
         // PROBAR CON NUEVOS URLS
-        this.getService.getAcceptedCompetitions(this.cookieSvc.get('Username')).subscribe(
+        this.getService.getReportCompetitions(this.cookieSvc.get('Username')).subscribe(
           res => {
             this.competitionsArray = res;
           },
@@ -269,7 +269,7 @@ export class CreateActivityComponent implements OnInit {
       );
     }
 
-    location.reload();
+    //location.reload();
   }
 
   createChallenge() {
