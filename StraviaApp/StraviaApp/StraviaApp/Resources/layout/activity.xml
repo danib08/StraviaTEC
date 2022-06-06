@@ -1,0 +1,128 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ivoryPalette"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <fragment
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="305.0dp"
+        android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/mapGoogle"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="80.5dp"
+        android:layout_gravity="center"
+        android:id="@+id/linearLayout2"
+        android:gravity="center"
+        android:layout_marginBottom="1.0dp">
+        <TextView
+            style="@style/header"
+            android:text="0:0:0"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="187.5dp"
+            android:layout_height="match_parent"
+            android:id="@+id/txtTimer"
+            android:layout_marginRight="0.0dp"
+            android:gravity="center"
+            android:textColor="@color/blackPalette"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="49.5dp"
+        android:id="@+id/linearLayout3">
+        <TextView
+            style="@style/body"
+            android:text="Distancia (Km)"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="175.3dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textDistance878"
+            android:layout_marginRight="0.0dp"
+            android:gravity="center"
+            android:textColor="@color/blackPalette"/>
+        <TextView
+            style="@style/body"
+            android:text="Velocidad (km/min)"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/textView2"
+            android:layout_marginRight="0.0dp"
+            android:gravity="center"
+            android:textColor="@color/blackPalette"
+            android:layout_marginLeft="0.0dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="73.0dp"
+        android:id="@+id/linearLayout4" >
+        <TextView
+            style="@style/header"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="199.0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textDistance"
+            android:layout_marginRight="0.0dp"
+            android:gravity="center"
+            android:textColor="@color/blackPalette"/>
+        <TextView
+            style="@style/header"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_width="162.3dp"
+            android:layout_height="match_parent"
+            android:id="@+id/textVelocidad"
+            android:layout_marginRight="0.0dp"
+            android:gravity="center"
+            android:textColor="@color/blackPalette"
+            android:layout_marginLeft="0.0dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="85.0dp"
+        android:id="@+id/linearLayout47"
+        android:layout_marginBottom="0.0dp"
+        android:layout_marginTop="0.0dp">
+        <android.widget.Button
+            android:layout_width="176.3dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0.0dp"
+            android:id="@+id/stopActivity"
+            android:text="@string/Stop"
+            style="@style/button_dark"/>
+        <android.widget.Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0.0dp"
+            android:id="@+id/finishActivity"
+            android:text="@string/Finish"
+            style="@style/button_dark"
+            android:layout_marginRight="0.0dp" />
+    </LinearLayout>
+
+</LinearLayout>
