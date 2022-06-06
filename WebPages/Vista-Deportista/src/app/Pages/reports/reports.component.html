@@ -58,6 +58,24 @@
     </select>
   </div>
 
+  <div class="container"  id="htmlData" #content>
+    <h2>Reporte de progreso de evento</h2>
+    <ul class="responsive-table">
+      <li class="table-header">
+        <div class="col col-1">Nombre evento</div>
+        <div class="col col-2">Objetivo total</div>
+        <div class="col col-3">Mi avance</div>
+        <div class="col col-4">Días restantes</div>
+      </li>
+      <li class="table-row">
+        <div class="col col-1" data-label="Name">{{this.challengeReport.challengename}}</div>
+        <div class="col col-2" data-label="LastName">{{this.challengeReport.totalkm}}</div>
+        <div class="col col-3" data-label="Age">{{this.challengeReport.actualkm}}</div>
+        <div class="col col-4" data-label="Category">{{this.challengeReport.daysleft}}</div>
+      </li>
+    </ul>
+  </div>
+
 </div>
 </body>
 <app-footer></app-footer>

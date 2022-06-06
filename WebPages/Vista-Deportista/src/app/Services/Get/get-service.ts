@@ -114,7 +114,7 @@ export class GetService {
      * @returns array of groups
      */
     getNotJoinedGroups(AthleteID: string):Observable<any>{
-        return this.http.get<any[]>(this.baseURL + 'GroupMember/NotInscribed/' + AthleteID);
+        return this.http.get<any[]>(this.baseURL + 'GroupMember/NoInscrito/' + AthleteID);
     }
 
     /**

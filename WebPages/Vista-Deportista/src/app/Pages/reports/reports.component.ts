@@ -24,7 +24,12 @@ export class ReportsComponent implements OnInit {
   athleteCompetitions: AthleteInCompetition[] = [];
   athleteChallenges: AthleteInChallenge[] = [];
   competitionReport: CompetitionReport[] = [];
-  challengeReport: ChallengeReport[] = [];
+  challengeReport: ChallengeReport = {
+    challengename: '',
+    totalkm: 0,
+    actualkm: 0,
+    daysleft: 0
+  };
 
   /**
    * Creates the Reports component
@@ -103,7 +108,6 @@ export class ReportsComponent implements OnInit {
   getCurrentChallengeReport(){
     this.getSvc.getChallengeReport(this.challengeSelected, this.cookieSvc.get("Username")).subscribe(
       res=>{
-        console.log(res);
         this.challengeReport = res;
       },
       err=> {
