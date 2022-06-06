@@ -202,7 +202,7 @@ as begin
 end
 go
 
-alter procedure proc_athlete_in_challenge(@AthleteID varchar(50),
+create procedure proc_athlete_in_challenge(@AthleteID varchar(50),
 										   @ChallengeID varchar(50),
 										   @Status varchar(50),
 										   @Kilometers decimal(5,2),
@@ -272,7 +272,7 @@ end
 go
 
 
-alter procedure proc_athlete_in_competition(@AthleteID varchar(50),
+create procedure proc_athlete_in_competition(@AthleteID varchar(50),
 											@CompetitionID varchar(50),
 											@Status varchar(50),
 											@Receipt varchar(200),
@@ -318,7 +318,7 @@ select * from dbo.Athlete_In_Competition
 	if @StatementType = 'CompReport'
 	begin
 		select * from compReport
-		where CompetitionID = @CompetitionID
+		where CompetitionID = @CompetitionID and Duration != '00:00:00'
 		order by Duration			
 	end
 
@@ -593,7 +593,7 @@ as begin
 		where MemberID is null or
 		GroupName not in 
 		(select GroupName from Group_Member
-		where MemberID = 'gabogh99') 
+		where MemberID = @MemberID) 
 	end
 
 	if @StatementType = 'Delete'

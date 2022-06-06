@@ -397,7 +397,7 @@ go
 create procedure get_comp_Report(@CompetitionID varchar(50))
 as begin
 select * from compReport
-where CompetitionID = @CompetitionID
+where CompetitionID = @CompetitionID and Duration != '00:00:00'
 order by Duration
 end 
 go

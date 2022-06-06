@@ -30,7 +30,7 @@ go
 
 
 ----------------------------------------TRIGGERS ----------------------------------
-alter trigger statusComp
+create trigger statusComp
 on dbo.Athlete_In_Competition
 AFTER INSERT
 NOT FOR REPLICATION
@@ -52,8 +52,34 @@ AFTER INSERT
 NOT FOR REPLICATION
 AS
 BEGIN
+declare @Username varchar(50) 
+select @Username = AthleteID from inserted
+declare @ChallengeID varchar(50)
+select @ChallengeID = ChallengeID from inserted
 update dbo.Athlete_In_Challenge
 set Status = 'En curso'
+where AthleteID = @Username and ChallengeID = @ChallengeID
+end
+go
+
+create trigger EndChall
+on dbo.Athlete_In_Challenge after update
+as
+begin
+declare @Username varchar(50) 
+select @Username = AthleteID from inserted
+declare @ChallengeID varchar(50)
+select @ChallengeID = ChallengeID from inserted
+	if (select Athlete_In_Challenge.Kilometers from Athlete_In_Challenge inner join Challenge
+	on Athlete_In_Challenge.ChallengeID = Challenge.ID
+	where AthleteID = @Username and ChallengeID = @ChallengeID) >= (select Challenge.Kilometers from Athlete_In_Challenge inner join Challenge
+	on Athlete_In_Challenge.ChallengeID = Challenge.ID
+	where AthleteID = @Username and ChallengeID = @ChallengeID)
+	begin
+		update Athlete_In_Challenge
+		set Status = 'Finalizado'
+		where AthleteID = @Username and ChallengeID = @ChallengeID
+	end
 end
 go
 
