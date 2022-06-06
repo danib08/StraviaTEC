@@ -101,8 +101,9 @@ export class ReportsComponent implements OnInit {
    * Gets the progress information about the currently selected challenge
    */
   getCurrentChallengeReport(){
-    this.getSvc.getChallengeReport(this.challengeSelected).subscribe(
+    this.getSvc.getChallengeReport(this.challengeSelected, this.cookieSvc.get("Username")).subscribe(
       res=>{
+        console.log(res);
         this.challengeReport = res;
       },
       err=> {

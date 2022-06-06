@@ -129,10 +129,11 @@ export class GetService {
     /**
      * Gets information on the progress of a challenge
      * @param ChallengeID the ID of the challenge to search for
+     * @param AthleteID the ID of the user
      * @returns the progress of the challenge
      */
-    getChallengeReport(ChallengeID: string):Observable<any>{
-        return this.http.get<any[]>(this.baseURL + '' + ChallengeID);
+    getChallengeReport(ChallengeID: string, AthleteID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInChallenge/Report/' + AthleteID + "/" + ChallengeID);
     }
 
     /**
