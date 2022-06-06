@@ -71,14 +71,6 @@ export class ModifyCompetitionComponent implements OnInit {
   }
 
   modifyCompetition(){
-    this.putService.modifyActivity(this.associatedActivity).subscribe(
-      res => {
-
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
 
     this.putService.modifyCompetition(this.competition).subscribe(
       res => {
@@ -108,6 +100,7 @@ export class ModifyCompetitionComponent implements OnInit {
       );
       
     }
+    location.reload()
   }
 
 
@@ -125,6 +118,7 @@ export class ModifyCompetitionComponent implements OnInit {
   getAllCompetitions(AthleteID:string){
     this.getService.getAthleteCreatedCompetitions(AthleteID).subscribe(
       res => {
+        
         this.competitionsArray = res;
       },
       err=>{
@@ -144,6 +138,7 @@ export class ModifyCompetitionComponent implements OnInit {
   }
   
   deleteCompetition(){
+    
     this.deleteService.deleteCompetition(this.competition.id).subscribe(
       res =>{
         location.reload()
@@ -153,4 +148,30 @@ export class ModifyCompetitionComponent implements OnInit {
       }
     );
   }
+
+    /**
+   * Reads the content of the .gpx when uploaded
+   * @param fileList list of files uploaded
+   */
+     public onChange(fileList: FileList): void {
+
+      let file = fileList[0];
+      let fileReader: FileReader = new FileReader();
+      let self = this;
+  
+      fileReader.onloadend = function(x) {
+        let gpxRead = fileReader.result as string;
+        self.encode64(gpxRead);
+      }
+      fileReader.readAsText(file);
+    }
+  
+    /**
+     * Encodes string from the .gpx file to base 64 and sets it
+     * to the activity route
+     */
+    encode64(fileText: string) {
+      let gpxEncoded = btoa(fileText);
+      this.competition.route = gpxEncoded;
+    }
 }

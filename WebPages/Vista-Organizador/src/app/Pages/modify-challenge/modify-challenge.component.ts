@@ -57,6 +57,7 @@ export class ModifyChallengeComponent implements OnInit {
   }
 
   getCurrentChallenge(){
+    console.log(this.challengeSelected)
     for(let i = 0; i < this.challengesArray.length; i++){
       if(this.challengesArray[i].id == this.challengeSelected){
         this.challenge = this.challengesArray[i];
@@ -66,6 +67,7 @@ export class ModifyChallengeComponent implements OnInit {
   }
 
   deleteChallenge(){
+    
     this.deleteService.deleteChallenge(this.challengeSelected).subscribe(
       res => {
         location.reload()
