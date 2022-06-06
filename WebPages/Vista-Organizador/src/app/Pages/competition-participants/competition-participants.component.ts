@@ -52,6 +52,7 @@ export class CompetitionParticipantsComponent implements OnInit {
     this.MasterC = [];
     this.getService.getAthletesReport(this.competitionSelected).subscribe(
       res=>{
+        console.log(res)
         this.athlete4Report = res;
         this.organizeByCategories();
       },

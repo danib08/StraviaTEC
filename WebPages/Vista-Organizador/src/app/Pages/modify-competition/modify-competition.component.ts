@@ -73,6 +73,7 @@ export class ModifyCompetitionComponent implements OnInit {
   modifyCompetition(){
     this.putService.modifyActivity(this.associatedActivity).subscribe(
       res => {
+
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -81,8 +82,6 @@ export class ModifyCompetitionComponent implements OnInit {
 
     this.putService.modifyCompetition(this.competition).subscribe(
       res => {
-        console.log(this.competition);
-        console.log(res)
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -109,7 +108,6 @@ export class ModifyCompetitionComponent implements OnInit {
       );
       
     }
-    //location.reload()
   }
 
 
@@ -148,11 +146,11 @@ export class ModifyCompetitionComponent implements OnInit {
   deleteCompetition(){
     this.deleteService.deleteCompetition(this.competition.id).subscribe(
       res =>{
+        location.reload()
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
-    location.reload()
   }
 }
