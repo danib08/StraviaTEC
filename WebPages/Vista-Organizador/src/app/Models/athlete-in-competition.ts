@@ -1,7 +1,7 @@
 export interface AthleteInCompetition {
-    AthleteID: string,
-    CompetitionID: string,
-    Status: string,
-    Duration: number,
-    Receipt:string
+    athleteid: string,
+    competitionid: string,
+    status: string,
+    duration: number,
+    receipt:string
 }

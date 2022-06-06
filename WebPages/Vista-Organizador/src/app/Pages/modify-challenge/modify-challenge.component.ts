@@ -15,18 +15,19 @@ import { PutService } from 'src/app/Services/Put/put-service';
 export class ModifyChallengeComponent implements OnInit {
 
   challenge: Challenge = {
-    ID: '',
-    Name: '',
-    EndDate: '',
-    StartDate: '',
-    Privacy: '',
-    Kilometers: 0,
-    Type: ''
+    id: '',
+    name: '',
+    enddate: '',
+    startdate: '',
+    privacy: '',
+    kilometers: 0,
+    type: '',
+    activityid: ''
   }
   challengeSelected = '';
   challengesArray: Challenge[] = [];
 
-  constructor(private getService: GetService, private cookieSvc:CookieService, private postService: PostService, private putService: PutService, private deleteService: DeleteService) { }
+  constructor(private getService: GetService, private cookieSvc:CookieService, private putService: PutService, private deleteService: DeleteService) { }
 
   ngOnInit(): void {
     this.getAllChallenges(this.cookieSvc.get('Username'));
@@ -35,6 +36,7 @@ export class ModifyChallengeComponent implements OnInit {
   modifychallenge(){
     this.putService.modifyChallenge(this.challenge).subscribe(
       res => {
+        location.reload()
       },
       err=>{
         alert('Ha ocurrido un error')
@@ -45,6 +47,7 @@ export class ModifyChallengeComponent implements OnInit {
   getAllChallenges(AthleteID:string){
     this.getService.getAthleteCreatedChallenges(AthleteID).subscribe(
       res => {
+        console.log(res)
         this.challengesArray = res;
       },
       err=>{
@@ -54,8 +57,9 @@ export class ModifyChallengeComponent implements OnInit {
   }
 
   getCurrentChallenge(){
+    console.log(this.challengeSelected)
     for(let i = 0; i < this.challengesArray.length; i++){
-      if(this.challengesArray[i].ID == this.challengeSelected){
+      if(this.challengesArray[i].id == this.challengeSelected){
         this.challenge = this.challengesArray[i];
         break;
       }
@@ -63,6 +67,7 @@ export class ModifyChallengeComponent implements OnInit {
   }
 
   deleteChallenge(){
+    
     this.deleteService.deleteChallenge(this.challengeSelected).subscribe(
       res => {
         location.reload()

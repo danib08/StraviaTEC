@@ -1,7 +1,6 @@
 export interface Sponsor {
-    ID: string,
-    Name: string,
-    BankAccount:string,
-    CompetitionID:string,
-    ChallengeID:string
+    id: string,
+    name: string,
+    bankaccount:string,
+    competitionid:string
 }

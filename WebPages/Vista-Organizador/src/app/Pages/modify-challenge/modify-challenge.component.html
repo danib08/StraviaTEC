@@ -8,7 +8,7 @@
             <select
                 [(ngModel)]="challengeSelected"
                 (change)="getCurrentChallenge()">
-                <option *ngFor="let list of challengesArray; index as i" value="{{list.ID}}">{{list.ID}}</option>
+                <option *ngFor="let list of challengesArray; index as i" value="{{list.id}}">{{list.id}}</option>
             </select>
             <button (click)="deleteChallenge()">Eliminar Reto</button>
           <!--Section about Register users -->
@@ -19,42 +19,42 @@
             <div class="form-input">
               <i class="material-icons">flag</i>
               <input type="text" class="form-control" placeholder="Nombre"
-              [(ngModel)]="challenge.Name" name="Nombre" #name = "ngModel"
+              [(ngModel)]="challenge.name" name="Nombre" #name = "ngModel"
               [ngClass]="{'is-invalid':f.submitted && name.invalid}"
               required>
             </div>
             <div class="form-input">
                 <i class="material-icons">insert_comment</i>
                 <input type="text" class="form-control" placeholder="ID del reto" 
-                [(ngModel)]="challenge.ID" name="ID" #name = "ngModel"
+                [(ngModel)]="challenge.id" name="ID" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 readonly>
             </div>
             <div class="form-input">
                 <i class="material-icons">calendar_today</i>
                 <input type="datetime-local" class="form-control" placeholder="Fecha de la carrera"
-                [(ngModel)]="challenge.StartDate" name="Date" #name = "ngModel"
+                [(ngModel)]="challenge.startdate" name="Date" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
                 <i class="material-icons">calendar_today</i>
                 <input type="datetime-local" class="form-control" placeholder="Fecha de la carrera"
-                [(ngModel)]="challenge.EndDate" name="Date" #name = "ngModel"
+                [(ngModel)]="challenge.enddate" name="Date" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
             </div>
             <div class="form-input">
                 <i class="material-icons">speed</i>
                 <input type="number" class="form-control" placeholder="Kilometraje"
-                [(ngModel)]="challenge.Kilometers" name="Kilometraje" #name = "ngModel"
+                [(ngModel)]="challenge.kilometers" name="Kilometraje" #name = "ngModel"
                 [ngClass]="{'is-invalid':f.submitted && name.invalid}"
                 required>
               </div>
             <label for="tipo">Privacidad del Reto</label>
             <div class="form-input">
               <i class="material-icons">lock</i>
-              <select class="form-control" id="type" name="type" [(ngModel)]="challenge.Privacy" #type = "ngModel" required>
+              <select class="form-control" id="type" name="type" [(ngModel)]="challenge.privacy" #type = "ngModel" required>
                   <option value="public">Pública</option>
                   <option value="private">Privada</option>
                 </select>
@@ -62,9 +62,9 @@
             <label for="tipo">Tipo de Reto</label>
             <div class="form-input">
               <i class="material-icons">lock</i>
-              <select class="form-control" id="type" name="type" [(ngModel)]="challenge.Privacy" #type = "ngModel" required>
-                  <option value="public">Fondo</option>
-                  <option value="private">Altitud</option>
+              <select class="form-control" id="type" name="type" [(ngModel)]="challenge.type" #type = "ngModel" required>
+                  <option value="Fondo">Fondo</option>
+                  <option value="Altitud">Altitud</option>
                 </select>
             </div>
             <div class="form-input text-center">

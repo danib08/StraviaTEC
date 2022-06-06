@@ -198,12 +198,13 @@ namespace StraviaAPI.Controllers
             return new JsonResult(table);//Returns table info
         }
 
+
         /// <summary>
         /// Method to get a specific group
         /// </summary>
         /// <param name="name"></param>
         /// <returns>Required group</returns>
-        [HttpGet("NotInscribed/{username}")]
+        [HttpGet("NoInscrito/{username}")]
         public JsonResult get_not_inscribed_Groups(string username)
         {
 

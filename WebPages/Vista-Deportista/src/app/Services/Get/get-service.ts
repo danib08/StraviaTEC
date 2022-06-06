@@ -11,7 +11,8 @@ import { Observable } from "rxjs";
  */
 export class GetService {
 
-    private baseURL = 'https://localhost:5001/api/';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
+    private mongoURL = 'https://localhost:5050/api/';
 
     constructor(private http: HttpClient) {}
 
@@ -25,13 +26,21 @@ export class GetService {
     }
 
     /**
-     * Gets all the challenges where the athelete is subscribed
+     * Gets all the challenges where an athlete is participating
+     * @param AthleteID the desired athlete's username
+     * @returns array of challenges where the athlete is participating
+    */
+    getAthleteChallenges(AthleteID:string) {
+        return this.http.get<any>(this.baseURL + "AthleteInChallenge/Athlete/" + AthleteID);
+    }
+
+    /**
+     * Gets all the challenges where the athelete is participating
      * @param AthleteID the desired athlete's username
      * @returns array of challenges
      */
-    getAthleteinChallenge(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + 'AthleteInChallenge/Athlete/' + AthleteID;
-        return this.http.get<any[]>(URL);
+     getOnGoingChallenges(AthleteID:string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInChallenge/Accepted/' + AthleteID);
     }
 
     /**
@@ -40,18 +49,27 @@ export class GetService {
      * @returns the challenge object
      */
     getChallenge(ChallengeID:string):Observable<any>{
-        let URL = this.baseURL + 'Challenge/' + ChallengeID;
-        return this.http.get<any>(URL);
+        return this.http.get<any>(this.baseURL + 'Challenge/' + ChallengeID);
     }
 
     /**
-     * Gets all the competitions where the athelete is subscribed
+     * Gets all the competitions where the athelete is participating
+     * and its receipt is accepted
      * @param AthleteID the desired athlete's username
      * @returns array of competitions
      */
-    getAthleteinCompetition(AthleteID:string):Observable<any>{
-        let URL = this.baseURL + 'AthleteInCompetition/Athlete/' + AthleteID;
-        return this.http.get<any[]>(URL);
+     getAcceptedCompetitions(AthleteID:string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/AcceptedComps/' + AthleteID);
+    }
+
+    /**
+     * Gets all the competitions where the athelete is participating
+     * or has completed
+     * @param AthleteID the desired athlete's username
+     * @returns array of competitions
+     */
+     getReportCompetitions(AthleteID:string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/Ended/' + AthleteID);
     }
 
     /**
@@ -60,8 +78,7 @@ export class GetService {
      * @returns the competition object
      */
     getCompetition(CompetitionID:string):Observable<any>{
-        let URL = this.baseURL + 'Competition/' + CompetitionID;
-        return this.http.get<any>(URL);
+        return this.http.get<any>(this.baseURL + 'Competition/' + CompetitionID);
     }
 
     /**
@@ -70,17 +87,79 @@ export class GetService {
      * @returns  the activity object
      */
     getActivity(ActivityID:string):Observable<any>{
-        let URL = this.baseURL + 'Activity/' + ActivityID;
-        return this.http.get<any>(URL);
+        return this.http.get<any>(this.baseURL + 'Activity/' + ActivityID);
     }
 
-    getCompetitions():Observable<any>{
-        let URL = this.baseURL + '/competitions';
-        return this.http.get<any[]>(URL);
+    /**
+     * Gets all competitions that an athlete has not joined yet
+     * @param AthleteID the ID of the desired athlete
+     * @returns array of competitions
+     */
+    getNotJoinedCompetitions(AthleteID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/NotInscribed/' + AthleteID);
     }
 
-    getChallenges():Observable<any>{
-        let URL = this.baseURL + '/challenges';
-        return this.http.get<any[]>(URL);
+    /**
+     * Gets all challenges that an athlete has not joined yet
+     * @param AthleteID the ID of the desired athlete
+     * @returns array of challenges
+     */
+    getNotJoinedChallenges(AthleteID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInChallenge/NotInscribed/' + AthleteID);
+    }
+
+    /**
+     * Gets all groups that an athlete has not joined yet
+     * @param AthleteID the ID of the desired athlete
+     * @returns array of groups
+     */
+    getNotJoinedGroups(AthleteID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'GroupMember/NotInscribed/' + AthleteID);
+    }
+
+    /**
+     * Gets information on the rankings of a specific competition
+     * @param CompetitionID the ID of the competition to search for the ranking
+     * @returns the ranking of the desired competition
+     */
+    getPositionsReport(CompetitionID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInCompetition/Report/' + CompetitionID);
+    }
+
+    /**
+     * Gets information on the progress of a challenge
+     * @param ChallengeID the ID of the challenge to search for
+     * @param AthleteID the ID of the user
+     * @returns the progress of the challenge
+     */
+    getChallengeReport(ChallengeID: string, AthleteID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'AthleteInChallenge/Report/' + AthleteID + "/" + ChallengeID);
+    }
+
+    /**
+     * Gets the activity feed of an athlete according to who it follows
+     * @param AthleteID the ID of the athlete
+     * @returns array of activities
+     */
+    getFeed(AthleteID: string):Observable<any>{
+        return this.http.get<any[]>(this.baseURL + 'Athlete/Feed/' + AthleteID);
+    }
+
+    /**
+     * Gets an specific athleteInChallenge
+     * @param AthleteID the ID of the athlete
+     * @param ChallengeID the ID of the challenge
+     * @returns an athleteInCompetition object
+     */
+    getAthleteInChallenge(AthleteID: string, ChallengeID: string):Observable<any>{
+        return this.http.get<any>(this.baseURL + 'AthleteInChallenge/' + AthleteID + '/' + ChallengeID);
+    }
+
+    /**
+     * Gets all of the activity comments
+     * @returns array of Comments
+     */
+    getComments():Observable<any>{
+        return this.http.get<any[]>(this.mongoURL + 'Comment');
     }
 }

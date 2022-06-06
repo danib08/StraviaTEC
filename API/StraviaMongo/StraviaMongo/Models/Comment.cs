@@ -11,11 +11,14 @@ namespace StraviaMongo.Models
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string Id { get; set; }
-        [BsonElement("ActivityID")]
+
+        [BsonElement("activityid")]
         public string ActivityID { get; set; }
-        [BsonElement("AthleteID")]
+
+        [BsonElement("athleteid")]
         public string AthleteID { get; set; }
-        [BsonElement("Text")]
+
+        [BsonElement("text")]
         public string Text { get; set; }
     }
 }

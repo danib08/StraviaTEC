@@ -5,6 +5,7 @@ import { AthleteInCompetition } from 'src/app/Models/athlete-in-competition';
 import { ParticipantsReport } from 'src/app/Models/participants-report';
 import { GetService } from 'src/app/Services/Get/get-service';
 import html2canvas from 'html2canvas';
+import { Competition } from 'src/app/Models/competition';
 
 @Component({
   selector: 'app-competition-participants',
@@ -14,7 +15,7 @@ import html2canvas from 'html2canvas';
 export class CompetitionParticipantsComponent implements OnInit {
 
   competitionSelected = '';
-  athleteCompetitions: AthleteInCompetition[] = [];
+  athleteCompetitions: Competition[] = [];
   athlete4Report: ParticipantsReport[] = [];
   Junior:ParticipantsReport[] = [];
   Sub23:ParticipantsReport[] = [];
@@ -31,7 +32,7 @@ export class CompetitionParticipantsComponent implements OnInit {
   }
 
   getAthleteCompetitions(){
-    this.getService.getAthleteinCompetition(this.cookieSvc.get('Username')).subscribe(
+    this.getService.getAthleteCreatedCompetitions(this.cookieSvc.get('Username')).subscribe(
       res=>{
         this.athleteCompetitions = res;
       },
@@ -51,6 +52,7 @@ export class CompetitionParticipantsComponent implements OnInit {
     this.MasterC = [];
     this.getService.getAthletesReport(this.competitionSelected).subscribe(
       res=>{
+        console.log(res)
         this.athlete4Report = res;
         this.organizeByCategories();
       },
@@ -62,25 +64,25 @@ export class CompetitionParticipantsComponent implements OnInit {
 
   organizeByCategories(){
     for(let i = 0; i < this.athlete4Report.length; i++){
-      if(this.athlete4Report[i].Category == 'Junior'){
+      if(this.athlete4Report[i].category == 'Junior'){
         this.Junior.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Sub-23'){
+      else if(this.athlete4Report[i].category == 'Sub-23'){
         this.Sub23.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Open'){
+      else if(this.athlete4Report[i].category == 'Open'){
         this.Open.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Elite'){
+      else if(this.athlete4Report[i].category == 'Elite'){
         this.Elite.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Master A'){
+      else if(this.athlete4Report[i].category == 'Master A'){
         this.MasterA.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Master B'){
+      else if(this.athlete4Report[i].category == 'Master B'){
         this.MasterB.push(this.athlete4Report[i]);
       }
-      else if(this.athlete4Report[i].Category == 'Master C'){
+      else if(this.athlete4Report[i].category == 'Master C'){
         this.MasterC.push(this.athlete4Report[i]);
       }
     }

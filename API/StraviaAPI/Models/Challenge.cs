@@ -16,6 +16,7 @@ namespace StraviaAPI.Models
         public string privacy { get; set; }
         public float kilometers { get; set; }
         public string type { get; set; }
+        public string activityid { get; set; }
         
     }
 }

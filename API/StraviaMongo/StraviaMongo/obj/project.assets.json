@@ -1199,25 +1199,20 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Familia\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\dani08\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Familia\\Documents\\Github\\StraviaTEC\\API\\StraviaMongo\\StraviaMongo\\StraviaMongo.csproj",
+      "projectUniqueName": "D:\\Daniela\\Documents\\GitHub\\StraviaTEC\\API\\StraviaMongo\\StraviaMongo\\StraviaMongo.csproj",
       "projectName": "StraviaMongo",
-      "projectPath": "C:\\Users\\Familia\\Documents\\Github\\StraviaTEC\\API\\StraviaMongo\\StraviaMongo\\StraviaMongo.csproj",
-      "packagesPath": "C:\\Users\\Familia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Familia\\Documents\\Github\\StraviaTEC\\API\\StraviaMongo\\StraviaMongo\\obj\\",
+      "projectPath": "D:\\Daniela\\Documents\\GitHub\\StraviaTEC\\API\\StraviaMongo\\StraviaMongo\\StraviaMongo.csproj",
+      "packagesPath": "C:\\Users\\dani08\\.nuget\\packages\\",
+      "outputPath": "D:\\Daniela\\Documents\\GitHub\\StraviaTEC\\API\\StraviaMongo\\StraviaMongo\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Familia\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\dani08\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -1283,7 +1278,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -14,101 +14,59 @@ import { PostService } from 'src/app/Services/Post/post-service';
 export class CreateChallengeComponent implements OnInit {
 
   associatedActivity: ActivityModel = {
-    ID: '',
-    Name: '',
-    Route: '',
-    Date: '',
-    Duration: '',
-    Kilometers: 0,
-    Type: '',
-    AthleteUsername: ''
+    id: '',
+    name: '',
+    route: '',
+    date: '2022-06-30T07:23',
+    duration: '',
+    kilometers: 0,
+    type: '',
+    athleteusername: ''
   } 
   
   challenge:Challenge = {
-    ID: '',
-    Name: '',
-    EndDate: '',
-    StartDate: '',
-    Privacy: '',
-    Kilometers: 0,
-    Type: ''
+    id: '',
+    name: '',
+    enddate: '',
+    startdate: '',
+    privacy: '',
+    kilometers: 0,
+    type: '',
+    activityid: ''
   }
-  constructor(private formBuilder: FormBuilder, private getService: GetService, private cookieSvc:CookieService, private postService: PostService) { }
+  constructor(private formBuilder: FormBuilder, private cookieSvc:CookieService, private postService: PostService) { }
 
   ngOnInit(): void {
   }
 
 
-  registerFormS = this.formBuilder.group({
-    ID: '',
-    Name: '',
-    BankAccount: '',
-    CompetitionID: '',
-    ChallengeID: ''
-  });
 
-  registerFormS2 = this.formBuilder.group({
-    Sponsors: this.formBuilder.array([], Validators.required)
-  });
-  
-  get sponsors(){
-    return this.registerFormS2.get('Sponsors') as FormArray;
-  }
 
-  addSponsor(){
-    const SponsorsFormGroup = this.formBuilder.group({
-      ID: '',
-      Name: '',
-      BankAccount: '',
-      CompetitionID: '',
-      ChallengeID: ''
-    });
-    this.sponsors.push(SponsorsFormGroup);
-  }
-
-  removeSponsor(index : number){
-    this.sponsors.removeAt(index);
-  }
-
-  addChallenge(){
-    this.associatedActivity.Name = this.challenge.Name;
-    this.associatedActivity.Kilometers = this.challenge.Kilometers;
-    this.associatedActivity.AthleteUsername = this.cookieSvc.get('Username');
+  addActivity(){
+    this.associatedActivity.name = this.challenge.name;
+    this.associatedActivity.kilometers = this.challenge.kilometers;
+    this.associatedActivity.athleteusername = this.cookieSvc.get('Username');
+    console.log(this.associatedActivity)
     this.postService.createActivity(this.associatedActivity).subscribe(
       res =>{
+        this.createChallenge()
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
+    
+  }
 
+  createChallenge(){
+    this.challenge.activityid = this.associatedActivity.id;
     this.postService.createChallenge(this.challenge).subscribe(
       res =>{
+        location.reload()
       },
       err=>{
         alert('Ha ocurrido un error')
       }
     );
-
-    this.registerFormS.get('CompetitionID')?.setValue(this.challenge.ID);
-    this.postService.createSponsor(this.registerFormS.value).subscribe(
-      res =>{
-      },
-      err=>{
-        alert('Ha ocurrido un error')
-      }
-    );
-
-    for(let i = 0; i < this.sponsors.length; i++){
-      this.sponsors.at(i).get('ChallengeID')?.setValue(this.challenge.ID);
-      this.postService.createSponsor(this.sponsors.at(i).value).subscribe(
-        res =>{
-        },
-        err=>{
-          alert('Ha ocurrido un error')
-        }
-      );
-    }
-    
   }
 }
