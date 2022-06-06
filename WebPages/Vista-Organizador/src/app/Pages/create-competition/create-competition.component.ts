@@ -196,6 +196,7 @@ export class CreateCompetitionComponent implements OnInit {
         }
       );
     }
+    location.reload()
   }
 }
 

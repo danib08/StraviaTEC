@@ -36,6 +36,7 @@ export class ModifyChallengeComponent implements OnInit {
   modifychallenge(){
     this.putService.modifyChallenge(this.challenge).subscribe(
       res => {
+        location.reload()
       },
       err=>{
         alert('Ha ocurrido un error')

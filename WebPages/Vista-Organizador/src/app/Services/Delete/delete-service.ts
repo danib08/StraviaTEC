@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 })
 export class DeleteService {
 
-    private baseURL = 'https://localhost:5001/api/';
+    private baseURL = 'https://straviaapideploy.azurewebsites.net/api/';
 
     constructor(private http: HttpClient) {
     }

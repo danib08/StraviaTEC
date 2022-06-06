@@ -62,6 +62,7 @@ export class CreateChallengeComponent implements OnInit {
     this.challenge.activityid = this.associatedActivity.id;
     this.postService.createChallenge(this.challenge).subscribe(
       res =>{
+        location.reload()
       },
       err=>{
         alert('Ha ocurrido un error')

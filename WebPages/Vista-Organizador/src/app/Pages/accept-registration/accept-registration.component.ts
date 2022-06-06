@@ -36,6 +36,7 @@ export class AcceptRegistrationComponent implements OnInit {
   getAthleteCreatedCompetitions(){
     this.getService.getAthleteCreatedCompetitions(this.cookieSvc.get('Username')).subscribe(
       res => {
+        
         this.athleteCreatedCompetitions = res;
       }, err => {
         alert('Ha ocurrido un error')
@@ -46,6 +47,7 @@ export class AcceptRegistrationComponent implements OnInit {
   getParticipants(){
     this.getService.getAthleteRegister(this.selectedCompetition).subscribe(
       res => {
+        console.log(res)
         this.athletesArray = res;
       }, err => {
         alert('Ha ocurrido un error')
