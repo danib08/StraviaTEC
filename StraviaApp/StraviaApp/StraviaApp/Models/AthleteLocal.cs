@@ -1,4 +1,4 @@
-﻿using AppMobile.Models;
+﻿using StraviaApp.Models;
 
 namespace StraviaApp.Models
 {
