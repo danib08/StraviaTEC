@@ -32,6 +32,7 @@ namespace AppMobile.Activities
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
                 intent.PutExtra("idUser", user);
                 StartActivity(intent);
+                Finish();
             };
         }
 

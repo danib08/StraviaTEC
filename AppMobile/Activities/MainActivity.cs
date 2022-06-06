@@ -36,9 +36,13 @@ namespace AppMobile.Activities
             this.buttonregister = FindViewById<Button>(Resource.Id.btnregister);
             
             buttonlogin.Click += (sender, e) =>{
-                //Intent intent = new Intent(this, typeof(activity));
+                //Intent intent = new Intent(this, typeof(homeActivity));
                 Intent intent = new Intent(this, typeof(login));
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
+                //intent.PutExtra("totalDistance", "5332");
+                //intent.PutExtra("totalTime", "455");
+                //intent.PutExtra("gpx", "46");
+                //intent.PutExtra("idUser", "ad");
                 StartActivity(intent);
             };
             buttonregister.Click += (sender, e) =>{

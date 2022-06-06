@@ -53,7 +53,7 @@ namespace MobileApp
             //https://localhost:5001/api/Activity
             //https://192.168.0.16:5001/api/Athlete
 
-            request.RequestUri = new Uri("https://localhost:5001/api/Activity");
+            request.RequestUri = new Uri("http://192.168.0.16:5000/api/Athlete");
             request.Method = HttpMethod.Get;
             request.Headers.Add("Accpet", "application/json");
             var client = new HttpClient();

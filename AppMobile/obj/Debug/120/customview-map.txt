@@ -38,7 +38,6 @@ LinearLayout;obj\Debug\120\res\layout\home.xml
 LinearLayout;obj\Debug\120\res\layout\homeactivity.xml
 LinearLayout;obj\Debug\120\res\layout\login.xml
 LinearLayout;obj\Debug\120\res\layout\register.xml
-ListView;obj\Debug\120\res\layout\homeactivity.xml
 menu;obj\Debug\120\res\menu\bottom_nav_menu.xml
 paths;C:\Users\usuario\Proyecto 2 BD\StraviaTEC\AppMobile\obj\Debug\120\lp\57\jl\res\xml\xamarin_essentials_fileprovider_file_paths.xml
 resources;obj\Debug\120\res\values\colors.xml

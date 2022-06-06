@@ -75,14 +75,22 @@ namespace AppMobile.Activities
 
             buttonFinish.Click += (sender, e) => {
                 OnPause();
+                string timer = DateTime.Now.ToString("s");
                 //Create the GPX data
-                for (int i = 0; i < this.activityStats.Count; i++)
+                for (int i = 0; i < this.activityStats.Count-1; i++)
                 {
-                    this.trkpt +=
-                        "<trkpt" + "lat=" + this.activityStats[i].lat.ToString("s") + "lon=" + this.activityStats[i].lon.ToString("s") + ">"
-                        + "<ele>" + this.activityStats[i].ele.ToString("s") + "</ele>"
+                    if (this.activityStats[i].lat.Equals("") || this.activityStats[i].lon.Equals("") || this.activityStats[i].ele.Equals(""))
+                    {
+                        this.trkpt += "";
+                    }
+                    else
+                    {
+                        this.trkpt +=
+                        "<trkpt" + "lat= " + this.activityStats[i].lat.ToString() + " lon= " + this.activityStats[i].lon.ToString() + ">"
+                        + "<ele>" + this.activityStats[i].ele.ToString() + "</ele>"
                         + "<time>" + this.activityStats[i].time + "Z</time>"
                         + "</trkpt>";
+                    }
                 }
                 string gpx = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
                 + "<gpx version=\"1.0\" creator = Runkeeper-http://www.runkeeper.com"
@@ -90,7 +98,7 @@ namespace AppMobile.Activities
                 + "xmlns=\"http://www.topografix.com/GPX/1/1\""
                 + "xsi: schemaLocation =\"http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd"
                 + "xmlns:gpxtpx=\"http://www.garmin.com/xmlschemas/TrackPointExtension/v1\""
-                + "<metadata><time>" + DateTime.Now.ToString("s") + "Z</time></metadata>"
+                + "<metadata><time>" + timer + "Z</time></metadata>"
                 + "<trk>"
                 + "<name>Activity Name</name>"
                 + "<trkseg>"
@@ -103,11 +111,12 @@ namespace AppMobile.Activities
 
                 Intent intent = new Intent(this, typeof(homeActivity));
                 OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
-                intent.PutExtra("totalDistance", this.totalDistance.ToString("0.00"));
+                intent.PutExtra("totalDistance", this.totalDistance.ToString());
                 intent.PutExtra("totalTime",totalTime);
                 intent.PutExtra("gpx", gpx);
                 intent.PutExtra("idUser",user);
                 StartActivity(intent);
+                Finish();
 
             };
             buttonStop.Click += (sender, e) => {
@@ -195,6 +204,7 @@ namespace AppMobile.Activities
             ele = location.Altitude;
             string timer = DateTime.Now.ToString("s");
             this.activityStats.Add(new Gpx(lat, lng, ele, timer));
+
             //Initial position
             if (this.first){
                 this.myPosition = new LatLng(lat, lng);

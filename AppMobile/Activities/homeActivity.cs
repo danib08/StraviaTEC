@@ -12,6 +12,7 @@ using AndroidX.AppCompat.App;
 using MobileApp;
 using MobileApp.Models;
 using AppMobile.Models;
+using System.Globalization;
 
 namespace AppMobile.Activities
 {
@@ -54,10 +55,10 @@ namespace AppMobile.Activities
             spin = FindViewById<Spinner>(Resource.Id.spinner1);
 
             //Set values of the currents variables
-            txtIdUser.Text = Intent.GetStringExtra("idUser");
-            txtCurrentDay.Text = DateTime.Now.ToString("yyyy-MM-dd");
-            txtCurrentTime.Text = Intent.GetStringExtra("totalTime");
-            txtTotalDistance.Text = Intent.GetStringExtra("totalDistance");
+            txtIdUser.Text = "Usuario:" + Intent.GetStringExtra("idUser");
+            txtCurrentDay.Text = "Fecha:" + DateTime.Now.ToString("yyyy-MM-dd");
+            txtCurrentTime.Text = "Tiempo:" + Intent.GetStringExtra("totalTime");
+            txtTotalDistance.Text = "Distancia:" + Intent.GetStringExtra("totalDistance");
             user = Intent.GetStringExtra("idUser");
             gpx = Intent.GetStringExtra("gpx");
 
@@ -73,44 +74,51 @@ namespace AppMobile.Activities
                 }
                 else{
                     string idActivity;
+                    string nameActivity = editTextNameActivity.Text;
+                    string currentDate = DateTime.Now.ToString("yyyy-MM-dd").ToString();
+                    string currentDuration = Intent.GetStringExtra("totalTime").ToString();
+                    string km = Intent.GetStringExtra("totalDistance").ToString();
+
                     if (editTextIdActivity.Text.Equals(""))
                     {
                         idActivity = "";
                     }
                     else
                     {
-                        idActivity = editTextIdActivity.Text;
+                        idActivity = editTextIdActivity.Text.ToString();
                     }
+                    
                     ActivityModel newActivityModel = new ActivityModel
                     {
-                        id = editTextIdActivity.Text,
-                        name = editTextNameActivity.Text,
+                        id = idActivity,
+                        name = nameActivity,
                         route = gpx,
-                        date = txtCurrentDay.Text,
-                        duration = txtCurrentTime.Text,
-                        kilometers = Int32.Parse(txtTotalDistance.Text.ToString()),
+                        date = currentDate,
+                        duration = currentDuration,
+                        kilometers = km,
                         type = txtType,
-                        athleteUsername = user,
+                        athleteUsername = user.ToString(),
                     };
                     if (db.PutActivityModel(newActivityModel))
                     {
                         // Local Table
                         ActivityModelLocal newActivityModelLocal = new ActivityModelLocal
                         {
-                            id = editTextIdActivity.Text,
-                            name = editTextNameActivity.Text,
+                            id = idActivity,
+                            name = nameActivity,
                             route = gpx,
-                            date = txtCurrentDay.Text,
-                            duration = txtCurrentTime.Text,
-                            kilometers = Int32.Parse(txtTotalDistance.Text.ToString()),
+                            date = currentDate,
+                            duration = currentDuration,
+                            kilometers = km,
                             type = txtType,
-                            athleteUsername = user,
+                            athleteUsername = user.ToString(),
                         };
                         db.PutActivityModelLocal(newActivityModelLocal);
                         this.messengerText = "Registro exitoso";
                         Intent intent = new Intent(this, typeof(home));
                         OverridePendingTransition(Android.Resource.Animation.SlideInLeft, Android.Resource.Animation.SlideOutRight);
                         StartActivity(intent);
+                        Finish();
                     }
                     else
                     {
