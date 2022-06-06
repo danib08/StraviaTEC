@@ -13,7 +13,6 @@ export class GetService {
     constructor(private http: HttpClient) {
     }
 
-
     /**
      * Gets activity info according to the provided ID
      * @param ActivityID the ID of the desired activity
