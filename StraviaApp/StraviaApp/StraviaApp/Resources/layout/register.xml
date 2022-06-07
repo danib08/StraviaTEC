@@ -4,86 +4,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/longin"
     android:orientation="vertical">
 
     <TextView
-        style="@style/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="@string/register_title"
-        android:textColor="@color/whitePalette" />
+        android:text="register_title"/>
 
     <EditText
-        style="@style/edit_text"
         android:id="@+id/editTextName"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:hint="@string/name"
-        android:autofillHints="@string/name"
+        android:hint="name"
+        android:autofillHints="name"
         android:inputType="textPersonName" />
 
     <EditText
-        style="@style/edit_text"
         android:id="@+id/editTextLastName"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:hint="@string/last_name"
-        android:autofillHints="@string/last_name"
+        android:hint="last_name"
+        android:autofillHints="last_name"
         android:inputType="textPersonName" />
     <EditText
-        style="@style/edit_text"
         android:id="@+id/editTextId"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:hint="@string/id"
-        android:autofillHints="@string/id"
+        android:hint="id"
+        android:autofillHints="id"
         android:inputType="text"
         android:layout_marginRight="0.0dp" />
     
         <EditText
-        style="@style/edit_text"
         android:id="@+id/editTextPass"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:hint="@string/password"
-        android:autofillHints="@string/password"
+        android:hint="password"
+        android:autofillHints="password"
         android:inputType="textPassword"/>
 
     <EditText
-        style="@style/edit_text"
         android:id="@+id/editbirthDate"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:hint="@string/birthDate"
-        android:autofillHints="@string/birthDate"
+        android:hint="birthDate"
+        android:autofillHints="birthDate"
         android:inputType="date"/>
 
     <EditText
-        style="@style/edit_text"
         android:id="@+id/editTextNationality"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:hint="@string/nationality"
-        android:autofillHints="@string/nationality"
+        android:hint="nationality"
+        android:autofillHints="nationality"
         android:inputType="text"/>
 
     <android.widget.Button
         android:id="@+id/photo"
-        style="@style/button_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14.0dp"
         android:layout_gravity="left"
-        android:text="@string/Photo"
+        android:text="Photo"
         android:textAllCaps="false"
         android:layout_marginBottom="0.0dp"
         android:layout_marginLeft="15.0dp"
@@ -91,12 +81,11 @@
 
     <android.widget.Button
         android:id="@+id/sendHome2"
-        style="@style/button_dark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="35.0dp"
         android:layout_gravity="center"
-        android:text="@string/register"
+        android:text="register"
         android:textAllCaps="false"
         android:layout_marginBottom="0.0dp" />
 
