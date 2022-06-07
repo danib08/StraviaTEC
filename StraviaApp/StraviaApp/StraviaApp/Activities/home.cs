@@ -1,6 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
-using Android.Gms.Location;
+//using Android.Gms.Location;
 using Android.OS;
 using Android.Runtime;
 using Android.Widget;

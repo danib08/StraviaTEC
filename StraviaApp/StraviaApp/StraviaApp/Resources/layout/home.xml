@@ -4,17 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondomain"
     android:orientation="vertical"
     tools:context=".HomeActivity">
     <TextView
-        style="@style/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="55.0dp"
         android:gravity="center"
-        android:text="@string/main"
-        android:textColor="@color/blackPalette"/>
+        android:text="/main"/>
 
     <android.widget.Button
         android:layout_width="wrap_content"
@@ -22,8 +19,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="38.5dp"
         android:id="@+id/Activity_usuario"
-        android:text="@string/Activity"
-        style="@style/button_dark"/>
+        android:text="Activity"/>
 
     <android.widget.Button
         android:layout_width="wrap_content"
@@ -31,7 +27,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="48.5dp"
         android:id="@+id/Sync_usuario"
-        android:text="@string/Sync"
-        style="@style/button_dark"/>
+        android:text="Sync"/>
 
 </LinearLayout>

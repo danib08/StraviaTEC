@@ -2,28 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo"
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
     <TextView
-        style="@style/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="55.0dp"
         android:gravity="center"
-        android:text="@string/app_title"
-        android:textColor="@color/whitePalette" 
+        android:text="app_title"
         android:id="@+id/textDistance1"/>
 
     <TextView
-        style="@style/subHeader"
+        style="subHeader"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="@string/slogan"
-        android:textColor="@color/whitePalette"
+        android:text="slogan"
         android:layout_marginBottom="6.5dp"
         android:layout_marginTop="0.0dp" />
 
@@ -34,8 +30,7 @@
         android:layout_marginTop="28.0dp"
         android:id="@+id/btnlogin"
         android:textAllCaps="false"
-        android:text="@string/login"
-        style="@style/button_dark"
+        android:text="login"
         android:layout_marginBottom="0.5dp"/>
 
     <android.widget.Button
@@ -44,7 +39,6 @@
         android:layout_gravity="center"
         android:layout_marginTop="19.0dp"
         android:id="@+id/btnregister"
-        android:text="@string/register"
-        style="@style/button_dark"/>
+        android:text="register"/>
 
 </LinearLayout>

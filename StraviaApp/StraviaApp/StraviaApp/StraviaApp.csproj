@@ -76,6 +76,7 @@
     <Compile Include="Models\ActivityModelLocal.cs" />
     <Compile Include="Models\Athlete.cs" />
     <Compile Include="Models\AthleteLocal.cs" />
+    <Compile Include="Models\GPX.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

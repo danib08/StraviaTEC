@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ivoryPalette"
     android:orientation="vertical"
     tools:context=".HomeActivity">
 
@@ -26,15 +25,13 @@
         android:gravity="center"
         android:layout_marginBottom="1.0dp">
         <TextView
-            style="@style/header"
             android:text="0:0:0"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="187.5dp"
             android:layout_height="match_parent"
             android:id="@+id/txtTimer"
             android:layout_marginRight="0.0dp"
-            android:gravity="center"
-            android:textColor="@color/blackPalette"/>
+            android:gravity="center"/>
 
     </LinearLayout>
     <LinearLayout
@@ -45,17 +42,14 @@
         android:layout_height="49.5dp"
         android:id="@+id/linearLayout3">
         <TextView
-            style="@style/body"
             android:text="Distancia (Km)"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="175.3dp"
             android:layout_height="match_parent"
             android:id="@+id/textDistance878"
             android:layout_marginRight="0.0dp"
-            android:gravity="center"
-            android:textColor="@color/blackPalette"/>
+            android:gravity="center"/>
         <TextView
-            style="@style/body"
             android:text="Velocidad (km/min)"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="match_parent"
@@ -63,7 +57,6 @@
             android:id="@+id/textView2"
             android:layout_marginRight="0.0dp"
             android:gravity="center"
-            android:textColor="@color/blackPalette"
             android:layout_marginLeft="0.0dp" />
 
     </LinearLayout>
@@ -75,17 +68,14 @@
         android:layout_height="73.0dp"
         android:id="@+id/linearLayout4" >
         <TextView
-            style="@style/header"
             android:text="0"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="199.0dp"
             android:layout_height="match_parent"
             android:id="@+id/textDistance"
             android:layout_marginRight="0.0dp"
-            android:gravity="center"
-            android:textColor="@color/blackPalette"/>
+            android:gravity="center"/>
         <TextView
-            style="@style/header"
             android:text="0"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:layout_width="162.3dp"
@@ -93,7 +83,6 @@
             android:id="@+id/textVelocidad"
             android:layout_marginRight="0.0dp"
             android:gravity="center"
-            android:textColor="@color/blackPalette"
             android:layout_marginLeft="0.0dp" />
     </LinearLayout>
 
@@ -112,16 +101,14 @@
             android:layout_gravity="center"
             android:layout_marginTop="0.0dp"
             android:id="@+id/stopActivity"
-            android:text="@string/Stop"
-            style="@style/button_dark"/>
+            android:text="Stop"/>
         <android.widget.Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="0.0dp"
             android:id="@+id/finishActivity"
-            android:text="@string/Finish"
-            style="@style/button_dark"
+            android:text="Finish"
             android:layout_marginRight="0.0dp" />
     </LinearLayout>
 
